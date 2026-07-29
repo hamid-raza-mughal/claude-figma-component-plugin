@@ -1,0 +1,26 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+
+# Derived SQLite index — rebuildable from curated JSON, never authoritative.
+# Must not be committed: curated JSON is the source of truth (P1-FINAL §13.2).
+*.db
+*.db-wal
+*.db-shm
+.cache/
+
+# OS noise
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+.idea/
+
+# Local environment / config overrides. Phase 1 takes all paths through typed
+# config, so a local override file must never be required for tests to pass.
+.env
+.env.local
+phase1-config.local.json
