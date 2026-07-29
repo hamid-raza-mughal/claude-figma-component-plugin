@@ -1,0 +1,1 @@
+# claude-figma-component-plugin
