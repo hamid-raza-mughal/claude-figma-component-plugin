@@ -1,0 +1,162 @@
+{
+  "source": "resolver-prototype/resolve.py (Python), ground truth corrected 2026-07-29",
+  "note": "Captured once as the port reference. Two top-1 results here are ties broken by arbitrary SQLite row order, not by scoring merit.",
+  "cases": [
+    {
+      "property": "padding",
+      "reference_text": "4px all around",
+      "expected_path": "4-scale/xxs",
+      "prototype_rank": 1,
+      "prototype_top5": [
+        "4-scale/xxs",
+        "small_cta/dft_gap",
+        "regular_cta/dft_gap",
+        "grid/gutter",
+        "4-scale/xs"
+      ]
+    },
+    {
+      "property": "gap",
+      "reference_text": "12px gap",
+      "expected_path": "4-scale/xs",
+      "prototype_rank": 1,
+      "prototype_top5": [
+        "4-scale/xs",
+        "large_cta/dft_gap",
+        "medium_cta/dft_gap",
+        "tiny_cta/dft_gap",
+        "small_cta/dft_gap"
+      ]
+    },
+    {
+      "property": "corner-radius",
+      "reference_text": "8px corner radius",
+      "expected_path": "radius/cta/base",
+      "prototype_rank": 1,
+      "prototype_top5": [
+        "radius/cta/base",
+        "radius/round-shape/xs",
+        "radius/global/full",
+        "radius/global/none",
+        "radius/cta/sm"
+      ]
+    },
+    {
+      "property": "fill",
+      "reference_text": "warning 6 opacity fill",
+      "expected_path": "alphas/dark/expressions/warning/opacity_6",
+      "prototype_rank": 1,
+      "prototype_top5": [
+        "alphas/dark/expressions/warning/opacity_6",
+        "alphas/dark/expressions/warning/opacity_8",
+        "alphas/dark/expressions/warning/opacity_10",
+        "alphas/dark/expressions/warning/opacity_15",
+        "alphas/dark/expressions/warning/opacity_20"
+      ]
+    },
+    {
+      "property": "stroke",
+      "reference_text": "warning 10 opacity stroke",
+      "expected_path": "alphas/dark/expressions/warning/opacity_10",
+      "prototype_rank": 3,
+      "prototype_top5": [
+        "alphas/dark/expressions/warning/opacity_6",
+        "alphas/dark/expressions/warning/opacity_8",
+        "alphas/dark/expressions/warning/opacity_10",
+        "alphas/dark/expressions/warning/opacity_15",
+        "alphas/dark/expressions/warning/opacity_20"
+      ]
+    },
+    {
+      "property": "stroke-weight",
+      "reference_text": "1px border",
+      "expected_path": "stroke/thin",
+      "prototype_rank": 1,
+      "prototype_top5": [
+        "stroke/thin",
+        "large_cta/stroke",
+        "medium_cta/stroke",
+        "tiny_cta/stroke",
+        "small_cta/stroke"
+      ]
+    },
+    {
+      "property": "size",
+      "reference_text": "40px icon container",
+      "expected_path": "8-scale/lg",
+      "prototype_rank": 1,
+      "prototype_top5": [
+        "8-scale/lg",
+        "grid/gutter",
+        "4-scale/xxs",
+        "4-scale/xs",
+        "4-scale/sm"
+      ]
+    },
+    {
+      "property": "padding",
+      "reference_text": "8px icon padding",
+      "expected_path": "8-scale/xxs",
+      "prototype_rank": 1,
+      "prototype_top5": [
+        "8-scale/xxs",
+        "grid/gut_half",
+        "medium_cta/dft_gap",
+        "grid/gutter",
+        "4-scale/xxs"
+      ]
+    },
+    {
+      "property": "fill",
+      "reference_text": "warning expressive icon",
+      "expected_path": "sys/dark/expressions/warning",
+      "prototype_rank": 1,
+      "prototype_top5": [
+        "sys/dark/expressions/warning",
+        "sys/dark/expressions/on_warning",
+        "alphas/dark/expressions/warning/opacity_6",
+        "alphas/dark/expressions/warning/opacity_8",
+        "alphas/dark/expressions/warning/opacity_10"
+      ]
+    },
+    {
+      "property": "text_style",
+      "reference_text": "small emphasized subheading",
+      "expected_path": "subhead/sm/emphasized",
+      "prototype_rank": 3,
+      "prototype_top5": [
+        "subhead/lg/emphasized",
+        "subhead/reg/emphasized",
+        "subhead/sm/emphasized",
+        "headline/lg/emphasized",
+        "headline/reg/emphasized"
+      ]
+    },
+    {
+      "property": "text_style",
+      "reference_text": "14px regular body",
+      "expected_path": "body/reg/regular",
+      "prototype_rank": 3,
+      "prototype_top5": [
+        "body/lg/regular",
+        "body/md/regular",
+        "body/reg/regular",
+        "body/sm/regular",
+        "display/lg/regular"
+      ]
+    },
+    {
+      "property": "fill",
+      "reference_text": "on-surface dim description",
+      "expected_path": "sys/dark/surfaces/on_surface_dim",
+      "prototype_rank": 1,
+      "prototype_top5": [
+        "sys/dark/surfaces/on_surface_dim",
+        "sys/dark/surfaces/on_surface_var_dim",
+        "sys/dark/surfaces/surface",
+        "sys/dark/surfaces/on_surface",
+        "sys/dark/bg/on_bg_dim"
+      ]
+    }
+  ]
+}

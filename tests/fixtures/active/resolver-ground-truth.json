@@ -1,0 +1,117 @@
+{
+  "schema": "resolver-ground-truth/v1",
+  "provenance": "The 12 real resolutions from Specs/Outputs/warning-toast-run-002.md, with both verified defects corrected: resolution #6 named a border-width path that does not exist in the export and is corrected to stroke/thin (value 1.0, key 75ab1461...); resolution #12 is confirmed as body/reg/regular (14px), not body/sm/regular (12px). The fabricated label is quoted only in docs/v1-baseline-manifest.md.",
+  "window_rule": "Windows were assigned BEFORE the TypeScript resolver was run and are immutable thereafter (finding C12). Changing one requires a decision-log entry. Basis: exact numeric match -> 1; whole-component term match -> 1; semantic-only or unmapped abbreviation -> <=3; same-named family ambiguity -> <=5.",
+  "n": 12,
+  "caveat": "n=12. Report as fractions with explicit n, never as a percentage (finding C20).",
+  "cases": [
+    {
+      "case_id": "gt-001",
+      "property": "padding",
+      "reference_text": "4px all around",
+      "expected_path": "4-scale/xxs",
+      "allowed_rank": 1,
+      "window_basis": "explicit unit value 4px matches value_num exactly",
+      "prototype_rank": 1
+    },
+    {
+      "case_id": "gt-002",
+      "property": "gap",
+      "reference_text": "12px gap",
+      "expected_path": "4-scale/xs",
+      "allowed_rank": 1,
+      "window_basis": "explicit unit value 12px matches value_num exactly",
+      "prototype_rank": 1
+    },
+    {
+      "case_id": "gt-003",
+      "property": "corner-radius",
+      "reference_text": "8px corner radius",
+      "expected_path": "radius/cta/base",
+      "allowed_rank": 1,
+      "window_basis": "explicit unit value 8px matches value_num exactly",
+      "prototype_rank": 1
+    },
+    {
+      "case_id": "gt-004",
+      "property": "fill",
+      "reference_text": "warning 6 opacity fill",
+      "expected_path": "alphas/dark/expressions/warning/opacity_6",
+      "allowed_rank": 1,
+      "window_basis": "bare numeric token 6 identifies one member of a 10-member family",
+      "prototype_rank": 1
+    },
+    {
+      "case_id": "gt-005",
+      "property": "stroke",
+      "reference_text": "warning 10 opacity stroke",
+      "expected_path": "alphas/dark/expressions/warning/opacity_10",
+      "allowed_rank": 1,
+      "window_basis": "bare numeric token 10 identifies one member of a 10-member family",
+      "prototype_rank": 3
+    },
+    {
+      "case_id": "gt-006",
+      "property": "stroke-weight",
+      "reference_text": "1px border",
+      "expected_path": "stroke/thin",
+      "allowed_rank": 1,
+      "window_basis": "explicit unit value 1px matches value_num exactly",
+      "prototype_rank": 1
+    },
+    {
+      "case_id": "gt-007",
+      "property": "size",
+      "reference_text": "40px icon container",
+      "expected_path": "8-scale/lg",
+      "allowed_rank": 1,
+      "window_basis": "explicit unit value 40px matches value_num exactly",
+      "prototype_rank": 1
+    },
+    {
+      "case_id": "gt-008",
+      "property": "padding",
+      "reference_text": "8px icon padding",
+      "expected_path": "8-scale/xxs",
+      "allowed_rank": 1,
+      "window_basis": "explicit unit value 8px matches value_num exactly",
+      "prototype_rank": 1
+    },
+    {
+      "case_id": "gt-009",
+      "property": "fill",
+      "reference_text": "warning expressive icon",
+      "expected_path": "sys/dark/expressions/warning",
+      "allowed_rank": 1,
+      "window_basis": "term matches a whole slash component exactly; on_warning is a different token",
+      "prototype_rank": 1
+    },
+    {
+      "case_id": "gt-010",
+      "property": "text_style",
+      "reference_text": "small emphasized subheading",
+      "expected_path": "subhead/sm/emphasized",
+      "allowed_rank": 3,
+      "window_basis": "semantic only. \"small\"->\"sm\" is an abbreviation neither implementation maps, so the size variant cannot be pinned; family members tie",
+      "prototype_rank": 3
+    },
+    {
+      "case_id": "gt-011",
+      "property": "text_style",
+      "reference_text": "14px regular body",
+      "expected_path": "body/reg/regular",
+      "allowed_rank": 1,
+      "window_basis": "explicit unit value 14px; literal font_size on the style resolves it",
+      "prototype_rank": 3
+    },
+    {
+      "case_id": "gt-012",
+      "property": "fill",
+      "reference_text": "on-surface dim description",
+      "expected_path": "sys/dark/surfaces/on_surface_dim",
+      "allowed_rank": 1,
+      "window_basis": "terms match whole components exactly",
+      "prototype_rank": 1
+    }
+  ]
+}
