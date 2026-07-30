@@ -4,14 +4,18 @@ Deterministic core for the **Manage DS Components** pipeline — a design-system
 resolves AdalFi design tokens, authors semantic intent, and hands off to a Figma builder under human
 approval.
 
-**Current phase: Phase 1 — Coordinator core foundation.** This repository contains the runtime-neutral
+**Phase 1 is complete.** Both gates (`resolver-efficient`, `coordinator-core-ready`) pass:
+**428 tests, 0 failures, 0 model calls.** This repository contains the runtime-neutral
 deterministic engine only.
+
+Start with `docs/phase1-as-built-blueprint.md` for what runs, and
+`docs/phase1-handoff-evidence.md` for the twenty evidence items.
 
 ## What this is, precisely
 
 | Claim | Status |
 |---|---|
-| Deterministic core: ingestion, derived index, resolver, contracts, validation, rendering | **in progress** — WP0 complete |
+| Deterministic core: ingestion, derived index, resolver, contracts, validation, rendering | **implemented** — Phase 1 complete, both gates passed |
 | Live model call | **none.** Zero model calls in Phase 1, by design |
 | Figma access | **none.** No token, no credential, no write method exists |
 | Runtime Controller | **not implemented** — Phase 2 |
@@ -70,6 +74,9 @@ npm run lint
 npm run build                     # emit to dist/
 npm test                          # deterministic suite
 npm run verify                    # all of the above
+
+node tools/run-assertions.ts      # migrated workbook assertions
+node tools/build-baseline-manifest.ts <artifact-dir> --out docs/v1-baseline-manifest.md
 ```
 
 Tests that read the v1 artifact bundle need its location. They **skip** rather than pass when it is absent —
@@ -86,3 +93,14 @@ ADALFI_ARTIFACT_DIR=/path/to/Manage_DS_Components npm test
 - `docs/coordinator-interface-ripple.md` — downstream changes decided but deliberately not implemented
 - `docs/interaction-state-taxonomy.md` — the authored project convention for interaction states
 - `docs/token-baseline-static.md` — measurements and estimates, kept strictly apart
+- `docs/phase1-as-built-blueprint.md` — the pipeline as built, with runnable commands
+- `docs/phase1-handoff-evidence.md` — all twenty §19 evidence items
+
+## Measured
+
+| | |
+|---|---|
+| Index | 1,177 entries, built in 44 ms, 0 id collisions |
+| Resolver recall | 11/12 top-1 · 12/12 top-5 (n=12) vs a 9/12 · 12/12 prototype baseline |
+| Assembled model input | ~10 KB per route — **1.1% of the source**, and **zero** raw source bytes |
+| Model calls | **0** |
