@@ -1,0 +1,55 @@
+{
+  "run_id": "3f2504e0-4f89-41d3-9a0c-0305e82c3301",
+  "spec_schema_version": "2.0.0",
+  "snapshot": {
+    "source_sha256": "2222a2b8eff4224f76ddad591cf6f46c6e8bb25ec7f96aebbf13941876356627",
+    "index_version": "1.0.0",
+    "source_schema_version": "1.1",
+    "exported_at": "2026-07-28T07:43:59.920Z",
+    "source_bytes": 876098
+  },
+  "composed_at": "2026-07-29T10:00:00Z",
+  "disclosures": [
+    {
+      "disclosure_id": "disc-1",
+      "kind": "interaction_state_gap",
+      "owner": "coordinator",
+      "evidence": "focus-visible is absent from the state axis. Advisory and non-gating (SA-23).",
+      "actionable": false
+    }
+  ],
+  "status": "ready",
+  "run_type": "audit",
+  "next_route": "synthesizer",
+  "target": {
+    "tree_ref": "figma://node/1:23",
+    "tree_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+    "node_count": 18,
+    "captured_at": "2026-07-29T09:59:00Z"
+  },
+  "audit_brief": {
+    "component_name": "Primary Button",
+    "scope": "tokens",
+    "focus_summary": "Verify every fill and stroke binds a published token.",
+    "target_tree_ref": "figma://node/1:23",
+    "target_tree_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+    "dimensions": [
+      "token-fidelity",
+      "reference-integrity"
+    ]
+  },
+  "extraction_coverage": {
+    "tree_ref": "figma://node/1:23",
+    "tree_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+    "total_nodes": 18,
+    "examined_nodes": 16,
+    "exclusions": [
+      {
+        "locator": "root/decorative-flourish",
+        "reason": "Vector network exceeded the excerpt bound.",
+        "node_count": 2
+      }
+    ],
+    "fully_accounted": true
+  }
+}

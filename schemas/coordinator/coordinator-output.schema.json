@@ -1,0 +1,303 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://adalfi.dev/schemas/coordinator/coordinator-output.schema.json",
+  "title": "CoordinatorOutput",
+  "description": "Closed discriminated union (§14.2). Three v1 defects are structurally impossible here: blocked/failed no longer inherit a ready payload; a blocking gap forces blocked with a null route; and audit cannot reach Builder.",
+  "$defs": {
+    "typedResolution": {
+      "type": "object",
+      "description": "Produced only by deterministic materialization. No binding_call and no Figma API instruction: ref_class is the contract, the Plugin API call is Builder's (§14.3.6).",
+      "properties": {
+        "candidate_id": { "type": "string", "pattern": "^c_[0-9a-f]{24}$" },
+        "source_record_ref": { "type": "string", "minLength": 1 },
+        "source_sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+        "index_version": { "type": "string", "pattern": "^\\d+\\.\\d+\\.\\d+$" },
+        "ref_class": { "enum": ["variable", "paint-style", "text-style", "effect-style", "grid-style"] },
+        "property_category": { "type": "string", "minLength": 1 },
+        "path": { "type": "string", "minLength": 1 },
+        "key": { "type": "string" },
+        "normalized_id": { "type": "string" },
+        "raw_id": { "type": "string" },
+        "scopes": { "type": "array", "items": { "type": "string" } },
+        "verified_against_source_sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+        "collection": { "type": "string" },
+        "mode": { "type": "string", "description": "Only on mode-bearing records (§5.7)." },
+        "modes": { "type": "array", "items": { "type": "string" } },
+        "value": {
+          "description": "A variable's value: numeric, string or boolean. Written as explicit alternatives rather than a union type so Ajv strict mode stays on — relaxing allowUnionTypes globally to express one field would weaken every other schema.",
+          "oneOf": [{ "type": "number" }, { "type": "string" }, { "type": "boolean" }]
+        },
+        "bound_variable_id": { "type": "string" },
+        "bound_variable_ids": {
+          "oneOf": [
+            { "type": "array", "items": { "type": "string" } },
+            { "type": "object", "additionalProperties": { "type": "string" } }
+          ]
+        },
+        "font_size": { "type": "number" },
+        "line_height": { "type": "number" },
+        "letter_spacing": { "type": "number" },
+        "font_family": { "type": "string" }
+      },
+      "required": [
+        "candidate_id",
+        "source_record_ref",
+        "source_sha256",
+        "index_version",
+        "ref_class",
+        "property_category",
+        "path",
+        "key",
+        "normalized_id",
+        "raw_id",
+        "scopes",
+        "verified_against_source_sha256"
+      ],
+      "unevaluatedProperties": false
+    },
+    "clarificationGap": {
+      "type": "object",
+      "properties": {
+        "gap_id": { "type": "string", "minLength": 1 },
+        "state": { "enum": ["active", "resolved", "reopened"] },
+        "severity": { "enum": ["blocking", "non-blocking"] },
+        "owner": { "enum": ["user", "coordinator", "controller"] },
+        "question": { "type": "string", "minLength": 1 },
+        "evidence": { "type": "string", "minLength": 1 },
+        "required_answer": { "type": "string", "minLength": 1 },
+        "opened_in_round": { "type": "integer", "minimum": 1, "maximum": 3 }
+      },
+      "required": [
+        "gap_id",
+        "state",
+        "severity",
+        "owner",
+        "question",
+        "evidence",
+        "required_answer",
+        "opened_in_round"
+      ],
+      "unevaluatedProperties": false
+    },
+    "disclosure": {
+      "type": "object",
+      "description": "Non-blocking by construction. actionable is the constant false, so a disclosure can never trip the blocking-gap rule (finding C7, decision D-D).",
+      "properties": {
+        "disclosure_id": { "type": "string", "minLength": 1 },
+        "kind": {
+          "enum": ["mode_coverage_gap", "interaction_state_gap", "broadened_retrieval", "partial_extraction"]
+        },
+        "owner": { "enum": ["coordinator", "synthesizer", "controller"] },
+        "evidence": { "type": "string", "minLength": 1 },
+        "actionable": { "const": false }
+      },
+      "required": ["disclosure_id", "kind", "owner", "evidence", "actionable"],
+      "unevaluatedProperties": false
+    },
+    "observedComponentTreeRef": {
+      "type": "object",
+      "properties": {
+        "tree_ref": { "type": "string", "minLength": 1 },
+        "tree_sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+        "node_count": { "type": "integer", "minimum": 1 },
+        "captured_at": { "type": "string", "format": "date-time" }
+      },
+      "required": ["tree_ref", "tree_sha256", "node_count", "captured_at"],
+      "unevaluatedProperties": false
+    },
+    "observedTreeExcerpt": {
+      "type": "object",
+      "description": "Bounded and provenance-linked. An excerpt without provenance is indistinguishable from an assertion.",
+      "properties": {
+        "excerpt_id": { "type": "string", "minLength": 1 },
+        "locator": { "type": "string", "minLength": 1 },
+        "tree_sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+        "node_count": { "type": "integer", "minimum": 0 },
+        "content": { "type": "string" },
+        "selection_reason": { "type": "string", "minLength": 1 }
+      },
+      "required": ["excerpt_id", "locator", "tree_sha256", "node_count", "content", "selection_reason"],
+      "unevaluatedProperties": false
+    },
+    "snapshot": {
+      "type": "object",
+      "properties": {
+        "source_sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+        "index_version": { "type": "string", "pattern": "^\\d+\\.\\d+\\.\\d+$" },
+        "source_schema_version": { "type": "string", "minLength": 1 },
+        "exported_at": { "type": "string" },
+        "source_bytes": { "type": "integer", "minimum": 1 }
+      },
+      "required": ["source_sha256", "index_version", "source_schema_version", "source_bytes"],
+      "unevaluatedProperties": false
+    },
+    "failureReport": {
+      "type": "object",
+      "properties": {
+        "failure_class": {
+          "enum": [
+            "invalid-input",
+            "hard-dependency-failure",
+            "optional-enrichment-failure",
+            "partial-audit-extraction",
+            "timeout",
+            "validation-failure",
+            "cancellation"
+          ]
+        },
+        "terminal": { "type": "boolean" },
+        "repairable": { "type": "boolean" },
+        "evidence": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "code": { "type": "string", "minLength": 1 },
+              "message": { "type": "string", "minLength": 1 },
+              "instance_path": { "type": "string" },
+              "contract_path": { "type": "string" },
+              "enforced_by": {
+                "enum": [
+                  "schema",
+                  "semantic-validator",
+                  "reference-validator",
+                  "deterministic-composer",
+                  "renderer",
+                  "human-gate"
+                ]
+              }
+            },
+            "required": ["code", "message", "enforced_by"],
+            "unevaluatedProperties": false
+          },
+          "minItems": 1
+        },
+        "occurred_at": { "type": "string", "format": "date-time" }
+      },
+      "required": ["failure_class", "terminal", "repairable", "evidence", "occurred_at"],
+      "unevaluatedProperties": false
+    },
+    "common": {
+      "type": "object",
+      "properties": {
+        "run_id": { "type": "string", "format": "uuid" },
+        "spec_schema_version": { "type": "string", "minLength": 1 },
+        "snapshot": { "$ref": "#/$defs/snapshot" },
+        "composed_at": { "type": "string", "format": "date-time" },
+        "disclosures": { "type": "array", "items": { "$ref": "#/$defs/disclosure" } }
+      },
+      "required": ["run_id", "spec_schema_version", "snapshot", "composed_at", "disclosures"]
+    },
+    "newReady": {
+      "allOf": [{ "$ref": "#/$defs/common" }],
+      "type": "object",
+      "properties": {
+        "status": { "const": "ready" },
+        "run_type": { "const": "new" },
+        "next_route": { "const": "builder" },
+        "semantic_brief": {
+          "$ref": "https://adalfi.dev/schemas/coordinator/semantic.schema.json#/$defs/semanticBrief"
+        },
+        "resolutions": { "type": "array", "items": { "$ref": "#/$defs/typedResolution" } },
+        "aggregate_confidence": { "enum": ["high", "medium", "low"] }
+      },
+      "required": [
+        "status",
+        "run_type",
+        "next_route",
+        "semantic_brief",
+        "resolutions",
+        "aggregate_confidence"
+      ],
+      "unevaluatedProperties": false
+    },
+    "modifyReady": {
+      "allOf": [{ "$ref": "#/$defs/common" }],
+      "type": "object",
+      "properties": {
+        "status": { "const": "ready" },
+        "run_type": { "const": "modify" },
+        "next_route": { "const": "builder" },
+        "target": { "$ref": "#/$defs/observedComponentTreeRef" },
+        "semantic_delta": {
+          "$ref": "https://adalfi.dev/schemas/coordinator/semantic.schema.json#/$defs/semanticDelta"
+        },
+        "preservation_contract": {
+          "$ref": "https://adalfi.dev/schemas/coordinator/semantic.schema.json#/$defs/preservationContract"
+        },
+        "resolutions": { "type": "array", "items": { "$ref": "#/$defs/typedResolution" } },
+        "aggregate_confidence": { "enum": ["high", "medium", "low"] },
+        "excerpts": { "type": "array", "items": { "$ref": "#/$defs/observedTreeExcerpt" } }
+      },
+      "required": [
+        "status",
+        "run_type",
+        "next_route",
+        "target",
+        "semantic_delta",
+        "preservation_contract",
+        "resolutions",
+        "aggregate_confidence"
+      ],
+      "unevaluatedProperties": false
+    },
+    "auditReady": {
+      "allOf": [{ "$ref": "#/$defs/common" }],
+      "type": "object",
+      "description": "next_route is the constant 'synthesizer'. audit -> Builder is therefore impossible to express, not merely rejected.",
+      "properties": {
+        "status": { "const": "ready" },
+        "run_type": { "const": "audit" },
+        "next_route": { "const": "synthesizer" },
+        "target": { "$ref": "#/$defs/observedComponentTreeRef" },
+        "audit_brief": {
+          "$ref": "https://adalfi.dev/schemas/coordinator/semantic.schema.json#/$defs/auditBrief"
+        },
+        "extraction_coverage": {
+          "$ref": "https://adalfi.dev/schemas/coordinator/semantic.schema.json#/$defs/extractionCoverage"
+        },
+        "resolutions": { "type": "array", "items": { "$ref": "#/$defs/typedResolution" } },
+        "excerpts": { "type": "array", "items": { "$ref": "#/$defs/observedTreeExcerpt" } }
+      },
+      "required": ["status", "run_type", "next_route", "target", "audit_brief", "extraction_coverage"],
+      "unevaluatedProperties": false
+    },
+    "blocked": {
+      "allOf": [{ "$ref": "#/$defs/common" }],
+      "type": "object",
+      "description": "No ready payload is required. In v1 a blocked `new` run failed its own schema because allOf demanded a brief a blocked run does not have.",
+      "properties": {
+        "status": { "const": "blocked" },
+        "run_type": { "enum": ["new", "modify", "audit"] },
+        "next_route": { "type": "null" },
+        "active_gaps": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/clarificationGap" },
+          "minItems": 1
+        },
+        "partial_resolutions": { "type": "array", "items": { "$ref": "#/$defs/typedResolution" } }
+      },
+      "required": ["status", "run_type", "next_route", "active_gaps"],
+      "unevaluatedProperties": false
+    },
+    "failed": {
+      "allOf": [{ "$ref": "#/$defs/common" }],
+      "type": "object",
+      "properties": {
+        "status": { "const": "failed" },
+        "run_type": { "enum": ["new", "modify", "audit"] },
+        "next_route": { "type": "null" },
+        "failure": { "$ref": "#/$defs/failureReport" }
+      },
+      "required": ["status", "run_type", "next_route", "failure"],
+      "unevaluatedProperties": false
+    }
+  },
+  "oneOf": [
+    { "$ref": "#/$defs/newReady" },
+    { "$ref": "#/$defs/modifyReady" },
+    { "$ref": "#/$defs/auditReady" },
+    { "$ref": "#/$defs/blocked" },
+    { "$ref": "#/$defs/failed" }
+  ]
+}

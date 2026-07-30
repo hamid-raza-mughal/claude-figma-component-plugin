@@ -1,0 +1,171 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://adalfi.dev/schemas/coordinator/semantic.schema.json",
+  "title": "Semantic intent building blocks",
+  "description": "Semantic intent only. Builder owns the exact node hierarchy (§14.3.7-8). The variant/property model is required by decision D-D.3 so the modify example stays expressible.",
+  "$defs": {
+    "variantProperty": {
+      "type": "object",
+      "description": "A variant axis. Interaction states are options here, not separate components — which is what makes coverage countable.",
+      "properties": {
+        "name": { "type": "string", "minLength": 1 },
+        "options": { "type": "array", "items": { "type": "string", "minLength": 1 }, "minItems": 1 },
+        "default_option": { "type": "string", "minLength": 1 }
+      },
+      "required": ["name", "options"],
+      "unevaluatedProperties": false
+    },
+    "semanticPropertyBinding": {
+      "type": "object",
+      "description": "A selection by opaque candidate_id. No path, key, value or id: those are assertions the model is not entitled to make (§14.3.5).",
+      "properties": {
+        "property": { "type": "string", "minLength": 1 },
+        "reference_text": { "type": "string", "minLength": 1 },
+        "selected_candidate_id": { "type": "string", "pattern": "^c_[0-9a-f]{24}$" },
+        "applies_to_option": { "type": "string", "minLength": 1 },
+        "expected_ref_class": {
+          "enum": ["variable", "paint-style", "text-style", "effect-style", "grid-style"]
+        }
+      },
+      "required": ["property", "reference_text", "selected_candidate_id"],
+      "unevaluatedProperties": false
+    },
+    "semanticElement": {
+      "type": "object",
+      "description": "A meaningful part, not a node. Structure is expressed by parent_semantic_id rather than nesting, because a nested shape is one refactor from being an implementation tree.",
+      "properties": {
+        "semantic_id": { "type": "string", "minLength": 1 },
+        "role": { "type": "string", "minLength": 1 },
+        "description": { "type": "string" },
+        "parent_semantic_id": { "type": "string", "minLength": 1 },
+        "bindings": { "type": "array", "items": { "$ref": "#/$defs/semanticPropertyBinding" } },
+        "text_content": { "type": "string" }
+      },
+      "required": ["semantic_id", "role", "bindings"],
+      "unevaluatedProperties": false
+    },
+    "semanticBrief": {
+      "type": "object",
+      "properties": {
+        "component_name": { "type": "string", "minLength": 1 },
+        "intent_summary": { "type": "string", "minLength": 1 },
+        "variant_properties": { "type": "array", "items": { "$ref": "#/$defs/variantProperty" } },
+        "elements": { "type": "array", "items": { "$ref": "#/$defs/semanticElement" }, "minItems": 1 },
+        "intended_interaction_states": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Advisory and non-gating (SA-23). Present so coverage is assessable, not so it can fail a run."
+        }
+      },
+      "required": ["component_name", "intent_summary", "variant_properties", "elements"],
+      "unevaluatedProperties": false
+    },
+    "semanticDeltaItem": {
+      "type": "object",
+      "description": "change_status lives ONLY here, never globally on SemanticBrief (§5.7, corrected SA-13).",
+      "properties": {
+        "delta_id": { "type": "string", "minLength": 1 },
+        "change_status": { "enum": ["add", "modify", "remove", "preserve"] },
+        "change_type": { "enum": ["variant", "state", "feature", "other"] },
+        "target_semantic_id": { "type": "string", "minLength": 1 },
+        "summary": { "type": "string", "minLength": 1 },
+        "variant_transition": {
+          "type": "object",
+          "description": "Before and after stated explicitly, so 'added disabled' is distinguishable from 'replaced the axis'.",
+          "properties": {
+            "property_name": { "type": "string", "minLength": 1 },
+            "options_before": { "type": "array", "items": { "type": "string" } },
+            "options_after": { "type": "array", "items": { "type": "string" } }
+          },
+          "required": ["property_name", "options_before", "options_after"],
+          "unevaluatedProperties": false
+        },
+        "bindings": { "type": "array", "items": { "$ref": "#/$defs/semanticPropertyBinding" } }
+      },
+      "required": ["delta_id", "change_status", "change_type", "summary"],
+      "unevaluatedProperties": false
+    },
+    "semanticDelta": {
+      "type": "object",
+      "properties": {
+        "component_name": { "type": "string", "minLength": 1 },
+        "intent_summary": { "type": "string", "minLength": 1 },
+        "items": { "type": "array", "items": { "$ref": "#/$defs/semanticDeltaItem" }, "minItems": 1 },
+        "variant_properties_after": { "type": "array", "items": { "$ref": "#/$defs/variantProperty" } }
+      },
+      "required": ["component_name", "intent_summary", "items", "variant_properties_after"],
+      "unevaluatedProperties": false
+    },
+    "preservationObligation": {
+      "type": "object",
+      "description": "Named, with a reason and a verification. 'Everything else stays the same' is not checkable; this is.",
+      "properties": {
+        "obligation_id": { "type": "string", "minLength": 1 },
+        "semantic_id": { "type": "string", "minLength": 1 },
+        "description": { "type": "string", "minLength": 1 },
+        "reason": { "type": "string", "minLength": 1 },
+        "verification": { "type": "string", "minLength": 1 }
+      },
+      "required": ["obligation_id", "description", "reason", "verification"],
+      "unevaluatedProperties": false
+    },
+    "preservationContract": {
+      "type": "object",
+      "properties": {
+        "target_tree_ref": { "type": "string", "minLength": 1 },
+        "target_tree_sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+        "obligations": { "type": "array", "items": { "$ref": "#/$defs/preservationObligation" } },
+        "untouched_semantic_ids": { "type": "array", "items": { "type": "string" } }
+      },
+      "required": ["target_tree_ref", "target_tree_sha256", "obligations", "untouched_semantic_ids"],
+      "unevaluatedProperties": false
+    },
+    "auditBrief": {
+      "type": "object",
+      "properties": {
+        "component_name": { "type": "string", "minLength": 1 },
+        "scope": { "enum": ["full", "accessibility", "tokens", "structure", "states", "custom"] },
+        "focus_summary": { "type": "string", "minLength": 1 },
+        "target_tree_ref": { "type": "string", "minLength": 1 },
+        "target_tree_sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+        "dimensions": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
+        "custom_scope_detail": { "type": "string" }
+      },
+      "required": [
+        "component_name",
+        "scope",
+        "focus_summary",
+        "target_tree_ref",
+        "target_tree_sha256",
+        "dimensions"
+      ],
+      "unevaluatedProperties": false
+    },
+    "extractionCoverage": {
+      "type": "object",
+      "description": "Every excluded region recorded, or coverage is unfalsifiable (SA-8): a clean audit of 30% of a component is otherwise indistinguishable from a clean audit of all of it.",
+      "properties": {
+        "tree_ref": { "type": "string", "minLength": 1 },
+        "tree_sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+        "total_nodes": { "type": "integer", "minimum": 0 },
+        "examined_nodes": { "type": "integer", "minimum": 0 },
+        "exclusions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "locator": { "type": "string", "minLength": 1 },
+              "reason": { "type": "string", "minLength": 1 },
+              "node_count": { "type": "integer", "minimum": 0 }
+            },
+            "required": ["locator", "reason"],
+            "unevaluatedProperties": false
+          }
+        },
+        "fully_accounted": { "type": "boolean" }
+      },
+      "required": ["tree_ref", "tree_sha256", "total_nodes", "examined_nodes", "exclusions", "fully_accounted"],
+      "unevaluatedProperties": false
+    }
+  }
+}

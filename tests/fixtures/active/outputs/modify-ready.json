@@ -1,0 +1,102 @@
+{
+  "run_id": "3f2504e0-4f89-41d3-9a0c-0305e82c3301",
+  "spec_schema_version": "2.0.0",
+  "snapshot": {
+    "source_sha256": "2222a2b8eff4224f76ddad591cf6f46c6e8bb25ec7f96aebbf13941876356627",
+    "index_version": "1.0.0",
+    "source_schema_version": "1.1",
+    "exported_at": "2026-07-28T07:43:59.920Z",
+    "source_bytes": 876098
+  },
+  "composed_at": "2026-07-29T10:00:00Z",
+  "disclosures": [],
+  "status": "ready",
+  "run_type": "modify",
+  "next_route": "builder",
+  "target": {
+    "tree_ref": "figma://node/1:23",
+    "tree_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+    "node_count": 18,
+    "captured_at": "2026-07-29T09:59:00Z"
+  },
+  "semantic_delta": {
+    "component_name": "Primary Button",
+    "intent_summary": "Add a disabled state.",
+    "items": [
+      {
+        "delta_id": "d1",
+        "change_status": "add",
+        "change_type": "state",
+        "target_semantic_id": "root",
+        "summary": "Add disabled state with muted fill at 60% opacity.",
+        "variant_transition": {
+          "property_name": "state",
+          "options_before": [
+            "default",
+            "hover",
+            "pressed"
+          ],
+          "options_after": [
+            "default",
+            "hover",
+            "pressed",
+            "disabled"
+          ]
+        },
+        "bindings": [
+          {
+            "property": "fill",
+            "reference_text": "muted button fill",
+            "selected_candidate_id": "c_4e25639203afca604ef0bde0",
+            "applies_to_option": "disabled"
+          }
+        ]
+      }
+    ],
+    "variant_properties_after": [
+      {
+        "name": "state",
+        "options": [
+          "default",
+          "hover",
+          "pressed",
+          "disabled"
+        ]
+      }
+    ]
+  },
+  "preservation_contract": {
+    "target_tree_ref": "figma://node/1:23",
+    "target_tree_sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+    "obligations": [
+      {
+        "obligation_id": "o1",
+        "semantic_id": "label",
+        "description": "Label text style is unchanged.",
+        "reason": "Not in scope for a state addition.",
+        "verification": "Compare the bound text style key before and after the build."
+      }
+    ],
+    "untouched_semantic_ids": [
+      "label",
+      "icon"
+    ]
+  },
+  "resolutions": [
+    {
+      "candidate_id": "c_4e25639203afca604ef0bde0",
+      "source_record_ref": "paint-style:S:abc",
+      "source_sha256": "2222a2b8eff4224f76ddad591cf6f46c6e8bb25ec7f96aebbf13941876356627",
+      "index_version": "1.0.0",
+      "ref_class": "paint-style",
+      "property_category": "color",
+      "path": "sys/dark/surfaces/muted_btn",
+      "key": "cfdda1d5",
+      "normalized_id": "S:cfdda1d5",
+      "raw_id": "S:cfdda1d5,",
+      "scopes": [],
+      "verified_against_source_sha256": "2222a2b8eff4224f76ddad591cf6f46c6e8bb25ec7f96aebbf13941876356627"
+    }
+  ],
+  "aggregate_confidence": "medium"
+}

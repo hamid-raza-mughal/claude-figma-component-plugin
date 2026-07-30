@@ -1,0 +1,29 @@
+{
+  "run_id": "3f2504e0-4f89-41d3-9a0c-0305e82c3301",
+  "spec_schema_version": "2.0.0",
+  "snapshot": {
+    "source_sha256": "2222a2b8eff4224f76ddad591cf6f46c6e8bb25ec7f96aebbf13941876356627",
+    "index_version": "1.0.0",
+    "source_schema_version": "1.1",
+    "exported_at": "2026-07-28T07:43:59.920Z",
+    "source_bytes": 876098
+  },
+  "composed_at": "2026-07-29T10:00:00Z",
+  "disclosures": [],
+  "status": "failed",
+  "run_type": "audit",
+  "next_route": null,
+  "failure": {
+    "failure_class": "hard-dependency-failure",
+    "terminal": true,
+    "repairable": false,
+    "evidence": [
+      {
+        "code": "FIGMA_TARGET_UNREACHABLE",
+        "message": "Observed-tree capture failed; the audit route cannot proceed without a target.",
+        "enforced_by": "deterministic-composer"
+      }
+    ],
+    "occurred_at": "2026-07-29T10:00:00Z"
+  }
+}

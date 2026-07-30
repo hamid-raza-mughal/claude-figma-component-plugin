@@ -1,0 +1,80 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://adalfi.dev/schemas/coordinator/coordinator-judgment-draft.schema.json",
+  "title": "CoordinatorJudgmentDraft",
+  "description": "The only thing a model produces (§14.3.4). Semantic intent plus candidate_id selections plus gaps. Every operational field is absent by construction — no ids, hashes, timestamps, tool results, approvals, telemetry, route or status.",
+  "type": "object",
+  "properties": {
+    "run_type": {
+      "enum": ["new", "modify", "audit"],
+      "description": "Echoed, not chosen. An echo disagreeing with the invocation is a validation failure."
+    },
+    "self_assessment": {
+      "enum": ["believe-complete", "need-clarification", "cannot-proceed"],
+      "description": "Advisory. Deterministic code decides status from evidence (§14.3.11) — a model claiming ready while carrying a blocking gap is resolved against the model."
+    },
+    "semantic_brief": {
+      "$ref": "https://adalfi.dev/schemas/coordinator/semantic.schema.json#/$defs/semanticBrief"
+    },
+    "semantic_delta": {
+      "$ref": "https://adalfi.dev/schemas/coordinator/semantic.schema.json#/$defs/semanticDelta"
+    },
+    "audit_brief": {
+      "$ref": "https://adalfi.dev/schemas/coordinator/semantic.schema.json#/$defs/auditBrief"
+    },
+    "clarification_gaps": {
+      "type": "array",
+      "items": {
+        "$ref": "https://adalfi.dev/schemas/coordinator/coordinator-output.schema.json#/$defs/clarificationGap"
+      }
+    },
+    "notes": {
+      "type": "string",
+      "description": "Never parsed for facts. A note is not evidence."
+    }
+  },
+  "required": ["run_type", "self_assessment"],
+  "allOf": [
+    {
+      "description": "Exactly one payload, matching run_type. Each `then` restates the properties it constrains, because Ajv strict mode requires a `required` property to be declared in the same subschema scope. `false` as a schema means the field is forbidden outright.",
+      "if": { "properties": { "run_type": { "const": "new" } }, "required": ["run_type"] },
+      "then": {
+        "properties": {
+          "semantic_brief": {
+            "$ref": "https://adalfi.dev/schemas/coordinator/semantic.schema.json#/$defs/semanticBrief"
+          },
+          "semantic_delta": false,
+          "audit_brief": false
+        },
+        "required": ["semantic_brief"]
+      }
+    },
+    {
+      "if": { "properties": { "run_type": { "const": "modify" } }, "required": ["run_type"] },
+      "then": {
+        "properties": {
+          "semantic_delta": {
+            "$ref": "https://adalfi.dev/schemas/coordinator/semantic.schema.json#/$defs/semanticDelta"
+          },
+          "semantic_brief": false,
+          "audit_brief": false
+        },
+        "required": ["semantic_delta"]
+      }
+    },
+    {
+      "if": { "properties": { "run_type": { "const": "audit" } }, "required": ["run_type"] },
+      "then": {
+        "properties": {
+          "audit_brief": {
+            "$ref": "https://adalfi.dev/schemas/coordinator/semantic.schema.json#/$defs/auditBrief"
+          },
+          "semantic_brief": false,
+          "semantic_delta": false
+        },
+        "required": ["audit_brief"]
+      }
+    }
+  ],
+  "unevaluatedProperties": false
+}

@@ -1,0 +1,55 @@
+{
+  "note": "Ten canonical fixtures (\u00a714.5). Every valid fixture must pass WITH format assertion; every invalid fixture must fail for its INTENDED error code, not merely fail.",
+  "fixtures": [
+    {
+      "file": "new-ready.json",
+      "expect": "valid",
+      "intended_error_code": null
+    },
+    {
+      "file": "modify-ready.json",
+      "expect": "valid",
+      "intended_error_code": null
+    },
+    {
+      "file": "audit-ready.json",
+      "expect": "valid",
+      "intended_error_code": null
+    },
+    {
+      "file": "blocked.json",
+      "expect": "valid",
+      "intended_error_code": null
+    },
+    {
+      "file": "failed.json",
+      "expect": "valid",
+      "intended_error_code": null
+    },
+    {
+      "file": "invalid-unknown-field.json",
+      "expect": "invalid",
+      "intended_error_code": "SCHEMA_UNKNOWN_FIELD"
+    },
+    {
+      "file": "invalid-ready-with-blocking-gap.json",
+      "expect": "invalid",
+      "intended_error_code": "SCHEMA_UNKNOWN_FIELD"
+    },
+    {
+      "file": "invalid-audit-to-builder.json",
+      "expect": "invalid",
+      "intended_error_code": "SCHEMA_ENUM_MISMATCH"
+    },
+    {
+      "file": "invalid-authored-tree.json",
+      "expect": "invalid",
+      "intended_error_code": "SCHEMA_UNKNOWN_FIELD"
+    },
+    {
+      "file": "invalid-model-authored-operational.json",
+      "expect": "invalid",
+      "intended_error_code": "SCHEMA_UNKNOWN_FIELD"
+    }
+  ]
+}

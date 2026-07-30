@@ -1,0 +1,94 @@
+{
+  "run_id": "3f2504e0-4f89-41d3-9a0c-0305e82c3301",
+  "spec_schema_version": "2.0.0",
+  "snapshot": {
+    "source_sha256": "2222a2b8eff4224f76ddad591cf6f46c6e8bb25ec7f96aebbf13941876356627",
+    "index_version": "1.0.0",
+    "source_schema_version": "1.1",
+    "exported_at": "2026-07-28T07:43:59.920Z",
+    "source_bytes": 876098
+  },
+  "composed_at": "2026-07-29T10:00:00Z",
+  "disclosures": [],
+  "status": "ready",
+  "run_type": "new",
+  "next_route": "builder",
+  "semantic_brief": {
+    "component_name": "Warning Toast",
+    "intent_summary": "A dismissible warning notification.",
+    "variant_properties": [
+      {
+        "name": "state",
+        "options": [
+          "default",
+          "hover",
+          "pressed"
+        ],
+        "default_option": "default"
+      }
+    ],
+    "elements": [
+      {
+        "semantic_id": "root",
+        "role": "container",
+        "bindings": [
+          {
+            "property": "fill",
+            "reference_text": "warning 6 opacity fill",
+            "selected_candidate_id": "c_4e25639203afca604ef0bde0"
+          }
+        ]
+      },
+      {
+        "semantic_id": "title",
+        "role": "title",
+        "parent_semantic_id": "root",
+        "text_content": "Warning",
+        "bindings": [
+          {
+            "property": "text_style",
+            "reference_text": "14px regular body",
+            "selected_candidate_id": "c_1111111111111111111111aa"
+          }
+        ]
+      }
+    ],
+    "intended_interaction_states": [
+      "default",
+      "hover",
+      "pressed"
+    ]
+  },
+  "resolutions": [
+    {
+      "candidate_id": "c_4e25639203afca604ef0bde0",
+      "source_record_ref": "paint-style:S:abc",
+      "source_sha256": "2222a2b8eff4224f76ddad591cf6f46c6e8bb25ec7f96aebbf13941876356627",
+      "index_version": "1.0.0",
+      "ref_class": "paint-style",
+      "property_category": "color",
+      "path": "alphas/dark/expressions/warning/opacity_6",
+      "key": "cfdda1d5",
+      "normalized_id": "S:cfdda1d5",
+      "raw_id": "S:cfdda1d5,",
+      "scopes": [],
+      "verified_against_source_sha256": "2222a2b8eff4224f76ddad591cf6f46c6e8bb25ec7f96aebbf13941876356627"
+    },
+    {
+      "candidate_id": "c_1111111111111111111111aa",
+      "source_record_ref": "text-style:S:abc",
+      "source_sha256": "2222a2b8eff4224f76ddad591cf6f46c6e8bb25ec7f96aebbf13941876356627",
+      "index_version": "1.0.0",
+      "ref_class": "text-style",
+      "property_category": "typography",
+      "path": "body/reg/regular",
+      "key": "cfdda1d5",
+      "normalized_id": "S:cfdda1d5",
+      "raw_id": "S:cfdda1d5,",
+      "scopes": [],
+      "verified_against_source_sha256": "2222a2b8eff4224f76ddad591cf6f46c6e8bb25ec7f96aebbf13941876356627",
+      "font_size": 14
+    }
+  ],
+  "aggregate_confidence": "high"
+}
