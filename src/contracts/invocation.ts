@@ -28,12 +28,20 @@ export function isRunType(value: unknown): value is RunType {
 export const FORWARD_ROUTES = ['builder', 'synthesizer'] as const;
 export type ForwardRoute = (typeof FORWARD_ROUTES)[number];
 
-/** Deterministic route policy. Not a model decision, and not overridable. */
-export const ROUTE_POLICY: Readonly<Record<RunType, ForwardRoute>> = {
+/**
+ * Deterministic route policy. Not a model decision, and not overridable.
+ *
+ * `as const satisfies` rather than an annotated `Record`: the annotation would widen
+ * each value to the `ForwardRoute` union, and the composer needs the **literal** —
+ * `ROUTE_POLICY.audit` must be exactly `'synthesizer'` so assigning it to
+ * `AuditReadyOutput.next_route` is a type check rather than a runtime hope. The
+ * `satisfies` clause still guarantees every route is covered.
+ */
+export const ROUTE_POLICY = {
   new: 'builder',
   modify: 'builder',
   audit: 'synthesizer',
-};
+} as const satisfies Record<RunType, ForwardRoute>;
 
 export function forwardRouteFor(runType: RunType): ForwardRoute {
   return ROUTE_POLICY[runType];

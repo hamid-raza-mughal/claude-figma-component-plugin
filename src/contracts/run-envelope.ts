@@ -213,6 +213,41 @@ export type OperationalLeak = {
 };
 
 /**
+ * Path-scoped exemptions for **overloaded field names**.
+ *
+ * A name-based detector cannot distinguish `RunEnvelope.state` (operational — the
+ * stage phase, which a model must never author) from `ClarificationGap.state` (a
+ * gap's own lifecycle, which is legitimately semantic). Both are called `state`.
+ *
+ * The alternatives were worse: removing `state` from the forbidden list would let a
+ * model author run state, and renaming the gap field would change a contract to suit
+ * a detector. So the exemption is **narrow and path-scoped** — the same approach as
+ * the leakage assertion's output-contract exemption — rather than a global loosening.
+ *
+ * Every entry needs a stated reason. An unexplained exemption is how a check quietly
+ * stops covering what it was written for.
+ */
+export const OPERATIONAL_FIELD_EXEMPTIONS: readonly {
+  readonly field: string;
+  readonly allowedPath: RegExp;
+  readonly reason: string;
+}[] = [
+  {
+    field: 'state',
+    allowedPath: /^\/(?:clarification_gaps|active_gaps)\/\d+\/state$/,
+    reason:
+      "a clarification gap's lifecycle state (active | resolved | reopened) is semantic; " +
+      "RunEnvelope.state is the operational stage phase and stays forbidden",
+  },
+];
+
+function isExempt(field: string, path: string): boolean {
+  return OPERATIONAL_FIELD_EXEMPTIONS.some(
+    (exemption) => exemption.field === field && exemption.allowedPath.test(path),
+  );
+}
+
+/**
  * Walks an arbitrary parsed value and reports every operational field found.
  *
  * Returns all leaks rather than the first, so a repair prompt can be issued once
@@ -228,7 +263,7 @@ export function findOperationalLeaks(value: unknown, basePath = ''): Operational
     if (node === null || typeof node !== 'object') return;
     for (const [key, child] of Object.entries(node)) {
       const childPath = `${path}/${key}`;
-      if (OPERATIONAL_FIELD_NAMES.includes(key)) {
+      if (OPERATIONAL_FIELD_NAMES.includes(key) && !isExempt(key, childPath)) {
         leaks.push({ field: key, path: childPath });
       }
       visit(child, childPath);
