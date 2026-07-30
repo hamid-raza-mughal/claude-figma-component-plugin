@@ -1,0 +1,64 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://adalfi.dev/schemas/shared/invocation.schema.json",
+  "title": "ResolvedCoordinatorInvocation",
+  "description": "The route-bearing entry point. run_type is required and human-supplied; there is no model route classifier (decision D3, §14.3.1).",
+  "type": "object",
+  "$defs": {
+    "observedComponentTreeRef": {
+      "type": "object",
+      "description": "A reference and a hash, never inline content (§14.3.21). The full tree is preserved externally and immutably; models receive bounded provenance-linked excerpts prepared by deterministic code (§5.4).",
+      "properties": {
+        "tree_ref": { "type": "string", "minLength": 1 },
+        "tree_sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+        "node_count": { "type": "integer", "minimum": 1 },
+        "captured_at": { "type": "string", "format": "date-time" }
+      },
+      "required": ["tree_ref", "tree_sha256", "node_count", "captured_at"],
+      "unevaluatedProperties": false
+    }
+  },
+  "properties": {
+    "run_id": { "type": "string", "format": "uuid" },
+    "display_id": { "type": "string", "minLength": 1 },
+    "run_type": {
+      "enum": ["new", "modify", "audit"],
+      "description": "Required. An absent or invalid route blocks before any model invocation."
+    },
+    "user_intent": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Untrusted data, never instructions."
+    },
+    "target": { "$ref": "#/$defs/observedComponentTreeRef" },
+    "requested_at": { "type": "string", "format": "date-time" },
+    "expected_ref_classes": {
+      "type": "array",
+      "items": { "enum": ["variable", "paint-style", "text-style", "effect-style", "grid-style"] },
+      "description": "Advisory only; the deterministic planner may widen or narrow it."
+    }
+  },
+  "required": ["run_id", "run_type", "user_intent", "requested_at"],
+  "allOf": [
+    {
+      "description": "modify and audit require a target component reference. `properties` is restated inside `then` because Ajv strict mode requires a `required` property to be declared in the same subschema scope.",
+      "if": {
+        "properties": { "run_type": { "enum": ["modify", "audit"] } },
+        "required": ["run_type"]
+      },
+      "then": {
+        "properties": { "target": { "$ref": "#/$defs/observedComponentTreeRef" } },
+        "required": ["target"]
+      }
+    },
+    {
+      "description": "new builds from scratch, so a target is not merely unnecessary — it contradicts the route.",
+      "if": { "properties": { "run_type": { "const": "new" } }, "required": ["run_type"] },
+      "then": {
+        "properties": { "target": { "$ref": "#/$defs/observedComponentTreeRef" } },
+        "not": { "required": ["target"] }
+      }
+    }
+  ],
+  "unevaluatedProperties": false
+}

@@ -1,0 +1,150 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://adalfi.dev/schemas/shared/run-envelope.schema.json",
+  "title": "RunEnvelope",
+  "description": "Every operational fact about a run. Deterministic code writes all of it; a model draft writes none of it (P1-FINAL §14.3.3-4). Defined in Phase 1, not persisted or executed.",
+  "type": "object",
+  "$defs": {
+    "stagePhase": {
+      "enum": [
+        "received",
+        "preparing",
+        "drafting",
+        "awaiting-clarification",
+        "validating",
+        "awaiting-approval",
+        "handoff-ready",
+        "terminal"
+      ]
+    },
+    "runOutcome": {
+      "enum": ["completed", "blocked", "failed", "cancelled", "timed-out"]
+    },
+    "stageName": {
+      "enum": [
+        "ingestion",
+        "figma-read",
+        "coordinator",
+        "builder",
+        "post-build",
+        "synthesizer",
+        "reviewer"
+      ]
+    },
+    "runState": {
+      "type": "object",
+      "description": "Run state is active stage + that stage's phase + the run's outcome. The eight phases are stage-scoped, not run-scoped (decision D4).",
+      "properties": {
+        "active_stage": { "$ref": "#/$defs/stageName" },
+        "stage_phase": { "$ref": "#/$defs/stagePhase" },
+        "outcome": { "$ref": "#/$defs/runOutcome" }
+      },
+      "required": ["active_stage", "stage_phase"],
+      "unevaluatedProperties": false
+    },
+    "toolInvocation": {
+      "type": "object",
+      "properties": {
+        "tool": { "type": "string", "minLength": 1 },
+        "invoked_at": { "type": "string", "format": "date-time" },
+        "duration_ms": { "type": "number", "minimum": 0 },
+        "ok": { "type": "boolean" },
+        "error_code": { "type": "string", "minLength": 1 }
+      },
+      "required": ["tool", "invoked_at", "duration_ms", "ok"],
+      "unevaluatedProperties": false
+    },
+    "approvalRecord": {
+      "type": "object",
+      "description": "Binds the SHA-256 of the exact approved artifact, so the approval refers to something specific rather than to a moment in time (§14.3.19).",
+      "properties": {
+        "gate": { "enum": ["gate-1-semantic", "gate-2-acceptance"] },
+        "gate_mode": {
+          "enum": ["observe-only-validation", "authorising"],
+          "description": "Phase 1 uses observe-only-validation: no Figma write exists, so no approval here can authorise one (§14.3.20)."
+        },
+        "approved_artifact_sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+        "approved_at": { "type": "string", "format": "date-time" },
+        "approved_by": { "type": "string", "minLength": 1 },
+        "decision": { "enum": ["approved", "rejected", "changes-requested"] }
+      },
+      "required": [
+        "gate",
+        "gate_mode",
+        "approved_artifact_sha256",
+        "approved_at",
+        "approved_by",
+        "decision"
+      ],
+      "unevaluatedProperties": false
+    },
+    "tokenMetrics": {
+      "type": "object",
+      "description": "Absent rather than zeroed until a model adapter exists — a fabricated zero is indistinguishable from a measurement.",
+      "properties": {
+        "input_tokens": { "type": "integer", "minimum": 0 },
+        "output_tokens": { "type": "integer", "minimum": 0 },
+        "cache_creation_tokens": { "type": "integer", "minimum": 0 },
+        "cache_read_tokens": { "type": "integer", "minimum": 0 }
+      },
+      "required": [
+        "input_tokens",
+        "output_tokens",
+        "cache_creation_tokens",
+        "cache_read_tokens"
+      ],
+      "unevaluatedProperties": false
+    }
+  },
+  "properties": {
+    "run_id": {
+      "type": "string",
+      "format": "uuid",
+      "description": "Machine identity. A readable name belongs in display_id — the v1 schema overloaded this field and passed only because format assertion was off."
+    },
+    "display_id": { "type": "string", "minLength": 1 },
+    "spec_schema_version": { "type": "string", "minLength": 1 },
+    "prompt_version": { "type": "string", "minLength": 1 },
+    "model_id": { "type": "string", "minLength": 1 },
+    "source_sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+    "index_version": { "type": "string", "pattern": "^\\d+\\.\\d+\\.\\d+$" },
+    "created_at": { "type": "string", "format": "date-time" },
+    "updated_at": { "type": "string", "format": "date-time" },
+    "state": { "$ref": "#/$defs/runState" },
+    "tool_invocations": { "type": "array", "items": { "$ref": "#/$defs/toolInvocation" } },
+    "retry_count": { "type": "integer", "minimum": 0 },
+    "repair_call_count": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 1,
+      "description": "At most one compact repair call after deterministic validation failure. Separate budget from human clarification rounds (§15.5)."
+    },
+    "clarification_round_count": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 3,
+      "description": "Up to three human clarification rounds with stable gap ids."
+    },
+    "approvals": { "type": "array", "items": { "$ref": "#/$defs/approvalRecord" } },
+    "token_metrics": { "$ref": "#/$defs/tokenMetrics" },
+    "latency_by_stage_ms": {
+      "type": "object",
+      "additionalProperties": { "type": "number", "minimum": 0 }
+    }
+  },
+  "required": [
+    "run_id",
+    "spec_schema_version",
+    "source_sha256",
+    "index_version",
+    "created_at",
+    "updated_at",
+    "state",
+    "tool_invocations",
+    "retry_count",
+    "repair_call_count",
+    "clarification_round_count",
+    "approvals"
+  ],
+  "unevaluatedProperties": false
+}

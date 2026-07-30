@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://adalfi.dev/schemas/shared/candidate-identity.schema.json",
+  "title": "CandidateIdentity",
+  "description": "The frozen identity tuple (P1-FINAL §12). candidate_id is opaque and derived; no SQLite row number appears in any public contract.",
+  "type": "object",
+  "properties": {
+    "candidate_id": {
+      "type": "string",
+      "pattern": "^c_[0-9a-f]{24}$",
+      "description": "Opaque, deterministic, derived from source_sha256 + index_version + source_record_ref. A model may select one but cannot construct one that verifies."
+    },
+    "source_record_ref": {
+      "type": "string",
+      "pattern": "^(variable|paint-style|text-style|effect-style|grid-style):[^\\u0000]+$",
+      "description": "Structured locator resolving to exactly one complete normalized record. Optional @mode suffix for mode-bearing records."
+    },
+    "source_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$",
+      "description": "SHA-256 of the authoritative curated source. Mismatch means re-resolve, never remap."
+    },
+    "index_version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$",
+      "description": "Derived-index format version. Mismatch means rebuild the index."
+    }
+  },
+  "required": ["candidate_id", "source_record_ref", "source_sha256", "index_version"],
+  "unevaluatedProperties": false
+}
