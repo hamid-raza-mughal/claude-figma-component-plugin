@@ -129,6 +129,15 @@ export class RunStore {
     return row !== undefined;
   }
 
+  /** §2.5: resumption re-enters a run by run_id or display_id. */
+  getRunByDisplayId(displayId: string): RunRow | undefined {
+    const row = this.db.prepare('SELECT * FROM run WHERE display_id = ?').get(displayId) as
+      | (Omit<RunRow, 'route_verified'> & { route_verified: number })
+      | undefined;
+    if (row === undefined) return undefined;
+    return { ...row, route_verified: row.route_verified === 1 };
+  }
+
   /** The seq to use for the *next* append — 0 if the run has no events yet. */
   getMaxSeq(runId: string): number {
     const row = this.db.prepare('SELECT MAX(seq) AS max_seq FROM run_event WHERE run_id = ?').get(runId) as
@@ -142,6 +151,49 @@ export class RunStore {
       .prepare('SELECT run_id, seq, at, kind, from_phase, to_phase, payload_json FROM run_event WHERE run_id = ? ORDER BY seq ASC')
       .all(runId) as RunEventRowRaw[];
     return rows.map(toRunEventRow);
+  }
+
+  /**
+   * §13.2: every tool call is recorded, success or refusal — a refusal that
+   * leaves no trace is indistinguishable from a call never made. `runId` is
+   * nullable because `resolveCommand` and a refused `beginRun` happen before
+   * a run exists (§11.2) — keying on `run_id` would make exactly the
+   * refusals this table exists to record unrecordable.
+   */
+  logToolInvocation(
+    runId: string | null,
+    tool: string,
+    invokedAt: string,
+    durationMs: number,
+    ok: boolean,
+    errorCode: string | null,
+  ): void {
+    this.db
+      .prepare(
+        'INSERT INTO tool_invocation (run_id, tool, invoked_at, duration_ms, ok, error_code) VALUES (?, ?, ?, ?, ?, ?)',
+      )
+      .run(runId, tool, invokedAt, durationMs, ok ? 1 : 0, errorCode);
+  }
+
+  getToolInvocations(runId: string | null): readonly {
+    readonly tool: string;
+    readonly invoked_at: string;
+    readonly duration_ms: number;
+    readonly ok: boolean;
+    readonly error_code: string | null;
+  }[] {
+    const sql =
+      runId === null
+        ? 'SELECT tool, invoked_at, duration_ms, ok, error_code FROM tool_invocation WHERE run_id IS NULL ORDER BY op_seq ASC'
+        : 'SELECT tool, invoked_at, duration_ms, ok, error_code FROM tool_invocation WHERE run_id = ? ORDER BY op_seq ASC';
+    const rows = (runId === null ? this.db.prepare(sql).all() : this.db.prepare(sql).all(runId)) as {
+      tool: string;
+      invoked_at: string;
+      duration_ms: number;
+      ok: number;
+      error_code: string | null;
+    }[];
+    return rows.map((row) => ({ ...row, ok: row.ok === 1 }));
   }
 
   /**
