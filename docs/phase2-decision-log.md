@@ -132,3 +132,36 @@ every Phase 2 run rather than an accident of what today's code happens to write.
 
 **Revisit trigger:** HD-1 landing (per D-7) — at that point `authorizing`/`verified` gain a
 real path to `true`, exercised through a different, verified `response_source` member.
+
+---
+
+### PD-6 · `closeRun blocked`'s reachability vs. the printed §12.2 table
+
+**Question, surfaced while building the transition registry (WP2), not by general
+review.** §10's last row — `closeRun blocked` on a `source-invalidated` event — is one of
+the two rows revision 4 added. Its `From` column reads "any non-terminal," and G-21's prose
+independently confirms `closeRun blocked` and `cancelRun` are "the only remaining exits" for
+an invalidated run, naming no phase restriction. But the printed §12.2 tool-surface table
+lists `closeRun` under only three phases — `validating`, `awaiting-clarification`,
+`handoff-ready` — not under `received`, `preparing`, `drafting` or `awaiting-approval`. A
+run can genuinely be sitting in any of those four when a refresh invalidates it: §8.4 notes
+drafting has no detectable deadline, and `awaiting-approval` is a named pause phase, so
+`source.refresh` racing either is an ordinary case, not an edge case requiring a special
+ruling.
+
+**Ruling.** §12.2.1 states its own derivation rule: "every phase-scoped tool appears here
+iff §10 lists it as a trigger from that phase." The transition registry (`src/registry/transitions.ts`)
+therefore derives the tool surface **mechanically from §10**, exactly as instructed — which
+means `closeRun` is reachable from every non-terminal phase (to serve row 20's `blocked`
+exit), not only the three phases the printed table shows. `src/registry/transitions.ts` is
+the one normative source; the printed §12.2 table is that derivation's own output, and
+where the two disagree the derivation wins, per the contract's own stated rule.
+
+**Why this is the smallest safe choice.** This is not a new ruling — it is applying §12.2.1's
+existing rule to a row (§10's last one) that was added in revision 4 without the printed
+table being regenerated afterward. No behavior is invented; the registry's own equality
+test (computed surface vs. a literal transcription of §12.2) is what surfaced the gap, and
+resolving it means trusting §10 over a stale rendering of its own derivation.
+
+**Revisit trigger:** none for code. A future contract revision should regenerate §12.2's
+printed table from the registry so the two stop disagreeing in text.
