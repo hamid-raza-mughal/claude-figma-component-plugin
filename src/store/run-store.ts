@@ -54,6 +54,19 @@ export type ArtifactRow = {
   readonly canonical_json: string;
 };
 
+export type ApprovalRow = {
+  readonly run_id: string;
+  readonly gate: 'gate-1-semantic' | 'gate-2-acceptance';
+  readonly gate_mode: string;
+  readonly approved_artifact_sha256: string;
+  readonly decision: 'approved' | 'rejected' | 'changes-requested';
+  readonly approved_at: string;
+  readonly approved_by: string;
+  readonly response_source: string;
+  readonly verified: boolean;
+  readonly authorizing: boolean;
+};
+
 export type AppendResult = { readonly ok: true; readonly seq: number } | { readonly ok: false; readonly reason: 'cas-conflict' };
 
 type RunEventRowRaw = {
@@ -246,6 +259,68 @@ export class RunStore {
     return this.db
       .prepare('SELECT * FROM artifact WHERE run_id = ? ORDER BY composed_at ASC')
       .all(runId) as ArtifactRow[];
+  }
+
+  /** §7.4: `response_source`/`verified`/`authorizing` are always
+   *  `'model-relayed'`/`false`/`false` in Phase 2 — this method's caller
+   *  constructs them, never the tool's own caller (G-9b is structural: the
+   *  public tool input has no field for a caller to supply them through). */
+  putApproval(row: ApprovalRow): void {
+    try {
+      this.db
+        .prepare(
+          `INSERT INTO approval (run_id, gate, gate_mode, approved_artifact_sha256, decision,
+             approved_at, approved_by, response_source, verified, authorizing)
+           VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+        )
+        .run(
+          row.run_id,
+          row.gate,
+          row.gate_mode,
+          row.approved_artifact_sha256,
+          row.decision,
+          row.approved_at,
+          row.approved_by,
+          row.response_source,
+          row.verified ? 1 : 0,
+          row.authorizing ? 1 : 0,
+        );
+    } catch (error: unknown) {
+      const message = error instanceof Error ? error.message : String(error);
+      throw new StoreAppendError(`putApproval failed for run "${row.run_id}": ${message}`);
+    }
+  }
+
+  /** Most recent approval row, or `undefined` if none has been recorded. */
+  getLatestApproval(runId: string): ApprovalRow | undefined {
+    const row = this.db
+      .prepare('SELECT * FROM approval WHERE run_id = ? ORDER BY op_seq DESC LIMIT 1')
+      .get(runId) as (Omit<ApprovalRow, 'verified' | 'authorizing'> & { verified: number; authorizing: number }) | undefined;
+    if (row === undefined) return undefined;
+    return { ...row, verified: row.verified === 1, authorizing: row.authorizing === 1 };
+  }
+
+  /**
+   * §2.11.1: every `run_id` immutably pinned to `sourceSha256` — both
+   * terminal and non-terminal. The caller (the Guard's maintenance flow)
+   * folds each to decide which are still non-terminal and therefore need a
+   * `source-invalidated` marker; this method only answers "pinned to this
+   * hash," which is a plain, immutable column read.
+   */
+  listRunIdsBySourceHash(sourceSha256: string): readonly string[] {
+    const rows = this.db.prepare('SELECT run_id FROM run WHERE source_sha256 = ?').all(sourceSha256) as {
+      run_id: string;
+    }[];
+    return rows.map((row) => row.run_id);
+  }
+
+  /** Every distinct `source_sha256` any run is pinned to — the candidate set
+   *  a refresh must compare its new hash against (there is no single "old"
+   *  hash to diff, since different runs can be pinned to different sources
+   *  after more than one prior refresh). */
+  listDistinctSourceHashes(): readonly string[] {
+    const rows = this.db.prepare('SELECT DISTINCT source_sha256 FROM run').all() as { source_sha256: string }[];
+    return rows.map((row) => row.source_sha256);
   }
 
   /**

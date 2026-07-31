@@ -36,12 +36,12 @@ import { RunStore, type ArtifactRow } from '../store/run-store.ts';
 import { storePreflight } from '../store/preflight.ts';
 import { GuardRefusal } from '../guard/errors.ts';
 import { deriveBeginRun, type BeginRunInput } from '../guard/begin-run.ts';
-import { foldRunEvents, type DerivedRunState } from '../guard/fold.ts';
+import { foldRunEvents, type DerivedRunState, type RunEventRow } from '../guard/fold.ts';
 import type { HostCommandMetadata } from '../guard/provenance.ts';
 import { resolveCommand as registryResolveCommand, type ResolveCommandResult } from '../registry/operations.ts';
-import { isToolReachableFromPhase, type ToolName } from '../registry/transitions.ts';
-import { checkRepairEligibility } from '../guard/budgets.ts';
-import type { StagePhase } from '../contracts/run-envelope.ts';
+import { isToolReachableFromPhase, type ToolName, type RunEventKind } from '../registry/transitions.ts';
+import { checkRepairEligibility, checkOpenClarification, hasClarificationBudgetRemaining } from '../guard/budgets.ts';
+import type { StagePhase, RunOutcome } from '../contracts/run-envelope.ts';
 import type { RunType, ResolvedCoordinatorInvocation } from '../contracts/invocation.ts';
 import type { Phase1Config } from '../config/phase1-config.ts';
 import { ingest } from '../ingestion/curated-json-loader.ts';
@@ -54,11 +54,13 @@ import { selectRouteModule } from '../coordinator/select-route-module.ts';
 import { assembleModelInput } from '../coordinator/assemble-model-input.ts';
 import { assertNoLeakage } from '../coordinator/leakage-assertion.ts';
 import { inactiveRouteModuleIds } from '../coordinator/select-route-module.ts';
-import { composeTrustedOutput } from '../coordinator/compose-trusted-output.ts';
+import { composeTrustedOutput, hashOutput } from '../coordinator/compose-trusted-output.ts';
 import { collectSelectedCandidateIds } from '../contracts/coordinator-draft.ts';
 import { renderApprovalView, type ApprovalView } from '../rendering/render-approval-view.ts';
+import { renderMachineHandoff, renderingsAgree, type MachineHandoff } from '../rendering/render-machine-handoff.ts';
 import { SchemaRegistry } from '../validation/schema-validator.ts';
-import { findOperationalLeaks } from '../contracts/run-envelope.ts';
+import { findOperationalLeaks, type ApprovalRecord } from '../contracts/run-envelope.ts';
+import { hasBlockingGap } from '../contracts/resolution.ts';
 import type { CoordinatorJudgmentDraft } from '../contracts/coordinator-draft.ts';
 import type { CoordinatorOutput } from '../contracts/coordinator-output.ts';
 import type { ResolverCandidate } from '../contracts/resolution.ts';
@@ -108,6 +110,42 @@ export type SubmitDraftResult =
 export type PresentForApprovalResult = {
   readonly artifact_sha256: string;
   readonly approval_view: ApprovalView;
+};
+
+export type OpenClarificationResult = {
+  readonly round: number;
+  readonly phase: 'awaiting-clarification';
+};
+
+export type AnswerClarificationResult = {
+  readonly phase: 'drafting';
+};
+
+export type ClarificationAnswer = {
+  readonly gap_id: string;
+  readonly answer: string;
+};
+
+export type RecordApprovalDecision = 'approved' | 'rejected' | 'changes-requested';
+
+export type RecordApprovalResult =
+  | { readonly outcome: 'advance'; readonly phase: 'handoff-ready' }
+  | { readonly outcome: 'redraft'; readonly phase: 'drafting' }
+  | { readonly outcome: 'terminal'; readonly phase: 'terminal' };
+
+export type BuildHandoffResult = {
+  readonly machine_handoff: MachineHandoff;
+  readonly next_route: 'builder' | 'synthesizer' | null;
+};
+
+export type CloseRunResult = {
+  readonly outcome: RunOutcome;
+};
+
+export type RunMaintenanceResult = {
+  readonly ok: boolean;
+  readonly outcome: string;
+  readonly invalidated_run_ids: readonly string[];
 };
 
 /** §3.3.1: 72 hours, one value for both runtimes. */
@@ -190,6 +228,14 @@ export class CoordinatorEngine {
   private foldRun(runId: string): DerivedRunState {
     const events = this.getStore().getEvents(runId);
     return foldRunEvents(events);
+  }
+
+  private mostRecentEventOfKind(runId: string, kind: RunEventRow['kind']): RunEventRow | undefined {
+    const events = this.getStore().getEvents(runId);
+    for (let i = events.length - 1; i >= 0; i -= 1) {
+      if (events[i]?.kind === kind) return events[i];
+    }
+    return undefined;
   }
 
   /**
@@ -592,5 +638,344 @@ export class CoordinatorEngine {
       );
     }
     return artifact;
+  }
+
+  /**
+   * §5, §10 row 8, §13's row. Gaps are read from the submitted draft, not
+   * re-supplied (§13's own words) — retrieved from the most recent
+   * `draft-submitted` event's stored output, never from a caller-supplied
+   * list. `opened_in_round` is the model's echo (§5.3.1): validated equal to
+   * the Guard-derived round (G-6b), never trusted as authority.
+   */
+  openClarification(runId: string): OpenClarificationResult {
+    return this.invoke(runId, 'openClarification', (store) => {
+      const state = this.foldRun(runId);
+      this.assertReachable('openClarification', state.phase);
+      this.refuseIfSourceInvalidated(runId, state);
+
+      const draftEvent = this.mostRecentEventOfKind(runId, 'draft-submitted');
+      const output = draftEvent?.payload['canonical_output'] as CoordinatorOutput | undefined;
+      if (output === undefined || output.status !== 'blocked') {
+        throw new GuardRefusal(
+          'G-1',
+          `No blocked composition exists for run "${runId}" — openClarification has nothing to open.`,
+        );
+      }
+      const gaps = output.active_gaps;
+      if (!hasBlockingGap(gaps)) {
+        throw new GuardRefusal('G-1', `Run "${runId}" has no active blocking gap to clarify.`);
+      }
+      const openedInRound = gaps[0]?.opened_in_round;
+      if (openedInRound === undefined || !gaps.every((gap) => gap.opened_in_round === openedInRound)) {
+        throw new GuardRefusal('G-6b', 'Every gap in one composition must share one opened_in_round.');
+      }
+      checkOpenClarification(state, openedInRound);
+
+      const seq = store.getMaxSeq(runId) + 1;
+      const appended = store.appendEvent(
+        runId,
+        seq,
+        this.now(),
+        'clarification-opened',
+        'validating',
+        'awaiting-clarification',
+        { gaps },
+      );
+      if (!appended.ok) throw new GuardRefusal('G-20b', 'CAS conflict appending clarification-opened.');
+      return { round: openedInRound, phase: 'awaiting-clarification' };
+    });
+  }
+
+  /**
+   * §5.4, §10 row 12, §13's row. Approvals for the superseded artifact are
+   * voided by construction, not by deletion (§7.5) — the next `submitDraft`
+   * composes a new artifact, and G-7/G-8 always compare against whatever
+   * `getCurrentArtifact` returns at the time, never a value cached here.
+   */
+  answerClarification(
+    runId: string,
+    round: number,
+    answers: readonly ClarificationAnswer[],
+  ): AnswerClarificationResult {
+    return this.invoke(runId, 'answerClarification', (store) => {
+      const state = this.foldRun(runId);
+      this.assertReachable('answerClarification', state.phase);
+      this.refuseIfSourceInvalidated(runId, state);
+      if (round !== state.clarificationRoundCount) {
+        throw new GuardRefusal(
+          'G-1',
+          `Run "${runId}" is awaiting answers for round ${state.clarificationRoundCount}, not ${round}.`,
+        );
+      }
+      const seq = store.getMaxSeq(runId) + 1;
+      const appended = store.appendEvent(
+        runId,
+        seq,
+        this.now(),
+        'clarification-answered',
+        'awaiting-clarification',
+        'drafting',
+        { round, answers },
+      );
+      if (!appended.ok) throw new GuardRefusal('G-20b', 'CAS conflict appending clarification-answered.');
+      return { phase: 'drafting' };
+    });
+  }
+
+  /**
+   * §7, §10 rows 14/15/16, §13's row. `gate_mode` is always
+   * `observe-only-validation` in Phase 2 (G-9a); `verified`/`authorizing` are
+   * always `false` (G-9b) — structural, since `RecordApprovalDecision` and
+   * this method's own parameters give a caller no field to supply otherwise.
+   * G-7/G-8: the artifact presented must still be the artifact current now.
+   */
+  recordApproval(runId: string, decision: RecordApprovalDecision, approvedBy: string): RecordApprovalResult {
+    return this.invoke(runId, 'recordApproval', (store) => {
+      const state = this.foldRun(runId);
+      this.assertReachable('recordApproval', state.phase);
+      this.refuseIfSourceInvalidated(runId, state);
+
+      const artifact = this.requireReadyArtifact(store, runId);
+      const presented = this.mostRecentEventOfKind(runId, 'approval-presented');
+      const presentedSha = presented?.payload['artifact_sha256'];
+      if (presentedSha !== artifact.artifact_sha256) {
+        throw new GuardRefusal(
+          'G-8',
+          `Run "${runId}"'s artifact changed since it was presented — re-present before recording a decision.`,
+        );
+      }
+
+      const at = this.now();
+      store.putApproval({
+        run_id: runId,
+        gate: 'gate-1-semantic',
+        gate_mode: 'observe-only-validation',
+        approved_artifact_sha256: artifact.artifact_sha256,
+        decision,
+        approved_at: at,
+        approved_by: approvedBy,
+        response_source: 'model-relayed',
+        verified: false,
+        authorizing: false,
+      });
+
+      const seq = store.getMaxSeq(runId) + 1;
+      if (decision === 'approved') {
+        const appended = store.appendEvent(runId, seq, at, 'approval-recorded-approved', 'awaiting-approval', 'handoff-ready', {});
+        if (!appended.ok) throw new GuardRefusal('G-20b', 'CAS conflict appending approval-recorded-approved.');
+        return { outcome: 'advance', phase: 'handoff-ready' };
+      }
+      if (decision === 'changes-requested') {
+        const appended = store.appendEvent(
+          runId,
+          seq,
+          at,
+          'approval-recorded-changes-requested',
+          'awaiting-approval',
+          'drafting',
+          {},
+        );
+        if (!appended.ok) {
+          throw new GuardRefusal('G-20b', 'CAS conflict appending approval-recorded-changes-requested.');
+        }
+        return { outcome: 'redraft', phase: 'drafting' };
+      }
+      const appended = store.appendEvent(runId, seq, at, 'run-blocked-approval-rejected', 'awaiting-approval', 'terminal', {
+        reason: 'gate-1-rejected',
+      });
+      if (!appended.ok) throw new GuardRefusal('G-20b', 'CAS conflict appending run-blocked-approval-rejected.');
+      return { outcome: 'terminal', phase: 'terminal' };
+    });
+  }
+
+  /**
+   * §9.2, §10 row 17 (the compound-trigger row), §13's row. Appends the
+   * `handoff-built` marker (§11.2) — carries the payload §9.2.1's value 4
+   * reads, but does not itself change phase; `closeRun completed` (row 17's
+   * other half) is the actual `handoff-ready -> terminal` transition, and it
+   * runs G-10's four-value check, not this method.
+   */
+  buildHandoff(runId: string): BuildHandoffResult {
+    return this.invoke(runId, 'buildHandoff', (store) => {
+      const state = this.foldRun(runId);
+      this.assertReachable('buildHandoff', state.phase);
+      this.refuseIfSourceInvalidated(runId, state);
+
+      const artifact = store.getCurrentArtifact(runId);
+      if (artifact === undefined) throw new GuardRefusal('G-19b', `No artifact exists for run "${runId}".`);
+      const output = JSON.parse(artifact.canonical_json) as CoordinatorOutput;
+      if (output.next_route === null) {
+        throw new GuardRefusal(
+          'G-19b',
+          `Run "${runId}"'s bound artifact has a null next_route — buildHandoff cannot proceed (§4.6, §9.1).`,
+        );
+      }
+
+      const approvalRow = store.getLatestApproval(runId);
+      const approval: ApprovalRecord | undefined =
+        approvalRow === undefined
+          ? undefined
+          : {
+              gate: approvalRow.gate,
+              gate_mode: 'observe-only-validation',
+              approved_artifact_sha256: approvalRow.approved_artifact_sha256,
+              approved_at: approvalRow.approved_at,
+              approved_by: approvalRow.approved_by,
+              decision: approvalRow.decision,
+              response_source: 'model-relayed',
+              verified: approvalRow.verified,
+              authorizing: approvalRow.authorizing,
+            };
+
+      const handoff = renderMachineHandoff(output, approval);
+      const seq = store.getMaxSeq(runId) + 1;
+      const appended = store.appendEvent(runId, seq, this.now(), 'handoff-built', null, null, {
+        source_object_sha256: handoff.source_object_sha256,
+        machine_handoff: handoff,
+      });
+      if (!appended.ok) throw new GuardRefusal('G-20b', 'CAS conflict appending handoff-built.');
+      return { machine_handoff: handoff, next_route: output.next_route };
+    });
+  }
+
+  /**
+   * §9, §10 rows 10/13/17/20, §13's row. `outcome` selects which of §10's
+   * terminal rows applies; `completed` is G-10's four-value check (§9.2.1,
+   * D-9) — the one place a stored-bytes re-hash must actually re-parse from
+   * storage, or the check proves nothing (§9.2.1's own point about the
+   * tautology it replaces). `blocked` on a `source-invalidated` run is G-21's
+   * designated exit and is allowed even though every *other* forward tool is
+   * refused for that run.
+   */
+  closeRun(runId: string, outcome: 'completed' | 'blocked'): CloseRunResult {
+    return this.invoke(runId, 'closeRun', (store) => {
+      const state = this.foldRun(runId);
+      this.assertReachable('closeRun', state.phase);
+
+      if (outcome === 'blocked') {
+        if (state.sourceInvalidated) {
+          return this.appendTerminal(store, runId, 'run-blocked-source-invalidated', state.phase, { reason: 'source-invalidated' });
+        }
+        if (state.phase === 'validating') {
+          const draftEvent = this.mostRecentEventOfKind(runId, 'draft-submitted');
+          const output = draftEvent?.payload['canonical_output'] as CoordinatorOutput | undefined;
+          const blocked = output !== undefined && output.status === 'blocked' && hasBlockingGap(output.active_gaps);
+          if (!blocked) {
+            throw new GuardRefusal('G-1', `Run "${runId}" is not blocked with active gaps — nothing to close blocked.`);
+          }
+          if (hasClarificationBudgetRemaining(state)) {
+            throw new GuardRefusal('G-1', `Run "${runId}" still has clarification budget — call openClarification first.`);
+          }
+          return this.appendTerminal(store, runId, 'run-blocked-no-clarification-budget', 'validating', {});
+        }
+        if (state.phase === 'awaiting-clarification') {
+          if (hasClarificationBudgetRemaining(state)) {
+            throw new GuardRefusal('G-1', `Run "${runId}" still has clarification budget remaining (§5.5).`);
+          }
+          return this.appendTerminal(store, runId, 'run-blocked-clarification-budget-exhausted', 'awaiting-clarification', {});
+        }
+        throw new GuardRefusal('G-1', `closeRun(blocked) has no registered row from phase "${state.phase}".`);
+      }
+
+      // outcome === 'completed': G-10, four independently sourced values (§9.2.1).
+      if (state.phase !== 'handoff-ready') {
+        throw new GuardRefusal('G-1', `closeRun(completed) requires handoff-ready, not "${state.phase}".`);
+      }
+      const artifact = store.getCurrentArtifact(runId);
+      if (artifact === undefined) throw new GuardRefusal('G-19b', `No artifact exists for run "${runId}".`);
+      const approval = store.getLatestApproval(runId);
+      if (approval === undefined) {
+        throw new GuardRefusal('G-10', `Run "${runId}" has no recorded approval to compare against.`);
+      }
+      const handoffEvent = this.mostRecentEventOfKind(runId, 'handoff-built');
+      const handoffSha = handoffEvent?.payload['source_object_sha256'];
+      if (typeof handoffSha !== 'string') {
+        throw new GuardRefusal('G-10', `Run "${runId}" has no built handoff to compare against.`);
+      }
+      // Value 3: re-derived from the stored bytes, not the in-memory object —
+      // this is the check that can actually fail (§9.2.1's own argument).
+      const reparsed = JSON.parse(artifact.canonical_json) as CoordinatorOutput;
+      const rederivedSha = hashOutput(reparsed);
+      const agree = renderingsAgree(approval.approved_artifact_sha256, handoffSha, reparsed);
+      const allFour =
+        agree && approval.approved_artifact_sha256 === artifact.artifact_sha256 && rederivedSha === artifact.artifact_sha256;
+      if (!allFour) {
+        throw new GuardRefusal(
+          'G-10',
+          `Run "${runId}"'s four completion values disagree — approval=${approval.approved_artifact_sha256.slice(0, 12)}…, ` +
+            `artifact=${artifact.artifact_sha256.slice(0, 12)}…, rederived=${rederivedSha.slice(0, 12)}…, handoff=${handoffSha.slice(0, 12)}….`,
+        );
+      }
+      return this.appendTerminal(store, runId, 'run-completed', 'handoff-ready', {});
+    });
+  }
+
+  private appendTerminal(
+    store: RunStore,
+    runId: string,
+    kind: Extract<
+      RunEventKind,
+      | 'run-blocked-source-invalidated'
+      | 'run-blocked-no-clarification-budget'
+      | 'run-blocked-clarification-budget-exhausted'
+      | 'run-completed'
+    >,
+    fromPhase: StagePhase,
+    payload: Readonly<Record<string, unknown>>,
+  ): CloseRunResult {
+    const seq = store.getMaxSeq(runId) + 1;
+    const appended = store.appendEvent(runId, seq, this.now(), kind, fromPhase, 'terminal', payload);
+    if (!appended.ok) throw new GuardRefusal('G-20b', `CAS conflict appending ${kind}.`);
+    const outcomeByKind = {
+      'run-blocked-source-invalidated': 'blocked',
+      'run-blocked-no-clarification-budget': 'blocked',
+      'run-blocked-clarification-budget-exhausted': 'blocked',
+      'run-completed': 'completed',
+    } as const;
+    return { outcome: outcomeByKind[kind] };
+  }
+
+  /**
+   * §2.11, §13's row: maintenance operations never enter the phase model.
+   * `source.refresh` re-ingests with a forced rebuild, then compares the new
+   * hash against every hash any run is currently pinned to (§2.11.1) — not
+   * a single "before" snapshot taken within this same call, which would
+   * always equal "after" since nothing changes the file between two reads
+   * in one invocation. The old hash comes from what runs actually recorded
+   * at `beginRun`, not from re-deriving a stale local variable.
+   */
+  runMaintenance(operationId: 'source.refresh' | 'source.validate'): RunMaintenanceResult {
+    return this.invoke(null, 'runMaintenance', (store) => {
+      if (operationId === 'source.validate') {
+        ingest(this.config.phase1Config(), { now: this.now() });
+        return { ok: true, outcome: 'validated', invalidated_run_ids: [] };
+      }
+
+      const forced = ingest(this.config.phase1Config(), { now: this.now(), forceRebuild: true });
+      const newSha = forced.manifest.snapshot.source_sha256;
+
+      const invalidated: string[] = [];
+      for (const oldSha of store.listDistinctSourceHashes()) {
+        if (oldSha === newSha) continue;
+        for (const candidateRunId of store.listRunIdsBySourceHash(oldSha)) {
+          const state = this.foldRun(candidateRunId);
+          if (state.phase === 'terminal') continue;
+          const seq = store.getMaxSeq(candidateRunId) + 1;
+          const appended = store.appendEvent(candidateRunId, seq, this.now(), 'source-invalidated', null, null, {
+            old_source_sha256: oldSha,
+            new_source_sha256: newSha,
+          });
+          if (appended.ok) invalidated.push(candidateRunId);
+          // A CAS loss here means another writer advanced this run first; that
+          // advance itself pinned a phase this refresh no longer needs to
+          // invalidate against — not appending is correct, not a defect.
+        }
+      }
+      return {
+        ok: true,
+        outcome: invalidated.length > 0 ? 'refreshed' : 'unchanged',
+        invalidated_run_ids: invalidated,
+      };
+    });
   }
 }
