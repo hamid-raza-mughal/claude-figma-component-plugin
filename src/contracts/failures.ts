@@ -64,6 +64,7 @@ export const ENFORCEMENT_OWNERS = [
   'deterministic-composer',
   'renderer',
   'human-gate',
+  'run-guard',
 ] as const;
 
 export type EnforcementOwner = (typeof ENFORCEMENT_OWNERS)[number];

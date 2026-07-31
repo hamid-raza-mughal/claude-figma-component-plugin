@@ -442,7 +442,7 @@ if (!SOURCE_AVAILABLE) {
     });
   });
 
-  describe('listByCategory (§13.4.4) — controller-owned, capped, logged', () => {
+  describe('listByCategory (§13.4.4) — Run-Guard-owned, capped, logged', () => {
     test('refuses a Coordinator caller', () => {
       const { reader } = harness();
       assert.throws(
@@ -456,10 +456,10 @@ if (!SOURCE_AVAILABLE) {
       );
     });
 
-    test('serves the controller, capped, and always reports broadened_from', () => {
+    test('serves the run-guard caller, capped, and always reports broadened_from', () => {
       const { reader } = harness();
       const result = listByCategory(reader, {
-        caller: 'controller',
+        caller: 'run-guard',
         property_category: 'spacing',
         broadened_from: 'q1 narrow query failed',
       });
@@ -472,7 +472,7 @@ if (!SOURCE_AVAILABLE) {
     test('every broadened candidate is low confidence and says why', () => {
       const { reader } = harness();
       const result = listByCategory(reader, {
-        caller: 'controller',
+        caller: 'run-guard',
         property_category: 'spacing',
         broadened_from: 'q1',
       });
@@ -485,7 +485,7 @@ if (!SOURCE_AVAILABLE) {
     test('an over-cap request is clamped and reports truncation', () => {
       const { reader } = harness();
       const result = listByCategory(reader, {
-        caller: 'controller',
+        caller: 'run-guard',
         property_category: 'color',
         broadened_from: 'q1',
         cap: 9999,

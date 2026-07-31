@@ -61,7 +61,7 @@
         "gap_id": { "type": "string", "minLength": 1 },
         "state": { "enum": ["active", "resolved", "reopened"] },
         "severity": { "enum": ["blocking", "non-blocking"] },
-        "owner": { "enum": ["user", "coordinator", "controller"] },
+        "owner": { "enum": ["user", "coordinator", "run-guard"] },
         "question": { "type": "string", "minLength": 1 },
         "evidence": { "type": "string", "minLength": 1 },
         "required_answer": { "type": "string", "minLength": 1 },
@@ -87,7 +87,7 @@
         "kind": {
           "enum": ["mode_coverage_gap", "interaction_state_gap", "broadened_retrieval", "partial_extraction"]
         },
-        "owner": { "enum": ["coordinator", "synthesizer", "controller"] },
+        "owner": { "enum": ["coordinator", "synthesizer", "run-guard"] },
         "evidence": { "type": "string", "minLength": 1 },
         "actionable": { "const": false }
       },
@@ -163,7 +163,8 @@
                   "reference-validator",
                   "deterministic-composer",
                   "renderer",
-                  "human-gate"
+                  "human-gate",
+                  "run-guard"
                 ]
               }
             },

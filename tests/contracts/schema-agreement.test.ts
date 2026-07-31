@@ -17,14 +17,22 @@ import { makeCandidateIdentity } from '../../src/contracts/identity.ts';
 import { resolveInvocation } from '../../src/contracts/invocation.ts';
 import { STAGE_PHASES, RUN_OUTCOMES, STAGE_NAMES } from '../../src/contracts/run-envelope.ts';
 import type { RunEnvelope } from '../../src/contracts/run-envelope.ts';
+import { ENFORCEMENT_OWNERS } from '../../src/contracts/failures.ts';
 
 const SCHEMA_DIR = join(dirname(fileURLToPath(import.meta.url)), '..', '..', 'schemas', 'shared');
+const COORDINATOR_SCHEMA_DIR = join(dirname(fileURLToPath(import.meta.url)), '..', '..', 'schemas', 'coordinator');
 
 function loadSchema(name: string): { $id: string } & Record<string, unknown> {
   return JSON.parse(readFileSync(join(SCHEMA_DIR, name), 'utf8')) as { $id: string } & Record<
     string,
     unknown
   >;
+}
+
+function loadOutputSchema(): { $id: string } & Record<string, unknown> {
+  return JSON.parse(
+    readFileSync(join(COORDINATOR_SCHEMA_DIR, 'coordinator-output.schema.json'), 'utf8'),
+  ) as { $id: string } & Record<string, unknown>;
 }
 
 const IDENTITY_SCHEMA = loadSchema('candidate-identity.schema.json');
@@ -201,10 +209,87 @@ describe('RunEnvelope — schema and type agree', () => {
           approved_at: '2026-07-29T10:00:00Z',
           approved_by: 'ux@techlogix.com',
           decision: 'approved',
+          response_source: 'model-relayed',
+          verified: false,
+          authorizing: false,
         },
       ],
     });
     assert.equal(result.ok, true, JSON.stringify(!result.ok ? result.violations : []));
+  });
+
+  /**
+   * §7.4.1 / §19 D-7, v4 §F widening. Absent, the schema rejects the record —
+   * proving `response_source`/`verified`/`authorizing` are required, not optional
+   * (N-5: "an absent flag is indistinguishable from false").
+   */
+  test('an approval missing the three Phase 2 response-source fields is rejected', () => {
+    const result = registry().validate(ENVELOPE_SCHEMA.$id, {
+      ...ENVELOPE,
+      approvals: [
+        {
+          gate: 'gate-1-semantic',
+          gate_mode: 'observe-only-validation',
+          approved_artifact_sha256: SHA,
+          approved_at: '2026-07-29T10:00:00Z',
+          approved_by: 'ux@techlogix.com',
+          decision: 'approved',
+        },
+      ],
+    });
+    assert.equal(result.ok, false);
+  });
+
+  /** G-9b only means something if the schema can represent true at all
+   *  (docs/phase2-decision-log.md PD-5) — this is the type-level half of that. */
+  test('verified: true and authorizing: true are representable at the schema level', () => {
+    const result = registry().validate(ENVELOPE_SCHEMA.$id, {
+      ...ENVELOPE,
+      approvals: [
+        {
+          gate: 'gate-1-semantic',
+          gate_mode: 'observe-only-validation',
+          approved_artifact_sha256: SHA,
+          approved_at: '2026-07-29T10:00:00Z',
+          approved_by: 'ux@techlogix.com',
+          decision: 'approved',
+          response_source: 'model-relayed',
+          verified: true,
+          authorizing: true,
+        },
+      ],
+    });
+    assert.equal(
+      result.ok,
+      true,
+      'the schema must not forbid true — G-9b is a Guard-enforced runtime refusal, not a type-level one',
+    );
+  });
+});
+
+describe('ENFORCEMENT_OWNERS — TS tuple and schema enum agree (§8.5, §11.7 row 1)', () => {
+  test('the schema enum matches the TS tuple exactly, including run-guard', () => {
+    const outputSchema = loadOutputSchema();
+    const defs = outputSchema['$defs'] as Record<string, unknown>;
+    const failureReport = defs['failureReport'] as {
+      properties: { evidence: { items: { properties: { enforced_by: { enum: string[] } } } } };
+    };
+    const schemaEnum = failureReport.properties.evidence.items.properties.enforced_by.enum;
+    assert.deepEqual(schemaEnum, [...ENFORCEMENT_OWNERS]);
+    assert.ok(schemaEnum.includes('run-guard'));
+  });
+});
+
+describe("ClarificationGap.owner / Disclosure.owner — 'controller' retargeted to 'run-guard' (§11.7 row 3)", () => {
+  test('neither owner enum contains the retired controller literal', () => {
+    const outputSchema = loadOutputSchema();
+    const defs = outputSchema['$defs'] as Record<string, unknown>;
+    const gap = defs['clarificationGap'] as { properties: { owner: { enum: string[] } } };
+    const disclosure = defs['disclosure'] as { properties: { owner: { enum: string[] } } };
+    assert.ok(!gap.properties.owner.enum.includes('controller'));
+    assert.ok(!disclosure.properties.owner.enum.includes('controller'));
+    assert.ok(gap.properties.owner.enum.includes('run-guard'));
+    assert.ok(disclosure.properties.owner.enum.includes('run-guard'));
   });
 });
 

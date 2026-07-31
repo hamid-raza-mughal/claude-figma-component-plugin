@@ -56,7 +56,7 @@
     },
     "approvalRecord": {
       "type": "object",
-      "description": "Binds the SHA-256 of the exact approved artifact, so the approval refers to something specific rather than to a moment in time (§14.3.19).",
+      "description": "Binds the SHA-256 of the exact approved artifact, so the approval refers to something specific rather than to a moment in time (§14.3.19). response_source/verified/authorizing travel on the record so a receiving stage (e.g. the machine handoff) sees the qualification, not just a name and a decision (§7.4.1).",
       "properties": {
         "gate": { "enum": ["gate-1-semantic", "gate-2-acceptance"] },
         "gate_mode": {
@@ -65,8 +65,24 @@
         },
         "approved_artifact_sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
         "approved_at": { "type": "string", "format": "date-time" },
-        "approved_by": { "type": "string", "minLength": 1 },
-        "decision": { "enum": ["approved", "rejected", "changes-requested"] }
+        "approved_by": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Unverified attribution only. No Guard, transition, budget, approval-binding or completion decision may read this (§7.4.2, G-17)."
+        },
+        "decision": { "enum": ["approved", "rejected", "changes-requested"] },
+        "response_source": {
+          "enum": ["model-relayed"],
+          "description": "Phase 2 has exactly one member: no host supplies a verified approval channel yet (HD-1)."
+        },
+        "verified": {
+          "type": "boolean",
+          "description": "Always false in Phase 2, enforced at runtime by G-9b. Typed boolean, not the literal false, so the refusal has something to refuse (§7.4, G-9b)."
+        },
+        "authorizing": {
+          "type": "boolean",
+          "description": "Always false in Phase 2, enforced at runtime by G-9b."
+        }
       },
       "required": [
         "gate",
@@ -74,7 +90,10 @@
         "approved_artifact_sha256",
         "approved_at",
         "approved_by",
-        "decision"
+        "decision",
+        "response_source",
+        "verified",
+        "authorizing"
       ],
       "unevaluatedProperties": false
     },

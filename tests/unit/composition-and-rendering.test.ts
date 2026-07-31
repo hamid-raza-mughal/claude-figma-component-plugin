@@ -738,11 +738,13 @@ describe('dual rendering from one object (§16.3)', () => {
     assert.equal(handoff.next_stage, output.next_route);
   });
 
-  test('an unapproved handoff says so explicitly', () => {
+  /** §7.4: even the "no response" precondition must not imply a verified human
+   *  approval channel exists to be missing — reworded from "UNAPPROVED" to say so. */
+  test('a handoff with no recorded response says so explicitly', () => {
     assert.ok(output !== undefined);
     if (output === undefined) return;
     const handoff = renderMachineHandoff(output);
-    assert.ok(handoff.receiver_preconditions.some((line) => /UNAPPROVED/.test(line)));
+    assert.ok(handoff.receiver_preconditions.some((line) => /NO RECORDED RESPONSE/.test(line)));
     assert.equal(handoff.approval, undefined);
   });
 
@@ -756,6 +758,9 @@ describe('dual rendering from one object (§16.3)', () => {
       approved_at: '2026-07-29T10:05:00Z',
       approved_by: 'ux@techlogix.com',
       decision: 'approved',
+      response_source: 'model-relayed',
+      verified: false,
+      authorizing: false,
     };
     const handoff = renderMachineHandoff(output, wrong);
     assert.ok(handoff.receiver_preconditions.some((line) => /APPROVAL MISMATCH/.test(line)));
@@ -771,9 +776,36 @@ describe('dual rendering from one object (§16.3)', () => {
       approved_at: '2026-07-29T10:05:00Z',
       approved_by: 'ux@techlogix.com',
       decision: 'approved',
+      response_source: 'model-relayed',
+      verified: false,
+      authorizing: false,
     };
     const handoff = renderMachineHandoff(output, approval);
     assert.ok(handoff.receiver_preconditions.some((line) => /authorises no write/.test(line)));
+  });
+
+  /** §7.4.1: the qualification travels with the embedded record, so a receiving
+   *  stage sees it rather than a bare name and decision. */
+  test('a recorded response states its unverified, non-authorizing source', () => {
+    assert.ok(output !== undefined);
+    if (output === undefined) return;
+    const approval: ApprovalRecord = {
+      gate: 'gate-1-semantic',
+      gate_mode: 'observe-only-validation',
+      approved_artifact_sha256: hashOutput(output),
+      approved_at: '2026-07-29T10:05:00Z',
+      approved_by: 'ux@techlogix.com',
+      decision: 'approved',
+      response_source: 'model-relayed',
+      verified: false,
+      authorizing: false,
+    };
+    const handoff = renderMachineHandoff(output, approval);
+    assert.ok(
+      handoff.receiver_preconditions.some(
+        (line) => /model-relayed/.test(line) && /unverified/.test(line) && /non-authorizing/.test(line),
+      ),
+    );
   });
 
   test('a builder handoff states sandbox-only and requires a nodeMap', () => {

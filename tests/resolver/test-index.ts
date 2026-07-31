@@ -27,7 +27,8 @@ export function harness(): { reader: IndexReader; ingestion: IngestionResult; de
   if (cached !== undefined) return cached;
   if (CURATED_SOURCE === undefined) throw new Error('ADALFI_ARTIFACT_DIR is not set');
   const derivedDir = mkdtempSync(join(tmpdir(), 'adalfi-index-'));
-  const config = resolvePhase1Config({ curatedSourcePath: CURATED_SOURCE, derivedDir });
+  const approvedDataDirectory = mkdtempSync(join(tmpdir(), 'adalfi-approved-'));
+  const config = resolvePhase1Config({ curatedSourcePath: CURATED_SOURCE, derivedDir, approvedDataDirectory });
   const ingestion = ingest(config, { now: '2026-07-29T00:00:00.000Z' });
   const reader = new IndexReader(ingestion.database_path);
   cached = { reader, ingestion, derivedDir };
@@ -36,4 +37,8 @@ export function harness(): { reader: IndexReader; ingestion: IngestionResult; de
 
 export function freshDerivedDir(): string {
   return mkdtempSync(join(tmpdir(), 'adalfi-fresh-'));
+}
+
+export function freshApprovedDataDirectory(): string {
+  return mkdtempSync(join(tmpdir(), 'adalfi-approved-'));
 }

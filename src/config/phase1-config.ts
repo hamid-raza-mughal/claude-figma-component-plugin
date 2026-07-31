@@ -20,16 +20,28 @@ export const INDEX_VERSION = '1.0.0';
 export type Phase1Config = {
   /** Absolute path to the authoritative curated design-system JSON. */
   readonly curatedSourcePath: string;
-  /** Directory for derived artifacts (SQLite index, generated schema card). */
+  /** Directory for derived artifacts (SQLite index, generated schema card).
+   *  Disposable and rebuildable — never the durable store's home. */
   readonly derivedDir: string;
   /** Format version of the derived index. */
   readonly indexVersion: string;
+  /**
+   * Phase 2 widening (§11.2.1, §11.7 row 4, v4 §F): the directory holding the
+   * durable run/event store. Distinct configuration because it is a distinct
+   * durability class — the run store is authoritative and must not be
+   * rebuildable, unlike `derivedDir`. On R-2 this **is** the directory a human
+   * explicitly approved (§1.6). Defaulting it to `derivedDir` is prohibited: it
+   * would place the sole authority inside the one directory the system is
+   * entitled to delete and rebuild.
+   */
+  readonly approvedDataDirectory: string;
 };
 
 export type Phase1ConfigInput = {
   readonly curatedSourcePath?: string | undefined;
   readonly derivedDir?: string | undefined;
   readonly indexVersion?: string | undefined;
+  readonly approvedDataDirectory?: string | undefined;
 };
 
 export class ConfigError extends Error {
@@ -83,5 +95,18 @@ export function resolvePhase1Config(
   if (!/^\d+\.\d+\.\d+$/.test(indexVersion)) {
     throw new ConfigError(`indexVersion must be semver, received: ${indexVersion}`, 'indexVersion');
   }
-  return { curatedSourcePath, derivedDir, indexVersion };
+  const approvedDataDirectory = requireAbsolute(
+    input.approvedDataDirectory ?? env['ADALFI_APPROVED_DATA_DIR'],
+    'approvedDataDirectory',
+    'ADALFI_APPROVED_DATA_DIR',
+  );
+  if (approvedDataDirectory === derivedDir) {
+    throw new ConfigError(
+      'approvedDataDirectory must not equal derivedDir: the durable run store is ' +
+        'authoritative and must not live inside the disposable, rebuildable index ' +
+        'directory (§11.2.1). Defaulting it to derivedDir is prohibited, not merely discouraged.',
+      'approvedDataDirectory',
+    );
+  }
+  return { curatedSourcePath, derivedDir, indexVersion, approvedDataDirectory };
 }

@@ -167,7 +167,7 @@ export type ClarificationGap = {
   readonly gap_id: string;
   readonly state: GapState;
   readonly severity: GapSeverity;
-  readonly owner: 'user' | 'coordinator' | 'controller';
+  readonly owner: 'user' | 'coordinator' | 'run-guard';
   readonly question: string;
   readonly evidence: string;
   readonly required_answer: string;
@@ -199,7 +199,7 @@ export type DisclosureKind = (typeof DISCLOSURE_KINDS)[number];
 export type Disclosure = {
   readonly disclosure_id: string;
   readonly kind: DisclosureKind;
-  readonly owner: 'coordinator' | 'synthesizer' | 'controller';
+  readonly owner: 'coordinator' | 'synthesizer' | 'run-guard';
   readonly evidence: string;
   /** Literal `false`. A disclosure can never demand action, and therefore can
    *  never produce `blocked`. */

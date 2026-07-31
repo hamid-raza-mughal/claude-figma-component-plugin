@@ -9,7 +9,7 @@ import { test, describe } from 'node:test';
 import assert from 'node:assert/strict';
 import { existsSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
-import { harness, freshDerivedDir, SOURCE_AVAILABLE, CURATED_SOURCE } from './test-index.ts';
+import { harness, freshDerivedDir, freshApprovedDataDirectory, SOURCE_AVAILABLE, CURATED_SOURCE } from './test-index.ts';
 import { resolvePhase1Config } from '../../src/config/phase1-config.ts';
 import { ingest, IngestionError } from '../../src/ingestion/curated-json-loader.ts';
 import { assessReuse, indexPathFor } from '../../src/ingestion/content-addressed-store.ts';
@@ -226,7 +226,8 @@ describe('content-addressed reuse (§13.1.9-10)', () => {
 
   test('a second ingest of the same source reuses the index', () => {
     const derivedDir = freshDerivedDir();
-    const config = resolvePhase1Config({ curatedSourcePath: CURATED_SOURCE, derivedDir });
+    const approvedDataDirectory = freshApprovedDataDirectory();
+    const config = resolvePhase1Config({ curatedSourcePath: CURATED_SOURCE, derivedDir, approvedDataDirectory });
     const first = ingest(config, { now: '2026-07-29T00:00:00.000Z' });
     assert.equal(first.reuse_decision, 'rebuild-absent');
     const second = ingest(config, { now: '2026-07-29T00:00:01.000Z' });
@@ -237,7 +238,8 @@ describe('content-addressed reuse (§13.1.9-10)', () => {
    *  with an unchanged source must still rebuild. */
   test('an index-format bump refuses to reuse', () => {
     const derivedDir = freshDerivedDir();
-    ingest(resolvePhase1Config({ curatedSourcePath: CURATED_SOURCE, derivedDir }));
+    const approvedDataDirectory = freshApprovedDataDirectory();
+    ingest(resolvePhase1Config({ curatedSourcePath: CURATED_SOURCE, derivedDir, approvedDataDirectory }));
     const bumped = assessReuse(derivedDir, hashSourceBytes('irrelevant'), '9.9.9');
     assert.equal(bumped.reusable, false);
     assert.equal(bumped.decision, 'rebuild-absent');
@@ -245,7 +247,8 @@ describe('content-addressed reuse (§13.1.9-10)', () => {
 
   test('a changed source refuses to reuse', () => {
     const derivedDir = freshDerivedDir();
-    const config = resolvePhase1Config({ curatedSourcePath: CURATED_SOURCE, derivedDir });
+    const approvedDataDirectory = freshApprovedDataDirectory();
+    const config = resolvePhase1Config({ curatedSourcePath: CURATED_SOURCE, derivedDir, approvedDataDirectory });
     ingest(config);
     const assessment = assessReuse(derivedDir, 'f'.repeat(64), config.indexVersion);
     assert.equal(assessment.reusable, false);
@@ -264,10 +267,11 @@ describe('content-addressed reuse (§13.1.9-10)', () => {
 
   test('a malformed source fails visibly rather than producing an empty index', () => {
     const derivedDir = freshDerivedDir();
+    const approvedDataDirectory = freshApprovedDataDirectory();
     const bad = join(derivedDir, 'bad.json');
     writeFileSync(bad, '{ not json');
     assert.throws(
-      () => ingest(resolvePhase1Config({ curatedSourcePath: bad, derivedDir })),
+      () => ingest(resolvePhase1Config({ curatedSourcePath: bad, derivedDir, approvedDataDirectory })),
       (error: unknown) => error instanceof IngestionError && error.code === 'SOURCE_MALFORMED_JSON',
     );
   });

@@ -3,7 +3,8 @@
  *
  * **Defined, not executed.** Phase 1 fixes these types so downstream contracts
  * can reference them; it does not persist run state or perform transitions.
- * That is Phase 2 Runtime Controller work (§7.2).
+ * That is Phase 2 Run Guard work (§7.2) — no standalone Runtime Controller
+ * process exists; the concerns it would have owned live in the Guard instead.
  *
  * The boundary this file exists to draw: `RunEnvelope` owns every operational
  * fact, and a model draft owns none. Without that split a model can author its
@@ -119,6 +120,34 @@ export type ToolInvocationRecord = {
 export const GATE_MODES = ['observe-only-validation', 'authorising'] as const;
 export type GateMode = (typeof GATE_MODES)[number];
 
+/**
+ * Where a recorded response came from. Phase 2 has exactly one member —
+ * `'model-relayed'` — because no host supplies a verified approval channel yet
+ * (HD-1). Kept as a union rather than a bare string so a future verified source
+ * widens this the same way `RunType`/`FailureClass` widen: by adding a member,
+ * not by loosening the type (host-turn-workflow-contract.md §7.4).
+ */
+export const RESPONSE_SOURCES = ['model-relayed'] as const;
+export type ResponseSource = (typeof RESPONSE_SOURCES)[number];
+
+/**
+ * Phase 2 widening (§7.4.1, §19 D-7, v4 §F): `response_source`, `verified` and
+ * `authorizing` travel **on** the record, not beside it, because
+ * `renderMachineHandoff` embeds the record verbatim — a receiving stage must see
+ * the qualification, not just a name and a decision.
+ *
+ * `verified`/`authorizing` are `boolean`, not the literal `false`: G-9b is a
+ * Guard-enforced *runtime* refusal of `true` in Phase 2, which only means
+ * something if the type can represent `true` at all. Phase 2 code always
+ * constructs `false`/`false`/`'model-relayed'`; the Guard is what makes that an
+ * enforced fact about every run rather than an accident of current code
+ * (docs/phase2-decision-log.md PD-5).
+ *
+ * `approved_by` is kept and explicitly exempted as unverified attribution
+ * (§7.4.2, §19 D-7) — a caller-supplied string that vouches for nobody. No
+ * Guard, transition, budget, approval-binding or completion decision may read
+ * it (G-17).
+ */
 export type ApprovalRecord = {
   readonly gate: 'gate-1-semantic' | 'gate-2-acceptance';
   readonly gate_mode: GateMode;
@@ -126,8 +155,12 @@ export type ApprovalRecord = {
    *  approval refer to something specific rather than to a moment in time. */
   readonly approved_artifact_sha256: string;
   readonly approved_at: string;
+  /** Unverified attribution only — never read by any decision (§7.4.2, G-17). */
   readonly approved_by: string;
   readonly decision: 'approved' | 'rejected' | 'changes-requested';
+  readonly response_source: ResponseSource;
+  readonly verified: boolean;
+  readonly authorizing: boolean;
 };
 
 export type TokenMetrics = {
@@ -197,6 +230,9 @@ export const OPERATIONAL_FIELD_NAMES: readonly string[] = [
   'approved_at',
   'approved_by',
   'gate_mode',
+  'response_source',
+  'verified',
+  'authorizing',
   'token_metrics',
   'input_tokens',
   'output_tokens',

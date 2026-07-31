@@ -1,14 +1,17 @@
 /**
  * `listByCategory` — the capped escape hatch (§13.4.4).
  *
- * **Not a Coordinator tool.** Controller-executed, capped, logged, and it runs
+ * **Not a Coordinator tool.** Run-Guard-executed, capped, logged, and it runs
  * only when the deterministic planner could not form a safe narrow query. It
  * always reports `broadened_from`, so relaxed retrieval is visible in the run
  * record rather than inferred later from a suspiciously wide candidate set.
  *
- * The ownership rule is enforced by requiring an explicit caller identity rather
- * than by documentation, because "don't call this from the Coordinator" is not a
- * constraint a comment can hold.
+ * The caller-identity check below is defense-in-depth, not the control: per
+ * host-turn-workflow-contract.md §14.5, a caller-supplied string with one
+ * published value is "a password, not a control." The actual enforcement is
+ * `listByCategory`'s **absence from every phase's tool surface** (§12.2) — it is
+ * never registered as a Coordinator-callable tool at all (docs/phase2-decision-log.md
+ * PD-4).
  */
 import type { IndexReader } from './index-reader.ts';
 import type { ResolverCandidate } from '../contracts/resolution.ts';
@@ -19,9 +22,13 @@ import { confidenceFromScore } from './candidate-ranking.ts';
  *  architecture removed. */
 export const LIST_BY_CATEGORY_CAP = 25;
 
-export const CALLER_CONTROLLER = 'controller' as const;
+/** The Guard's caller identity — the single literal reused for this string,
+ *  the `run-guard` EnforcementOwner, and the `ClarificationGap`/`Disclosure`
+ *  owner union member (§11.7 row 3, docs/phase2-decision-log.md PD-4). Replaces
+ *  the retired `'controller'` identity: SA-32 builds no standalone Controller. */
+export const CALLER_RUN_GUARD = 'run-guard' as const;
 
-export type ListByCategoryCaller = typeof CALLER_CONTROLLER;
+export type ListByCategoryCaller = typeof CALLER_RUN_GUARD;
 
 export class ListByCategoryOwnershipError extends Error {
   override readonly name = 'ListByCategoryOwnershipError';
@@ -29,7 +36,7 @@ export class ListByCategoryOwnershipError extends Error {
 }
 
 export type ListByCategoryRequest = {
-  /** Must be `'controller'`. Any other value is refused. */
+  /** Must be `'run-guard'`. Any other value is refused. */
   readonly caller: string;
   readonly property_category: string;
   /** What the narrow query was, so the broadening is attributable. */
@@ -50,9 +57,9 @@ export type ListByCategoryResult = {
 };
 
 export function listByCategory(reader: IndexReader, request: ListByCategoryRequest): ListByCategoryResult {
-  if (request.caller !== CALLER_CONTROLLER) {
+  if (request.caller !== CALLER_RUN_GUARD) {
     throw new ListByCategoryOwnershipError(
-      `listByCategory is controller-owned; refused for caller "${request.caller}". ` +
+      `listByCategory is Run-Guard-owned; refused for caller "${request.caller}". ` +
         'It is not a Coordinator tool (§13.4.4).',
     );
   }
