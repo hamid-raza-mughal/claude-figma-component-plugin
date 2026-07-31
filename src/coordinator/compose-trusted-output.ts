@@ -1,5 +1,10 @@
 /**
- * The 11-step validation and composition sequence (§16.1).
+ * Steps 1–10 of the §16.1 sequence: validation and trusted composition.
+ *
+ * §16.1 specifies eleven steps. The eleventh is rendering, and it lives in
+ * `src/rendering/` on purpose — see `composition-sequence.ts`, which binds the
+ * eleven to the ten so the split is checked rather than described. This module
+ * ends where the trusted object exists and has passed its own schema.
  *
  * The boundary this module *is*: **no model-generated operational field survives it.**
  * A draft goes in; a trusted output comes out, composed entirely from the index and
@@ -27,6 +32,7 @@ import type { CoordinatorOutput } from '../contracts/coordinator-output.ts';
 import type { PreservationContract, ExtractionCoverage } from '../contracts/semantic.ts';
 import type { ObservedTreeExcerpt } from '../contracts/observed-tree.ts';
 
+/** Steps 1–10. Step 11 is `RENDERING_STEP` in `composition-sequence.ts`. */
 export const COMPOSITION_STEPS = [
   '1-draft-schema',
   '2-route-payload-compatibility',

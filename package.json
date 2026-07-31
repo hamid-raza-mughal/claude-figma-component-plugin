@@ -12,7 +12,11 @@
     "typecheck": "tsc --noEmit",
     "lint": "eslint .",
     "test": "node --test --test-reporter=spec \"tests/**/*.test.ts\"",
-    "verify": "npm run typecheck && npm run lint && npm run build && npm test"
+    "preflight": "node tools/preflight-artifacts.ts",
+    "test:strict": "node tools/run-suite.ts",
+    "test:source": "node tools/run-suite.ts --source-only",
+    "verify": "npm run preflight && npm run typecheck && npm run lint && npm run build && npm run test:strict",
+    "verify:source": "npm run typecheck && npm run lint && npm run build && npm run test:source"
   },
   "dependencies": {
     "ajv": "^8.17.1",

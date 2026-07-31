@@ -142,6 +142,78 @@ anchor set. Then, and only then, gating is a recordable decision.
 
 ---
 
+## D-E · `npm run verify` requires the artifact bundle
+
+**Decision.** `npm run verify` is the mandatory Phase 1 gate and **fails** when the authoritative artifact
+bundle is unavailable. The weaker source-only path is renamed rather than removed: `npm run verify:source`.
+Closed 2026-07-30.
+
+**Why.** Every source-backed suite self-skips when the bundle is absent — correct, and deliberate — but
+`node --test` exits 0 with skips, and nothing was checking the skip count. So `npm run verify` on a fresh
+clone reported green having run **344 of 428 tests**, silently omitting resolver ingestion, ranking, recall,
+the port cross-check, assembly and baseline integrity. That is the same defect class Phase 1 exists to
+remove: a check that passes without executing the thing it claims. Making the honest run the default and
+forcing the partial one to be asked for by name puts the burden of proof on the weaker claim.
+
+**What it enforces.** Preflight, before any work: `ADALFI_ARTIFACT_DIR` set · curated export present · its
+SHA-256 equal to the baseline manifest. Then, on the run: `fail` 0 · `skipped` 0 · `todo` 0 · `cancelled` 0 ·
+test count at or above a recorded floor. Each is a separately named check, because a missing bundle and a
+drifted bundle need different responses.
+
+**Why the floor as well as the skip count.** Skip counting cannot see a suite file dropping out of the
+`tests/**` glob — those tests do not skip, they cease to exist. The floor is the only hard-coded expectation
+in the gate and is declared once, in `EXPECTATIONS` in `tools/run-suite.ts`.
+
+**Why source drift fails.** A re-export invalidates the derived index (§13.1.6) and every measured number
+that cites the source. Failing is the correct conservative behaviour; `ADALFI_ALLOW_SOURCE_DRIFT=1` runs
+anyway and states in its output that the measured claims are void for that run.
+
+**Revisit trigger.** The bundle becoming available to CI — at which point `verify:source` loses its reason
+to exist and CI should run the real gate.
+
+---
+
+## D-F · §16.1 is eleven steps; the composer implements ten
+
+**Decision.** `composeTrustedOutput` keeps its **ten**-entry `COMPOSITION_STEPS` registry, and rendering
+stays step **11** in `src/rendering/`. The eleven and the ten are bound in `src/coordinator/composition-sequence.ts`
+(`SPEC_16_1_SEQUENCE`, `RENDERING_STEP`, `STEP_OWNERSHIP`) and the split is asserted in tests. Closed 2026-07-30.
+
+**Why this was a defect.** P1-FINAL §16.1 lists eleven steps, the eleventh being "render approval and machine
+views from that same object". The code was right and the prose was wrong: the composer's docstring, the
+blueprint diagram and a `describe()` block all called a ten-entry registry "the 11-step sequence". A
+count that does not match the artifact it describes is how a reader concludes a step is missing.
+
+**Why not extend the registry to eleven.** Folding rendering into the composer would (a) give the composer
+I/O and make it untestable without renderers, and (b) collapse two independently authored renderings into
+one code path — destroying the property that both bind `source_object_sha256` and can therefore be *shown*
+to agree. Two views is how a human comes to approve something subtly different from what gets built; the
+shared hash is the defence, and it needs the views to be separate to mean anything.
+
+**What makes it stick.** `SPEC_16_1_SEQUENCE` is derived from `COMPOSITION_STEPS` rather than retyped, so
+the two cannot drift in the direction that caused this. Tests assert the sequence is eleven, that the first
+ten are identical to the composer's registry, that ownership partitions the sequence with no step claimed
+twice, that a successful composition reports ten steps and never claims rendering, and that both renderers
+bind the hash the composer produced at step 10.
+
+---
+
+## D-G · CI verifies source only; the artifact gate stays local
+
+**Decision.** `.github/workflows/ci.yml` runs `verify:source` on Node 22.18.0 and 22.x. The artifact-backed
+gate is a controlled local/release step. Closed 2026-07-30.
+
+**Why.** The curated export is a design artifact living outside this repository (D-A) and is not published to
+CI, so the source-backed suites cannot run there. The risk is not that CI is weaker — it is that a green CI
+badge gets read as Phase 1 evidence. Three things prevent that: `verify:source` refuses to run if
+`ADALFI_ARTIFACT_DIR` is set, so the two paths can never be confused; it requires the skip count to equal
+**exactly** the seven known bundle-gated placeholders, so a new unintended skip fails CI rather than hiding
+among expected ones; and the workflow emits a notice stating what it did not verify.
+
+**Revisit trigger.** Same as D-E — a bundle reachable from CI.
+
+---
+
 ## Implementation choices made under P1-FINAL §1
 
 > "When a detail is not specified here, choose the smallest runtime-neutral implementation that satisfies

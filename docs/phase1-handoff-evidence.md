@@ -3,7 +3,7 @@
 All twenty items required by P1-FINAL §19. Each names where the evidence lives, so a
 reviewer can check it rather than take this document's word for it.
 
-**Date:** 2026-07-30 · **Both gates passed** · **428 tests, 0 failures** · **0 model calls**
+**Date:** 2026-07-30 · **Both gates passed** · **428 tests, 0 failures** at handoff (447 after D-E/D-F, same day) · **0 model calls**
 
 ---
 
@@ -11,12 +11,12 @@ reviewer can check it rather than take this document's word for it.
 
 | Area | Count | Location |
 |---|---|---|
-| Source modules | 46 | `src/` |
+| Source modules | 47 | `src/` — 46 at handoff; `coordinator/composition-sequence.ts` added by D-F |
 | JSON Schemas | 6 | `schemas/` |
-| Test files | 16 | `tests/` |
+| Test files | 17 | `tests/` — 16 at handoff; `unit/verification-gate.test.ts` added by D-E |
 | Active fixtures | 13 | `tests/fixtures/active/` |
 | Documents | 6 | `docs/` |
-| Tools | 2 | `tools/` |
+| Tools | 5 | `tools/` — 2 at handoff; `artifact-bundle.ts`, `preflight-artifacts.ts`, `run-suite.ts` added by D-E |
 
 **Modified outside this repository** — the v1 artifact bundle in
 `Agentic_Pipelines/Manage_DS_Components/`: `coordinator_agent_spec.md`,
@@ -31,7 +31,7 @@ plus new `manage-ds-components-spec-amendments_v3.md` and a persisted copy of P1
 
 ## 2. Phase 1 decision log
 
-`docs/phase1-decision-log.md` — D-A through D-D with revisit triggers, nine
+`docs/phase1-decision-log.md` — D-A through D-G with revisit triggers, nine
 implementation choices (I-1…I-9), the three recorded port divergences, and the defaulted
 sub-choices logged as governance-valve decisions.
 
@@ -80,12 +80,22 @@ Section 4 of the as-built blueprint. Six named decisions; reuse requires source 
 
 ## 7. Exact commands executed
 
+At handoff:
+
 ```bash
 npm install
 npm run typecheck && npm run lint && npm run build && npm test
 ADALFI_ARTIFACT_DIR=<bundle> npm test
 node tools/build-baseline-manifest.ts <bundle> --out docs/v1-baseline-manifest.md
 node tools/run-assertions.ts
+```
+
+Since D-E, the bundle is mandatory and the first two lines above are no longer a gate —
+`npm test` exits 0 with skips. The gate is now one command:
+
+```bash
+ADALFI_ARTIFACT_DIR=<bundle> npm run verify   # preflight → typecheck → lint → build → 447 tests, 0 skipped
+npm run verify:source                          # the weaker CI path, which refuses to run if the bundle IS set
 ```
 
 ## 8. Build / lint / type-check / test totals
@@ -95,9 +105,10 @@ node tools/run-assertions.ts
 | `tsc --noEmit` (strict, `noUncheckedIndexedAccess`, `exactOptionalPropertyTypes`, `erasableSyntaxOnly`) | clean |
 | `eslint .` | clean |
 | `tsc -p tsconfig.build.json` | clean, emits to `dist/` |
-| Tests | **428 pass, 0 fail, 0 skipped** |
+| Tests | **428 pass, 0 fail, 0 skipped** at handoff. Now **447**: decisions D-E and D-F added 19 later the same day. The 428 is left standing as the handoff figure rather than overwritten |
 
-Breakdown: unit 133 · contracts 122 · resolver 127 · adversarial 46.
+Breakdown at handoff: unit 133 · contracts 122 · resolver 127 · adversarial 46.
+Current: unit 152 · contracts 122 · resolver 127 · adversarial 46 = 447.
 
 ## 9. Test-failure history and final status
 
@@ -243,8 +254,9 @@ Phase 1 added a banner at the top and changed nothing below it.
 ## 19. As-built blueprint
 
 `docs/phase1-as-built-blueprint.md` — pipeline diagram, entry commands, reuse behaviour,
-all six resolver operations, the 11-step sequence, budgets, measured facts, future gate
-points, and implemented vs approved-not-implemented.
+all six resolver operations, the §16.1 sequence (steps 1–10 in the composer, step 11 in
+the renderers), budgets, measured facts, future gate points, and implemented vs
+approved-not-implemented.
 
 ## 20. Unresolved external blockers
 
@@ -264,8 +276,9 @@ points, and implemented vs approved-not-implemented.
 
 **Implemented:** ingestion, derived index, CAS reuse, schema-card generator, six resolver
 operations, identity seam, lifecycle types, 24 contracts + `Disclosure`, closed schemas,
-judgment modules, route selection, assembler, leakage assertion, validators, 11-step
-composition, both renderers, assertion runner.
+judgment modules, route selection, assembler, leakage assertion, validators, §16.1
+steps 1–10 in the composer, step 11 in both renderers, assertion runner, the mandatory
+verification gate.
 
 **Validated static artifact:** the ten canonical fixtures, the amendment register v3, the
 interaction-state taxonomy, the baseline manifest.

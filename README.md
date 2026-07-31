@@ -5,7 +5,8 @@ resolves AdalFi design tokens, authors semantic intent, and hands off to a Figma
 approval.
 
 **Phase 1 is complete.** Both gates (`resolver-efficient`, `coordinator-core-ready`) pass:
-**428 tests, 0 failures, 0 model calls.** This repository contains the runtime-neutral
+**447 tests, 0 failures, 0 skipped, 0 model calls** — 428 as shipped on 2026-07-30, plus 19 for the
+mandatory verification gate and the §16.1 step binding. This repository contains the runtime-neutral
 deterministic engine only.
 
 Start with `docs/phase1-as-built-blueprint.md` for what runs, and
@@ -47,10 +48,10 @@ src/config/        typed configuration — no hard-coded paths
 src/contracts/     closed TypeScript contracts (WP1, WP3)
 src/ingestion/     curated-source load, normalize, hash, index (WP2)
 src/resolver/      deterministic resolution — zero model calls (WP2)
-src/coordinator/   route selection, request assembly (WP4)
+src/coordinator/   route selection, request assembly, §16.1 steps 1-10 (WP4)
 src/judgment/      prompt core + one module per route (WP4)
 src/validation/    schema, semantic and reference validators
-src/rendering/     approval view + machine handoff from one object (WP5)
+src/rendering/     approval view + machine handoff from one object — §16.1 step 11 (WP5)
 schemas/           JSON Schema, Draft 2020-12, format assertion on
 tests/             unit · contracts · resolver · adversarial · fixtures
 tools/             developer utilities (manifest generator)
@@ -69,22 +70,35 @@ step. Tests run on `node:test`; TypeScript executes via native type stripping.
 
 ```
 npm install
+ADALFI_ARTIFACT_DIR=/path/to/Manage_DS_Components npm run verify
+```
+
+`npm run verify` is the mandatory Phase 1 gate: preflight → typecheck → lint → build →
+**447 tests, 0 skipped**. It **refuses to run** without the artifact bundle rather than passing without it.
+
+Tests that read the v1 artifact bundle skip rather than pass when it is absent — a vacuous pass would be
+exactly the false evidence this design exists to remove. But `node --test` exits 0 with skips, so skipping
+alone was not enough: a verification command could report green having silently not run 84 of the tests.
+The gate now fails if the bundle is unset, missing, or hash-drifted from the baseline manifest; and fails
+again if any test skipped, if any is `todo`, or if the test count fell below the recorded floor.
+
+```
+npm run verify:source             # weaker CI path — refuses to run if the bundle IS set
+npm run preflight                 # bundle checks alone
 npm run typecheck                 # tsc --noEmit, strict
 npm run lint
 npm run build                     # emit to dist/
-npm test                          # deterministic suite
-npm run verify                    # all of the above
+npm test                          # raw node --test; exits 0 with skips, so not a gate
+npm run test:strict               # suite gate only, bundle required
 
 node tools/run-assertions.ts      # migrated workbook assertions
 node tools/build-baseline-manifest.ts <artifact-dir> --out docs/v1-baseline-manifest.md
 ```
 
-Tests that read the v1 artifact bundle need its location. They **skip** rather than pass when it is absent —
-a vacuous pass would be exactly the false evidence this design exists to remove:
-
-```
-ADALFI_ARTIFACT_DIR=/path/to/Manage_DS_Components npm test
-```
+GitHub CI runs `verify:source` only. The artifact-backed gate is a controlled local/release step, because
+the curated export is a design artifact that is not published to CI. CI permits exactly the seven
+bundle-gated placeholder skips and fails on an eighth, and its own output states that it did **not** run the
+Phase 1 gate.
 
 ## Start here
 
@@ -104,3 +118,4 @@ ADALFI_ARTIFACT_DIR=/path/to/Manage_DS_Components npm test
 | Resolver recall | 11/12 top-1 · 12/12 top-5 (n=12) vs a 9/12 · 12/12 prototype baseline |
 | Assembled model input | ~10 KB per route — **1.1% of the source**, and **zero** raw source bytes |
 | Model calls | **0** |
+| Suite | 447 tests with the bundle, 0 skipped · 363 tests source-only, 7 bundle-gated skips |

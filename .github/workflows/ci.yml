@@ -1,0 +1,63 @@
+# Source-only CI.
+#
+# What this proves: the repository typechecks, lints, builds, and every test that
+# does not require the artifact bundle passes on a clean checkout at the declared
+# Node floor.
+#
+# What this deliberately does NOT prove: the Phase 1 gate. The authoritative
+# curated export is a design artifact that lives outside this repository and is
+# not published to CI, so the source-backed suites (resolver ingestion, ranking,
+# recall, port cross-check, assembly, baseline integrity) cannot run here. Those
+# stay a controlled local/release step:
+#
+#   ADALFI_ARTIFACT_DIR=/path/to/Manage_DS_Components npm run verify
+#
+# `verify:source` refuses to run with ADALFI_ARTIFACT_DIR set, and asserts the
+# skip count equals exactly the known bundle-gated placeholders — so a green CI
+# run cannot be mistaken for the full gate, and a *new* unintended skip fails
+# here rather than passing quietly.
+name: CI
+
+on:
+  push:
+    branches: ['**']
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  source-only:
+    name: source-only verify (node ${{ matrix.node }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        # 22.18 is the declared engines floor; 22.x catches breakage in current
+        # releases of the built-in node:sqlite and node:test the engine depends on.
+        node: ['22.18.0', '22.x']
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+          cache: npm
+
+      - run: npm ci
+
+      # Fails if ADALFI_ARTIFACT_DIR is set, if any test fails, if the skip count
+      # is anything other than the known placeholders, or if the test count falls
+      # below the recorded source-only floor.
+      - name: typecheck, lint, build, source-only suite
+        run: npm run verify:source
+
+      - name: state what this run did not verify
+        if: success()
+        run: |
+          echo "::notice title=Phase 1 gate not run::Source-only CI passed. The artifact-backed Phase 1 gate (447 tests, 0 skipped) was NOT run — it requires the curated export, which is not available to CI. Run 'ADALFI_ARTIFACT_DIR=... npm run verify' locally before claiming Phase 1 evidence."

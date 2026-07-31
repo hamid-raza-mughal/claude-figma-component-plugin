@@ -21,6 +21,11 @@ import {
   COMPOSITION_STEPS,
   type ComposeInput,
 } from '../../src/coordinator/compose-trusted-output.ts';
+import {
+  SPEC_16_1_SEQUENCE,
+  RENDERING_STEP,
+  STEP_OWNERSHIP,
+} from '../../src/coordinator/composition-sequence.ts';
 import { renderApprovalView } from '../../src/rendering/render-approval-view.ts';
 import { renderMachineHandoff, renderingsAgree } from '../../src/rendering/render-machine-handoff.ts';
 import {
@@ -453,7 +458,57 @@ describe('reference validators — positive and negative', () => {
   });
 });
 
-describe('the 11-step sequence (§16.1)', () => {
+/**
+ * §16.1 specifies eleven steps; the composer implements ten and the renderers own
+ * the eleventh. That split was previously only stated in prose — and stated wrongly,
+ * as "the 11-step sequence" describing a ten-entry registry. These tests make the
+ * arithmetic executable so the two cannot disagree again.
+ */
+describe('the §16.1 sequence: ten composition steps plus rendering', () => {
+  test('the spec sequence is eleven steps, and the composer owns exactly the first ten', () => {
+    assert.equal(SPEC_16_1_SEQUENCE.length, 11);
+    assert.equal(COMPOSITION_STEPS.length, 10);
+    assert.deepEqual(SPEC_16_1_SEQUENCE.slice(0, 10), [...COMPOSITION_STEPS]);
+    assert.equal(SPEC_16_1_SEQUENCE[10], RENDERING_STEP);
+  });
+
+  test('every step has exactly one owner, and rendering is not the composer', () => {
+    const owned = [...STEP_OWNERSHIP.composer, ...STEP_OWNERSHIP.renderers];
+    assert.deepEqual(owned, [...SPEC_16_1_SEQUENCE], 'ownership must partition the sequence');
+    assert.equal(new Set(owned).size, owned.length, 'no step may be claimed twice');
+    assert.ok(
+      !(STEP_OWNERSHIP.composer as readonly string[]).includes(RENDERING_STEP),
+      'step 11 must stay outside the composer: folding it in would give a divergence between the two renderings somewhere to live',
+    );
+  });
+
+  test('a successful composition reports ten steps and never claims rendering', () => {
+    const result = composeTrustedOutput(composeInput());
+    assert.equal(result.ok, true);
+    if (!result.ok) return;
+    assert.equal(result.steps_completed.length, 10);
+    assert.ok(
+      !(result.steps_completed as readonly string[]).includes(RENDERING_STEP),
+      'the composer must not report a step it does not perform',
+    );
+  });
+
+  test('step 11 is performed by the renderers, from the composed object alone', () => {
+    const result = composeTrustedOutput(composeInput());
+    assert.equal(result.ok, true);
+    if (!result.ok) return;
+    const approval = renderApprovalView(result.output);
+    const handoff = renderMachineHandoff(result.output);
+    // Both views bind the hash the composer produced at step 10 — which is what
+    // makes step 11 verifiable rather than merely subsequent.
+    assert.equal(approval.source_object_sha256, result.output_sha256);
+    assert.equal(handoff.source_object_sha256, result.output_sha256);
+    assert.equal(
+      renderingsAgree(approval.source_object_sha256, handoff.source_object_sha256, result.output),
+      true,
+    );
+  });
+
   test('a clean draft composes and reports every step', () => {
     const result = composeTrustedOutput(composeInput());
     assert.equal(result.ok, true, result.ok ? '' : JSON.stringify(result.findings.slice(0, 3)));

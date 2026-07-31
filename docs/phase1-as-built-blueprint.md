@@ -44,13 +44,13 @@ under `src/` can reach a network or a model client.
                                   │  CoordinatorJudgmentDraft
                                   ▼
                   ┌──────────────────────────────────────────────┐
-                  │ 11-step validation + trusted composition     │
+                  │ §16.1 steps 1-10 — validation + composition  │
                   │  no model-generated operational field        │
                   │  survives this boundary                      │
                   └───────────────┬──────────────────────────────┘
                                   ▼
                   ┌──────────────────────────────────────────────┐
-                  │ ONE trusted object → TWO renderings          │
+                  │ §16.1 step 11 — ONE object → TWO renderings  │
                   │  approval view  ┐ both bind the same         │
                   │  machine handoff┘ source_object_sha256       │
                   └───────────────┬──────────────────────────────┘
@@ -65,21 +65,42 @@ below it is **approved-not-implemented**.
 
 ## 2. Entry commands
 
+The artifact bundle is **required** by `npm run verify`. Source-backed suites skip rather
+than pass when it is absent, and `node --test` exits 0 with skips — so a verification
+command that tolerates its absence reports green having not run 84 of the tests. It is
+refused instead:
+
 ```bash
 npm install
-npm run verify        # typecheck → lint → build → 428 tests
-npm run typecheck     # tsc --noEmit, strict
-npm run lint
-npm run build         # emit to dist/
-npm test
+ADALFI_ARTIFACT_DIR=/path/to/Manage_DS_Components npm run verify
+# preflight → typecheck → lint → build → 447 tests, 0 skipped
 ```
 
-Tests that read the v1 artifact bundle need its location, and **skip rather than pass**
-when it is absent — a vacuously green suite is the false evidence this phase exists to
-remove:
+`verify` fails, before doing any work, if `ADALFI_ARTIFACT_DIR` is unset, if the curated
+export is missing, or if its SHA-256 differs from the baseline manifest. It then fails
+again if any test skipped, if any is `todo`, or if the test count fell below the recorded
+floor — the last catching a suite file dropping out of the glob, which skip counting
+cannot see because those tests do not skip, they stop existing.
 
 ```bash
-ADALFI_ARTIFACT_DIR=/path/to/Manage_DS_Components npm test
+npm run verify:source   # the weaker CI path — refuses to run if the bundle IS set
+npm run preflight       # bundle checks alone
+npm run typecheck       # tsc --noEmit, strict
+npm run lint
+npm run build           # emit to dist/
+npm test                # raw node --test; exits 0 with skips, so not a gate
+```
+
+`verify:source` is what GitHub CI runs (`.github/workflows/ci.yml`). It permits exactly
+the seven bundle-gated placeholder skips and fails on an eighth, so a green CI run cannot
+be mistaken for the Phase 1 gate — and says so in its own output.
+
+A re-export of the curated JSON invalidates the derived index and every measured number
+that cites the source, so it fails the preflight by design. To run once anyway, with the
+measured claims void for that run:
+
+```bash
+ADALFI_ALLOW_SOURCE_DRIFT=1 npm run verify
 ```
 
 ## 3. Indexing and resolver commands
@@ -215,7 +236,7 @@ failure consume a question the user still needs to answer.
 | Raw curated JSON in model input | **0 bytes**, all three routes |
 | recall@1 / @3 / @5 | **11/12 · 12/12 · 12/12** (n=12) |
 | Prototype baseline | 9/12 top-1 · 12/12 top-5 |
-| Tests | 428 (unit 133 · contracts 122 · resolver 127 · adversarial 46) |
+| Tests | **447**, 0 skipped (unit 152 · contracts 122 · resolver 127 · adversarial 46). Phase 1 shipped at 428; the mandatory verification gate and the §16.1 step binding added 19 |
 | Source modules · schemas · fixtures | 46 · 6 · 13 |
 
 `n=12`. One case is ~8 points, so recall is reported as fractions and never as a
@@ -240,7 +261,8 @@ approval here can authorise one.
 ingestion · derived index · CAS reuse · schema-card generator · six resolver operations ·
 identity seam · lifecycle types · 24 contracts + `Disclosure` · closed 2020-12 schemas ·
 judgment modules · route selection · request assembler · leakage assertion · semantic and
-reference validators · 11-step composition · both renderers · assertion runner.
+reference validators · §16.1 steps 1–10 in the composer · step 11 in both renderers ·
+assertion runner · the mandatory verification gate.
 
 **Approved-not-implemented** — see `coordinator-interface-ripple.md`:
 Runtime Controller · model adapter · durable run store · clarification/approval UI ·

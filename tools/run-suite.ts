@@ -1,0 +1,194 @@
+/**
+ * The suite runner both gates go through (§17, P1-FINAL §19).
+ *
+ * `node --test` exits 0 when tests skip. Every source-backed suite in this
+ * repository self-skips when the artifact bundle is absent — deliberately, so a
+ * partial run is visible rather than silently green — but nothing was *checking*
+ * that visibility, so the exit code said the same thing either way. This runner
+ * reads the TAP summary and turns skip counts into an exit code.
+ *
+ * Two modes, and the mode is always explicit:
+ *
+ *   strict (default)  the mandatory Phase 1 gate. Every test must run.
+ *                     `skipped` must be 0. Requires the preflight to have passed.
+ *   --source-only     the CI path. Requires the bundle to be ABSENT, and requires
+ *                     the skip count to equal exactly the known bundle-gated
+ *                     placeholders — so a *new* unintended skip still fails.
+ *
+ * Both modes assert a test-count floor. Skip counting alone cannot catch a whole
+ * suite file dropping out of the `tests/**` glob: those tests do not skip, they
+ * cease to exist. The floor is the only hard-coded expectation here and is
+ * declared once, below.
+ */
+import { spawnSync } from 'node:child_process';
+import { mkdtempSync, readFileSync, rmSync } from 'node:fs';
+import { tmpdir } from 'node:os';
+import { join, resolve } from 'node:path';
+import { fileURLToPath } from 'node:url';
+import { ARTIFACT_DIR_ENV, inspectBundle } from './artifact-bundle.ts';
+
+/**
+ * Expected counts, updated deliberately when the suite grows.
+ *
+ * These are floors, not equalities: adding tests must never require editing this
+ * file to keep the gate green, but *losing* a suite must fail. The skip figure is
+ * an equality, because "how many tests are allowed not to run" is exactly the
+ * thing a floor would let drift.
+ */
+export const EXPECTATIONS = {
+  /**
+   * Full suite with the artifact bundle present. Measured 2026-07-30: 447.
+   * (Phase 1 shipped at 428; this gate and the §16.1 binding added 19.)
+   */
+  strictTestFloor: 447,
+  /** Source-only suite. Measured 2026-07-30: 363 tests, 7 skipped. */
+  sourceOnlyTestFloor: 363,
+  /**
+   * The bundle-gated placeholder tests — one per source-backed suite, each
+   * declared `{ skip: true }` so an absent bundle is legible in the report
+   * rather than invisible. Any other skip is a defect.
+   */
+  sourceOnlyExpectedSkips: 7,
+} as const;
+
+export type TapSummary = {
+  readonly tests: number;
+  readonly pass: number;
+  readonly fail: number;
+  readonly skipped: number;
+  readonly todo: number;
+  readonly cancelled: number;
+};
+
+/** Parses node's TAP epilogue. Exported so the parser is testable without a run. */
+export function parseTapSummary(tap: string): TapSummary {
+  const read = (key: string): number => {
+    // Anchored to line start so a test *name* containing "# fail 3" cannot be
+    // mistaken for the summary.
+    const match = new RegExp(`^# ${key} (\\d+)$`, 'm').exec(tap);
+    if (match?.[1] === undefined) {
+      throw new Error(`TAP summary has no "# ${key}" line — the reporter output is not what this parser expects`);
+    }
+    return Number(match[1]);
+  };
+  return {
+    tests: read('tests'),
+    pass: read('pass'),
+    fail: read('fail'),
+    skipped: read('skipped'),
+    todo: read('todo'),
+    cancelled: read('cancelled'),
+  };
+}
+
+type Check = { readonly name: string; readonly ok: boolean; readonly detail: string };
+
+export function evaluate(
+  summary: TapSummary,
+  exitCode: number,
+  mode: 'strict' | 'source-only',
+): readonly Check[] {
+  const floor = mode === 'strict' ? EXPECTATIONS.strictTestFloor : EXPECTATIONS.sourceOnlyTestFloor;
+  const allowedSkips = mode === 'strict' ? 0 : EXPECTATIONS.sourceOnlyExpectedSkips;
+
+  return [
+    {
+      name: 'runner-exit-code',
+      ok: exitCode === 0,
+      detail: `node --test exited ${exitCode}`,
+    },
+    { name: 'no-failures', ok: summary.fail === 0, detail: `fail ${summary.fail}` },
+    {
+      name: mode === 'strict' ? 'no-skipped-tests' : 'only-known-bundle-gated-skips',
+      ok: summary.skipped === allowedSkips,
+      detail:
+        mode === 'strict'
+          ? `skipped ${summary.skipped} (must be 0 — a skipped source-backed test is missing evidence, not a pass)`
+          : `skipped ${summary.skipped}, expected exactly ${allowedSkips} bundle-gated placeholders`,
+    },
+    { name: 'no-todo-tests', ok: summary.todo === 0, detail: `todo ${summary.todo}` },
+    { name: 'no-cancelled-tests', ok: summary.cancelled === 0, detail: `cancelled ${summary.cancelled}` },
+    {
+      name: 'test-count-floor',
+      ok: summary.tests >= floor,
+      detail: `tests ${summary.tests}, floor ${floor}${summary.tests < floor ? ' — a suite file stopped being collected' : ''}`,
+    },
+  ];
+}
+
+function main(): void {
+  const mode: 'strict' | 'source-only' = process.argv.includes('--source-only') ? 'source-only' : 'strict';
+  const bundle = inspectBundle(process.env);
+
+  // The mode and the environment must agree. A "source-only" run with the bundle
+  // present would report a skip count that means nothing, and a strict run
+  // without it is what the preflight already refuses.
+  if (mode === 'source-only' && bundle.kind !== 'unset') {
+    console.error(
+      `source-only mode requires ${ARTIFACT_DIR_ENV} to be unset, but it is set to ${bundle.artifactDir}.\n` +
+        'Unset it, or run the mandatory gate instead: npm run verify',
+    );
+    process.exit(1);
+  }
+  if (mode === 'strict' && bundle.kind !== 'present') {
+    console.error(
+      'strict mode requires the artifact bundle. Run `node tools/preflight-artifacts.ts` for the specific reason.',
+    );
+    process.exit(1);
+  }
+
+  const reportDir = mkdtempSync(join(tmpdir(), 'adalfi-suite-'));
+  const tapPath = join(reportDir, 'run.tap');
+  try {
+    // Two reporters: spec to the terminal so a human can read the run, TAP to a
+    // file so the exit condition is computed from a machine format rather than
+    // scraped from prose.
+    const run = spawnSync(
+      process.execPath,
+      [
+        '--test',
+        '--test-reporter=spec',
+        '--test-reporter-destination=stdout',
+        '--test-reporter=tap',
+        `--test-reporter-destination=${tapPath}`,
+        'tests/**/*.test.ts',
+      ],
+      { stdio: ['ignore', 'inherit', 'inherit'] },
+    );
+
+    if (run.error !== undefined) throw run.error;
+
+    const summary = parseTapSummary(readFileSync(tapPath, 'utf8'));
+    const checks = evaluate(summary, run.status ?? 1, mode);
+
+    console.log(`\nSuite gate — ${mode}`);
+    for (const check of checks) {
+      console.log(`  ${check.ok ? 'PASS' : 'FAIL'}  ${check.name} — ${check.detail}`);
+    }
+
+    const failed = checks.filter((check) => !check.ok);
+    if (failed.length > 0) {
+      console.error(
+        `\nGate failed on: ${failed.map((check) => check.name).join(', ')}.\n` +
+          (mode === 'strict' && summary.skipped > 0
+            ? `A skipped test in the mandatory gate means the run did not produce the evidence it claims.\n` +
+              `Check that ${ARTIFACT_DIR_ENV} points at a complete bundle.\n`
+            : ''),
+      );
+      process.exit(1);
+    }
+    console.log(
+      mode === 'strict'
+        ? `  → ${summary.tests} tests ran, none skipped, against the baseline curated source.`
+        : `  → ${summary.tests} tests ran; ${summary.skipped} bundle-gated suites did not. This run does NOT satisfy the Phase 1 gate.`,
+    );
+  } finally {
+    rmSync(reportDir, { recursive: true, force: true });
+  }
+}
+
+// Only when invoked directly, so `parseTapSummary` and `evaluate` stay importable
+// by tests without the import spawning a nested suite run.
+if (process.argv[1] !== undefined && fileURLToPath(import.meta.url) === resolve(process.argv[1])) {
+  main();
+}
