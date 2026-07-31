@@ -1,0 +1,182 @@
+/**
+ * The durable run/event store (§11) — `run` (immutable after `beginRun`) and
+ * `run_event` (append-only, sole authority, §11.1). Artifact/approval/etc.
+ * tables exist in the schema (§11.2/§11.5) but their read/write methods are
+ * added where WP6/WP7 first need them, not speculatively here.
+ *
+ * Every method that touches `run_event` either succeeds completely or throws
+ * `StoreAppendError` — **never** partial (§11.6.1: the log append and any
+ * dependent write commit together or not at all). A caller that catches
+ * `StoreAppendError` must terminate the run `hard-dependency-failure` (G-20b)
+ * and must not continue from in-memory state.
+ */
+import { DatabaseSync } from 'node:sqlite';
+import { STORE_SCHEMA_SQL } from './schema.ts';
+import type { RunEventRow } from '../guard/fold.ts';
+import type { RunEventKind } from '../registry/transitions.ts';
+import type { StagePhase } from '../contracts/run-envelope.ts';
+import type { RunType } from '../contracts/invocation.ts';
+import type { RouteProvenance } from '../guard/provenance.ts';
+
+export type RunRow = {
+  readonly run_id: string;
+  readonly display_id: string;
+  readonly operation_id: string;
+  readonly run_type: RunType;
+  readonly route_provenance: RouteProvenance;
+  readonly route_verified: boolean;
+  readonly user_intent: string;
+  readonly target_ref: string | null;
+  readonly requested_at: string;
+  readonly source_sha256: string;
+  readonly index_version: string;
+  readonly spec_schema_version: string;
+  /** Provenance only — never read by the Guard (G-17, §11.2). */
+  readonly invoked_as: string;
+};
+
+export class StoreAppendError extends Error {
+  override readonly name = 'StoreAppendError';
+  constructor(message: string) {
+    super(message);
+  }
+}
+
+export class RunAlreadyExistsError extends Error {
+  override readonly name = 'RunAlreadyExistsError';
+}
+
+export type AppendResult = { readonly ok: true; readonly seq: number } | { readonly ok: false; readonly reason: 'cas-conflict' };
+
+type RunEventRowRaw = {
+  run_id: string;
+  seq: number;
+  at: string;
+  kind: string;
+  from_phase: string | null;
+  to_phase: string | null;
+  payload_json: string;
+};
+
+function toRunEventRow(raw: RunEventRowRaw): RunEventRow {
+  return {
+    seq: raw.seq,
+    run_id: raw.run_id,
+    at: raw.at,
+    kind: raw.kind as RunEventKind,
+    from_phase: raw.from_phase as StagePhase | null,
+    to_phase: raw.to_phase as StagePhase | null,
+    payload: JSON.parse(raw.payload_json) as Record<string, unknown>,
+  };
+}
+
+export class RunStore {
+  private readonly db: DatabaseSync;
+
+  constructor(dbPath: string) {
+    this.db = new DatabaseSync(dbPath);
+    this.db.exec(STORE_SCHEMA_SQL);
+  }
+
+  close(): void {
+    this.db.close();
+  }
+
+  /** Immutable after this call — no `updateRun` method exists to omit. */
+  createRun(row: RunRow): void {
+    try {
+      this.db
+        .prepare(
+          `INSERT INTO run (run_id, display_id, operation_id, run_type, route_provenance,
+             route_verified, user_intent, target_ref, requested_at, source_sha256,
+             index_version, spec_schema_version, invoked_as)
+           VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+        )
+        .run(
+          row.run_id,
+          row.display_id,
+          row.operation_id,
+          row.run_type,
+          row.route_provenance,
+          row.route_verified ? 1 : 0,
+          row.user_intent,
+          row.target_ref,
+          row.requested_at,
+          row.source_sha256,
+          row.index_version,
+          row.spec_schema_version,
+          row.invoked_as,
+        );
+    } catch (error: unknown) {
+      const message = error instanceof Error ? error.message : String(error);
+      if (/UNIQUE/i.test(message)) {
+        throw new RunAlreadyExistsError(`run_id "${row.run_id}" or display_id "${row.display_id}" already exists.`);
+      }
+      throw new StoreAppendError(`createRun failed: ${message}`);
+    }
+  }
+
+  getRun(runId: string): RunRow | undefined {
+    const row = this.db.prepare('SELECT * FROM run WHERE run_id = ?').get(runId) as
+      | (Omit<RunRow, 'route_verified'> & { route_verified: number })
+      | undefined;
+    if (row === undefined) return undefined;
+    return { ...row, route_verified: row.route_verified === 1 };
+  }
+
+  displayIdExists(displayId: string): boolean {
+    const row = this.db.prepare('SELECT 1 FROM run WHERE display_id = ?').get(displayId);
+    return row !== undefined;
+  }
+
+  /** The seq to use for the *next* append — 0 if the run has no events yet. */
+  getMaxSeq(runId: string): number {
+    const row = this.db.prepare('SELECT MAX(seq) AS max_seq FROM run_event WHERE run_id = ?').get(runId) as
+      | { max_seq: number | null }
+      | undefined;
+    return row?.max_seq ?? 0;
+  }
+
+  getEvents(runId: string): readonly RunEventRow[] {
+    const rows = this.db
+      .prepare('SELECT run_id, seq, at, kind, from_phase, to_phase, payload_json FROM run_event WHERE run_id = ? ORDER BY seq ASC')
+      .all(runId) as RunEventRowRaw[];
+    return rows.map(toRunEventRow);
+  }
+
+  /**
+   * CAS append (§11.6.2, G-13): the caller passes the `seq` it wants to write
+   * (normally `getMaxSeq(runId) + 1`, read just before this call). If another
+   * writer already committed that `seq`, the `PRIMARY KEY (run_id, seq)`
+   * constraint fails the insert and this returns `{ok: false}` — refused, the
+   * caller must re-read `getMaxSeq` and retry, never assume its stale read.
+   *
+   * Any *other* failure (disk full, corruption, closed handle) throws
+   * `StoreAppendError` — per §11.0.3/G-20b, the caller must terminate the run
+   * `hard-dependency-failure` and never continue from memory.
+   */
+  appendEvent(
+    runId: string,
+    seq: number,
+    at: string,
+    kind: RunEventKind,
+    fromPhase: StagePhase | null,
+    toPhase: StagePhase | null,
+    payload: Readonly<Record<string, unknown>>,
+  ): AppendResult {
+    try {
+      this.db
+        .prepare(
+          'INSERT INTO run_event (run_id, seq, at, kind, from_phase, to_phase, payload_json) VALUES (?, ?, ?, ?, ?, ?, ?)',
+        )
+        .run(runId, seq, at, kind, fromPhase, toPhase, JSON.stringify(payload));
+      return { ok: true, seq };
+    } catch (error: unknown) {
+      const message = error instanceof Error ? error.message : String(error);
+      if (/UNIQUE|PRIMARY KEY/i.test(message)) {
+        return { ok: false, reason: 'cas-conflict' };
+      }
+      throw new StoreAppendError(`appendEvent failed for run "${runId}" seq ${seq}: ${message}`);
+    }
+  }
+}
