@@ -27,13 +27,17 @@ The status vocabulary is enforced: `implemented` means executable code exists an
 Nothing here is described as production-ready, pilot-ready, or Cowork-verified without that evidence.
 
 **Phase 2 (the Coordinator runtime) is implemented on top of this engine** — see
-`docs/phase2-as-built.md`. One piece of runtime evidence has landed since Phase 1's own gate:
+`docs/phase2-as-built.md`. Two pieces of runtime evidence have landed since Phase 1's own gate:
 **R-1 (Claude Code) HD-2 — the durable store, written to, interrupted, and resumed — verified
-2026-07-31**, evidence in `docs/phase2-r1-verification.md`. That is the only claim this evidence
-update makes. It does **not** mean: R-2 (Desktop/Cowork) is verified — still not claimed; Builder
-is active or any Figma write happened — neither exists in this repository; human approval is
-verified — every approval Phase 2 can record is model-relayed and unverified (HD-1 is unmet); or
-pilot/production readiness — still not claimed.
+same-process 2026-07-31 and, separately, across two genuinely independent OS processes
+2026-08-01**, evidence in `docs/phase2-r1-verification.md` (Sections A and B). That is the only
+claim this evidence update makes. It does **not** mean: R-2 (Desktop/Cowork) is verified — still
+not claimed; Builder is active or any Figma write happened — neither exists in this repository;
+human approval is verified — every approval Phase 2 can record is model-relayed and unverified
+(HD-1 is unmet); or pilot/production readiness — still not claimed. The same evidence document's
+Section C separately reports a functional design-quality gap found while running a realistic
+component request: the approval view's aggregate-confidence field is currently a hardcoded
+default rather than a real signal — see that section for detail; it is not fixed by this update.
 
 ## Why the architecture looks like this
 
