@@ -14,10 +14,12 @@ import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { readdirSync } from 'node:fs';
 import { SchemaRegistry } from '../../src/validation/schema-validator.ts';
 import {
   composeTrustedOutput,
   hashOutput,
+  keyOrder,
   COMPOSITION_STEPS,
   type ComposeInput,
 } from '../../src/coordinator/compose-trusted-output.ts';
@@ -61,6 +63,7 @@ import type { ApprovalRecord } from '../../src/contracts/run-envelope.ts';
 import { makeCandidateIdentity } from '../../src/contracts/identity.ts';
 
 const SCHEMA_DIR = join(dirname(fileURLToPath(import.meta.url)), '..', '..', 'schemas', 'coordinator');
+const OUTPUT_FIXTURES_DIR = join(dirname(fileURLToPath(import.meta.url)), '..', 'fixtures', 'active', 'outputs');
 const SHA = '2222a2b8eff4224f76ddad591cf6f46c6e8bb25ec7f96aebbf13941876356627';
 const OTHER_SHA = 'a'.repeat(64);
 const TREE = 'c'.repeat(64);
@@ -904,5 +907,63 @@ describe('static payload metrics', () => {
     const comparison = payloadVersusSource(assembled, 876098);
     assert.ok(comparison.ratio > 0 && comparison.ratio < 0.05);
     assert.ok(!Object.keys(comparison).some((key) => /saving|reduction|saved/i.test(key)));
+  });
+});
+
+/**
+ * §13.3 / §19 D-3: code-unit ordering replaces `localeCompare` because the two
+ * *can* disagree across ICU builds, which would make §9.2.1's re-derived hash
+ * (value 3) fail to reproduce for a byte-identical artifact on a different
+ * runtime. Measured, not assumed (§13.3's own words) — this walks every key in
+ * every canonical output fixture and re-measures agreement on every run,
+ * rather than trusting a one-time count recorded in prose.
+ */
+describe('canonical() key ordering (§13.3, §19 D-3)', () => {
+  function collectKeys(value: unknown, keys: Set<string>): void {
+    if (Array.isArray(value)) {
+      for (const item of value) collectKeys(item, keys);
+      return;
+    }
+    if (value === null || typeof value !== 'object') return;
+    for (const [key, child] of Object.entries(value)) {
+      keys.add(key);
+      collectKeys(child, keys);
+    }
+  }
+
+  function loadFixtureKeys(): { readonly keys: readonly string[]; readonly fixtureCount: number } {
+    const files = readdirSync(OUTPUT_FIXTURES_DIR).filter((name) => name.endsWith('.json'));
+    const keys = new Set<string>();
+    for (const file of files) {
+      const parsed = JSON.parse(readFileSync(join(OUTPUT_FIXTURES_DIR, file), 'utf8')) as unknown;
+      collectKeys(parsed, keys);
+    }
+    return { keys: [...keys], fixtureCount: files.length };
+  }
+
+  test('code-unit and locale collation agree over every key in the canonical fixtures', () => {
+    const { keys, fixtureCount } = loadFixtureKeys();
+    assert.ok(fixtureCount >= 10, `expected at least ten canonical fixtures, found ${fixtureCount}`);
+    assert.ok(keys.length >= 100, `expected a substantial key vocabulary, found ${keys.length}`);
+
+    const byCodeUnit = [...keys].sort(keyOrder);
+    const byLocale = [...keys].sort((a, b) => a.localeCompare(b, 'en'));
+    assert.deepEqual(
+      byCodeUnit,
+      byLocale,
+      'a key was found where code-unit and locale ordering disagree — §13.3 pins code-unit; ' +
+        'this failing means a real artifact hash would move, not just this test',
+    );
+  });
+
+  test('keyOrder is a total order agreeing with plain string comparison', () => {
+    assert.equal(keyOrder('a', 'b'), -1);
+    assert.equal(keyOrder('b', 'a'), 1);
+    assert.equal(keyOrder('a', 'a'), 0);
+    // The one class of pair the contract notes *could* diverge: an underscore
+    // (U+005F, code 95) against a letter (U+0061 'a', code 97). Not present in
+    // today's key vocabulary (proven above), but the comparator's own
+    // behavior on it is still exact code-unit order, not locale order.
+    assert.equal(keyOrder('_', 'a'), -1);
   });
 });

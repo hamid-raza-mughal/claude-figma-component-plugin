@@ -5,17 +5,34 @@
  * shared and identical across every runtime; only how a caller reaches this
  * class differs (WP9).
  *
- * This file wires the tools that need no Phase 1 engine call —
- * `resolveCommand`, `beginRun`, `resumeRun`, `failRun`, `cancelRun`, and
- * Guard-initiated staleness (`expireRun`, never model-callable). The four
- * tools that call into Phase 1's resolver/composer/renderer
- * (`prepareContext`, `submitDraft`, `presentForApproval`, `buildHandoff`) and
- * the artifact-dependent flows (`openClarification`, `answerClarification`,
- * `recordApproval`, `closeRun`, `runMaintenance`) are added by later work
- * packages on this same class, not a second one (§1.4 forbids a second
- * engine surface).
+ * WP5 wired the tools needing no Phase 1 engine call. This file adds three
+ * that do — `prepareContext`, `submitDraft`, `presentForApproval` — calling
+ * the existing, unmodified resolver/composer/renderer chain.
+ * `buildHandoff` moves to WP7 despite also needing Phase 1's renderer: it
+ * embeds the approval record in the machine handoff
+ * (`renderMachineHandoff(output, approval)`), and no approval exists until
+ * `recordApproval` (WP7) can write one — building it now against nothing
+ * would be exactly the kind of half-finished wiring this project's own
+ * honesty rules refuse to ship. The remaining artifact-dependent flows
+ * (`openClarification`, `answerClarification`, `recordApproval`,
+ * `buildHandoff`, `closeRun`, `runMaintenance`) are added to this same class
+ * in WP7, not a second one (§1.4 forbids a second engine surface).
+ *
+ * **PD-7 (docs/phase2-decision-log.md):** `prepareContext` for a `new` run has
+ * no semantic elements yet — those are authored during `drafting`, which
+ * comes *after* this tool — so the deterministic query planner
+ * (`query-planner.ts`'s `PlanRequestItem[]`) has nothing to plan from. This
+ * calls `listByCategory` (the Guard's own capped escape hatch, "for when the
+ * deterministic planner could not form a safe narrow query") across a fixed
+ * set of standard property categories instead, giving the model a bounded,
+ * low-confidence spread to pick from. Revisit once `modify`/`audit` gain a
+ * real target (FD-1…FD-4) and can feed `resolveBatch` narrower, item-level
+ * queries.
  */
-import { RunStore } from '../store/run-store.ts';
+import { readFileSync } from 'node:fs';
+import { join, dirname } from 'node:path';
+import { fileURLToPath } from 'node:url';
+import { RunStore, type ArtifactRow } from '../store/run-store.ts';
 import { storePreflight } from '../store/preflight.ts';
 import { GuardRefusal } from '../guard/errors.ts';
 import { deriveBeginRun, type BeginRunInput } from '../guard/begin-run.ts';
@@ -23,26 +40,44 @@ import { foldRunEvents, type DerivedRunState } from '../guard/fold.ts';
 import type { HostCommandMetadata } from '../guard/provenance.ts';
 import { resolveCommand as registryResolveCommand, type ResolveCommandResult } from '../registry/operations.ts';
 import { isToolReachableFromPhase, type ToolName } from '../registry/transitions.ts';
+import { checkRepairEligibility } from '../guard/budgets.ts';
 import type { StagePhase } from '../contracts/run-envelope.ts';
-import type { RunType } from '../contracts/invocation.ts';
+import type { RunType, ResolvedCoordinatorInvocation } from '../contracts/invocation.ts';
+import type { Phase1Config } from '../config/phase1-config.ts';
+import { ingest } from '../ingestion/curated-json-loader.ts';
+import { IndexReader } from '../resolver/index-reader.ts';
+import { listByCategory, CALLER_RUN_GUARD } from '../resolver/list-by-category.ts';
+import { materializeSelection } from '../resolver/materialize-selection.ts';
+import { portFromIndexReader } from '../resolver/resolution-lookup-port.ts';
+import { generateSchemaCard } from '../ingestion/schema-card-generator.ts';
+import { selectRouteModule } from '../coordinator/select-route-module.ts';
+import { assembleModelInput } from '../coordinator/assemble-model-input.ts';
+import { assertNoLeakage } from '../coordinator/leakage-assertion.ts';
+import { inactiveRouteModuleIds } from '../coordinator/select-route-module.ts';
+import { composeTrustedOutput } from '../coordinator/compose-trusted-output.ts';
+import { collectSelectedCandidateIds } from '../contracts/coordinator-draft.ts';
+import { renderApprovalView, type ApprovalView } from '../rendering/render-approval-view.ts';
+import { SchemaRegistry } from '../validation/schema-validator.ts';
+import { findOperationalLeaks } from '../contracts/run-envelope.ts';
+import type { CoordinatorJudgmentDraft } from '../contracts/coordinator-draft.ts';
+import type { CoordinatorOutput } from '../contracts/coordinator-output.ts';
+import type { ResolverCandidate } from '../contracts/resolution.ts';
+import type { SchemaCard } from '../contracts/source.ts';
 
 /** §11.3.1's constant, until a Phase 3+ artifact widens the spec. Not a config
  *  value: it names the P1-FINAL spec revision this engine implements, not
  *  anything that varies by environment. */
 const SPEC_SCHEMA_VERSION = '2.0.0';
 
-/** The current curated-source pin (§11.2's immutable `run` columns). A thunk,
- *  not a value, so `beginRun` always pins whatever is genuinely current at
- *  call time — computing it is Phase 1 ingestion's job (`source-hash.ts` /
- *  `resolvePhase1Config`), not this engine's; WP9 supplies the real thunk. */
-export type SourcePin = {
-  readonly source_sha256: string;
-  readonly index_version: string;
-};
+/** PD-7: standard property categories probed via `listByCategory` when no
+ *  semantic elements exist yet to plan narrower queries from. Small cap per
+ *  category — a broadened listing is explicitly low-confidence (§13.5
+ *  "compact by contract"), so this stays a bounded spread, not a dump. */
+const GENERIC_CANDIDATE_CATEGORIES = ['color', 'typography', 'spacing', 'effect', 'corner-radius'] as const;
+const GENERIC_CANDIDATE_CAP = 5;
 
 export type EngineConfig = {
-  readonly approvedDataDirectory: string;
-  readonly sourcePin: () => SourcePin;
+  readonly phase1Config: () => Phase1Config;
   readonly now?: () => string;
 };
 
@@ -56,6 +91,23 @@ export type BeginRunToolResult = {
 export type ResumeRunResult = {
   readonly phase: StagePhase;
   readonly pending_action: string;
+};
+
+export type PrepareContextResult = {
+  readonly candidates: Readonly<Record<string, readonly ResolverCandidate[]>>;
+  readonly schema_card: SchemaCard;
+  readonly route_module: string;
+  readonly assembled_bytes: number;
+};
+
+export type SubmitDraftResult =
+  | { readonly outcome: 'accepted'; readonly artifact_sha256: string }
+  | { readonly outcome: 'repairable'; readonly evidence: readonly { readonly code: string; readonly message: string }[] }
+  | { readonly outcome: 'terminal'; readonly evidence: readonly { readonly code: string; readonly message: string }[] };
+
+export type PresentForApprovalResult = {
+  readonly artifact_sha256: string;
+  readonly approval_view: ApprovalView;
 };
 
 /** §3.3.1: 72 hours, one value for both runtimes. */
@@ -82,10 +134,32 @@ function errorCodeOf(error: unknown): string {
 
 export class CoordinatorEngine {
   private store: RunStore | undefined;
+  private registry: SchemaRegistry | undefined;
   private readonly config: EngineConfig;
 
   constructor(config: EngineConfig) {
     this.config = config;
+  }
+
+  /** Schemas are static for the process lifetime — built once, like the store. */
+  private getRegistry(): SchemaRegistry {
+    if (this.registry !== undefined) return this.registry;
+    const dir = join(dirname(fileURLToPath(import.meta.url)), '..', '..', 'schemas', 'coordinator');
+    const reg = new SchemaRegistry();
+    for (const file of ['semantic.schema.json', 'coordinator-output.schema.json', 'coordinator-judgment-draft.schema.json']) {
+      reg.register(JSON.parse(readFileSync(join(dir, file), 'utf8')) as object);
+    }
+    this.registry = reg;
+    return reg;
+  }
+
+  /** §4.1: "loads or reuses the index" — Phase 1's own content-addressed reuse
+   *  (`ingest`) decides whether a rebuild is needed; this never re-implements
+   *  that decision. Returns a reader the caller must `close()`. */
+  private openCurrentIndex(): { readonly reader: IndexReader; readonly sourceSha256: string; readonly indexVersion: string } {
+    const result = ingest(this.config.phase1Config(), { now: this.now() });
+    const reader = new IndexReader(result.database_path);
+    return { reader, sourceSha256: reader.meta.source_sha256, indexVersion: reader.meta.index_version };
   }
 
   private now(): string {
@@ -97,7 +171,7 @@ export class CoordinatorEngine {
    *  tool method routing through this before doing anything else. */
   private getStore(): RunStore {
     if (this.store !== undefined) return this.store;
-    const result = storePreflight(this.config.approvedDataDirectory, this.now());
+    const result = storePreflight(this.config.phase1Config().approvedDataDirectory, this.now());
     if (!result.ok) {
       throw new GuardRefusal(
         result.guardCode,
@@ -192,7 +266,8 @@ export class CoordinatorEngine {
         }
         derived = deriveBeginRun(input, hostCommandMetadata);
       }
-      const pin = this.config.sourcePin();
+      const { reader, sourceSha256, indexVersion } = this.openCurrentIndex();
+      reader.close();
       const requestedAt = this.now();
       store.createRun({
         run_id: derived.run_id,
@@ -204,8 +279,8 @@ export class CoordinatorEngine {
         user_intent: input.user_intent,
         target_ref: input.target?.tree_ref ?? null,
         requested_at: requestedAt,
-        source_sha256: pin.source_sha256,
-        index_version: pin.index_version,
+        source_sha256: sourceSha256,
+        index_version: indexVersion,
         spec_schema_version: SPEC_SCHEMA_VERSION,
         invoked_as: input.operation_id,
       });
@@ -304,5 +379,218 @@ export class CoordinatorEngine {
       if (!appended.ok) throw new GuardRefusal('G-20b', 'CAS conflict appending cancelRun — re-read and retry.');
       return { outcome: 'cancelled' as const };
     });
+  }
+
+  private refuseIfSourceInvalidated(runId: string, state: DerivedRunState): void {
+    // PD-8: G-21's literal tool list is resumeRun/presentForApproval/
+    // recordApproval/buildHandoff/closeRun-completed, but the same principle —
+    // never let an invalidated run make forward progress — applies one phase
+    // earlier too, where nothing else would catch it.
+    if (state.sourceInvalidated && state.phase !== 'terminal') {
+      throw new GuardRefusal(
+        'G-21',
+        `Run "${runId}" carries a source-invalidated event — only closeRun (blocked) ` +
+          'and cancelRun remain reachable (§2.11.2, PD-8).',
+      );
+    }
+  }
+
+  /**
+   * §4.1, §10 row 2 (+ its non-caller-invocable continuation, row 4): loads
+   * or reuses the index, generates candidates (PD-7), the schema card and
+   * route module, assembles the model input, and runs the leakage assertion.
+   * Both phase-transition events (`received`→`preparing`→`drafting`) are
+   * appended together — the same external call realizes both §10 rows.
+   */
+  prepareContext(runId: string): PrepareContextResult {
+    return this.invoke(runId, 'prepareContext', (store) => {
+      const run = store.getRun(runId);
+      if (run === undefined) throw new GuardRefusal('G-1', `No run found for "${runId}".`);
+      const state = this.foldRun(runId);
+      this.assertReachable('prepareContext', state.phase);
+      this.refuseIfSourceInvalidated(runId, state);
+
+      const { reader } = this.openCurrentIndex();
+      try {
+        const candidates: Record<string, readonly ResolverCandidate[]> = {};
+        for (const category of GENERIC_CANDIDATE_CATEGORIES) {
+          const broadened = listByCategory(reader, {
+            caller: CALLER_RUN_GUARD,
+            property_category: category,
+            broadened_from: `no semantic elements exist yet for run "${runId}" (PD-7)`,
+            cap: GENERIC_CANDIDATE_CAP,
+          });
+          candidates[`category:${category}`] = broadened.candidates;
+        }
+
+        const schemaCard = generateSchemaCard(reader);
+        const routeModule = selectRouteModule(run.run_type);
+        const assembled = assembleModelInput({
+          run_type: run.run_type,
+          user_intent: run.user_intent,
+          schema_card: schemaCard,
+          candidates_by_query: candidates,
+        });
+
+        // §15.6: only ingestion may read raw curated JSON, so checks 1-2 do not
+        // run here — raw_source_checked correctly reads false, an honest
+        // "not proven" rather than a fabricated pass.
+        const leakage = assertNoLeakage({
+          assembled,
+          inactiveRouteModuleIds: inactiveRouteModuleIds(run.run_type),
+        });
+        if (!leakage.clean) {
+          throw new GuardRefusal(
+            'G-4',
+            `Leakage assertion failed: ${leakage.findings.map((f) => `${f.kind}: ${f.detail}`).join('; ')}`,
+          );
+        }
+
+        const at = this.now();
+        const seq = store.getMaxSeq(runId) + 1;
+        const started = store.appendEvent(runId, seq, at, 'context-preparation-started', 'received', 'preparing', {});
+        if (!started.ok) throw new GuardRefusal('G-20b', 'CAS conflict starting context preparation.');
+        const succeeded = store.appendEvent(runId, seq + 1, at, 'context-preparation-succeeded', 'preparing', 'drafting', {});
+        if (!succeeded.ok) throw new GuardRefusal('G-20b', 'CAS conflict completing context preparation.');
+
+        return {
+          candidates,
+          schema_card: schemaCard,
+          route_module: routeModule.module_id,
+          assembled_bytes: assembled.total_bytes,
+        };
+      } finally {
+        reader.close();
+      }
+    });
+  }
+
+  /**
+   * §4.3/§4.4, §10 rows 6/7/11, §13. Materializes the draft's selections
+   * against the index (never trusting the model's claims about them),
+   * composes, and on `ready` persists the artifact. A `repairable` verdict
+   * appends both the entry into `validating` and the Guard-recorded return to
+   * `drafting` in one call (row 7 is not caller-invocable); an exhausted
+   * budget leaves the run in `validating` for an explicit `failRun` (row 11's
+   * literal trigger), returned here as `terminal` evidence, not auto-closed.
+   */
+  submitDraft(runId: string, draft: CoordinatorJudgmentDraft): SubmitDraftResult {
+    return this.invoke(runId, 'submitDraft', (store) => {
+      const run = store.getRun(runId);
+      if (run === undefined) throw new GuardRefusal('G-1', `No run found for "${runId}".`);
+      const state = this.foldRun(runId);
+      this.assertReachable('submitDraft', state.phase);
+      this.refuseIfSourceInvalidated(runId, state);
+
+      // G-4, belt-and-braces beyond schema closure (§14.3.4's executable form).
+      const leaks = findOperationalLeaks(draft);
+      if (leaks.length > 0) {
+        throw new GuardRefusal(
+          'G-4',
+          `Draft contains operational fields: ${leaks.map((l) => `${l.field}@${l.path}`).join(', ')}`,
+        );
+      }
+
+      const { reader } = this.openCurrentIndex();
+      try {
+        const invocation: ResolvedCoordinatorInvocation = {
+          run_id: runId,
+          run_type: run.run_type,
+          user_intent: run.user_intent,
+          requested_at: run.requested_at,
+        };
+        const selections = collectSelectedCandidateIds(draft).map((candidateId) => ({ candidate_id: candidateId }));
+        const materialization = materializeSelection(reader, selections);
+        const materialized = new Map(materialization.resolutions.map((r) => [r.candidate_id, r]));
+
+        const composed = composeTrustedOutput({
+          invocation,
+          draft,
+          snapshot: {
+            source_sha256: reader.meta.source_sha256,
+            index_version: reader.meta.index_version,
+            source_schema_version: reader.meta.source_schema_version,
+            source_bytes: reader.meta.source_bytes,
+          },
+          port: portFromIndexReader(reader),
+          registry: this.getRegistry(),
+          materialized,
+          composedAt: this.now(),
+        });
+
+        const at = this.now();
+        const seq = store.getMaxSeq(runId) + 1;
+
+        if (composed.ok) {
+          const appended = store.appendEvent(runId, seq, at, 'draft-submitted', 'drafting', 'validating', {
+            output_sha256: composed.output_sha256,
+            status: composed.output.status,
+            canonical_output: composed.output,
+          });
+          if (!appended.ok) throw new GuardRefusal('G-20b', 'CAS conflict appending draft-submitted.');
+          if (composed.output.status === 'ready') {
+            store.putArtifact(runId, composed.output_sha256, at, JSON.stringify(composed.output));
+          }
+          return { outcome: 'accepted', artifact_sha256: composed.output_sha256 };
+        }
+
+        // ok:false is always validation-failure (§6.1), repairable up to the
+        // one-call budget (§6.2). Either way row 6 (draft-submitted) happens
+        // first — the composer ran and produced a failed-shaped output.
+        const submitted = store.appendEvent(runId, seq, at, 'draft-submitted', 'drafting', 'validating', {
+          failed_step: composed.failed_step,
+          ...(composed.output === undefined ? {} : { canonical_output: composed.output }),
+        });
+        if (!submitted.ok) throw new GuardRefusal('G-20b', 'CAS conflict appending draft-submitted.');
+        const evidence = composed.findings.map((f) => ({ code: f.code, message: f.message }));
+
+        if (checkRepairEligibility(state)) {
+          const repair = store.appendEvent(runId, seq + 1, at, 'draft-repair-requested', 'validating', 'drafting', {
+            evidence,
+          });
+          if (!repair.ok) throw new GuardRefusal('G-20b', 'CAS conflict appending draft-repair-requested.');
+          return { outcome: 'repairable', evidence };
+        }
+        // Repair budget spent — stays in validating; the caller must call
+        // failRun explicitly (row 11's literal trigger, §6.5).
+        return { outcome: 'terminal', evidence };
+      } finally {
+        reader.close();
+      }
+    });
+  }
+
+  /**
+   * §4.5, §10 row 9, §13's row: reads the stored artifact and renders it.
+   * Composes nothing and computes no hash — G-19a's refusal is structural
+   * here, since `getCurrentArtifact` only ever returns a row for a `ready`
+   * composition (§4.4 never writes one otherwise).
+   */
+  presentForApproval(runId: string): PresentForApprovalResult {
+    return this.invoke(runId, 'presentForApproval', (store) => {
+      const state = this.foldRun(runId);
+      this.assertReachable('presentForApproval', state.phase);
+      this.refuseIfSourceInvalidated(runId, state);
+      const artifact = this.requireReadyArtifact(store, runId);
+      const output = JSON.parse(artifact.canonical_json) as CoordinatorOutput;
+      const approvalView = renderApprovalView(output);
+      const seq = store.getMaxSeq(runId) + 1;
+      const appended = store.appendEvent(runId, seq, this.now(), 'approval-presented', 'validating', 'awaiting-approval', {
+        artifact_sha256: artifact.artifact_sha256,
+      });
+      if (!appended.ok) throw new GuardRefusal('G-20b', 'CAS conflict appending approval-presented.');
+      return { artifact_sha256: artifact.artifact_sha256, approval_view: approvalView };
+    });
+  }
+
+  private requireReadyArtifact(store: RunStore, runId: string): ArtifactRow {
+    const artifact = store.getCurrentArtifact(runId);
+    if (artifact === undefined) {
+      throw new GuardRefusal(
+        'G-19a',
+        `No ready artifact exists for run "${runId}" — presentForApproval requires a ready composition (§4.6).`,
+      );
+    }
+    return artifact;
   }
 }

@@ -10,14 +10,12 @@ import { join } from 'node:path';
 import { CoordinatorEngine } from '../../src/tools/engine.ts';
 import { GuardRefusal } from '../../src/guard/errors.ts';
 import { writeWitness } from '../../src/store/witness.ts';
-
-const FIXED_SHA = '2'.repeat(64);
+import { newPhase1Config } from './fixtures.ts';
 
 function newEngine(nowValue = { current: '2026-07-29T10:00:00Z' }): { engine: CoordinatorEngine; nowValue: { current: string } } {
-  const dir = mkdtempSync(join(tmpdir(), 'adalfi-engine-'));
+  const config = newPhase1Config();
   const engine = new CoordinatorEngine({
-    approvedDataDirectory: dir,
-    sourcePin: () => ({ source_sha256: FIXED_SHA, index_version: '1.0.0' }),
+    phase1Config: () => config,
     now: () => nowValue.current,
   });
   return { engine, nowValue };
@@ -89,9 +87,9 @@ describe('resumeRun — unknown run, staleness, source-invalidated', () => {
 
   test('a run past the 72h threshold is lazily expired on resume, not before', () => {
     const nowValue = { current: '2026-07-29T10:00:00Z' };
+    const config = newPhase1Config();
     const engine = new CoordinatorEngine({
-      approvedDataDirectory: mkdtempSync(join(tmpdir(), 'adalfi-engine-')),
-      sourcePin: () => ({ source_sha256: FIXED_SHA, index_version: '1.0.0' }),
+      phase1Config: () => config,
       now: () => nowValue.current,
     });
     const { run_id } = engine.beginRun({ operation_id: 'component.create', user_intent: 'x' });
@@ -105,9 +103,9 @@ describe('resumeRun — unknown run, staleness, source-invalidated', () => {
 
   test('a run well within 72 hours is not expired', () => {
     const nowValue = { current: '2026-07-29T10:00:00Z' };
+    const config = newPhase1Config();
     const engine = new CoordinatorEngine({
-      approvedDataDirectory: mkdtempSync(join(tmpdir(), 'adalfi-engine-')),
-      sourcePin: () => ({ source_sha256: FIXED_SHA, index_version: '1.0.0' }),
+      phase1Config: () => config,
       now: () => nowValue.current,
     });
     const { run_id } = engine.beginRun({ operation_id: 'component.create', user_intent: 'x' });
@@ -161,10 +159,8 @@ describe('store preflight — refused before any tool logic runs, with nowhere t
     // check passes, but the store can never open under it — matches
     // tests/store/preflight.test.ts's G-20a case, exercised through the engine.
     writeFileSync(fileNotDir, 'x');
-    const engine = new CoordinatorEngine({
-      approvedDataDirectory: fileNotDir,
-      sourcePin: () => ({ source_sha256: FIXED_SHA, index_version: '1.0.0' }),
-    });
+    const config = { ...newPhase1Config(), approvedDataDirectory: fileNotDir };
+    const engine = new CoordinatorEngine({ phase1Config: () => config });
     assert.throws(
       () => engine.resolveCommand('/create-component'),
       (error: unknown) => error instanceof GuardRefusal && error.code === 'G-20a',
@@ -174,10 +170,8 @@ describe('store preflight — refused before any tool logic runs, with nowhere t
   test('a lost store (G-20c) refuses beginRun the same way it refuses resolveCommand', () => {
     const dir = mkdtempSync(join(tmpdir(), 'adalfi-engine-'));
     writeWitness(dir, '2026-07-29T10:00:00Z'); // witness with no database -> lost
-    const engine = new CoordinatorEngine({
-      approvedDataDirectory: dir,
-      sourcePin: () => ({ source_sha256: FIXED_SHA, index_version: '1.0.0' }),
-    });
+    const config = { ...newPhase1Config(), approvedDataDirectory: dir };
+    const engine = new CoordinatorEngine({ phase1Config: () => config });
     assert.throws(
       () => engine.beginRun({ operation_id: 'component.create', user_intent: 'x' }),
       (error: unknown) => error instanceof GuardRefusal && error.code === 'G-20c',

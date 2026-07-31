@@ -22,6 +22,22 @@
 import { OPERATIONAL_FIELD_NAMES } from '../contracts/run-envelope.ts';
 import type { AssembledModelInput } from './assemble-model-input.ts';
 
+/**
+ * Section-scoped exemptions for fields that are read-only reference material,
+ * not something a model authors or echoes back — the same justification the
+ * `output-contract` section (exempted outright, below) rests on. `schema-card`
+ * legitimately states the snapshot it describes (§4.1's `generateSchemaCard`),
+ * so `source_sha256`/`index_version` there are provenance, not an operational
+ * fact handed to the model to reconstruct (docs/phase2-decision-log.md PD-9).
+ *
+ * Narrow on purpose: every other `OPERATIONAL_FIELD_NAMES` entry stays caught
+ * in `schema-card`, and no other section gains any exemption from this list.
+ */
+const SECTION_FIELD_EXEMPTIONS: ReadonlySet<string> = new Set([
+  'schema-card:source_sha256',
+  'schema-card:index_version',
+]);
+
 export const LEAK_KINDS = [
   'raw-source-bytes',
   'source-sentinel',
@@ -196,8 +212,11 @@ export function assertNoLeakage(input: LeakageCheckInput): LeakageReport {
 
     // 5. Operational fields. Skipped for the output contract, which names them in
     //    order to forbid them — a prohibition has to be able to quote its subject.
+    //    A further per-field exemption applies to schema-card's snapshot header
+    //    (PD-9) — provenance the model reads, not a fact it authors or echoes.
     if (section.name !== 'output-contract') {
       for (const field of OPERATIONAL_FIELD_NAMES) {
+        if (SECTION_FIELD_EXEMPTIONS.has(`${section.name}:${field}`)) continue;
         if (new RegExp(`["'\`]?\\b${field}\\b["'\`]?\\s*[:=]`).test(content)) {
           findings.push({
             kind: 'operational-field',

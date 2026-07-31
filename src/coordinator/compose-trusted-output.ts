@@ -100,13 +100,29 @@ export function hashOutput(output: CoordinatorOutput): string {
   return createHash('sha256').update(canonical(output), 'utf8').digest('hex');
 }
 
+/**
+ * Code-unit key ordering (§13.3, §19 D-3) — replaces `localeCompare`, which
+ * can disagree with itself across a small-ICU vs. full-ICU Node build. That
+ * makes ordering a correctness property here, not a cosmetic one: §9.2.1's
+ * value 3 re-derives this same hash from stored bytes, so a re-verification
+ * on a different runtime could fail for a byte-identical artifact.
+ * Environment-independent by definition — no ICU build to require, none to
+ * detect. Measured hash-neutral across the ten canonical fixtures before
+ * being chosen (`tests/unit/composition-and-rendering.test.ts`'s
+ * "code-unit and locale collation agree" test re-measures this on every run,
+ * rather than trusting a one-time measurement).
+ */
+export function keyOrder(a: string, b: string): number {
+  return a < b ? -1 : a > b ? 1 : 0;
+}
+
 function canonical(value: unknown): string {
   if (value === null) return 'null';
   if (Array.isArray(value)) return `[${value.map(canonical).join(',')}]`;
   if (typeof value === 'object') {
     const entries = Object.entries(value as Record<string, unknown>)
       .filter(([, child]) => child !== undefined)
-      .sort(([a], [b]) => a.localeCompare(b, 'en'));
+      .sort(([a], [b]) => keyOrder(a, b));
     return `{${entries.map(([key, child]) => `${JSON.stringify(key)}:${canonical(child)}`).join(',')}}`;
   }
   return JSON.stringify(value) ?? 'null';

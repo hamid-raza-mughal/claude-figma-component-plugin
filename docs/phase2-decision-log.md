@@ -165,3 +165,99 @@ resolving it means trusting §10 over a stale rendering of its own derivation.
 
 **Revisit trigger:** none for code. A future contract revision should regenerate §12.2's
 printed table from the registry so the two stop disagreeing in text.
+
+---
+
+### PD-7 · `prepareContext`'s candidate source for a `new` run
+
+**Question, surfaced while wiring WP6.** `prepareContext` (§4.1) must return bounded
+candidates, but for a `new` run there is no target and no semantic elements yet — those
+are authored during `drafting`, which comes *after* `prepareContext`. The deterministic
+query planner (`query-planner.ts`) needs `PlanRequestItem[]` — a `property` plus
+`reference_text` per semantic element — which does not exist at this point in the flow.
+Nothing in the contract specifies how `prepareContext` should form queries with no
+structured signal to plan from.
+
+**Ruling.** `prepareContext` calls `listByCategory` — already built and already
+documented as "the capped escape hatch... for when the deterministic planner could not
+form a safe narrow query" — across a fixed set of standard property categories (`color`,
+`typography`, `spacing`, `effect`, `corner-radius`), capped at 5 candidates per category
+rather than `listByCategory`'s own default cap of 25. The model then selects specific
+`candidate_id`s from this bounded, low-confidence spread during drafting.
+
+**Why this is the smallest safe choice.** This reuses a mechanism the codebase already
+built and named for exactly this situation, rather than inventing a new broadening
+heuristic or misusing `resolveBatch`'s per-item pipeline against ungrounded generic text
+(which would produce lower-quality, less-attributable matches, since `resolveBatch`'s
+scoring is tuned for a specific `reference_text` naming one property, not a whole
+free-text intent compared against every property). The smaller cap (5, not 25) keeps the
+payload proportionate to §13.5's "compact by contract" discipline.
+
+**Revisit trigger:** `modify`/`audit` gaining a real target once FD-1…FD-4 are satisfied —
+at that point, target-derived semantic elements can feed `resolveBatch`'s narrower,
+item-level queries, and this ruling should be revisited for those routes specifically.
+`new` has no target by definition (§2.4) and will keep needing this mechanism regardless.
+
+---
+
+### PD-8 · G-21 checked in `prepareContext`/`submitDraft`, not only the five named tools
+
+**Question.** §2.11.2's literal text lists five tools G-21 refuses on a `source-invalidated`
+run: `resumeRun`, `presentForApproval`, `recordApproval`, `buildHandoff`, `closeRun
+completed`. `prepareContext` and `submitDraft` are not named, even though a run can carry
+`source-invalidated` while sitting in `received`, `preparing`, or `drafting` — phases with
+no detectable deadline (§8.4: "a hung drafting step is not detectable").
+
+**Ruling.** `prepareContext` and `submitDraft` also refuse (citing G-21) when the fold
+reports `sourceInvalidated: true`, matching `resumeRun`'s check. `submitDraft` additionally
+gets this for free at the materialization layer — `materializeSelection`'s
+`assertIdentityFresh` already refuses a candidate resolved against a superseded source
+(`MATERIALIZE_STALE_SOURCE`/`MATERIALIZE_STALE_INDEX`) — but `prepareContext` has no such
+built-in backstop, since it is the *first* thing to resolve against the index.
+
+**Why this is the smallest safe choice.** The five named tools are exactly the ones that
+matter *after* a draft or artifact already exists; the underlying principle — never let an
+invalidated run make forward progress — is the same one G-21 exists to enforce, just
+reachable one phase earlier than the literal list anticipated. Refusing here is consistent
+with §2.11.2's own "nothing is ever silently re-pinned" rule; silently letting
+`prepareContext` resolve fresh candidates for a run whose identity is pinned to a
+superseded hash would be exactly that.
+
+**Revisit trigger:** a future contract revision naming `prepareContext`/`submitDraft`
+explicitly (confirming this reading) or explicitly excluding them (overriding it) — either
+resolves the ambiguity this entry currently carries.
+
+---
+
+### PD-9 · A latent Phase 1 defect: `generateSchemaCard`'s real body fails its own leakage assertion
+
+**Question, surfaced by WP6 integration, not by general review.** `src/ingestion/schema-card-generator.ts`'s
+real output always renders `source_sha256: <hash>` and `index_version: <version>` into its
+`SNAPSHOT` block (lines 58–59) — legitimate, necessary provenance: the card is telling the
+model which snapshot it describes. But `src/coordinator/leakage-assertion.ts`'s
+operational-field check (§15.6, check 5) flags **any** section containing a `field: value`
+match against `OPERATIONAL_FIELD_NAMES` — except `output-contract`, which is exempted
+because it *names* the forbidden fields in order to prohibit them. No exemption exists for
+`schema-card`. Every existing Phase 1 test that exercises `assertNoLeakage` (`tests/unit/assembly.test.ts`)
+uses a **hand-written** `SchemaCard` fixture whose body happens not to contain these
+substrings — so this defect was never triggered before WP6 called the two real functions
+together for the first time.
+
+**Ruling.** `assertNoLeakage` gains a second, narrower exemption: the `schema-card` section
+is exempt from the operational-field check for exactly `source_sha256` and `index_version` —
+not the whole section, and not every field. The card's provenance header does not become
+exempt from checks 1–4 (raw source bytes, sentinels, exact-record fields, inactive-route
+content), and no other section gains any exemption.
+
+**Why this is the smallest safe choice.** The check's purpose is to catch the model being
+handed operational-shaped text it might echo back as if authored; the schema card is
+read-only reference material the model never reconstructs or returns, structurally the same
+justification the existing `output-contract` exemption already rests on. Widening the
+exemption to the whole section, or to every `OPERATIONAL_FIELD_NAMES` entry, would hide a
+genuine future leak (e.g. `approved_by` appearing in a schema card would still be worth
+catching); narrowing it to exactly the two fields that are actually, legitimately present
+keeps the check as strict as it was everywhere else.
+
+**Revisit trigger:** a future schema-card field that is itself operational-shaped and not
+one of these two — that should get its own named exemption with its own justification, not
+a silent widening of this one.

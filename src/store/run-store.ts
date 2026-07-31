@@ -46,6 +46,14 @@ export class RunAlreadyExistsError extends Error {
   override readonly name = 'RunAlreadyExistsError';
 }
 
+export type ArtifactRow = {
+  readonly run_id: string;
+  readonly artifact_sha256: string;
+  readonly composed_at: string;
+  readonly superseded_at: string | null;
+  readonly canonical_json: string;
+};
+
 export type AppendResult = { readonly ok: true; readonly seq: number } | { readonly ok: false; readonly reason: 'cas-conflict' };
 
 type RunEventRowRaw = {
@@ -194,6 +202,50 @@ export class RunStore {
       error_code: string | null;
     }[];
     return rows.map((row) => ({ ...row, ok: row.ok === 1 }));
+  }
+
+  /**
+   * §4.4/§11.2: written once per version, by `submitDraft`, on a `ready`
+   * composition. History is retained — a voided artifact must stay readable
+   * to explain a void approval — so an existing non-superseded artifact for
+   * this run is marked `superseded_at` rather than deleted or overwritten,
+   * in the same transaction as the new insert (§11.6.1).
+   */
+  putArtifact(runId: string, artifactSha256: string, composedAt: string, canonicalJson: string): void {
+    try {
+      this.db.exec('BEGIN');
+      this.db
+        .prepare('UPDATE artifact SET superseded_at = ? WHERE run_id = ? AND superseded_at IS NULL')
+        .run(composedAt, runId);
+      this.db
+        .prepare(
+          'INSERT INTO artifact (run_id, artifact_sha256, composed_at, superseded_at, canonical_json) VALUES (?, ?, ?, NULL, ?)',
+        )
+        .run(runId, artifactSha256, composedAt, canonicalJson);
+      this.db.exec('COMMIT');
+    } catch (error: unknown) {
+      try {
+        this.db.exec('ROLLBACK');
+      } catch {
+        // Rollback outside a transaction throws; the original error matters.
+      }
+      const message = error instanceof Error ? error.message : String(error);
+      throw new StoreAppendError(`putArtifact failed for run "${runId}": ${message}`);
+    }
+  }
+
+  /** The current (non-superseded) artifact, or `undefined` if none exists yet. */
+  getCurrentArtifact(runId: string): ArtifactRow | undefined {
+    return this.db
+      .prepare('SELECT * FROM artifact WHERE run_id = ? AND superseded_at IS NULL')
+      .get(runId) as ArtifactRow | undefined;
+  }
+
+  /** Every version, oldest first — a voided artifact stays readable. */
+  getArtifactHistory(runId: string): readonly ArtifactRow[] {
+    return this.db
+      .prepare('SELECT * FROM artifact WHERE run_id = ? ORDER BY composed_at ASC')
+      .all(runId) as ArtifactRow[];
   }
 
   /**
