@@ -150,6 +150,19 @@ web-via-Desktop row is unchanged. This run carries no claim of Builder activatio
 operation, verified human authorization, or pilot/production readiness — see `docs/phase2-as-built.md`'s own
 not-claimed list.
 
+**§1.6.5's evidence-update note, 2026-08-01 (boundary correction, additive — the 2026-07-31 note above is not
+edited).** The 2026-07-31 note's "engine instance discarded ... resumed by a second, independent engine
+instance" is accurate but was, in surrounding prose elsewhere, informally read as a process-level claim. It
+was not: both engine instances in that run are constructed inside one `main()`, one OS process
+(`tools/verify-r1-hd2.ts:52,63`) — same-process fresh-engine recovery, not recovery across an independent OS
+process. That gap is now closed on its own terms: `docs/phase2-r1-verification.md`'s Section B, via
+`tools/verify-r1-hd2-cross-process.ts`, spawns two real `node` child processes — one creates and prepares a
+run and exits, a second launched separately resumes solely from the persisted store (verified by distinct OS
+PIDs) and completes it — with regression coverage in `tests/adversarial/phase2-cross-process.test.ts`. The
+matrix cell itself is unchanged by this note: R-1 × HD-2 was and remains verified: same-process fresh-engine
+recovery, now *additionally* verified: cross-process recovery. Neither run claims anything about HD-1, HD-3,
+R-2, or Builder/Figma activity.
+
 **§1.6.6 "Satisfiable by construction" is not "verified."** Until a run **writes state, is interrupted, and
 resumes from that state** on a given configuration, HD-2 is *assumed* on it. Three such runs were owed — R-1,
 R-2, and the deferred web-via-Desktop configuration. **R-1's landed 2026-07-31** (`docs/phase2-r1-verification.md`);

@@ -67,7 +67,15 @@ commits (`a93f810`..`6edd7af` and this session's own, one per work package), non
 
 The R-1 HD-2 verification run (`docs/phase2-r1-verification.md`) is a real write, a real
 interruption (a second, independent engine instance resuming from the file), and a real
-resume to completion — not inferred from the preflight passing.
+resume to completion — not inferred from the preflight passing. That first run is
+same-process (both engine instances live in one `main()`, one OS process); a second run
+(`docs/phase2-r1-verification.md` Section B, `tools/verify-r1-hd2-cross-process.ts`) adds the
+stronger claim — two real, separately launched `node` processes, verified by distinct OS
+PIDs, with regression coverage in `tests/adversarial/phase2-cross-process.test.ts`. The same
+document's Section C also runs a realistic component request through the real bundle and
+reports a functional design-quality gap: the approval view's aggregate-confidence field is
+currently a hardcoded default, disconnected from each candidate's real (and often low)
+confidence — flagged there as an open issue, not fixed by this session.
 
 ## What is deliberately not claimed
 
