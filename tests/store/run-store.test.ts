@@ -8,8 +8,15 @@ import assert from 'node:assert/strict';
 import { mkdtempSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
-import { RunStore, StoreAppendError, RunAlreadyExistsError, type RunRow } from '../../src/store/run-store.ts';
+import {
+  RunStore,
+  StoreAppendError,
+  RunAlreadyExistsError,
+  type RunRow,
+  type ApprovalRow,
+} from '../../src/store/run-store.ts';
 import { foldRunEvents } from '../../src/guard/fold.ts';
+import { GuardRefusal } from '../../src/guard/errors.ts';
 
 function freshDbPath(): string {
   return join(mkdtempSync(join(tmpdir(), 'adalfi-runstore-')), 'store.db');
@@ -218,5 +225,160 @@ describe('StoreAppendError — a genuine (non-CAS) failure', () => {
       () => store.appendEvent(runId, 1, '2026-07-29T10:00:01Z', 'run-begun', null, 'received', {}),
       StoreAppendError,
     );
+  });
+});
+
+function sampleApproval(overrides: Partial<ApprovalRow> = {}): ApprovalRow {
+  return {
+    run_id: sampleRun().run_id,
+    gate: 'gate-1-semantic',
+    gate_mode: 'observe-only-validation',
+    approved_artifact_sha256: '3'.repeat(64),
+    decision: 'approved',
+    approved_at: '2026-07-29T10:00:05Z',
+    approved_by: 'ux@techlogix.com',
+    response_source: 'model-relayed',
+    verified: false,
+    authorizing: false,
+    ...overrides,
+  };
+}
+
+describe('G-9a/G-9b — enforced at the one place any approval is written, not just absent from a parameter', () => {
+  test('putApproval refuses gate_mode "authorising" (G-9a)', () => {
+    const store = new RunStore(freshDbPath());
+    store.createRun(sampleRun());
+    assert.throws(
+      () => store.putApproval(sampleApproval({ gate_mode: 'authorising' })),
+      (error: unknown) => error instanceof GuardRefusal && error.code === 'G-9a',
+    );
+  });
+
+  test('putApproval refuses verified: true (G-9b)', () => {
+    const store = new RunStore(freshDbPath());
+    store.createRun(sampleRun());
+    assert.throws(
+      () => store.putApproval(sampleApproval({ verified: true })),
+      (error: unknown) => error instanceof GuardRefusal && error.code === 'G-9b',
+    );
+  });
+
+  test('putApproval refuses authorizing: true (G-9b)', () => {
+    const store = new RunStore(freshDbPath());
+    store.createRun(sampleRun());
+    assert.throws(
+      () => store.putApproval(sampleApproval({ authorizing: true })),
+      (error: unknown) => error instanceof GuardRefusal && error.code === 'G-9b',
+    );
+  });
+
+  test('a refused putApproval writes no row at all', () => {
+    const store = new RunStore(freshDbPath());
+    store.createRun(sampleRun());
+    assert.throws(() => store.putApproval(sampleApproval({ verified: true })));
+    assert.equal(store.getLatestApproval(sampleRun().run_id), undefined);
+  });
+
+  test('appendEventAndPutApproval refuses the same way, before any write happens', () => {
+    const store = new RunStore(freshDbPath());
+    store.createRun(sampleRun());
+    const runId = sampleRun().run_id;
+    assert.throws(
+      () =>
+        store.appendEventAndPutApproval(
+          runId,
+          1,
+          '2026-07-29T10:00:05Z',
+          'approval-recorded-approved',
+          'awaiting-approval',
+          'handoff-ready',
+          {},
+          sampleApproval({ authorizing: true }),
+        ),
+      (error: unknown) => error instanceof GuardRefusal && error.code === 'G-9b',
+    );
+    assert.equal(store.getEvents(runId).length, 0, 'the refused write must not have appended an event either');
+  });
+});
+
+describe('§11.6.1 atomicity — the event and its dependent write commit together or not at all', () => {
+  test('appendEventAndPutArtifact: a CAS conflict on the event rolls back the artifact too', () => {
+    const store = new RunStore(freshDbPath());
+    store.createRun(sampleRun());
+    const runId = sampleRun().run_id;
+    // Occupy seq 1 first, so the real call below loses the race.
+    store.appendEvent(runId, 1, '2026-07-29T10:00:01Z', 'run-begun', null, 'received', {});
+    const result = store.appendEventAndPutArtifact(
+      runId,
+      1, // stale — seq 1 is already taken
+      '2026-07-29T10:00:02Z',
+      'draft-submitted',
+      'drafting',
+      'validating',
+      {},
+      '9'.repeat(64),
+      '{"status":"ready"}',
+    );
+    assert.equal(result.ok, false);
+    // The artifact write must not have survived the rollback.
+    assert.equal(store.getCurrentArtifact(runId), undefined);
+  });
+
+  test('appendEventAndPutArtifact: on success, both the event and the artifact are visible', () => {
+    const store = new RunStore(freshDbPath());
+    store.createRun(sampleRun());
+    const runId = sampleRun().run_id;
+    const result = store.appendEventAndPutArtifact(
+      runId,
+      1,
+      '2026-07-29T10:00:01Z',
+      'draft-submitted',
+      'drafting',
+      'validating',
+      {},
+      '9'.repeat(64),
+      '{"status":"ready"}',
+    );
+    assert.equal(result.ok, true);
+    assert.equal(store.getEvents(runId).length, 1);
+    assert.equal(store.getCurrentArtifact(runId)?.artifact_sha256, '9'.repeat(64));
+  });
+
+  test('appendEventAndPutApproval: a CAS conflict on the event rolls back the approval too', () => {
+    const store = new RunStore(freshDbPath());
+    store.createRun(sampleRun());
+    const runId = sampleRun().run_id;
+    store.appendEvent(runId, 1, '2026-07-29T10:00:01Z', 'run-begun', null, 'received', {});
+    const result = store.appendEventAndPutApproval(
+      runId,
+      1, // stale
+      '2026-07-29T10:00:02Z',
+      'approval-recorded-approved',
+      'awaiting-approval',
+      'handoff-ready',
+      {},
+      sampleApproval(),
+    );
+    assert.equal(result.ok, false);
+    assert.equal(store.getLatestApproval(runId), undefined, 'no orphaned approval row after the rollback');
+  });
+
+  test('appendEventAndPutApproval: on success, both the event and the approval are visible', () => {
+    const store = new RunStore(freshDbPath());
+    store.createRun(sampleRun());
+    const runId = sampleRun().run_id;
+    const result = store.appendEventAndPutApproval(
+      runId,
+      1,
+      '2026-07-29T10:00:01Z',
+      'approval-recorded-approved',
+      'awaiting-approval',
+      'handoff-ready',
+      {},
+      sampleApproval(),
+    );
+    assert.equal(result.ok, true);
+    assert.equal(store.getEvents(runId).length, 1);
+    assert.equal(store.getLatestApproval(runId)?.decision, 'approved');
   });
 });

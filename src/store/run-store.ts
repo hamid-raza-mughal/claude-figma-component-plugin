@@ -17,6 +17,7 @@ import type { RunEventKind } from '../registry/transitions.ts';
 import type { StagePhase } from '../contracts/run-envelope.ts';
 import type { RunType } from '../contracts/invocation.ts';
 import type { RouteProvenance } from '../guard/provenance.ts';
+import { GuardRefusal } from '../guard/errors.ts';
 
 export type RunRow = {
   readonly run_id: string;
@@ -247,6 +248,55 @@ export class RunStore {
     }
   }
 
+  /**
+   * §11.6.1: the `run_event` append and its dependent `artifact` write commit
+   * together or not at all. `submitDraft`'s own two writes (event, then
+   * artifact on `ready`) were previously two separate statements — correct
+   * order, but not atomic, so a failure in the second left a committed
+   * `draft-submitted` event with no artifact behind it. This is the fix:
+   * one transaction, and a CAS conflict on the event rolls back the artifact
+   * write too, exactly as if neither had been attempted.
+   */
+  appendEventAndPutArtifact(
+    runId: string,
+    seq: number,
+    at: string,
+    kind: RunEventKind,
+    fromPhase: StagePhase | null,
+    toPhase: StagePhase | null,
+    eventPayload: Readonly<Record<string, unknown>>,
+    artifactSha256: string,
+    canonicalJson: string,
+  ): AppendResult {
+    try {
+      this.db.exec('BEGIN');
+      this.db
+        .prepare(
+          'INSERT INTO run_event (run_id, seq, at, kind, from_phase, to_phase, payload_json) VALUES (?, ?, ?, ?, ?, ?, ?)',
+        )
+        .run(runId, seq, at, kind, fromPhase, toPhase, JSON.stringify(eventPayload));
+      this.db
+        .prepare('UPDATE artifact SET superseded_at = ? WHERE run_id = ? AND superseded_at IS NULL')
+        .run(at, runId);
+      this.db
+        .prepare(
+          'INSERT INTO artifact (run_id, artifact_sha256, composed_at, superseded_at, canonical_json) VALUES (?, ?, ?, NULL, ?)',
+        )
+        .run(runId, artifactSha256, at, canonicalJson);
+      this.db.exec('COMMIT');
+      return { ok: true, seq };
+    } catch (error: unknown) {
+      try {
+        this.db.exec('ROLLBACK');
+      } catch {
+        // Rollback outside a transaction throws; the original error matters.
+      }
+      const message = error instanceof Error ? error.message : String(error);
+      if (/UNIQUE|PRIMARY KEY/i.test(message)) return { ok: false, reason: 'cas-conflict' };
+      throw new StoreAppendError(`appendEventAndPutArtifact failed for run "${runId}" seq ${seq}: ${message}`);
+    }
+  }
+
   /** The current (non-superseded) artifact, or `undefined` if none exists yet. */
   getCurrentArtifact(runId: string): ArtifactRow | undefined {
     return this.db
@@ -261,11 +311,34 @@ export class RunStore {
       .all(runId) as ArtifactRow[];
   }
 
+  /**
+   * §7.2/§7.4: `gate_mode: 'authorising'` (G-9a) and `verified`/`authorizing:
+   * true` (G-9b) are refused **at the one place any approval row is
+   * written**, not merely absent from a caller-facing parameter. Phase 2's
+   * own tools never construct either — `recordApproval`'s parameters give a
+   * caller no field to supply them through — but this is the backstop PD-5
+   * named and this file had not, until now, actually implemented: a Guard
+   * rule that is only ever satisfied by the absence of a code path that
+   * could violate it is not yet an enforced rule.
+   */
+  private assertApprovalGuardRules(row: ApprovalRow): void {
+    if (row.gate_mode === 'authorising') {
+      throw new GuardRefusal('G-9a', `Run "${row.run_id}": gate_mode "authorising" is refused in Phase 2 (§7.2).`);
+    }
+    if (row.verified || row.authorizing) {
+      throw new GuardRefusal(
+        'G-9b',
+        `Run "${row.run_id}": an approval row with verified or authorizing true is refused in Phase 2 (§7.4).`,
+      );
+    }
+  }
+
   /** §7.4: `response_source`/`verified`/`authorizing` are always
    *  `'model-relayed'`/`false`/`false` in Phase 2 — this method's caller
    *  constructs them, never the tool's own caller (G-9b is structural: the
    *  public tool input has no field for a caller to supply them through). */
   putApproval(row: ApprovalRow): void {
+    this.assertApprovalGuardRules(row);
     try {
       this.db
         .prepare(
@@ -288,6 +361,64 @@ export class RunStore {
     } catch (error: unknown) {
       const message = error instanceof Error ? error.message : String(error);
       throw new StoreAppendError(`putApproval failed for run "${row.run_id}": ${message}`);
+    }
+  }
+
+  /**
+   * §11.6.1's atomicity, extended to `approval` the same way
+   * `appendEventAndPutArtifact` extends it to `artifact`: `recordApproval`
+   * previously wrote the `approval` row and then the `run_event` as two
+   * separate statements, in that order — so a CAS conflict on the event left
+   * a committed approval with no event explaining when or why it exists.
+   * One transaction; a CAS conflict rolls back the approval write too.
+   */
+  appendEventAndPutApproval(
+    runId: string,
+    seq: number,
+    at: string,
+    kind: RunEventKind,
+    fromPhase: StagePhase | null,
+    toPhase: StagePhase | null,
+    eventPayload: Readonly<Record<string, unknown>>,
+    approval: ApprovalRow,
+  ): AppendResult {
+    this.assertApprovalGuardRules(approval);
+    try {
+      this.db.exec('BEGIN');
+      this.db
+        .prepare(
+          'INSERT INTO run_event (run_id, seq, at, kind, from_phase, to_phase, payload_json) VALUES (?, ?, ?, ?, ?, ?, ?)',
+        )
+        .run(runId, seq, at, kind, fromPhase, toPhase, JSON.stringify(eventPayload));
+      this.db
+        .prepare(
+          `INSERT INTO approval (run_id, gate, gate_mode, approved_artifact_sha256, decision,
+             approved_at, approved_by, response_source, verified, authorizing)
+           VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+        )
+        .run(
+          approval.run_id,
+          approval.gate,
+          approval.gate_mode,
+          approval.approved_artifact_sha256,
+          approval.decision,
+          approval.approved_at,
+          approval.approved_by,
+          approval.response_source,
+          approval.verified ? 1 : 0,
+          approval.authorizing ? 1 : 0,
+        );
+      this.db.exec('COMMIT');
+      return { ok: true, seq };
+    } catch (error: unknown) {
+      try {
+        this.db.exec('ROLLBACK');
+      } catch {
+        // Rollback outside a transaction throws; the original error matters.
+      }
+      const message = error instanceof Error ? error.message : String(error);
+      if (/UNIQUE|PRIMARY KEY/i.test(message)) return { ok: false, reason: 'cas-conflict' };
+      throw new StoreAppendError(`appendEventAndPutApproval failed for run "${runId}" seq ${seq}: ${message}`);
     }
   }
 

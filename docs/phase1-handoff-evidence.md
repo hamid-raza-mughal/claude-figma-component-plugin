@@ -292,3 +292,11 @@ short-video processing, production promotion.
 
 **Not claimed:** production-ready · pilot-ready · live Coordinator · live route ·
 Cowork-compatible · Figma-compatible · token reduction achieved · prompt caching effective.
+
+**Evidence-update note, 2026-07-31 — Phase 2, not Phase 1.** The twenty items above are Phase
+1's own evidence and none of them changed. Separately, Phase 2's Coordinator runtime now has
+one piece of live runtime evidence — a twenty-first item, distinct from this list: **R-1
+(Claude Code) HD-2 verified**, `docs/phase2-r1-verification.md`. "Cowork-compatible" above is
+R-2, a different configuration, and stays not-claimed; HD-1, HD-3, Builder, Figma writes, and
+pilot/production readiness are equally untouched by this. `docs/phase2-as-built.md` is the
+Phase 2 equivalent of this document.

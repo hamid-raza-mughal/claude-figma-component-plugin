@@ -392,11 +392,18 @@ export class CoordinatorEngine {
     throw new GuardRefusal('G-1', `No run found for "${idOrDisplayId}".`);
   }
 
-  /** §8's table, §13's row: refuses a non-terminal failure class. */
+  /**
+   * §8's table, §13's row: refuses a non-terminal failure class. G-21: an
+   * invalidated run's only reachable exits are `closeRun blocked` and
+   * `cancelRun` — `failRun` is not one of them, so it must refuse here too,
+   * not just let the run terminate `failed` by a different door than G-21
+   * names.
+   */
   failRun(runId: string, failureClass: string): { readonly outcome: 'failed' } {
     return this.invoke(runId, 'failRun', (store) => {
       const state = this.foldRun(runId);
       this.assertReachable('failRun', state.phase);
+      this.refuseIfSourceInvalidated(runId, state);
       const kindByPhase: Partial<Record<StagePhase, 'run-failed-during-received' | 'run-failed-during-preparing' | 'run-failed-during-validation'>> = {
         received: 'run-failed-during-received',
         preparing: 'run-failed-during-preparing',
@@ -568,15 +575,29 @@ export class CoordinatorEngine {
         const seq = store.getMaxSeq(runId) + 1;
 
         if (composed.ok) {
-          const appended = store.appendEvent(runId, seq, at, 'draft-submitted', 'drafting', 'validating', {
+          const eventPayload = {
             output_sha256: composed.output_sha256,
             status: composed.output.status,
             canonical_output: composed.output,
-          });
+          };
+          // §11.6.1: the event and the artifact commit together or not at
+          // all — a non-'ready' composition has no dependent artifact write,
+          // so it stays a single-statement append exactly as before.
+          const appended =
+            composed.output.status === 'ready'
+              ? store.appendEventAndPutArtifact(
+                  runId,
+                  seq,
+                  at,
+                  'draft-submitted',
+                  'drafting',
+                  'validating',
+                  eventPayload,
+                  composed.output_sha256,
+                  JSON.stringify(composed.output),
+                )
+              : store.appendEvent(runId, seq, at, 'draft-submitted', 'drafting', 'validating', eventPayload);
           if (!appended.ok) throw new GuardRefusal('G-20b', 'CAS conflict appending draft-submitted.');
-          if (composed.output.status === 'ready') {
-            store.putArtifact(runId, composed.output_sha256, at, JSON.stringify(composed.output));
-          }
           return { outcome: 'accepted', artifact_sha256: composed.output_sha256 };
         }
 
@@ -746,27 +767,40 @@ export class CoordinatorEngine {
       }
 
       const at = this.now();
-      store.putApproval({
+      const approvalRow = {
         run_id: runId,
-        gate: 'gate-1-semantic',
-        gate_mode: 'observe-only-validation',
+        gate: 'gate-1-semantic' as const,
+        gate_mode: 'observe-only-validation' as const,
         approved_artifact_sha256: artifact.artifact_sha256,
         decision,
         approved_at: at,
         approved_by: approvedBy,
-        response_source: 'model-relayed',
+        response_source: 'model-relayed' as const,
         verified: false,
         authorizing: false,
-      });
+      };
 
+      // §11.6.1: the approval row and the run_event commit together or not
+      // at all — previously two separate statements, in that order, so a CAS
+      // conflict on the event left a committed approval with no event
+      // explaining it. One call, one transaction, for every decision.
       const seq = store.getMaxSeq(runId) + 1;
       if (decision === 'approved') {
-        const appended = store.appendEvent(runId, seq, at, 'approval-recorded-approved', 'awaiting-approval', 'handoff-ready', {});
+        const appended = store.appendEventAndPutApproval(
+          runId,
+          seq,
+          at,
+          'approval-recorded-approved',
+          'awaiting-approval',
+          'handoff-ready',
+          {},
+          approvalRow,
+        );
         if (!appended.ok) throw new GuardRefusal('G-20b', 'CAS conflict appending approval-recorded-approved.');
         return { outcome: 'advance', phase: 'handoff-ready' };
       }
       if (decision === 'changes-requested') {
-        const appended = store.appendEvent(
+        const appended = store.appendEventAndPutApproval(
           runId,
           seq,
           at,
@@ -774,15 +808,23 @@ export class CoordinatorEngine {
           'awaiting-approval',
           'drafting',
           {},
+          approvalRow,
         );
         if (!appended.ok) {
           throw new GuardRefusal('G-20b', 'CAS conflict appending approval-recorded-changes-requested.');
         }
         return { outcome: 'redraft', phase: 'drafting' };
       }
-      const appended = store.appendEvent(runId, seq, at, 'run-blocked-approval-rejected', 'awaiting-approval', 'terminal', {
-        reason: 'gate-1-rejected',
-      });
+      const appended = store.appendEventAndPutApproval(
+        runId,
+        seq,
+        at,
+        'run-blocked-approval-rejected',
+        'awaiting-approval',
+        'terminal',
+        { reason: 'gate-1-rejected' },
+        approvalRow,
+      );
       if (!appended.ok) throw new GuardRefusal('G-20b', 'CAS conflict appending run-blocked-approval-rejected.');
       return { outcome: 'terminal', phase: 'terminal' };
     });
@@ -877,7 +919,13 @@ export class CoordinatorEngine {
         throw new GuardRefusal('G-1', `closeRun(blocked) has no registered row from phase "${state.phase}".`);
       }
 
-      // outcome === 'completed': G-10, four independently sourced values (§9.2.1).
+      // outcome === 'completed': G-21 first — completed is not among the
+      // exits G-21 allows for an invalidated run (only closeRun blocked and
+      // cancelRun are), so this must refuse before G-10 ever gets a chance
+      // to make a completed run look correctly verified.
+      this.refuseIfSourceInvalidated(runId, state);
+
+      // G-10, four independently sourced values (§9.2.1).
       if (state.phase !== 'handoff-ready') {
         throw new GuardRefusal('G-1', `closeRun(completed) requires handoff-ready, not "${state.phase}".`);
       }
@@ -955,8 +1003,14 @@ export class CoordinatorEngine {
       const newSha = forced.manifest.snapshot.source_sha256;
 
       const invalidated: string[] = [];
+      // Tracked separately from `invalidated.length`: the source can
+      // genuinely change while zero runs are eligible to invalidate (all
+      // pinned runs already terminal, or none exist) — that is still a
+      // refresh that changed the source, and 'unchanged' would misreport it.
+      let sourceChanged = false;
       for (const oldSha of store.listDistinctSourceHashes()) {
         if (oldSha === newSha) continue;
+        sourceChanged = true;
         for (const candidateRunId of store.listRunIdsBySourceHash(oldSha)) {
           const state = this.foldRun(candidateRunId);
           if (state.phase === 'terminal') continue;
@@ -973,7 +1027,7 @@ export class CoordinatorEngine {
       }
       return {
         ok: true,
-        outcome: invalidated.length > 0 ? 'refreshed' : 'unchanged',
+        outcome: sourceChanged ? 'refreshed' : 'unchanged',
         invalidated_run_ids: invalidated,
       };
     });

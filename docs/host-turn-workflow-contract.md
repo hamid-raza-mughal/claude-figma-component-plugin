@@ -130,7 +130,9 @@ Judging whether a *paraphrase* smuggles the same claim back in is human review, 
    revision.
 
 **§1.6.5 The support matrix — the instrument, not a result.** Rows are configurations, columns are the HD
-dependencies, cells carry status **plus** the evidence that established it. Nothing below is verified:
+dependencies, cells carry status **plus** the evidence that established it. As of this document's writing,
+nothing below was verified; **one cell has since been filled with a run** — see the evidence-update note
+immediately below the table, which names it precisely rather than editing the historical claim in place:
 
 | | **HD-1** approval event | **HD-2** durable store | **HD-3** command metadata |
 |---|---|---|---|
@@ -138,11 +140,22 @@ dependencies, cells carry status **plus** the evidence that established it. Noth
 | **R-2** Desktop/Cowork + local MCP + approved dir | Not demonstrated — same block | Conditional on the approved directory; **verification run required** | Not demonstrated — same |
 | *(later)* Web/mobile via active Desktop → same MCP + store | Not claimed | Not claimed | Not claimed |
 
+**§1.6.5's evidence-update note, 2026-07-31 (Claude Code implementation session, not a revision-4 amendment).**
+**R-1 × HD-2 is verified**, dated, with evidence: a real `beginRun`/`prepareContext` write, a real
+interruption (the writing engine instance discarded without a clean shutdown), and a real resume by a second,
+independent engine instance that read the run's state from the store file alone and carried it to `completed`
+— `docs/phase2-r1-verification.md`, `tools/verify-r1-hd2.ts`. **Nothing else in this matrix changes**: R-1's
+HD-1 and HD-3 cells are unchanged and still "Not demonstrated"; every R-2 cell is unchanged; the deferred
+web-via-Desktop row is unchanged. This run carries no claim of Builder activation, any consequential Figma
+operation, verified human authorization, or pilot/production readiness — see `docs/phase2-as-built.md`'s own
+not-claimed list.
+
 **§1.6.6 "Satisfiable by construction" is not "verified."** Until a run **writes state, is interrupted, and
-resumes from that state** on a given configuration, HD-2 is *assumed* on it. Three such runs are owed — R-1,
-R-2, and the deferred web-via-Desktop configuration. Fill the cell with the run, not with the argument. This
-clause is **tier 2, Recorded**: the matrix captures a fact the engine cannot verify about itself, and G-20
-(§12.1) is the separate tier-1 control that refuses when the store is actually absent.
+resumes from that state** on a given configuration, HD-2 is *assumed* on it. Three such runs were owed — R-1,
+R-2, and the deferred web-via-Desktop configuration. **R-1's landed 2026-07-31** (`docs/phase2-r1-verification.md`);
+**two remain owed — R-2 and the deferred web-via-Desktop configuration.** Fill the cell with the run, not with
+the argument. This clause is **tier 2, Recorded**: the matrix captures a fact the engine cannot verify about
+itself, and G-20 (§12.1) is the separate tier-1 control that refuses when the store is actually absent.
 
 **§1.6.7 The adoption cost is stated, not discovered.** R-2's reach is bounded by *will install a plugin and
 approve a writable directory*. That is the price of having any enforcement at all, and it belongs in
@@ -824,26 +837,45 @@ pre-run surface: the preflight gates `resolveCommand`, `beginRun` and `resumeRun
 
 **§12.2 Tool surface by phase** — derived mechanically from §10: a tool appears here iff §10 lists it as a
 trigger from that phase. A security boundary, not ergonomics (SA-16e), assembled from route and phase by
-deterministic code.
+deterministic code. **This table is generated, not hand-maintained** —
+`node tools/generate-tool-surface-table.ts` prints it from `src/registry/transitions.ts`, and
+`node tools/generate-tool-surface-table.ts --check docs/host-turn-workflow-contract.md` fails if this block
+and the registry ever disagree again.
 
+<!-- BEGIN GENERATED §12.2 TABLE (tools/generate-tool-surface-table.ts) -->
 | Phase | Tools registered |
 |---|---|
 | *(pre-run)* | `resolveCommand`, `beginRun`, `resumeRun` |
-| `received` | `prepareContext`, `failRun`, `cancelRun` |
-| `preparing` | `failRun`, `cancelRun` |
-| `drafting` | `submitDraft`, `cancelRun` |
-| `validating` | `openClarification`, `presentForApproval`, `closeRun`, `failRun`, `cancelRun` |
+| `received` | `prepareContext`, `closeRun`, `failRun`, `cancelRun` |
+| `preparing` | `closeRun`, `failRun`, `cancelRun` |
+| `drafting` | `submitDraft`, `closeRun`, `cancelRun` |
 | `awaiting-clarification` | `answerClarification`, `closeRun`, `cancelRun` |
-| `awaiting-approval` | `recordApproval`, `cancelRun` |
+| `validating` | `openClarification`, `presentForApproval`, `closeRun`, `failRun`, `cancelRun` |
+| `awaiting-approval` | `recordApproval`, `closeRun`, `cancelRun` |
 | `handoff-ready` | `buildHandoff`, `closeRun`, `cancelRun` |
 | *(maintenance, no run)* | `runMaintenance` — §2.11; deliberately outside the phase model |
 | *(any, Guard-initiated)* | `expireRun` — never model-callable |
+<!-- END GENERATED §12.2 TABLE -->
+
+**§12.2's evidence-update note, 2026-07-31 (Claude Code implementation session, not a revision-4 amendment).**
+This table now shows `closeRun` reachable from `received`, `preparing` and `awaiting-approval`, which the
+version fixed at revision 4's writing did not. Nothing about §10 changed to produce this — **row 20**
+(`closeRun blocked` on a `source-invalidated` event, one of the two rows revision 4 itself added) has always
+read `From: any non-terminal`, and G-21's prose has always said `closeRun blocked` and `cancelRun` are "the
+only remaining exits" for an invalidated run, naming no phase restriction. The printed table simply was
+never regenerated after that row was added, so it silently under-stated what §10 already specified. Recorded
+in full, including why this reading is safe and not merely convenient, in
+`docs/phase2-decision-log.md` PD-6. §12.2.1's own derivation rule — "every phase-scoped tool appears here iff
+§10 lists it as a trigger from that phase" — is what makes this an evidence correction rather than a new
+ruling: applying a rule already stated here to a row already stated here.
 
 **§12.2.1** The derivation rule is: **every phase-scoped tool** appears here iff §10 lists it as a trigger
-from that phase. `resolveCommand`, `resumeRun` and `runMaintenance` are **not** phase-scoped — they exist
-before or outside a run — so G-11 applies only to phase-scoped tools. Revision 2 stated the rule as an
-unqualified "iff" and thereby stranded `runMaintenance` in exactly the way §12.2 was rebuilt to fix:
-§2.11 keeps maintenance out of §10 by design, so the rule guaranteed the omission.
+from that phase. `resolveCommand`, `beginRun`, `resumeRun` and `runMaintenance` are **not** phase-scoped —
+they exist before or outside a run — so G-11 applies only to phase-scoped tools. `beginRun` belongs in this
+set for the same reason the other three do even though revision 2's original wording did not name it: its
+own §10 row has no `From` phase at all (§2.2's "—"). Revision 2 stated the rule as an unqualified "iff" and
+thereby stranded `runMaintenance` in exactly the way §12.2 was rebuilt to fix: §2.11 keeps maintenance out of
+§10 by design, so the rule guaranteed the omission.
 
 `list_by_category`, the raw curated source and every Figma tool are absent from **every** surface (SA-17,
 SA-18, SA-26).
@@ -1033,10 +1065,12 @@ broad host claim is withdrawn. What the answer changes here:
 | Multi-host concurrency | Hypothetical | Live: R-1 and R-2 on one store (§11.6.2) |
 | Recording support | By product name | Per verified configuration, with evidence (§1.6.4 rule 2) |
 
-**What remains open on HD-2 is verification, not the ruling.** Three runs are owed — R-1, R-2, and the deferred
-web-via-Desktop configuration — each a write, an interruption and a resume from durable state (§1.6.6). Until
-each lands, its matrix cell is a claim. **HD-1 and HD-3 are unaffected and remain open on both runtimes**, so
-§7.6.1's block on Builder activation and the `model-relayed` default for every route (§2.10.3) both stand.
+**What remains open on HD-2 is verification, not the ruling.** Three runs were owed — R-1, R-2, and the deferred
+web-via-Desktop configuration — each a write, an interruption and a resume from durable state (§1.6.6).
+**R-1's landed 2026-07-31** (`docs/phase2-r1-verification.md`, evidence-update note at §1.6.5); **R-2 and the
+deferred web-via-Desktop configuration remain owed.** Until each lands, its matrix cell is a claim. **HD-1 and
+HD-3 are unaffected and remain open on both runtimes**, so §7.6.1's block on Builder activation and the
+`model-relayed` default for every route (§2.10.3) both stand.
 
 **A note the sweep produced.** The repository was checked on 2026-07-31 for the two §1.6.4 wording rules, since
 v4's own sweep covered the spec set only. Rule 1: **clean** — eleven uses of "sandbox", none a host-capability
@@ -1081,8 +1115,10 @@ Cited elsewhere as §18.*n*.
    equivalence so a future divergent key fails at introduction. Settled once in the engine, per this question's
    own §1.4 note.
 8. **CLOSED by §1.6 / SA-45** — which hosts are supported, and on what basis. Two configurations, named by
-   capability; the broad install-set claim is withdrawn (§1.6.2). What remains is the three HD-2 verification
-   runs (§1.6.6), which are evidence owed against a settled ruling rather than an open question.
+   capability; the broad install-set claim is withdrawn (§1.6.2). What remained was three HD-2 verification
+   runs (§1.6.6), evidence owed against a settled ruling rather than an open question — **R-1's landed
+   2026-07-31** (§1.6.5's evidence-update note); R-2 and the deferred web-via-Desktop configuration remain
+   owed.
 9. **CLOSED by §11.0.7 / §19 D-2 — a witness outside the database.** `store-identity.json` is written beside the
    database at initialization and read only to classify the directory: neither present → fresh; witness without
    database → **lost**, refused by G-20c; database without witness → **foreign**, refused. The witness is never

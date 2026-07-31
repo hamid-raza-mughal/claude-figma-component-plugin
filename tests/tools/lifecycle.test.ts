@@ -378,6 +378,79 @@ describe('runMaintenance — §2.11, source-invalidated fanout, G-21', () => {
     assert.equal(closed.outcome, 'blocked');
   });
 
+  test('G-21: failRun is also refused for an invalidated run — only closeRun(blocked)/cancelRun remain', () => {
+    const config = newPhase1Config();
+    const engine = new CoordinatorEngine({ phase1Config: () => config, now: () => '2026-07-29T10:00:00Z' });
+    const { run_id } = engine.beginRun({ operation_id: 'component.create', user_intent: 'x' });
+    const prepared = engine.prepareContext(run_id);
+    const paint = findCandidate(prepared.candidates, 'paint-style');
+    // Reach validating, where failRun would otherwise be reachable (§10 row
+    // 11) — proving G-21, not G-11, is what refuses it below.
+    engine.submitDraft(run_id, readyDraft(paint.candidate_id));
+    assert.equal(engine.resumeRun(run_id).phase, 'validating');
+
+    writeFileSync(
+      config.curatedSourcePath,
+      JSON.stringify({
+        meta: { schema_version: '1.1' },
+        variables: {
+          collections: [{ id: 'c1', key: 'c1', name: 'Colors', modes: [{ modeId: '1:0', name: 'Light' }] }],
+          items: [{ id: 'v9', key: 'jkl', name: 'color/failrun', collection_id: 'c1', type: 'COLOR', values_by_mode: { '1:0': { r: 0.2, g: 0.2, b: 0.2 } }, scopes: ['ALL_FILLS'], description: 'x' }],
+        },
+        styles: { paint: [{ id: 'p9', key: 'p9key', name: 'x', description: 'x', paints: [{ type: 'SOLID' }] }], text: [], effect: [], grid: [] },
+        diagnostics: {},
+      }),
+    );
+    const refreshed = engine.runMaintenance('source.refresh');
+    assert.ok(refreshed.invalidated_run_ids.includes(run_id));
+
+    assert.throws(
+      () => engine.failRun(run_id, 'invalid-input'),
+      (error: unknown) => error instanceof GuardRefusal && error.code === 'G-21',
+    );
+    // The two designated exits remain reachable.
+    assert.equal(engine.closeRun(run_id, 'blocked').outcome, 'blocked');
+  });
+
+  test('G-21: closeRun(completed) is refused for a run invalidated after reaching handoff-ready', () => {
+    const config = newPhase1Config();
+    const engine = new CoordinatorEngine({ phase1Config: () => config, now: () => '2026-07-29T10:00:00Z' });
+    const { run_id } = engine.beginRun({ operation_id: 'component.create', user_intent: 'x' });
+    const prepared = engine.prepareContext(run_id);
+    const paint = findCandidate(prepared.candidates, 'paint-style');
+    engine.submitDraft(run_id, readyDraft(paint.candidate_id));
+    engine.presentForApproval(run_id);
+    engine.recordApproval(run_id, 'approved', 'ux@techlogix.com');
+    engine.buildHandoff(run_id);
+    assert.equal(engine.resumeRun(run_id).phase, 'handoff-ready');
+
+    writeFileSync(
+      config.curatedSourcePath,
+      JSON.stringify({
+        meta: { schema_version: '1.1' },
+        variables: {
+          collections: [{ id: 'c1', key: 'c1', name: 'Colors', modes: [{ modeId: '1:0', name: 'Light' }] }],
+          items: [{ id: 'v10', key: 'mno', name: 'color/handoffready', collection_id: 'c1', type: 'COLOR', values_by_mode: { '1:0': { r: 0.3, g: 0.3, b: 0.3 } }, scopes: ['ALL_FILLS'], description: 'x' }],
+        },
+        styles: { paint: [{ id: 'p10', key: 'p10key', name: 'x', description: 'x', paints: [{ type: 'SOLID' }] }], text: [], effect: [], grid: [] },
+        diagnostics: {},
+      }),
+    );
+    const refreshed = engine.runMaintenance('source.refresh');
+    assert.ok(
+      refreshed.invalidated_run_ids.includes(run_id),
+      'a run in handoff-ready must still be invalidated by a refresh — it is non-terminal',
+    );
+
+    // Before the fix, this succeeded via G-10's checks alone, letting an
+    // invalidated run complete — exactly what G-21 exists to prevent.
+    assert.throws(
+      () => engine.closeRun(run_id, 'completed'),
+      (error: unknown) => error instanceof GuardRefusal && error.code === 'G-21',
+    );
+    assert.equal(engine.closeRun(run_id, 'blocked').outcome, 'blocked');
+  });
+
   test('a terminal run is never invalidated — the fanout skips it', () => {
     const config = newPhase1Config();
     const engine = new CoordinatorEngine({ phase1Config: () => config, now: () => '2026-07-29T10:00:00Z' });

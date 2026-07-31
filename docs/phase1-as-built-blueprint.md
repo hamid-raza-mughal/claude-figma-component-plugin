@@ -284,3 +284,11 @@ resolver makes zero model calls and its recall is measured against corrected gro
 truth; a fabricated or altered reference cannot survive materialization; `audit` cannot
 reach Builder; and the artifact a human approves is provably the artifact the next stage
 receives.
+
+**Evidence-update note, 2026-07-31 — Phase 2, not Phase 1.** This section describes Phase 1
+alone, and nothing above changed. Separately, Phase 2's Coordinator runtime (built on top of
+this engine, unmodified) has one piece of live runtime evidence: **R-1 (Claude Code) HD-2
+verified** — `docs/phase2-r1-verification.md`. This is not "Cowork-compatible" turning positive
+— Cowork is R-2, a different configuration, still unverified — and it carries no claim about
+HD-1 (human approval, unmet), HD-3 (host command metadata, unmet), Builder, Figma writes, or
+pilot/production readiness. See `docs/phase2-as-built.md` for the full accounting.

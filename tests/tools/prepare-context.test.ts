@@ -8,6 +8,12 @@ import assert from 'node:assert/strict';
 import { CoordinatorEngine } from '../../src/tools/engine.ts';
 import { GuardRefusal } from '../../src/guard/errors.ts';
 import { newPhase1Config } from './fixtures.ts';
+import { ingest } from '../../src/ingestion/curated-json-loader.ts';
+import { IndexReader } from '../../src/resolver/index-reader.ts';
+import { generateSchemaCard } from '../../src/ingestion/schema-card-generator.ts';
+import { assembleModelInput } from '../../src/coordinator/assemble-model-input.ts';
+import { assertNoLeakage } from '../../src/coordinator/leakage-assertion.ts';
+import { inactiveRouteModuleIds } from '../../src/coordinator/select-route-module.ts';
 
 function newEngine(): CoordinatorEngine {
   const config = newPhase1Config();
@@ -61,5 +67,47 @@ describe('prepareContext — the deterministic pipeline', () => {
     engine.prepareContext(run_id);
     const invocations = engine.getToolInvocations(run_id);
     assert.ok(invocations.some((entry) => entry.tool === 'prepareContext' && entry.ok === true));
+  });
+});
+
+/**
+ * PD-9 (docs/phase2-decision-log.md): `generateSchemaCard`'s real output
+ * legitimately renders `source_sha256`/`index_version` into its SNAPSHOT
+ * header, and `assertNoLeakage`'s operational-field check had no exemption
+ * for the `schema-card` section until this session — every existing Phase 1
+ * test used a hand-written `SchemaCard` fixture that happened to avoid the
+ * collision, so the two real functions had never actually been run together
+ * before. This test calls both directly, isolated from the full engine, so
+ * the fix has coverage that doesn't depend on `prepareContext`'s own success
+ * as an indirect proxy.
+ */
+describe('PD-9 regression — the real schema card passes the real leakage assertion', () => {
+  test('generateSchemaCard(reader) output, assembled, is clean per assertNoLeakage', () => {
+    const config = newPhase1Config();
+    const result = ingest(config, { now: '2026-07-29T10:00:00Z' });
+    const reader = new IndexReader(result.database_path);
+    try {
+      const card = generateSchemaCard(reader);
+      // The exact collision PD-9 fixed: confirm the real card still contains
+      // these substrings (proving the exemption is doing real work, not
+      // passing because the trigger condition vanished).
+      assert.match(card.body, /source_sha256:/);
+      assert.match(card.body, /index_version:/);
+
+      const assembled = assembleModelInput({
+        run_type: 'new',
+        user_intent: 'PD-9 regression check',
+        schema_card: card,
+        candidates_by_query: {},
+      });
+      const leakage = assertNoLeakage({ assembled, inactiveRouteModuleIds: inactiveRouteModuleIds('new') });
+      assert.equal(
+        leakage.clean,
+        true,
+        `expected clean, got findings: ${JSON.stringify(leakage.findings)}`,
+      );
+    } finally {
+      reader.close();
+    }
   });
 });

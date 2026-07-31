@@ -26,6 +26,15 @@ Start with `docs/phase1-as-built-blueprint.md` for what runs, and
 The status vocabulary is enforced: `implemented` means executable code exists and the relevant test ran.
 Nothing here is described as production-ready, pilot-ready, or Cowork-verified without that evidence.
 
+**Phase 2 (the Coordinator runtime) is implemented on top of this engine** — see
+`docs/phase2-as-built.md`. One piece of runtime evidence has landed since Phase 1's own gate:
+**R-1 (Claude Code) HD-2 — the durable store, written to, interrupted, and resumed — verified
+2026-07-31**, evidence in `docs/phase2-r1-verification.md`. That is the only claim this evidence
+update makes. It does **not** mean: R-2 (Desktop/Cowork) is verified — still not claimed; Builder
+is active or any Figma write happened — neither exists in this repository; human approval is
+verified — every approval Phase 2 can record is model-relayed and unverified (HD-1 is unmet); or
+pilot/production readiness — still not claimed.
+
 ## Why the architecture looks like this
 
 The predecessor design put a ~250,000-token design-token JSON into model context and asked the model to
