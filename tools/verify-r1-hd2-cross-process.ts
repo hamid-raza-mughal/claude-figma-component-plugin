@@ -16,6 +16,18 @@
  *
  * Usage:
  *   ADALFI_ARTIFACT_DIR=<bundle> node tools/verify-r1-hd2-cross-process.ts <approved-data-dir>
+ *   node tools/verify-r1-hd2-cross-process.ts <approved-data-dir> --curated-source <path>
+ *
+ * **Why the second form exists (WP A3).** The bundle form is the stronger
+ * evidence and stays the default — it runs against the real curated export.
+ * But it can only be run where `ADALFI_ARTIFACT_DIR` is available, so in every
+ * other environment this tool could not be run at all, and an evidence tool
+ * that cannot be executed is a document. `--curated-source` points the two
+ * children at any valid curated export, so the cross-process claim can be
+ * re-established against a synthetic fixture. The two forms differ **only** in
+ * where the curated JSON comes from: the same two child processes, the same
+ * assertions, the same PASS condition. The printed header names which form ran
+ * so no reader can mistake one for the other.
  */
 import { spawnSync } from 'node:child_process';
 import { dirname, join } from 'node:path';
@@ -63,26 +75,54 @@ type ProcessBOutput = {
   readonly result: 'PASS' | 'FAIL';
 };
 
-function main(): void {
-  const artifactDir = process.env['ADALFI_ARTIFACT_DIR'];
-  const approvedDataDir = process.argv[2];
+/** Which curated export the two children are pointed at, and how that was
+ *  decided — printed, never left for a reader to infer from an absent flag. */
+type CuratedSource = { readonly path: string; readonly form: 'artifact-bundle' | 'supplied-curated-source' };
+
+export function resolveCuratedSource(
+  argv: readonly string[],
+  env: Readonly<Record<string, string | undefined>>,
+): CuratedSource | { readonly error: string } {
+  const flagIndex = argv.indexOf('--curated-source');
+  if (flagIndex !== -1) {
+    const supplied = argv[flagIndex + 1];
+    if (supplied === undefined || supplied.trim() === '' || supplied.startsWith('--')) {
+      return { error: '--curated-source needs a path to a curated design-system JSON export.' };
+    }
+    return { path: supplied, form: 'supplied-curated-source' };
+  }
+  const artifactDir = env['ADALFI_ARTIFACT_DIR'];
   if (artifactDir === undefined || artifactDir.trim() === '') {
-    console.error('ADALFI_ARTIFACT_DIR must be set (the same bundle `npm run verify` uses).');
+    return {
+      error:
+        'Set ADALFI_ARTIFACT_DIR (the same bundle `npm run verify` uses), or pass ' +
+        '--curated-source <path> to run against a supplied curated export instead.',
+    };
+  }
+  return { path: join(artifactDir, CURATED_SOURCE_RELATIVE), form: 'artifact-bundle' };
+}
+
+function main(): void {
+  const approvedDataDir = process.argv[2];
+  if (approvedDataDir === undefined || approvedDataDir.trim() === '' || approvedDataDir.startsWith('--')) {
+    console.error('Usage: node tools/verify-r1-hd2-cross-process.ts <approved-data-dir> [--curated-source <path>]');
     process.exit(1);
   }
-  if (approvedDataDir === undefined || approvedDataDir.trim() === '') {
-    console.error('Usage: node tools/verify-r1-hd2-cross-process.ts <approved-data-dir>');
+  const curated = resolveCuratedSource(process.argv.slice(3), process.env);
+  if ('error' in curated) {
+    console.error(curated.error);
     process.exit(1);
   }
 
   const childEnv = {
     ...process.env,
-    ADALFI_CURATED_SOURCE: join(artifactDir, CURATED_SOURCE_RELATIVE),
+    ADALFI_CURATED_SOURCE: curated.path,
     ADALFI_DERIVED_DIR: join(approvedDataDir, 'derived-index'),
     ADALFI_APPROVED_DATA_DIR: join(approvedDataDir, 'run-store'),
   };
 
   log('R-1 HD-2 genuine cross-process acceptance run — §1.6.6 (corrected evidence boundary)');
+  log(`curated_source_form: ${curated.form}`);
   log(`orchestrator_pid: ${process.pid}`);
   log(`started_at: ${new Date().toISOString()}`);
   log(`approved_data_directory: ${childEnv.ADALFI_APPROVED_DATA_DIR}`);
@@ -144,4 +184,8 @@ function main(): void {
   if (!overallPass) process.exit(1);
 }
 
-main();
+// Guarded so `resolveCuratedSource` can be imported and tested without this
+// module spawning two child processes and calling `process.exit` on import.
+if (process.argv[1] !== undefined && import.meta.url === `file://${process.argv[1]}`) {
+  main();
+}
