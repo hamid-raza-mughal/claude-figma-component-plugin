@@ -23,11 +23,9 @@ import { ENFORCEMENT_OWNERS } from '../../src/contracts/failures.ts';
 import {
   REPRESENTATION_INVARIANTS,
   REPRESENTATION_INVARIANTS_BY_ID,
-} from '../../src/representation/validation/invariant-registry.ts';
-import {
   PROMOTION_LEDGER,
   NEW_IN_PROMOTION,
-} from '../../src/representation/validation/promotion-ledger.ts';
+} from '../../src/representation/index.ts';
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 

@@ -22,10 +22,10 @@ import { SchemaRegistry } from '../../src/validation/schema-validator.ts';
 import { REPRESENTATION_CONTRACT_SCHEMA_ID } from '../../src/representation/index.ts';
 import {
   resolveReferences,
+  checkSemantics,
+  REPRESENTATION_INVARIANTS_BY_ID,
   type ArtifactReader,
-} from '../../src/representation/validation/reference-resolver.ts';
-import { checkSemantics } from '../../src/representation/validation/semantic-validator.ts';
-import { REPRESENTATION_INVARIANTS_BY_ID } from '../../src/representation/index.ts';
+} from '../../src/representation/index.ts';
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(HERE, '..', '..');

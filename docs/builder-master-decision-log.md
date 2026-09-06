@@ -344,3 +344,48 @@ never report itself covered by evidence that has gone.
 
 **Revisit trigger.** A third form of evidence appearing, at which point `validator` becomes a
 discriminated union with its own per-kind verification rather than a growing string enum.
+
+---
+
+## MB-15 · The boundary scan reads code as code and documents as documents
+
+**Ruling.** `tools/boundary-scan.ts` applies its two path rules — a constructed path into the research
+corpus, and a path past the representation barrel — to `.ts`, `.js` and `.json` only. Markdown is
+scanned for one rule: a filesystem call naming the corpus. Ten exemptions, each naming one file and
+one rule with a reason, cover the guards that must write down what they forbid; a test asserts the
+count, that every exemption still suppresses something, and that none is a glob.
+
+**Why this is the smallest safe option.** The first version applied every rule everywhere and produced
+**nineteen findings and zero defects** — every one a decision log citing the directory that BP-1 is
+*about*. A scan that cannot distinguish a citation from a dependency is a scan that gets switched off
+within a week, and `docs/builder-master-audit-cycle-1.md`'s own allowlist discipline exists because
+this repository has already learned that. The discrimination that survives is real rather than
+convenient: in code, a quoted path *is* a dependency; in prose, naming a directory is documentation,
+and a document carrying a command that reads it is caught by the rule that still applies there. The
+"still needed" test is what keeps the exemption list from outliving its reasons — an exemption that
+suppresses nothing is one nobody will notice has stopped being justified.
+
+**Revisit trigger.** A fourth boundary rule, or the first exemption that is not itself a guard — the
+latter would mean something legitimately depends on the corpus, which is a request to change BP-1.
+
+---
+
+## MB-16 · The gated command is BP-10's literal string, and the refusal lives in the test
+
+**Ruling.** `test:evidence` is exactly the command BP-10 fixes, character for character. The explicit
+failure when `REPRESENTATION_EVIDENCE_DIR` is unset is asserted by the gated test file's first
+assertion rather than by a wrapper script, and a tracked test asserts both: the script string, and
+that the file refuses.
+
+**Why this is the smallest safe option.** BP-10 writes the command out verbatim, so it is a locked
+ruling rather than a suggestion, and a wrapper would have been a second thing to keep in agreement
+with it — the two-representations failure mode again, over a one-line script. Putting the refusal in
+the test is also where it belongs: `node --test` over a glob has no place to check an environment
+variable, but the test that would read the pack does, and it fails there with a message saying what
+is missing. Both directions are exercised: unset, four failures naming the variable; set, four
+passes. `sourceOnlyExpectedSkips` is untouched at `7`, and a test asserts that too, because the
+`.evidence.ts` suffix is what makes these tests invisible to the default glob without any skip,
+exclusion or flag.
+
+**Revisit trigger.** The pack becoming a standard part of the development environment, at which point
+BP-10's own trigger applies and the suite folds into `test:strict` beside the artifact bundle.

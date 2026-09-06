@@ -4,9 +4,9 @@
  * `package.json` declares no `exports` field and TypeScript imposes no module
  * encapsulation, so a barrel is a naming convention that the first
  * `import { … } from '../representation/validation/…'` quietly defeats. B6 adds
- * the ESLint pattern and the static scan that make this boundary real; until
- * then, this file is still the declared surface and everything under
- * `contracts/`, `validation/`, `evidence/` and `selection/` is internal.
+ * the ESLint pattern and the static scan that make it real, so everything under
+ * `contracts/`, `validation/`, `evidence/` and `selection/` is internal by
+ * enforcement rather than by convention.
  *
  * What Builder Phase 2 may couple to is exactly what is re-exported here.
  */

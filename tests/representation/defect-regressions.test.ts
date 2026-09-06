@@ -31,10 +31,10 @@ import {
   checkProbesDiffer,
   checkDocumentStatus,
   checkDeclaredEnumeration,
+  resolveReferences,
   RETIRED_VOCABULARY,
   type EvidenceResult,
 } from '../../src/representation/index.ts';
-import { resolveReferences } from '../../src/representation/validation/reference-resolver.ts';
 import { SPEC_SCHEMA_VERSION } from '../../src/coordinator/compose-trusted-output.ts';
 
 const HERE = dirname(fileURLToPath(import.meta.url));
