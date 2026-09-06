@@ -1,5 +1,5 @@
 {
-  "note": "Fixtures for the promoted representation contract (0.4.1-draft). `validator` says which check a row is evidence for: `schema` rows are validated by the schema and must fail AT THEIR INTENDED GATE (expected_schema_path_contains plus expected_instance_path_contains together, because ajv reports schemaPath relative to the innermost $ref and the same string names two gates). `reference` and `semantic` rows are validated by the resolvers in src/representation/validation/, and every one of their negatives is ALSO asserted to be schema-valid -- which is the whole argument for B3: D-1, D-2, D-3 and D-7 all passed a schema. rule_id binds every row to a REP-* invariant, checked in BOTH directions (BP-6): no declared rule without a positive and a negative, no fixture naming a rule that is not declared. D-5 is what a one-way check misses.",
+  "note": "Fixtures for the promoted representation contract (0.4.1-draft). `validator` says which check a row is evidence for: `schema` rows are validated by the schema and must fail AT THEIR INTENDED GATE (expected_schema_path_contains plus expected_instance_path_contains together, because ajv reports schemaPath relative to the innermost $ref and the same string names two gates). `reference` and `semantic` rows are validated by the resolvers in src/representation/validation/, and every one of their negatives is ALSO asserted to be schema-valid -- which is the whole argument for B3: D-1, D-2, D-3 and D-7 all passed a schema. rule_id binds every row to a REP-* invariant, checked in BOTH directions (BP-6): no declared rule without a positive and a negative, no fixture naming a rule that is not declared. D-5 is what a one-way check misses. A row whose `validator` is `evidence` has no fixture file of its own: its evidence is a named test running a production check against the real promoted corpus, and `covered_by` names that test. The coverage check verifies the named test actually exists, so a declaration cannot outlive the test it points at.",
   "fixtures": [
     {
       "file": "positive/minimal-contract.json",
@@ -491,6 +491,70 @@
       "intended_error_code": "REP_VARIANT_BOTH_COVERED_AND_UNDOCUMENTED",
       "artifact_reader": null,
       "purpose": "The other direction: a variant declared undocumented while a representation covers it. A one-way check sees neither this nor the case above."
+    },
+    {
+      "file": "tests/representation/defect-regressions.test.ts",
+      "validator": "evidence",
+      "expect": "invalid",
+      "rule_id": "REP-18",
+      "covered_by": "D-1 \u2014 the Button contract carries retired vocabulary inside a sentence",
+      "purpose": "The negative is the real Button contract. There is no smaller fixture worth having: the point of REP-18 is that this document passes the research suite."
+    },
+    {
+      "file": "tests/representation/defect-regressions.test.ts",
+      "validator": "evidence",
+      "expect": "valid",
+      "rule_id": "REP-18",
+      "covered_by": "the production schema carries no retired vocabulary",
+      "purpose": "The passing direction, over a document that genuinely has none."
+    },
+    {
+      "file": "tests/representation/defect-regressions.test.ts",
+      "validator": "evidence",
+      "expect": "invalid",
+      "rule_id": "REP-19",
+      "covered_by": "D-6 \u2014 the shared-build-frame probe is byte-identical to its subject",
+      "purpose": "The negative is the real probe set, hashed. A synthetic pair would show the comparison runs, not that the corpus needed it."
+    },
+    {
+      "file": "tests/representation/defect-regressions.test.ts",
+      "validator": "evidence",
+      "expect": "valid",
+      "rule_id": "REP-19",
+      "covered_by": "probes that differ are accepted",
+      "purpose": "The passing direction, so the rule is shown to be satisfiable rather than only violable."
+    },
+    {
+      "file": "tests/representation/defect-regressions.test.ts",
+      "validator": "evidence",
+      "expect": "invalid",
+      "rule_id": "REP-20",
+      "covered_by": "D-11 \u2014 the change plan declares two contradictory statuses",
+      "purpose": "The negative is the real change plan, whose first eight lines carry both statuses."
+    },
+    {
+      "file": "tests/representation/defect-regressions.test.ts",
+      "validator": "evidence",
+      "expect": "valid",
+      "rule_id": "REP-20",
+      "covered_by": "a single clear status declaration is accepted",
+      "purpose": "The passing direction, plus a body mention that must NOT count as a second declaration."
+    },
+    {
+      "file": "tests/representation/defect-regressions.test.ts",
+      "validator": "evidence",
+      "expect": "invalid",
+      "rule_id": "REP-21",
+      "covered_by": "D-9 \u2014 the analysis document omits a blocker the contract carries",
+      "purpose": "The negative is the real analysis document against the real contract: ten rows against eleven blockers."
+    },
+    {
+      "file": "tests/representation/defect-regressions.test.ts",
+      "validator": "evidence",
+      "expect": "valid",
+      "rule_id": "REP-21",
+      "covered_by": "an enumeration that matches the artifact is accepted",
+      "purpose": "The passing direction, and its mirror \u2014 a table listing a member the artifact dropped \u2014 is covered beside it."
     }
   ]
 }

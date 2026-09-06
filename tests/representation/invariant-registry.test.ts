@@ -33,8 +33,11 @@ const HERE = dirname(fileURLToPath(import.meta.url));
 
 type FixtureRow = {
   readonly file: string;
+  readonly validator: 'schema' | 'reference' | 'semantic' | 'evidence';
   readonly expect: 'valid' | 'invalid';
   readonly rule_id: string | null;
+  /** For an `evidence` row: the name of the test that is the evidence. */
+  readonly covered_by?: string | undefined;
 };
 
 const fixtures = (
@@ -123,6 +126,22 @@ describe('B2 · fixture coverage is bidirectional (BP-6, D-5)', () => {
       [],
       'D-5 direction two: CV-4, CV-9 and CV-19 were fixture-asserted and never declared',
     );
+  });
+
+  test('every evidence row names a test that exists', () => {
+    // A row claiming coverage from a named test is worth exactly as much as the
+    // test being there. Without this, deleting or renaming a test would leave a
+    // registry that still reports itself covered — which is D-5 again, with the
+    // fixture manifest replaced by an index.
+    for (const row of fixtures) {
+      if (row.validator !== 'evidence') continue;
+      assert.ok(row.covered_by !== undefined, `${row.rule_id} declares evidence but names no test`);
+      const source = readFileSync(join(HERE, '..', '..', row.file), 'utf8');
+      assert.ok(
+        source.includes(`'${row.covered_by}'`) || source.includes(`\`${row.covered_by}\``),
+        `${row.file} contains no test named "${String(row.covered_by)}"`,
+      );
+    }
   });
 
   test('the two directions are genuinely different checks', () => {

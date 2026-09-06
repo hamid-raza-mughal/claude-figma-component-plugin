@@ -231,6 +231,49 @@ export const REPRESENTATION_INVARIANTS: readonly RepresentationInvariant[] = [
       'D-1, D-2, D-7 and D-9 depends on to survive',
     error_code: 'REP_UNCOVERED_VARIANT_NOT_DECLARED',
   },
+  {
+    id: 'REP-18',
+    statement:
+      'No retired vocabulary appears anywhere in a contract, including inside a sentence.',
+    owner: 'semantic-validator',
+    promoted_from: 'CV-3',
+    prevents:
+      'D-4, and through it D-1: the research check is whole-string equality on a leaf value, so a ' +
+      'retired token inside a sentence is never equal to the sentence and never matches',
+    error_code: 'REP_RETIRED_VOCABULARY_IN_USE',
+  },
+  {
+    id: 'REP-19',
+    statement: 'A probe differs from the artifact it probes, and from every other probe.',
+    owner: 'semantic-validator',
+    promoted_from: null,
+    prevents:
+      'D-6: a probe byte-identical to the deliverable contract, so "the probe passes" restated ' +
+      "the contract's own result while reading as corroboration",
+    error_code: 'REP_PROBE_IDENTICAL_TO_SUBJECT',
+  },
+  {
+    id: 'REP-20',
+    statement: 'A document declares one status, not two contradictory ones.',
+    owner: 'semantic-validator',
+    promoted_from: null,
+    prevents:
+      'D-11: a change plan declaring "IMPLEMENTED and LOCKED" on line 1 and "PROPOSED. Not ' +
+      'implemented." on line 8, with no check that read both',
+    error_code: 'REP_DOCUMENT_DECLARES_TWO_STATUSES',
+  },
+  {
+    id: 'REP-21',
+    statement:
+      "A document that enumerates an artifact's members lists all of them and invents none, " +
+      'checked against ids recomputed from the artifact.',
+    owner: 'semantic-validator',
+    promoted_from: null,
+    prevents:
+      'D-9: eleven blockers in the contract, ten in the companion table. Counting would not have ' +
+      'found it — the document states no number, it just has one row too few',
+    error_code: 'REP_ENUMERATION_MISSES_MEMBER',
+  },
 ];
 
 export const REPRESENTATION_INVARIANTS_BY_ID: ReadonlyMap<string, RepresentationInvariant> =

@@ -54,3 +54,18 @@ export type {
   SemanticViolation,
   SemanticResult,
 } from './validation/semantic-validator.ts';
+
+export {
+  RETIRED_VOCABULARY,
+  findRetiredVocabulary,
+  checkProbesDiffer,
+  checkDocumentStatus,
+  checkDeclaredEnumeration,
+  LOGIC_BEARING_FIELD,
+} from './evidence/evidence-checks.ts';
+
+export type {
+  EvidenceViolation,
+  EvidenceResult,
+  Probe,
+} from './evidence/evidence-checks.ts';

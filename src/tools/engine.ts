@@ -67,11 +67,16 @@ import type { CoordinatorOutput } from '../contracts/coordinator-output.ts';
 import type { ResolverCandidate } from '../contracts/resolution.ts';
 import { CONFIDENCE_LEVELS, type Confidence, type Disclosure } from '../contracts/resolution.ts';
 import type { SchemaCard } from '../contracts/source.ts';
+import { SPEC_SCHEMA_VERSION } from '../coordinator/compose-trusted-output.ts';
 
-/** §11.3.1's constant, until a Phase 3+ artifact widens the spec. Not a config
- *  value: it names the P1-FINAL spec revision this engine implements, not
- *  anything that varies by environment. */
-const SPEC_SCHEMA_VERSION = '2.0.0';
+/*
+ * D-12, fixed. This module declared its own `SPEC_SCHEMA_VERSION = '2.0.0'`
+ * beside the exported one in `compose-trusted-output.ts`, with nothing asserting
+ * the two agreed — two representations of one fact, which is this project's
+ * named failure mode (`tests/contracts/schema-agreement.test.ts:1–9`). They
+ * happened to agree, which is the only reason it was invisible. One declaration
+ * now, imported from where it is exported.
+ */
 
 /** PD-7: standard property categories probed via `listByCategory` when no
  *  semantic elements exist yet to plan narrower queries from. Small cap per

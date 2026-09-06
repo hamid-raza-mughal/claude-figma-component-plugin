@@ -47,7 +47,7 @@ function registry(): SchemaRegistry {
 
 type FixtureRow = {
   readonly file: string;
-  readonly validator: 'schema' | 'reference' | 'semantic';
+  readonly validator: 'schema' | 'reference' | 'semantic' | 'evidence';
   readonly expect: 'valid' | 'invalid';
   readonly rule_id: string | null;
   readonly intended_error_code: string | null;
@@ -57,7 +57,7 @@ type FixtureRow = {
 
 const rows = (
   loadJson<{ readonly fixtures: readonly FixtureRow[] }>(join(HERE, 'fixtures', 'index.json'))
-).fixtures.filter((row) => row.validator !== 'schema');
+).fixtures.filter((row) => row.validator === 'reference' || row.validator === 'semantic');
 
 /** A reader over a declared map. `null` in the index means no reader at all,
  *  which REP-13 treats as a violation rather than a skip. */

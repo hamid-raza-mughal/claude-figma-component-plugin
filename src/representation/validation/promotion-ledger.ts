@@ -90,7 +90,7 @@ export const PROMOTION_LEDGER: readonly PromotionLedgerRow[] = [
   // --- CV-*: document integrity -------------------------------------------
   pending('CV-1', 'B3', 'Weak evidence must not be paired with a physical-completeness claim.'),
   promoted('CV-2', ['REP-16'], 'Duplicate identifiers within a namespace, plus C-11: a buildFrameId must not collide with a component set id.'),
-  promoted('CV-3', ['REP-11', 'REP-15'], 'Broken or inconsistent cross-references. D-5 said it was declared with zero negative fixture; both directions now carry one.'),
+  promoted('CV-3', ['REP-11', 'REP-15', 'REP-18'], 'Broken or inconsistent cross-references. D-5 said it was declared with zero negative fixture; both directions now carry one.'),
   promoted('CV-3b', ['REP-12', 'REP-17'], 'Layout-representation kind-compatibility (D-3) and explicit declaration of variants no representation covers.'),
   promoted('CV-4', ['REP-03'], 'D-5 orphan: fixture-asserted, never declared. Now declared with coverage in both directions.'),
   pending('CV-5', 'B3', 'Incomplete or duplicate correlated-axis tuple entry.'),
@@ -119,4 +119,7 @@ export const NEW_IN_PROMOTION: readonly string[] = [
   'REP-09',
   'REP-13',
   'REP-14',
+  'REP-19',
+  'REP-20',
+  'REP-21',
 ];

@@ -300,3 +300,47 @@ silent size filter is how a corpus quietly stops containing the thing a test cla
 **Revisit trigger.** A production check that needs an excluded artifact — at which point the artifact
 is promoted individually and the budget stays where it is, rather than the budget being raised until
 it stops excluding anything.
+
+---
+
+## MB-13 · Retired vocabulary is matched by substring inside a field logic reads, and by equality everywhere else
+
+**Ruling.** `findRetiredVocabulary` treats one class of field — today, `detectionCondition` — as
+machine-read, and matches a retired token anywhere inside it. Everywhere else a leaf must *equal* a
+retired value to count. `RETIRED_VOCABULARY` carries retired **enum values**, transcribed from the
+research package's own list, and no retired field names.
+
+**Why this is the smallest safe option.** D-4 is whole-string equality applied everywhere, and it is
+why D-1, D-2 and D-3 all survived a fully green suite: a retired token inside a sentence is never
+equal to the sentence. The obvious correction — substring matching everywhere — is worse in practice
+and I wrote it first. `buttons` is a retired scope token *and* an ordinary English word appearing
+throughout a document about buttons, and a rule that fires on every sentence is a rule that gets
+switched off within a week. Including retired field names made it worse again: the promoted schema's
+own `description` fields say what `layoutStrategy` and `matrixAllocations` were replaced by, and
+flagging a migration note for naming what it migrated is exactly the false positive that discredits
+the check. The distinction that survives both failures is the one the defect is actually about: a
+string a validator is meant to *interpret* versus a string it is meant to *display*.
+
+**Revisit trigger.** A second machine-read field — at which point it joins the pattern rather than
+the pattern being widened to "any string".
+
+---
+
+## MB-14 · A rule whose evidence is a test declares that in the fixture index, and the declaration is verified
+
+**Ruling.** The fixture index accepts rows with `validator: "evidence"`, carrying no fixture file and
+instead a `covered_by` naming the test that is the evidence. The bidirectional coverage check counts
+them like any other row, and a separate assertion reads the named file and verifies a test with that
+exact name exists.
+
+**Why this is the smallest safe option.** REP-18 through REP-21 are checked against whole documents —
+a contract, a probe set, a markdown file — not against a contract fixture, so there is no JSON to put
+in `fixtures/`. Two alternatives were worse. Exempting these rules from the coverage check would put
+four rules in the registry with nothing asserting they are covered, which is D-5 with a shorter list.
+Writing synthetic fixtures for them would satisfy the check while proving the weaker thing: that the
+comparison runs, rather than that the corpus needed it. What makes the declaration safe rather than
+decorative is that it is **resolved**: rename or delete the test and the row fails, so a registry can
+never report itself covered by evidence that has gone.
+
+**Revisit trigger.** A third form of evidence appearing, at which point `validator` becomes a
+discriminated union with its own per-kind verification rather than a growing string enum.

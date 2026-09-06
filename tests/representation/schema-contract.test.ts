@@ -61,7 +61,7 @@ type FixtureRow = {
   /** Which check the row is evidence for. B1 owns only the schema rows; the
    *  `reference` and `semantic` rows are deliberately schema-VALID, so running
    *  them here would assert the opposite of what they exist to show. */
-  readonly validator: 'schema' | 'reference' | 'semantic';
+  readonly validator: 'schema' | 'reference' | 'semantic' | 'evidence';
   readonly expect: 'valid' | 'invalid';
   readonly intended_error_code: string | null;
   readonly expected_schema_path_contains: readonly string[];
