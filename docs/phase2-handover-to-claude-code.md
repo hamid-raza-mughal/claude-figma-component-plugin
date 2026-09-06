@@ -31,7 +31,7 @@ choice in this repo descends from that.
 | Branch | `main`, HEAD `f04a459` *(docs: persist Phase 2 adversarial review ledger)* |
 | Node | floor `>=22.18`; verified on `v22.22.3`. Uses built-in `node:sqlite` and `node:test`; TypeScript runs via native type stripping — no build step for tests |
 | Artifact bundle | **outside** this repo. `ADALFI_ARTIFACT_DIR=/Users/apple/Library/CloudStorage/OneDrive-Techlogix/Techlogix UX Studio/Claude/AI Agentic Architect/Agentic_Pipelines/Manage_DS_Components` |
-| Curated source | `<bundle>/Agentic/adalfi-design-curated-tokens.json` · 876,098 bytes · sha256 `2222a2b8eff4224f76ddad591cf6f46c6e8bb25ec7f96aebbf13941876356627` |
+| Curated source | `<bundle>/Agentic/adalfi-design-curated-tokens_latest.json` · 902,685 bytes · sha256 `7f14d00961ca389515a532c1e0ef7b625aaa6c5a8d8816f37d32f9ad5f28ffe8` (re-pinned 2026-09-06, MB-17; the 876,098-byte `…-tokens.json` beside it is the superseded historical baseline) |
 
 ### The dirty tree is intentional. Preserve it.
 

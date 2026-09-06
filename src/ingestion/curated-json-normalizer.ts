@@ -2,16 +2,18 @@
  * Normalization into the complete records the index stores (§13.1.4–13.1.7).
  *
  * Scope discipline: **only** the trailing comma on style ids is normalized.
- * Measured — all 673 style ids carry one inside the string (`"S:cfdda…,"`) and
- * 0 of 504 variable ids do. Nothing else about a value is rewritten; `raw_id` is
+ * Measured against the 2026-09-06 export — all 676 style ids carry one inside the
+ * string (`"S:cfdda…,"`) and 0 of 531 variable ids do. (Both halves held at 673/504
+ * in the 2026-07-28 export; the split is a property of the exporter, not of a
+ * particular file, which is why it is re-measured rather than assumed.) Nothing else about a value is rewritten; `raw_id` is
  * preserved beside `normalized_id` so a disagreement between the two
  * representations stays detectable rather than being lost (`SA-11`).
  *
  * One deliberate addition beyond the prototype: **1-hop alias resolution.**
- * Measured, 169 of 504 variables hold at least one `VARIABLE_ALIAS` value and the
+ * Measured, 169 of 531 variables hold at least one `VARIABLE_ALIAS` value and the
  * maximum chain depth is 1. Without resolving them a numeric value exists for
- * only 142 variables, so the exact-value ranking rule can never fire for the
- * rest; one hop lifts that to 282. Recorded as a divergence from a pure port
+ * only 166 variables, so the exact-value ranking rule can never fire for the
+ * rest; one hop lifts that to 306. Recorded as a divergence from a pure port
  * (decision D-C) rather than slipped in — it can only improve recall, and the
  * cross-check bar is "at least the ported baseline".
  */
@@ -75,7 +77,8 @@ export type NormalizedRecord = {
   readonly bound_variables_shape: string;
   /** Text styles only — the literal on the style itself. Measured: present on all
    *  105, and it agrees with the bound `fontSize` variable in 104/104 cases where
-   *  both exist. Both are kept so future drift is detectable. */
+   *  both exist — re-measured against the 2026-09-06 export, which re-cut nearly
+   *  every text style's font family and left the agreement intact. Both are kept so future drift is detectable. */
   readonly literal_font_size?: number | undefined;
   readonly literal_line_height?: number | undefined;
   readonly literal_letter_spacing?: number | undefined;
@@ -245,7 +248,7 @@ function normalizeStyle(
   const rawId = style.id ?? '';
   const normalizedId = normalizeId(rawId);
   if (rawId === normalizedId && rawId !== '') {
-    // Measured: every one of the 673 style ids carries a trailing comma. An id
+    // Measured: every one of the 676 style ids carries a trailing comma. An id
     // without one is not an error, but it is a change in the export worth seeing.
     anomalies.push('style id carried no trailing comma — export shape may have changed');
   }

@@ -70,6 +70,18 @@ export const NO_MATCH_REASONS = [
   'no-term-or-value-signal',
   'all-candidates-below-floor',
   'query-too-vague',
+  /**
+   * The reference text *named a token path* and that path is not in this index.
+   *
+   * Distinct from every reason above, because it is the only one that says the
+   * caller was specific and was wrong. Introduced after the 2026-09-06 export
+   * renamed thirteen tokens: measured, twelve of the thirteen retired names
+   * still resolved — `sys/dark/bg/on_bg_dim` to its rename at **high**
+   * confidence, and `radius/round-shape/md` to `radius/round-shape/lg/lg`,
+   * a different size, at medium. A retired name resolving to a neighbour is
+   * worse than no answer: it is a wrong answer wearing a confidence score.
+   */
+  'retired-or-unknown-path',
 ] as const;
 
 export type NoMatchReason = (typeof NO_MATCH_REASONS)[number];

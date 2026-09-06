@@ -403,3 +403,84 @@ exclusion or flag.
 
 **Revisit trigger.** The pack becoming a standard part of the development environment, at which point
 BP-10's own trigger applies and the suite folds into `test:strict` beside the artifact bundle.
+
+---
+
+## MB-17 · The curated baseline is re-pinned at `_latest.json`, and the drift flag is not used
+
+**Ruling.** `CURATED_SOURCE_RELATIVE` points at `Agentic/adalfi-design-curated-tokens_latest.json`
+and `BASELINE_SOURCE_SHA256` is `7f14d009…` over its 902,685 bytes. The 2026-07-28 export stays in
+the bundle as `HISTORICAL_SOURCE_RELATIVE`, read by exactly one suite. `--allow-source-drift` and
+`ADALFI_ALLOW_SOURCE_DRIFT` were not used at any point in this migration.
+
+**Why this is the smallest safe option.** The drift flag exists to say "the measured numbers in
+`docs/` no longer describe this source" — it is a way to keep working for one run, not a way to
+adopt an export. Leaving it on would have converted a one-time re-measurement into a permanent
+standing lie, and the flag's own remedy text says so. So the byte-exact check was allowed to fail,
+which is what it is for, and every figure that cites the source was re-taken.
+
+Two hidden copies of the source path surfaced while doing it. `tests/resolver/test-index.ts` and
+`tests/unit/assembly.test.ts` each spelled out `Agentic/adalfi-design-curated-tokens.json`
+themselves, so re-pointing the constant alone would have left the preflight pinning one file while
+every resolver and assembly measurement was taken against another — **and both would have been
+green**. Both now import the constant. `BASELINE_SOURCE_BYTES` was added for the same reason: the
+byte count was hand-typed in three test files.
+
+**Revisit trigger.** The next curated export. The procedure is the failure itself: let the preflight
+fail, run `tools/measure-source-baseline.ts`, replace the numbers, then re-pin.
+
+---
+
+## MB-18 · A named token path resolves to itself or to nothing — never to a neighbour
+
+**Ruling.** `resolveOne` now checks whether the reference text is *path-shaped* — one whitespace-free
+token containing a `/` — before building a candidate pool. If it is, the exact path is looked up:
+found, that record is returned alone with `ranking_reasons: ['exact-path-match']`; not found, the
+result is empty with the new `no_match_reason: 'retired-or-unknown-path'`. Free-text queries are
+untouched.
+
+**Why this is the smallest safe option.** The 2026-09-06 export retired thirteen names, and the
+retirement was not detectable by any existing test. Measured against the real new index *before* the
+fix, **twelve of the thirteen still resolved**: `sys/dark/bg/on_bg_dim` to its rename at **high**
+confidence, `sys/dark/bg/bg` to `sys/dark/surfaces/on_surface`, and `radius/round-shape/md`, `/sm`,
+`/xs` and `/xl` all to `radius/round-shape/lg/lg` — a different size — at medium. The shape of the
+rename is what makes this unavoidable rather than a ranking bug: `radius/round-shape/lg` and
+`/reg` are now **strict prefixes** of live paths, and the other eight retired leaves have their final
+segment surviving one level deeper. A ranker that scores path prefixes and whole segments — which
+this one does, correctly, for design language — cannot help but hit them.
+
+The narrow trigger is the whole point. A description invites ranking; a **name is a claim of
+identity**, and the only honest answers to a claim of identity are "here it is" and "that does not
+exist". Ranking a name produces the third answer — "here is something else, at medium confidence" —
+which is the one that ships a wrong token. `isPathShaped` is deliberately conservative: a false
+positive costs a ranked answer the caller could have had, a false negative restores exactly today's
+behaviour, and none of the twelve committed ground-truth reference texts contains a slash.
+
+The fix also covers the case that is easy to miss. Two *live* paths were being outranked by
+neighbours — `radius/round-shape/lg/md` returned `radius/round-shape/lg/lg` first, and
+`lg-scale/base` returned `radius/cta/base` first. Being outranked by a neighbour is the same defect
+as being replaced by one, so an exact hit returns one candidate and no alternatives. `high` here
+still means "ranked strongly", never "verified" — materialization remains the authority (§13.5).
+
+**Revisit trigger.** A legitimate caller that passes a slash-bearing *description* and wants ranking,
+or a second identifier syntax that is not slash-delimited.
+
+---
+
+## MB-19 · The rename suite keeps `sourceOnlyExpectedSkips` at exactly 7
+
+**Ruling.** `tests/resolver/retired-names.test.ts` registers no `{ skip: true }` placeholder. In
+source-only mode it runs its bundle-independent assertions — the `isPathShaped` behaviour, and the
+well-formedness and disjointness of the retired/live tables — plus one test asserting that the
+bundle is absent and the index-backed half did not run. The skip figure stays at `7`.
+
+**Why this is the smallest safe option.** Every other source-backed suite declares one skipped
+placeholder, so an eighth suite would ordinarily mean an eighth skip. But `sourceOnlyExpectedSkips`
+is a standing equality in this repository's rules, and moving it — even upward, even for a good
+reason — is exactly the move the rule exists to prevent someone making for a bad one. Nothing is
+weakened by declining: the strict gate still demands every assertion in the file with **zero** skips
+allowed, which is where this evidence is required. What source-only mode loses is the one-line
+"suite did not run" marker, and that is replaced by a test that says so and asserts it.
+
+**Revisit trigger.** The owner, or a rule change, permitting the figure to move — at which point this
+file adopts the ordinary placeholder convention and the figure becomes 8.

@@ -7,7 +7,9 @@
  *     ambiguity;
  *   - stable ordering and at most three reason codes per candidate;
  *   - no complete record and no full description leaves this function;
- *   - never an empty set without a machine-readable `no_match_reason`.
+ *   - never an empty set without a machine-readable `no_match_reason`;
+ *   - **a reference text that names a token path resolves to that path or to
+ *     nothing** — never to a neighbour (see `isPathShaped` below).
  *
  * Batching is the point: every reference in a request is resolved in one pass,
  * because fourteen sequential round trips would cost more than one wide scan.
@@ -28,6 +30,29 @@ import type { ResolverCandidate, ResolverReasonCode } from '../contracts/resolut
 /** Candidates scoring at or below this are noise rather than answers. Negative
  *  because the value-mismatch penalty legitimately pushes real records down. */
 export const SCORE_FLOOR = -2;
+
+/**
+ * Does this reference text *name* a token rather than describe one?
+ *
+ * A single slash-bearing token with no whitespace — `radius/round-shape/sm`,
+ * `sys/dark/bg/on_bg_dim`. Design language never looks like this ("4px all
+ * around", "warning surface"); a token name copied from an export, a previous
+ * run's output, or a stored binding always does.
+ *
+ * The distinction matters because the two are different speech acts. A
+ * description invites ranking. A name is a **claim of identity**, and the only
+ * honest answers to a claim of identity are "here it is" and "that does not
+ * exist". Ranking a name produces the third answer — "here is something else,
+ * at medium confidence" — which is the one that gets a wrong token shipped.
+ *
+ * Deliberately narrow. A false positive here costs a ranked answer the caller
+ * could have had; a false negative restores exactly today's behaviour. Erring
+ * toward refusal is the safe direction when the input was specific.
+ */
+export function isPathShaped(referenceText: string): boolean {
+  const trimmed = referenceText.trim();
+  return trimmed.length > 0 && !/\s/.test(trimmed) && trimmed.includes('/');
+}
 
 /** Score gap within which a runner-up counts as genuinely ambiguous, justifying
  *  widening beyond the default three. */
@@ -94,6 +119,40 @@ function resolveOne(
   const terms = extractTerms(query.reference_text);
   const numericTokens = extractNumericTokens(query.reference_text);
   const snapshot = { source_sha256: reader.meta.source_sha256, index_version: reader.meta.index_version };
+
+  // A named path resolves to itself or to nothing. Checked before the pool is
+  // built, because once a pool exists the ranker will always find *something*
+  // plausible in it — and "plausible" is precisely the failure mode here.
+  // `findByPath` matches on `path_folded`, so the variables-are-TitleCase /
+  // styles-are-lowercase split (finding C4) does not turn a real hit into a miss.
+  if (isPathShaped(query.reference_text)) {
+    const named = query.reference_text.trim();
+    const hits = query.permitted_ref_classes
+      .map((refClass) => reader.findByPath(refClass, named))
+      .filter((row): row is IndexRow => row !== undefined);
+    const hit = hits[0];
+    if (hit === undefined) {
+      return emptyResult(query, 'retired-or-unknown-path', 0);
+    }
+    // Found: answer with it and nothing else. Ranking was measured to bury a
+    // named record under a neighbour — `radius/round-shape/lg/md` returned
+    // `radius/round-shape/lg/lg` at rank 1 — and "alternatives" to an exact
+    // identity request are noise, not help. `high` here still means "ranked
+    // strongly", never "verified": materialization remains the authority (§13.5).
+    const exact: ResolverCandidate = {
+      ...toCandidate(hit, 0, undefined, []),
+      source_sha256: snapshot.source_sha256,
+      index_version: snapshot.index_version,
+      confidence: 'high',
+      ranking_reasons: ['exact-path-match'],
+    };
+    return {
+      query_id: query.query_id,
+      candidates: [exact],
+      scored: [{ candidate: exact, score: 0, contributions: [], full_description: hit.description }],
+      considered_count: hits.length,
+    };
+  }
 
   let pool = reader.selectPool({
     refClasses: query.permitted_ref_classes,

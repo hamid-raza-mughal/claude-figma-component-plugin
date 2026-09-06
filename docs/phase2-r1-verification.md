@@ -260,9 +260,17 @@ and honestly reported at generation time.
 |---|---|
 | color | `alphas/dark/containers/primaryContainer/opacity_50`, `brand/Dark Green 1`, `sys/dark/surfaces/on_surface`, `ref/m2/cyan/cyan_60`, `ref/m2/teal/teal_90` |
 | typography | `cta/xs/bold`=10, `title/reg/bold`=20, `subhead/reg/regular`=14, `byline/sm/bold`=9, `byline/sm/regular`=9 |
-| spacing | `aux/xl`=18, `negative/sm`=-1, `negative/md`=-2, `negative/lg`=-3, `negative/xl`=-4 |
+| spacing | `aux/xl`=18, `lg-scale/xxs`=56, `lg-scale/xs`=64, `lg-scale/sm`=72, `lg-scale/base`=80 |
 | effect | `Dropdown shadows/Grid Header Effect` (only entry in the whole bundle) |
-| corner-radius | `radius/round-shape/xxxs`=2 … `radius/round-shape/reg`=12 |
+| corner-radius | `radius/round-shape/reg/xxxs`=10 … `radius/round-shape/reg/reg`=20 |
+
+> **Re-observed 2026-09-06** against the re-pinned curated export (MB-17). Colour and
+> typography are unchanged. Spacing and corner-radius are not: the 2026-07-28 run returned
+> `negative/sm`=-1 … `negative/xl`=-4 for spacing and `radius/round-shape/xxxs`=2 …
+> `radius/round-shape/reg`=12 for corner-radius, and **all five of those radius paths have
+> since been retired**. The rows above are what `prepareContext` returns today; the
+> superseded values are kept in this sentence rather than deleted, because the point of
+> §R1 is what the Guard offered on a given day.
 
 ### Selected references, evaluated for semantic fit — not just validity
 
@@ -270,8 +278,8 @@ and honestly reported at generation time.
 |---|---|---|---|
 | fill (root) | `brand/Dark Green 1` | **Uncertain, accepted provisionally** | The only offered color plausibly denoting a brand-primary. Nothing confirms it *is* the primary token rather than one of several greens. |
 | text_style (label) | `cta/xs/bold` | **Appropriate** | Named "cta" — call-to-action — exactly this element's role. The strongest, most defensible match offered. |
-| corner_radius (root) | `radius/round-shape/sm`=10 | **Reasonable, not provable** | An ordinary button-scale radius; nothing distinguishes it from `reg`=12 as *the* button radius. |
-| padding (label↔edge) | any of the 5 spacing candidates | **Weak / inappropriate** | Every option is either an unrelated auxiliary token or a *negative* value — invalid for padding, which must be positive. |
+| corner_radius (root) | `radius/round-shape/reg/xxxs`=10 | **Reasonable, not provable** | The smallest offered radius; nothing distinguishes it from the next step up as *the* button radius. (2026-07-28: `radius/round-shape/sm`=10, retired since.) |
+| padding (label↔edge) | any of the 5 spacing candidates | **Weak / inappropriate** | Every option is either an unrelated auxiliary token or a page-layout value far too large for text-to-edge padding — an 80pt inset is a section gutter, not button padding. (2026-07-28: the same verdict for a different reason — the offered values were *negative*.) |
 | box_shadow (root, optional) | `Dropdown shadows/Grid Header Effect` | **Weak / inappropriate** | The bundle's only effect token is a dropdown/grid-header shadow — an unrelated component's elevation, not a button's. |
 
 ### Path 1 — forced completion (binds the weak candidates anyway)

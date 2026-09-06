@@ -139,7 +139,11 @@ function main(): void {
   // fixed per binding intent, not derived from any field the system reports.
   const fillPick = colorCandidates.find((c) => c.path === 'brand/Dark Green 1');
   const typePick = typeCandidates.find((c) => c.path === 'cta/xs/bold');
-  const radiusPick = radiusCandidates.find((c) => c.path === 'radius/round-shape/sm');
+  // Re-picked 2026-09-06 after the curated export retired `radius/round-shape/sm`
+  // along with the rest of that family's leaves (MB-18). Chosen by the same
+  // reasoning as before — the smallest offered radius on the button-plausible
+  // end of the scale — against the family the export replaced it with.
+  const radiusPick = radiusCandidates.find((c) => c.path === 'radius/round-shape/reg/xxxs');
   const spacingPick = spacingCandidates[0];
   const effectPick = effectCandidates[0];
 
@@ -170,9 +174,15 @@ function main(): void {
       candidate: radiusPick,
       appropriate: radiusPick !== undefined,
       rationale:
-        'A small-radius token from the same numeric scale as the rest of the offered radii (2/4/8/10/12) — ' +
-        'a plausible, ordinary button radius. Reasonable, not provably correct: nothing distinguishes it ' +
-        'from "reg" (12) as *the* button radius without seeing how radius tokens are used elsewhere.',
+        radiusPick === undefined
+          ? 'No corner-radius candidate offered at all.'
+          : `The smallest radius on the offered scale (${radiusCandidates
+              .map((c) => String(c.value_preview))
+              .join('/')}) — a plausible, ordinary button radius. Reasonable, not provably correct: ` +
+            'nothing distinguishes it from the next step up as *the* button radius without seeing how ' +
+            'radius tokens are used elsewhere. The scale itself is stated from the candidates actually ' +
+            'returned, not from memory: the previous hard-coded "2/4/8/10/12" survived a source change ' +
+            'that made it false, which is the failure this tool exists to expose in others.',
     },
     {
       property: 'padding / internal spacing (label <-> edge)',
@@ -182,11 +192,14 @@ function main(): void {
         spacingPick === undefined
           ? 'No spacing candidate offered at all.'
           : `Every spacing candidate offered is either an unrelated auxiliary token ("${spacingCandidates[0]?.path}") ` +
-            `or a *negative* value (${spacingCandidates
+            `or a page-layout value far too large for text-to-edge padding (${spacingCandidates
               .slice(1)
               .map((c) => `${c.path}=${String(c.value_preview)}`)
-              .join(', ')}) — negative spacing tokens describe overlap/inset margins, not internal button ` +
-            'padding, which must be positive. None of the five is a semantically valid choice here.',
+              .join(', ')}) — an 80pt inset is a section gutter, not a button's internal padding. ` +
+            'None of the five is a semantically valid choice here. ' +
+            'The disqualifying property is stated from the returned values rather than asserted: this ' +
+            'rationale previously read "a *negative* value", which was true of the 2026-07-28 bundle and ' +
+            'became a printed falsehood the moment the export changed the offered set.',
     },
     {
       property: 'box_shadow (root container, optional elevation)',

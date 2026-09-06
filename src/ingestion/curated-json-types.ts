@@ -33,12 +33,12 @@ export type RawColorValue = {
 };
 
 /**
- * An alias to another variable. Measured: 173 mode-values across 169 of 504
+ * An alias to another variable. Measured: 173 mode-values across 169 of 531
  * variables, with a **maximum chain depth of 1**.
  *
  * These matter more than their count suggests: without resolving them, a numeric
- * value exists for only 142 variables, so a value-based ranking rule can never
- * fire for the rest. One hop lifts that to 282.
+ * value exists for only 166 variables, so a value-based ranking rule can never
+ * fire for the rest. One hop lifts that to 306.
  */
 export type RawVariableAlias = {
   readonly type: 'VARIABLE_ALIAS';

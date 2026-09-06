@@ -1,6 +1,12 @@
 {
   "source": "resolver-prototype/resolve.py (Python), ground truth corrected 2026-07-29",
   "note": "Captured once as the port reference. Two top-1 results here are ties broken by arbitrary SQLite row order, not by scoring merit.",
+  "captured_against_source": "Agentic/adalfi-design-curated-tokens.json (2026-07-28 export), sha256 2222a2b8eff4224f76ddad591cf6f46c6e8bb25ec7f96aebbf13941876356627, 876,098 bytes",
+  "frozen": "This file is a historical capture and is NOT updated when the curated source changes. It records what the Python prototype returned on 2026-07-29, and rewriting it to match a later export would falsify that record. No executable assertion reads it: the port cross-check runs against tests/fixtures/active/resolver-ground-truth.json.",
+  "paths_retired_since_capture": [
+    "radius/round-shape/xs (prototype_top5 of the 8px corner-radius case) — retired by the 2026-09-06 export",
+    "sys/dark/bg/on_bg_dim (prototype_top5 of the on-surface dim case) — renamed to sys/dark/bgs/on_bg_dim by the 2026-09-06 export"
+  ],
   "cases": [
     {
       "property": "padding",

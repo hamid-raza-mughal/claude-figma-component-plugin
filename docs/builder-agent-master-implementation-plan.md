@@ -151,8 +151,11 @@ npm run test:source # tests 605 · pass 598 · fail 0 · skipped 7 · todo 0
 ```
 
 The strict gate (`npm run test:strict` / `npm run verify`) additionally requires the external
-artifact bundle via `ADALFI_ARTIFACT_DIR`. If it is available, use it and report 673. If not, run
-`verify:source` and say so — do not claim the strict gate passed.
+artifact bundle via `ADALFI_ARTIFACT_DIR`. If it is available, use it and report the count the run
+prints — do **not** report a remembered number. (This line said "report 673" until 2026-09-06, by
+which point the strict suite ran 1,139; a hard-coded expected count in an instruction is the same
+staleness defect as one in a document.) If the bundle is not available, run `verify:source` and say
+so — do not claim the strict gate passed.
 
 **The dirty tree is intentional. Preserve it exactly.**
 
@@ -686,7 +689,7 @@ npm run lint                          # eslint .
 npm run build                         # tsc --project tsconfig.build.json
 npm run test:source                   # suite gate, source-only, 7 known skips
 npm run verify:source                 # typecheck + lint + build + test:source
-ADALFI_ARTIFACT_DIR=<bundle> npm run verify   # the strict gate, 673 tests
+ADALFI_ARTIFACT_DIR=<bundle> npm run verify   # the strict gate; 1,139 tests as of 2026-09-06
 npm run test:evidence                 # after B6; needs REPRESENTATION_EVIDENCE_DIR
 ```
 

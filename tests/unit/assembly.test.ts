@@ -38,15 +38,14 @@ import {
 import { RUN_TYPES, type RunType } from '../../src/contracts/invocation.ts';
 import type { ResolverCandidate } from '../../src/contracts/resolution.ts';
 import type { SchemaCard } from '../../src/contracts/source.ts';
+import { BASELINE_SOURCE_BYTES, BASELINE_SOURCE_SHA256, CURATED_SOURCE_RELATIVE } from '../../tools/artifact-bundle.ts';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..', '..');
 const ARTIFACT_DIR = process.env['ADALFI_ARTIFACT_DIR'];
-const CURATED =
-  ARTIFACT_DIR === undefined
-    ? undefined
-    : join(ARTIFACT_DIR, 'Agentic', 'adalfi-design-curated-tokens.json');
+/** Imported rather than re-typed — see the note in `tests/resolver/test-index.ts`. */
+const CURATED = ARTIFACT_DIR === undefined ? undefined : join(ARTIFACT_DIR, CURATED_SOURCE_RELATIVE);
 
-const SHA = '2222a2b8eff4224f76ddad591cf6f46c6e8bb25ec7f96aebbf13941876356627';
+const SHA = BASELINE_SOURCE_SHA256;
 const TREE = 'c'.repeat(64);
 
 const CARD: SchemaCard = {
@@ -54,9 +53,9 @@ const CARD: SchemaCard = {
     source_sha256: SHA,
     index_version: '1.0.0',
     source_schema_version: '1.1',
-    source_bytes: 876098,
+    source_bytes: BASELINE_SOURCE_BYTES,
   },
-  body: 'DESIGN SYSTEM INDEX — schema card\n  variable: 504\n  paint-style: 567\n',
+  body: 'DESIGN SYSTEM INDEX — schema card\n  variable: 531\n  paint-style: 570\n',
   byte_length: 70,
   generated_from_index: true,
 };

@@ -19,7 +19,7 @@ under `src/` can reach a network or a model client.
                                   │  reuse keyed on source_sha256 AND index_version
                                   ▼
                   ┌──────────────────────────────────────────────┐
-                  │ derived SQLite index — 1,177 rows, 44 ms      │
+                  │ derived SQLite index — 1,207 rows, ~35 ms     │
                   │  6 B-tree + FTS5 (unicode61 pinned)          │
                   │  rebuildable, never authoritative, gitignored │
                   └───────────────┬──────────────────────────────┘
@@ -171,7 +171,7 @@ const plan = planQueries({
 | `verifyBatch` | bounded read-only; returns **evidence, not alternatives** | 0 |
 | `expandStyle` | style → bound-variable join; **the operation that detects the v1 font-size defect** | 0 |
 | `listByCategory` | **controller-owned**, capped at 25, logged, always emits `broadened_from` | 0 |
-| R14 mode asymmetry | non-blocking `Disclosure`; applies to ≤186 of 567 paint styles, not all | 0 |
+| R14 mode asymmetry | non-blocking `Disclosure`; applies to ≤189 of 570 paint styles, not all | 0 |
 
 ## 7. Trusted composition sequence
 
@@ -225,14 +225,14 @@ failure consume a question the user still needs to answer.
 
 | Measurement | Value |
 |---|---|
-| Curated source | 876,098 bytes (876,096 chars; 2 multi-byte) |
-| Index entries | 1,177 = 504 variables + 567 paint + 105 text + 1 effect + **0 grid** |
-| Index build | 44 ms |
+| Curated source | 902,685 bytes · `adalfi-design-curated-tokens_latest.json`, exported 2026-09-06T12:41Z |
+| Index entries | 1,207 = 531 variables + 570 paint + 105 text + 1 effect + **0 grid** |
+| Index build | ~35 ms (34–38 across runs on the reference machine; report the range, not a single sample) |
 | Post-normalization id collisions | 0 |
 | SQLite / FTS | 3.51.3 · `unicode61 remove_diacritics 2` |
 | Schema card | 1,866 bytes (~534 **estimated** tokens) |
-| Assembled input, `new` | 9,808 bytes — **1.12%** of source |
-| Assembled input, `modify` / `audit` | 10,114 / 10,090 bytes |
+| Assembled input, `new` | 15,003 bytes — **1.66%** of source |
+| Assembled input, `modify` / `audit` | 15,057 / 15,033 bytes |
 | Raw curated JSON in model input | **0 bytes**, all three routes |
 | recall@1 / @3 / @5 | **11/12 · 12/12 · 12/12** (n=12) |
 | Prototype baseline | 9/12 top-1 · 12/12 top-5 |
@@ -241,6 +241,24 @@ failure consume a question the user still needs to answer.
 
 `n=12`. One case is ~8 points, so recall is reported as fractions and never as a
 percentage.
+
+**Every figure in this table is re-taken by `tools/measure-source-baseline.ts`, not
+transcribed.** Run it against the bundle before quoting any of them:
+
+```
+ADALFI_ARTIFACT_DIR=<bundle> node tools/measure-source-baseline.ts
+```
+
+Re-measured 2026-09-06 against the new curated export. Two figures moved for reasons
+worth naming rather than burying. **Index build time** was recorded as a single
+`44 ms` sample; it is machine- and cache-dependent, so it is now reported as a
+range. **Assembled input** was `9,808 bytes / 1.12%` from WP6 and does not
+reproduce: measured under the same recipe `prepareContext` actually uses, `new` is
+15,003 bytes, and even with an empty candidate set the same assembler now yields
+11,386. The judgment modules are byte-identical to WP6 and `SECTION_ORDER` is
+unchanged, so the old figure describes an assembler that no longer exists. It had
+no committed re-measurement path, which is why nothing caught it — and is why the
+tool above now exists.
 
 ## 11. Future gate points
 

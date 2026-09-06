@@ -14,8 +14,8 @@
  *
  * Applicability is much narrower than it first appears, measured:
  *   - `colors` is the **only** multi-mode collection (194 entries, Dark + Light);
- *   - **381 of 567** paint styles have no bound variable at all.
- * So R14 can apply to at most **186** paint styles, not 567. Absence of a binding
+ *   - **381 of 570** paint styles have no bound variable at all.
+ * So R14 can apply to at most **189** paint styles, not 570. Absence of a binding
  * is normal and is not evidence of asymmetry.
  */
 import type { IndexReader } from './index-reader.ts';

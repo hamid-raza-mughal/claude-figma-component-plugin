@@ -142,7 +142,7 @@ describe('baseline integrity (artifact bundle)', () => {
     assert.deepEqual(
       offenders,
       [],
-      'counts must be derived from the index, never asserted (actual: 673 styles / 504 variables)',
+      'counts must be derived from the index, never asserted (actual: 676 styles / 531 variables)',
     );
   });
 

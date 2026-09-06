@@ -16,6 +16,15 @@ import type { CandidateIdentity, RefClass } from './identity.ts';
  * (§13.5) — enough to explain a ranking, too few to become a payload.
  */
 export const RESOLVER_REASON_CODES = [
+  /**
+   * The reference text named this record's own path, exactly.
+   *
+   * Not a ranking outcome — a lookup. It exists because ranking a *name* was
+   * measured to return a neighbour: `radius/round-shape/lg/md` ranked
+   * `radius/round-shape/lg/lg` first, and `lg-scale/base` ranked
+   * `radius/cta/base` first, both at the top of the list and neither flagged.
+   */
+  'exact-path-match',
   'exact-value-match',
   'value-mismatch-penalty',
   'semantic-tier-preferred',
@@ -101,7 +110,7 @@ export type VariableResolution = TypedResolutionBase & {
 export type PaintStyleResolution = TypedResolutionBase & {
   readonly ref_class: 'paint-style';
   /** The variable bound behind the paint, when there is one. Informational
-   *  only — **never** the binding target for a style. Measured: 381 of 567 paint
+   *  only — **never** the binding target for a style. Measured: 381 of 570 paint
    *  styles have no bound variable at all, so absence is normal and is not
    *  evidence of mode asymmetry. */
   readonly bound_variable_id?: string | undefined;

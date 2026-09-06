@@ -54,6 +54,7 @@ import {
   type LookedUpRecord,
 } from '../../src/validation/reference-validator.ts';
 import { measurePayload, payloadVersusSource } from '../../src/observability/static-payload-metrics.ts';
+import { BASELINE_SOURCE_BYTES } from '../../tools/artifact-bundle.ts';
 import { assembleModelInput } from '../../src/coordinator/assemble-model-input.ts';
 import type { CoordinatorJudgmentDraft } from '../../src/contracts/coordinator-draft.ts';
 import type { ResolvedCoordinatorInvocation } from '../../src/contracts/invocation.ts';
@@ -933,7 +934,7 @@ describe('static payload metrics', () => {
       schema_card: card,
       candidates_by_query: {},
     });
-    const comparison = payloadVersusSource(assembled, 876098);
+    const comparison = payloadVersusSource(assembled, BASELINE_SOURCE_BYTES);
     assert.ok(comparison.ratio > 0 && comparison.ratio < 0.05);
     assert.ok(!Object.keys(comparison).some((key) => /saving|reduction|saved/i.test(key)));
   });

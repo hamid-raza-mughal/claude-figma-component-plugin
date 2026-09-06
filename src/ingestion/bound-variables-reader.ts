@@ -2,7 +2,7 @@
  * Reads the polymorphic `bound_variables` field (finding **C3**).
  *
  * Four shapes coexist in one export file, measured:
- *   - `list` with 1 entry  — 186 paint styles
+ *   - `list` with 1 entry  — 189 paint styles
  *   - `list` with 0 entries — 381 paint styles
  *   - `list` with 4 entries — the single effect style
  *   - **`dict` keyed by camelCase field name** — all 105 text styles

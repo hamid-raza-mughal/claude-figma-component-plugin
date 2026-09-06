@@ -10,13 +10,22 @@ import { join } from 'node:path';
 import { resolvePhase1Config } from '../../src/config/phase1-config.ts';
 import { ingest, type IngestionResult } from '../../src/ingestion/curated-json-loader.ts';
 import { IndexReader } from '../../src/resolver/index-reader.ts';
+import { CURATED_SOURCE_RELATIVE, HISTORICAL_SOURCE_RELATIVE } from '../../tools/artifact-bundle.ts';
 
 export const ARTIFACT_DIR = process.env['ADALFI_ARTIFACT_DIR'];
 
+/**
+ * Imported, never re-typed. This file used to spell the relative path out again,
+ * so re-pointing the baseline at a new export would have left the preflight
+ * pinning one file while every resolver measurement below was taken against the
+ * other — and both would have been green.
+ */
 export const CURATED_SOURCE =
-  ARTIFACT_DIR === undefined
-    ? undefined
-    : join(ARTIFACT_DIR, 'Agentic', 'adalfi-design-curated-tokens.json');
+  ARTIFACT_DIR === undefined ? undefined : join(ARTIFACT_DIR, CURATED_SOURCE_RELATIVE);
+
+/** The superseded 2026-07-28 export, for the rename-regression suite only. */
+export const HISTORICAL_SOURCE =
+  ARTIFACT_DIR === undefined ? undefined : join(ARTIFACT_DIR, HISTORICAL_SOURCE_RELATIVE);
 
 export const SOURCE_AVAILABLE = CURATED_SOURCE !== undefined && existsSync(CURATED_SOURCE);
 

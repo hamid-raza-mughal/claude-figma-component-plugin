@@ -82,8 +82,12 @@ import { SPEC_SCHEMA_VERSION } from '../coordinator/compose-trusted-output.ts';
  *  semantic elements exist yet to plan narrower queries from. Small cap per
  *  category — a broadened listing is explicitly low-confidence (§13.5
  *  "compact by contract"), so this stays a bounded spread, not a dump. */
-const GENERIC_CANDIDATE_CATEGORIES = ['color', 'typography', 'spacing', 'effect', 'corner-radius'] as const;
-const GENERIC_CANDIDATE_CAP = 5;
+/** Exported so `tools/measure-source-baseline.ts` reproduces the *real* payload
+ *  recipe rather than inventing a similar-looking one. The per-route assembled
+ *  byte figures in `docs/` were previously taken by an uncommitted script, which
+ *  is why nothing noticed when the source they were measured against changed. */
+export const GENERIC_CANDIDATE_CATEGORIES = ['color', 'typography', 'spacing', 'effect', 'corner-radius'] as const;
+export const GENERIC_CANDIDATE_CAP = 5;
 
 /** AC-1: flattens `prepareContext`'s per-category candidate lists into the
  *  `candidate_id -> confidence` map persisted on the preparation event. The

@@ -120,6 +120,7 @@ Phase 1 gate.
 - `docs/coordinator-interface-ripple.md` — downstream changes decided but deliberately not implemented
 - `docs/interaction-state-taxonomy.md` — the authored project convention for interaction states
 - `docs/token-baseline-static.md` — measurements and estimates, kept strictly apart
+- `tools/measure-source-baseline.ts` — re-takes every number above from the real bundle; run it before quoting one
 - `docs/phase1-as-built-blueprint.md` — the pipeline as built, with runnable commands
 - `docs/phase1-handoff-evidence.md` — all twenty §19 evidence items
 
@@ -127,8 +128,8 @@ Phase 1 gate.
 
 | | |
 |---|---|
-| Index | 1,177 entries, built in 44 ms, 0 id collisions |
+| Index | 1,207 entries, built in ~35 ms, 0 id collisions |
 | Resolver recall | 11/12 top-1 · 12/12 top-5 (n=12) vs a 9/12 · 12/12 prototype baseline |
-| Assembled model input | ~10 KB per route — **1.1% of the source**, and **zero** raw source bytes |
+| Assembled model input | ~15 KB per route — **1.66% of the source**, and **zero** raw source bytes |
 | Model calls | **0** |
-| Suite | 447 tests with the bundle, 0 skipped · 363 tests source-only, 7 bundle-gated skips |
+| Suite | 1,139 tests with the bundle, 0 skipped · 1,024 tests source-only, 7 bundle-gated skips |

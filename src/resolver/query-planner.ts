@@ -51,7 +51,7 @@ export const PROPERTY_TO_CATEGORY: Readonly<Record<string, string>> = {
 };
 
 /**
- * Scope hints per property. `scopes` is populated on all 504 variables and is the
+ * Scope hints per property. `scopes` is populated on all 531 variables and is the
  * real discriminator in this export, whereas descriptions cover only 18% and are
  * formulaic — so this mapping earns more than the description text does.
  */

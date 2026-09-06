@@ -501,7 +501,7 @@ if (!SOURCE_AVAILABLE) {
       assert.deepEqual(result.multi_mode_collections, ['colors']);
     });
 
-    /** 381 of 567 paint styles have no binding; absence is normal, not asymmetry. */
+    /** 381 of 570 paint styles have no binding; absence is normal, not asymmetry. */
     test('an unbound style is never reported as asymmetric', () => {
       const { reader } = harness();
       const unbound = reader

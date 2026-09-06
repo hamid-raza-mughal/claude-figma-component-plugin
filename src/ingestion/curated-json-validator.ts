@@ -162,7 +162,7 @@ export function validateExport(raw: unknown): ValidationOutcome {
    * Compare the export's self-reported counts against what is actually there.
    *
    * This exists because the v1 spec asserted "412 styles + 88 variables" while the
-   * file holds 673 and 504. A count that disagrees with its own file is the
+   * file holds 676 and 531. A count that disagrees with its own file is the
    * cheapest possible early warning that something upstream changed.
    */
   const reported = exported.diagnostics?.counts ?? {};

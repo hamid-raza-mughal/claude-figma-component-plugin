@@ -24,8 +24,8 @@ import { createHash } from 'node:crypto';
 /**
  * Reference classes present in the curated export.
  *
- * Measured coverage in the 2026-07-28 export: 567 paint, 105 text, 1 effect,
- * **0 grid** styles, plus 504 variables. `grid-style` therefore has no real
+ * Measured coverage in the 2026-09-06 export: 570 paint, 105 text, 1 effect,
+ * **0 grid** styles, plus 531 variables. `grid-style` therefore has no real
  * instance and `effect-style` has exactly one — both are covered by synthetic
  * fixtures only and must never be reported as verified class routing.
  */
@@ -62,7 +62,7 @@ export type CandidateIdentity = {
  *  across an index rebuild — notably any row id. */
 export type IdentitySeed = {
   readonly refClass: RefClass;
-  /** Post-normalization record id. Measured: 0 collisions across 1,177 entries. */
+  /** Post-normalization record id. Measured: 0 collisions across 1,207 entries. */
   readonly normalizedId: string;
   readonly sourceSha256: string;
   readonly indexVersion: string;
@@ -156,7 +156,7 @@ export function parseSourceRecordRef(ref: string): ParsedSourceRecordRef {
  * the index format and every id changes, so a stale selection cannot resolve by
  * accident.
  *
- * Truncated to 24 hex characters (96 bits). Across ~1,177 records the collision
+ * Truncated to 24 hex characters (96 bits). Across ~1,207 records the collision
  * probability is negligible, and the index builder additionally asserts
  * uniqueness at build time rather than trusting the estimate.
  */

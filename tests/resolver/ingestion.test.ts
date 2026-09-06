@@ -166,9 +166,9 @@ describe('ingestion against the real export', () => {
   test('indexes exactly the measured entry counts', () => {
     const { ingestion } = harness();
     const counts = ingestion.manifest.counts;
-    assert.equal(counts.total, 1177);
-    assert.equal(counts.by_ref_class['variable'], 504);
-    assert.equal(counts.by_ref_class['paint-style'], 567);
+    assert.equal(counts.total, 1207);
+    assert.equal(counts.by_ref_class['variable'], 531);
+    assert.equal(counts.by_ref_class['paint-style'], 570);
     assert.equal(counts.by_ref_class['text-style'], 105);
     assert.equal(counts.by_ref_class['effect-style'], 1);
     assert.equal(counts.by_ref_class['grid-style'], 0);
@@ -178,7 +178,7 @@ describe('ingestion against the real export', () => {
     assert.equal(harness().ingestion.manifest.normalized_id_collisions, 0);
   });
 
-  test('normalization was applied — all 673 style ids carry a trailing comma', () => {
+  test('normalization was applied — all 676 style ids carry a trailing comma', () => {
     assert.equal(harness().ingestion.manifest.normalization_applied, true);
   });
 
@@ -196,7 +196,7 @@ describe('ingestion against the real export', () => {
     const byName = new Map(harness().ingestion.manifest.collections.map((c) => [c.name, c]));
     assert.equal(byName.get('cta-scale')?.described_count, 0);
     assert.equal(byName.get('type-scale')?.described_count, 0);
-    assert.equal(byName.get('border-scale')?.described_count, 21);
+    assert.equal(byName.get('border-scale')?.described_count, 37);
   });
 
   test("the export's own three warnings are surfaced, not swallowed", () => {
@@ -316,8 +316,8 @@ describe('schema-card generator (SA-15, finding C5)', () => {
 
   test('the card reports derived counts, not asserted ones', () => {
     const body = generateSchemaCard(harness().reader).body;
-    assert.match(body, /variable: 504/);
-    assert.match(body, /paint-style: 567/);
+    assert.match(body, /variable: 531/);
+    assert.match(body, /paint-style: 570/);
     assert.ok(!/412 styles/.test(body));
   });
 });

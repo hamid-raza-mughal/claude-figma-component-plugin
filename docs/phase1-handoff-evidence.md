@@ -144,7 +144,11 @@ resolver ran and are immutable thereafter; changing one requires a decision-log 
 Without a written basis a window gets quietly refitted to the result.
 
 `tests/fixtures/active/prototype-baseline.json` records the Python reference output with
-provenance, so the cross-check runs without a Python runtime.
+provenance, so the cross-check runs without a Python runtime. It is a **frozen capture
+against the 2026-07-28 export** and is not rewritten when the source changes: two of the
+paths in its `prototype_top5` lists (`radius/round-shape/xs`, `sys/dark/bg/on_bg_dim`) were
+retired by the 2026-09-06 export. Editing them would falsify a historical record; the file
+declares the source it was taken against instead. No executable assertion reads it.
 
 ## 11. Recall and per-dimension results
 
@@ -191,7 +195,8 @@ verdict **agree**. Established two independent ways, and they concur.
 This is the v1 defect answered: the claim was "14px regular", justified by *"font sizes
 not present in curated JSON export so size cannot be confirmed from tokens alone."* Both
 halves were false. Measured across 104 text styles carrying both a literal and a bound
-size: **0 disagreements**.
+size: **0 disagreements** — re-measured against the 2026-09-06 export, which re-cut nearly
+every text style's font family and left the agreement at 104/104.
 
 ## 14. Canonical contract fixtures
 
@@ -205,11 +210,17 @@ names sits unenforced.
 
 | Route | Bytes | Share of source | Route modules loaded | Raw source bytes |
 |---|---|---|---|---|
-| `new` | 9,808 | 1.12% | 1 | **0** |
-| `modify` | 10,114 | 1.15% | 1 | **0** |
-| `audit` | 10,090 | 1.15% | 1 | **0** |
+| `new` | 15,003 | 1.66% | 1 | **0** |
+| `modify` | 15,057 | 1.67% | 1 | **0** |
+| `audit` | 15,033 | 1.67% | 1 | **0** |
 
-Zero raw source bytes is verified against the real 876 KB file by five independent checks,
+Re-measured 2026-09-06 by `tools/measure-source-baseline.ts`, which builds the payload with
+the recipe `prepareContext` actually uses — the Guard's capped per-category broadening
+(PD-7), the generated schema card, and exactly one route module. The previous row
+(`9,808 / 1.12%`) was taken at WP6 by an uncommitted script and no longer reproduces under
+any recipe available today; it is replaced rather than adjusted.
+
+Zero raw source bytes is verified against the real 902 KB file by five independent checks,
 with sentinels **derived from the source** rather than hard-coded — a hard-coded list stops
 covering the file the moment the export changes. Deliberate-leak fixtures prove each check
 fires: inlining a real 400-byte record **is** caught.

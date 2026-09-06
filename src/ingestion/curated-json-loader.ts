@@ -172,7 +172,9 @@ export function ingest(config: Phase1Config, options: IngestOptions = {}): Inges
   };
 }
 
-function parseSource(bytes: Uint8Array): RawCuratedExport {
+/** Exported so `tools/measure-source-baseline.ts` reads the source through the
+ *  same failure path ingestion does, rather than calling `JSON.parse` itself. */
+export function parseSource(bytes: Uint8Array): RawCuratedExport {
   try {
     return JSON.parse(Buffer.from(bytes).toString('utf8')) as RawCuratedExport;
   } catch (error: unknown) {

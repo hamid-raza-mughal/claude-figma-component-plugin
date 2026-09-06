@@ -58,10 +58,19 @@ export const EXPECTATIONS = {
    * touched on 2026-07-30 and the suite kept growing. A floor below the
    * source-only count cannot fail for the reason it exists — a whole suite
    * file dropping out of the glob — so the strict gate had quietly stopped
-   * checking that. Re-measure and replace this value the first time the
-   * bundle is present.
+   * checking that.
+   *
+   * **2026-09-06, curated-source re-pin: this is a measurement again.** The
+   * artifact bundle was present, the strict suite ran, and it reported 1,139
+   * tests with 0 skipped. Every value from WP A1 to audit cycle 2 above was a
+   * derived lower bound because the bundle was unavailable; this one is not,
+   * and the standing instruction to re-measure at the first opportunity is
+   * hereby discharged. The gap the derivation assumed — `strict - sourceOnly`
+   * — measures 1,139 − 1,024 = **115**, not the 84 carried since 2026-07-30,
+   * so every derived floor in that chain was 31 tests lower than it could
+   * have been. Use 115 if the bundle is ever unavailable again.
    */
-  strictTestFloor: 1104,
+  strictTestFloor: 1139,
   /** Source-only suite. Measured 2026-07-30: 363 tests, 7 skipped.
    *  Re-measured 2026-09-06 at Builder-master WP A1: 641 tests, 7 skipped;
    *  at WP A2: 709 tests, 7 skipped; at WP A3: 725 tests, 7 skipped;
@@ -72,12 +81,17 @@ export const EXPECTATIONS = {
    *  at WP B5: 954 tests, 7 skipped;
    *  at WP B6: 975 tests, 7 skipped;
    *  after audit cycle 2 part 1: 1007 tests, 7 skipped;
-   *  after part 2: 1020 tests, 7 skipped. */
-  sourceOnlyTestFloor: 1020,
+   *  after part 2: 1020 tests, 7 skipped;
+   *  after the 2026-09-06 curated-source re-pin: 1024 tests, 7 skipped. */
+  sourceOnlyTestFloor: 1024,
   /**
    * The bundle-gated placeholder tests — one per source-backed suite, each
    * declared `{ skip: true }` so an absent bundle is legible in the report
    * rather than invisible. Any other skip is a defect.
+   *
+   * Held at 7 across the 2026-09-06 re-pin even though it added an eighth
+   * source-backed suite: `tests/resolver/retired-names.test.ts` declares no
+   * placeholder and asserts its bundle-independent half instead (**MB-19**).
    */
   sourceOnlyExpectedSkips: 7,
 } as const;

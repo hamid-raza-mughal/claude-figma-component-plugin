@@ -139,7 +139,7 @@ export function composeInput(overrides: Partial<ComposeInput> = {}): ComposeInpu
 
 export const SCHEMA_CARD: SchemaCard = {
   snapshot: SNAPSHOT,
-  body: 'DESIGN SYSTEM INDEX — schema card\n  variable: 504\n  paint-style: 567\n',
+  body: 'DESIGN SYSTEM INDEX — schema card\n  variable: 531\n  paint-style: 570\n',
   byte_length: 70,
   generated_from_index: true,
 };

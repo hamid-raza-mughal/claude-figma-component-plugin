@@ -214,7 +214,7 @@ describe('the remaining weights', () => {
     );
   });
 
-  /** `scopes` is populated on all 504 variables — the real discriminator. */
+  /** `scopes` is populated on all 531 variables — the real discriminator. */
   test('SCOPE_MATCH scales with matching scopes', () => {
     assert.equal(
       amountFor('SCOPE_MATCH', {

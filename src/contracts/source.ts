@@ -56,7 +56,7 @@ export type SourceDiagnostic = {
  *
  * Counts live here, derived from the index, and are **never copied into a prompt
  * or a code constant** (§13.1.11). The v1 spec asserted "412 styles + 88
- * variables" in two places; the real figures are 673 and 504. An asserted count
+ * variables" in two places; the real figures are 676 and 531. An asserted count
  * is a claim that silently rots — a derived one cannot.
  */
 export type SourceManifest = {
@@ -64,8 +64,8 @@ export type SourceManifest = {
   readonly counts: EntryCounts;
   readonly collections: readonly CollectionSummary[];
   readonly diagnostics: readonly SourceDiagnostic[];
-  /** True when normalization changed at least one id. Measured: all 673 style
-   *  ids carry a trailing comma, 0 of 504 variable ids do. */
+  /** True when normalization changed at least one id. Measured: all 676 style
+   *  ids carry a trailing comma, 0 of 531 variable ids do. */
   readonly normalization_applied: boolean;
   readonly normalized_id_collisions: number;
 };
@@ -78,9 +78,9 @@ export type CollectionSummary = {
    *  is the only multi-mode collection (Dark + Light), so mode logic must not
    *  assume multi-mode is the general case. */
   readonly multi_mode: boolean;
-  /** Entries carrying a description. Measured overall: 212/1,177 (18%), and
+  /** Entries carrying a description. Measured overall: 236/1,207 (20%), and
    *  `cta-scale` and `type-scale` have none at all — which is why ranking leans
-   *  on `scopes` (populated 504/504) rather than on prose. */
+   *  on `scopes` (populated 531/531) rather than on prose. */
   readonly described_count: number;
 };
 

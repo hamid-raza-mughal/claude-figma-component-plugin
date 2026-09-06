@@ -41,14 +41,14 @@ export const RANKING_WEIGHTS = {
   PATH_PREFIX_MATCH: 2,
   /** The record was returned by the FTS5 index. */
   FULL_TEXT_MATCH: 2,
-  /** A description exists. Weak by design: descriptions cover only 212/1,177
+  /** A description exists. Weak by design: descriptions cover only 236/1,207
    *  (18%) of entries and are formulaic, so leaning on them would be leaning on
    *  the least discriminating field in the export. */
   DESCRIPTION_PRESENT: 0.5,
   /** The requested mode is among the record's modes. */
   MODE_MATCH: 1,
   /** A requested scope appears in the record's `scopes`. `scopes` is populated
-   *  504/504 and is the real discriminator, which is why it is a positive signal
+   *  531/531 and is the real discriminator, which is why it is a positive signal
    *  rather than a tiebreak. */
   SCOPE_MATCH: 2,
   /**
