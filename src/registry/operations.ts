@@ -27,6 +27,15 @@ export type OperationRow = {
  * does not extend it (§2.7.1). `/review-component` is an **alias** of
  * `component.audit`, not a fourth route: §2.7.0 states there is no
  * `component.review` operation.
+ *
+ * **MB-1 (docs/builder-master-decision-log.md):** the two maintenance rows
+ * carry the slash aliases `/refresh-source` and `/validate-source` so the
+ * plugin surface can name them. §2.7's public-name column for both rows reads
+ * literally "provisional", so supplying one fills a blank rather than editing
+ * a locked contract. No operation id and no `RunType` is added: a maintenance
+ * alias still resolves to `kind: 'maintenance'`, which `beginRun` refuses at
+ * G-2 — §2.11's "maintenance operations do not enter the authoring pipeline",
+ * already enforced.
  */
 export const OPERATIONS: readonly OperationRow[] = [
   {
@@ -55,14 +64,14 @@ export const OPERATIONS: readonly OperationRow[] = [
     kind: 'maintenance',
     runType: null,
     publicName: 'source.refresh',
-    aliases: [],
+    aliases: ['/refresh-source'],
   },
   {
     operationId: 'source.validate',
     kind: 'maintenance',
     runType: null,
     publicName: 'source.validate',
-    aliases: [],
+    aliases: ['/validate-source'],
   },
 ];
 

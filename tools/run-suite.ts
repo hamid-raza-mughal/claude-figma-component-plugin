@@ -39,10 +39,32 @@ export const EXPECTATIONS = {
   /**
    * Full suite with the artifact bundle present. Measured 2026-07-30: 447.
    * (Phase 1 shipped at 428; this gate and the §16.1 binding added 19.)
+   *
+   * **Raised to 725 at Builder-master WP A1, by derivation and not by
+   * measurement** — `ADALFI_ARTIFACT_DIR` is not available in the executing
+   * environment, so the strict suite cannot be run to count it, and inventing
+   * a measured-looking number would be the self-asserted-trust defect this
+   * repository hunts. The derivation: both modes collect the same test files,
+   * and strict additionally un-skips the bundle-gated suites, so the strict
+   * count exceeds the source-only count by a non-negative constant. At the
+   * 2026-07-30 measurement that constant was `447 - 363 = 84`. Adding it to
+   * today's measured source-only count gives `641 + 84 = 725`, which is a
+   * **lower bound** on the real strict count and therefore a valid floor: a
+   * bundle-gated suite that has grown since only moves the real count further
+   * above it.
+   *
+   * Recorded while raising it: this figure had drifted **278 tests behind**
+   * the source-only suite (447 against 605) because the floors were last
+   * touched on 2026-07-30 and the suite kept growing. A floor below the
+   * source-only count cannot fail for the reason it exists — a whole suite
+   * file dropping out of the glob — so the strict gate had quietly stopped
+   * checking that. Re-measure and replace this value the first time the
+   * bundle is present.
    */
-  strictTestFloor: 447,
-  /** Source-only suite. Measured 2026-07-30: 363 tests, 7 skipped. */
-  sourceOnlyTestFloor: 363,
+  strictTestFloor: 725,
+  /** Source-only suite. Measured 2026-07-30: 363 tests, 7 skipped.
+   *  Re-measured 2026-09-06 at Builder-master WP A1: 641 tests, 7 skipped. */
+  sourceOnlyTestFloor: 641,
   /**
    * The bundle-gated placeholder tests — one per source-backed suite, each
    * declared `{ skip: true }` so an absent bundle is legible in the report

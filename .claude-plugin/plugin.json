@@ -1,0 +1,16 @@
+{
+  "name": "manage-ds-components",
+  "description": "Manage DS Components — the Coordinator stage of the design-system component pipeline. Resolves a component request against a curated design system, composes a trusted proposal, pauses for an observe-only approval, and builds a machine handoff. Deterministic engine; the active host turn is the only model invocation.",
+  "version": "0.1.0",
+  "author": {
+    "name": "Techlogix UX Studio"
+  },
+  "keywords": [
+    "design-system",
+    "components",
+    "figma",
+    "coordinator"
+  ],
+  "commands": "./commands",
+  "skills": "./skills"
+}
