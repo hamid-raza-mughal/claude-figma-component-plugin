@@ -1,0 +1,16 @@
+{
+  "name": "manage-ds-components-local",
+  "owner": {
+    "name": "Techlogix UX Studio"
+  },
+  "metadata": {
+    "description": "A single-plugin local marketplace, so this repository can be installed by path without being published anywhere."
+  },
+  "plugins": [
+    {
+      "name": "manage-ds-components",
+      "source": "./",
+      "description": "Manage DS Components — the Coordinator stage: resolve a component request against a curated design system, compose a trusted proposal, pause for an observe-only approval, and build a machine handoff. Nothing is built in Figma."
+    }
+  ]
+}
