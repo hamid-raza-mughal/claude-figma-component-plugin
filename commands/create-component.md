@@ -2,7 +2,7 @@
 description: Create a new design-system component proposal from a request, resolved against the curated design system.
 argument-hint: <what the component should be and do>
 operation-id: component.create
-allowed-tools: Bash, Read
+allowed-tools: Bash, Read, Write
 ---
 
 # `/create-component` — operation `component.create`

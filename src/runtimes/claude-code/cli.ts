@@ -331,6 +331,10 @@ export function parseArgs(spec: ToolSpec, argv: readonly string[], readFile: (pa
 
 export type CliEnvelope =
   | { readonly ok: true; readonly tool: string; readonly result: unknown }
+  // AC-20: `--help` is a successful call, not a refusal. It used to return the
+  // whole tool table JSON-escaped inside `error.message` with exit 1 — the
+  // exact envelope the orchestration skill teaches the turn to treat as
+  // something refused, for a request that succeeded.
   | {
       readonly ok: false;
       readonly tool: string;
@@ -376,7 +380,7 @@ export function usage(): string {
 /**
  * Runs one tool and returns the envelope. Separated from `main` so the whole
  * boundary is testable in-process, and separately spawnable as a real OS
- * process — which `tests/plugin/cli-cross-process.test.ts` does, because a
+ * process — which `tests/plugin/cross-turn-continuity.test.ts` does, because a
  * same-process test cannot prove a second process reads the same store.
  */
 export function runCli(
@@ -385,7 +389,11 @@ export function runCli(
   makeEngine: (e: Readonly<Record<string, string | undefined>>) => CoordinatorEngine = createClaudeCodeEngine,
 ): CliEnvelope {
   const name = argv[0];
-  if (name === undefined || name === '--help' || name === '-h') {
+  if (name === '--help' || name === '-h') {
+    return { ok: true, tool: 'help', result: { usage: usage(), tools: TOOLS.map((spec) => spec.name) } };
+  }
+  if (name === undefined) {
+    // No arguments at all IS a usage error — the caller asked for nothing.
     return envelopeError('(none)', new CliUsageError(usage()));
   }
   const spec = lookupTool(name);

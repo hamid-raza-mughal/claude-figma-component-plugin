@@ -27,7 +27,7 @@
  *   node tools/command-surface.ts            # print the surface
  *   node tools/command-surface.ts --check    # exit 1 on any disagreement
  */
-import { readdirSync, readFileSync } from 'node:fs';
+import { readdirSync, readFileSync, statSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { OPERATIONS, type OperationRow } from '../src/registry/operations.ts';
@@ -46,6 +46,14 @@ export type CommandFile = {
   readonly publicName: string;
   readonly operationId: string | null;
   readonly description: string | null;
+  /** AC-11: read, because a command that instructs the turn to write a file
+   *  and does not declare `Write` cannot do what its own body says. */
+  readonly allowedTools: string | null;
+  /** The whole file. `checkCommandSurface` still binds only on the structured
+   *  fields — the body is carried so *other* checks (forbidden patterns, the
+   *  tools a body needs) can run over the surface that actually drives the
+   *  turn, which nothing scanned before AC-12. */
+  readonly body: string;
 };
 
 /**
@@ -70,20 +78,38 @@ export function parseFrontmatter(text: string): Readonly<Record<string, string>>
   return out;
 }
 
-export function readCommandFiles(dir: string = COMMANDS_DIR): readonly CommandFile[] {
-  return readdirSync(dir)
-    .filter((entry) => entry.endsWith('.md'))
-    .sort()
-    .map((entry) => {
-      const frontmatter = parseFrontmatter(readFileSync(join(dir, entry), 'utf8'));
-      const name = entry.slice(0, -'.md'.length);
-      return {
-        name,
-        publicName: `/${name}`,
-        operationId: frontmatter['operation-id'] ?? null,
-        description: frontmatter['description'] ?? null,
-      };
+/**
+ * **Recursive (AC-10).** This walked one directory level, and a host loads
+ * namespaced commands from subdirectories — so `commands/anything/rogue.md`
+ * shipped a command with an unregistered operation id, its own `allowed-tools`
+ * and any body at all, while `--check` printed "6 command files agree with the
+ * registry" and exited 0. A bidirectional check defeated by one `mkdir` is not
+ * a check; MB-3's whole claim rested on this function seeing every file.
+ *
+ * The relative path becomes part of the name, so a nested file is reported
+ * under a name the registry will not recognise rather than silently skipped.
+ */
+export function readCommandFiles(dir: string = COMMANDS_DIR, prefix = ''): readonly CommandFile[] {
+  const out: CommandFile[] = [];
+  for (const entry of readdirSync(dir).sort()) {
+    const full = join(dir, entry);
+    if (statSync(full).isDirectory()) {
+      out.push(...readCommandFiles(full, `${prefix}${entry}/`));
+      continue;
+    }
+    if (!entry.endsWith('.md')) continue;
+    const frontmatter = parseFrontmatter(readFileSync(full, 'utf8'));
+    const name = `${prefix}${entry.slice(0, -'.md'.length)}`;
+    out.push({
+      name,
+      publicName: `/${name}`,
+      operationId: frontmatter['operation-id'] ?? null,
+      description: frontmatter['description'] ?? null,
+      allowedTools: frontmatter['allowed-tools'] ?? null,
+      body: readFileSync(full, 'utf8'),
     });
+  }
+  return out;
 }
 
 /** Every registered public name and alias that is a slash command — i.e. every
@@ -111,7 +137,9 @@ export type SurfaceProblem = {
     | 'command-file-declares-no-operation-id'
     | 'command-file-declares-unregistered-operation-id'
     | 'command-file-operation-id-disagrees-with-registry'
-    | 'command-file-has-no-description';
+    | 'command-file-has-no-description'
+    | 'command-file-needs-a-tool-it-does-not-declare'
+    | 'command-file-names-a-path-outside-the-plugin-root';
   readonly subject: string;
   readonly detail: string;
 };
@@ -180,6 +208,29 @@ export function checkCommandSurface(dir: string = COMMANDS_DIR): SurfaceCheck {
         kind: 'command-file-has-no-description',
         subject: file.publicName,
         detail: 'a command with no description is invisible in the host’s command list',
+      });
+    }
+    // AC-11: the body and the declared tools must agree. A command whose steps
+    // say "write it to a file" while `allowed-tools` omits `Write` instructs
+    // the turn to do something the host will refuse — on the owner's very
+    // first typed command.
+    const declared = (file.allowedTools ?? '').split(',').map((tool) => tool.trim());
+    if (/write (?:it|them|the draft|the answers) to a file|--draft-file|--answers-file/.test(file.body)) {
+      if (!declared.includes('Write')) {
+        problems.push({
+          kind: 'command-file-needs-a-tool-it-does-not-declare',
+          subject: file.publicName,
+          detail: 'the body instructs the turn to write a file, but `allowed-tools` omits Write',
+        });
+      }
+    }
+    // AC-12: a hard-coded path in a command body is P1-FINAL §5.6's prohibition
+    // reaching the one surface the portability scan never covered.
+    if (/["'`]\/(?:Users|home|var\/folders)\//.test(file.body)) {
+      problems.push({
+        kind: 'command-file-names-a-path-outside-the-plugin-root',
+        subject: file.publicName,
+        detail: 'an absolute user path — every path must be ${CLAUDE_PLUGIN_ROOT}-relative',
       });
     }
   }

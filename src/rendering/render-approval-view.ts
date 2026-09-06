@@ -34,8 +34,19 @@ function renderResolution(resolution: TypedResolution): string {
     detail.push(`= ${String(resolution.value)}`);
   }
   if (resolution.ref_class === 'text-style' && resolution.font_size !== undefined) {
-    // Provenance, not an assertion: the size came from the style→variable join.
-    detail.push(`font-size ${resolution.font_size} (literal, confirmed by the bound type-scale variable)`);
+    // AC-8: the "confirmed by" clause was unconditional, and the size is read
+    // off the style — `materializeSelection` sets `font_size` from
+    // `row.literal_font_size` and feeds `expandStyle`'s result only into
+    // `bound_variable_ids`. So a style with no bound type-scale variable was
+    // described to the designer as confirmed by one, which is the v1
+    // 14px-vs-12px defect restated as a human-facing provenance claim.
+    // The clause now depends on the binding it names actually existing.
+    const bound = resolution.bound_variable_ids?.['font_size'];
+    detail.push(
+      bound === undefined
+        ? `font-size ${resolution.font_size} (literal — no bound type-scale variable)`
+        : `font-size ${resolution.font_size} (literal, confirmed by the bound type-scale variable)`,
+    );
   }
   const mode = 'mode' in resolution && resolution.mode !== undefined ? ` mode=${resolution.mode}` : '';
   return `  - ${detail.join(' ')}${mode}\n    key ${resolution.key} · ref ${resolution.source_record_ref}`;

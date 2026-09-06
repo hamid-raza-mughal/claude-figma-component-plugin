@@ -30,7 +30,8 @@ index), `ADALFI_APPROVED_DATA_DIR` (the durable run store — never the same dir
 If one is missing the boundary answers `"code": "ConfigError"` naming the variable. Show the owner
 that message; do not invent a path.
 
-Run `… cli.ts --help` for the full tool list with every flag.
+Run `… cli.ts --help` for the full tool list with every flag. It answers `ok: true` — asking for help
+is a successful call, not a refusal.
 
 **Reading the answer.** Exactly one JSON object arrives on stdout, success or refusal:
 
@@ -51,7 +52,7 @@ hoping for a different answer.
 | `received` | `begin-run` | nothing | `prepare-context` / `fail-run` |
 | `preparing` | `prepare-context` | nothing — wholly deterministic | its own return |
 | `drafting` | `prepare-context` returning ok | **author the draft** | `submit-draft` |
-| `validating` | `submit-draft`, internally | nothing | `submit-draft`'s verdict |
+| `validating` | `submit-draft`, internally | nothing | its own return — you call nothing here |
 | `awaiting-clarification` | `open-clarification` | you authored the gaps already | `answer-clarification` / `close-run` |
 | `awaiting-approval` | `present-for-approval` | nothing | `record-approval` / `cancel-run` |
 | `handoff-ready` | `record-approval` → advance | nothing | `build-handoff` → `close-run` |
@@ -140,6 +141,24 @@ step as done because a tool refused to do it.
 
 ---
 
+## 3A · Maintenance — outside the run entirely
+
+`/refresh-source` and `/validate-source` are **not** routes. They never enter a phase, never open a
+gate, and never start a run; `begin-run` refuses their operation ids at **G-2**, which is that rule
+enforced rather than described. One call each:
+
+```bash
+node "${CLAUDE_PLUGIN_ROOT}/src/runtimes/claude-code/cli.ts" run-maintenance --operation-id source.refresh
+node "${CLAUDE_PLUGIN_ROOT}/src/runtimes/claude-code/cli.ts" run-maintenance --operation-id source.validate
+```
+
+Both return `{ ok, outcome, invalidated_run_ids }`. **Only `source.refresh` can ever return a
+non-empty `invalidated_run_ids`** — `source.validate` writes nothing and returns `[]` every time, so
+never tell a designer their data changed after a validate. For a refresh that did invalidate runs,
+report them in §5's form: *the design-system data changed, so that proposal must be regenerated*.
+
+---
+
 ## 4 · A run spans turns, and the store is the only continuity
 
 Gate 1 waits for a human, which ends a turn. **Nothing about the run lives in your memory between
@@ -163,11 +182,15 @@ operation IDs or event sequence numbers. Say what happened and what to do next.
 | Internal | Say |
 |---|---|
 | `operation_id`, `RunType`, route module | the selected operation |
+| `user_intent` | the request |
 | `ClarificationGap` | a question about the request |
 | the composed output + approval view | the proposal |
-| `display_id` | the run's short reference — the one they can read back |
+| `ApprovalRecord` + `response_source` | your recorded response, what it applies to, **and that it is unverified** |
 | `approved_by` | *"attributed to X — unverified"*, **never** "approved by X" |
+| `display_id` | the run's short reference — the one they can read back |
 | a `G-21` invalidation | the design-system data changed, so this proposal must be regenerated |
+| terminal outcome + machine handoff | the result |
+| a `broadened_retrieval` disclosure | the references were picked from a broad list rather than matched to the request, which is why confidence reads low |
 
 **Three things are surfaced plainly, not softened.** That the gate is observe-only. That a recorded
 approval is **not verified human authorization** — it is attribution. And that **nothing has been

@@ -25,6 +25,7 @@ import {
   COMMANDS_DIR,
 } from '../../tools/command-surface.ts';
 import { OPERATIONS, resolveCommand, ResolveCommandError } from '../../src/registry/operations.ts';
+import { scanText } from '../../tools/identifier-scan.ts';
 
 function withCommandDir(files: Readonly<Record<string, string>>, body: (dir: string) => void): void {
   const root = mkdtempSync(join(tmpdir(), 'command-surface-'));
@@ -119,10 +120,12 @@ describe('the plugin manifest', () => {
   });
 
   test('the manifest names no real Figma identifier (BP-5)', () => {
-    const text = readFileSync(PLUGIN_MANIFEST, 'utf8');
-    // A Figma file key is a 22+ char alphanumeric token; a node id is `\d+:\d+`.
-    assert.ok(!/\b\d+:\d+\b/.test(text), 'a Figma-node-shaped identifier appears in the manifest');
-    assert.ok(!/figma\.com\/(?:file|design)\//i.test(text), 'a Figma file URL appears in the manifest');
+    // AC-24: the comment here used to promise a file-key check ("a Figma file
+    // key is a 22+ char alphanumeric token") that the code never performed —
+    // injecting one into the manifest passed both assertions. The check now
+    // delegates to the one scanner that implements every shape BP-5 names, so
+    // the comment and the code cannot drift apart again.
+    assert.deepEqual(scanText('.claude-plugin/plugin.json', readFileSync(PLUGIN_MANIFEST, 'utf8')), []);
   });
 });
 

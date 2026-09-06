@@ -13,10 +13,10 @@
  */
 import { test, describe } from 'node:test';
 import assert from 'node:assert/strict';
-import { readFileSync, readdirSync } from 'node:fs';
+import { readFileSync, readdirSync, statSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { TOOLS } from '../../src/runtimes/claude-code/cli.ts';
+import { TOOLS, lookupTool } from '../../src/runtimes/claude-code/cli.ts';
 import { GUARD_CODES } from '../../src/guard/errors.ts';
 import { isToolReachableFromPhase, type ToolName } from '../../src/registry/transitions.ts';
 import { STAGE_PHASES } from '../../src/contracts/run-envelope.ts';
@@ -27,8 +27,27 @@ const SKILL_DIR = join(ROOT, 'skills', 'coordinator-run');
 const SKILL = join(SKILL_DIR, 'SKILL.md');
 const TEXT = readFileSync(SKILL, 'utf8');
 
+function collectTs(dir: string): string[] {
+  const out: string[] = [];
+  for (const entry of readdirSync(dir)) {
+    const full = join(dir, entry);
+    if (statSync(full).isDirectory()) out.push(...collectTs(full));
+    else if (entry.endsWith('.ts')) out.push(full);
+  }
+  return out;
+}
+
 /** The subcommand names the skill instructs the turn to type. */
 const SUBCOMMANDS = new Set(TOOLS.map((spec) => spec.name));
+
+/** Hyphenated terms the skill legitimately names that are not subcommands.
+ *  Kept as one list so a new phase or vocabulary item is added deliberately,
+ *  in one place, rather than by widening a regex until nothing fails. */
+const KNOWN_NON_TOOLS = new Set([
+  'awaiting-approval', 'awaiting-clarification', 'handoff-ready', 'changes-requested',
+  'observe-only-validation', 'source-invalidated', 'model-relayed', 'read-plane',
+  'run-guard', 'gate-1-semantic', 'broadened-retrieval',
+]);
 
 function subcommandsNamedIn(text: string): readonly string[] {
   const found = new Set<string>();
@@ -52,19 +71,28 @@ describe('the skill exists and is loadable', () => {
 
 describe('every identifier the skill names resolves to something real', () => {
   test('every subcommand the skill instructs a caller to type is declared by the boundary', () => {
-    // Any `cli.ts <word>` occurrence must be a declared subcommand.
-    const typed = [...TEXT.matchAll(/cli\.ts"?\s+([a-z][a-z-]*)/g)].map((match) => match[1] ?? '');
-    const offenders = typed.filter((name) => name !== '--help' && !SUBCOMMANDS.has(name));
-    assert.deepEqual(offenders, [], 'the skill tells the turn to type a tool the boundary does not declare');
+    // AC-15: this used to match `cli.ts\s+([a-z][a-z-]*)`, which extracted
+    // **zero** tokens from the real document — both `cli.ts` occurrences are
+    // followed by `<tool>` and `--help`, neither of which starts with `[a-z]`.
+    // `assert.deepEqual([], [])` then passed while checking nothing, and the
+    // dead `name !== '--help'` guard was the tell: it can never fire.
+    // The skill names its subcommands in backticks and in the step list, so
+    // that is what is read.
+    const named = [
+      ...[...TEXT.matchAll(/`([a-z][a-z-]+)(?:\s+--|`)/g)].map((match) => match[1] ?? ''),
+      ...[...TEXT.matchAll(/\*\*`([a-z][a-z-]+)/g)].map((match) => match[1] ?? ''),
+    ];
+    const subcommandShaped = named.filter((name) => name.includes('-'));
+    assert.ok(subcommandShaped.length >= 10, `extracted ${subcommandShaped.length} tokens — the check would be vacuous`);
+    const offenders = [...new Set(subcommandShaped)].filter(
+      (name) => !SUBCOMMANDS.has(name) && !KNOWN_NON_TOOLS.has(name),
+    );
+    assert.deepEqual(offenders, [], 'the skill names a hyphenated token that is neither a subcommand nor a known term');
   });
 
   test('every backticked `x-y` token that looks like a subcommand is one', () => {
     const candidates = [...TEXT.matchAll(/`([a-z]+(?:-[a-z]+)+)(?:\s|`)/g)].map((match) => match[1] ?? '');
-    const knownNonTools = new Set([
-      'awaiting-approval', 'awaiting-clarification', 'handoff-ready', 'changes-requested',
-      'observe-only-validation', 'source-invalidated', 'model-relayed', 'read-plane',
-    ]);
-    const offenders = candidates.filter((token) => !SUBCOMMANDS.has(token) && !knownNonTools.has(token));
+    const offenders = candidates.filter((token) => !SUBCOMMANDS.has(token) && !KNOWN_NON_TOOLS.has(token));
     assert.deepEqual(offenders, [], 'an unrecognised hyphenated token — either a typo’d tool or a new phase to declare');
   });
 
@@ -73,6 +101,28 @@ describe('every identifier the skill names resolves to something real', () => {
     assert.ok(named.length >= 5, 'the refusal table is the reason this skill can be followed safely');
     const offenders = named.filter((code) => !(GUARD_CODES as readonly string[]).includes(code));
     assert.deepEqual(offenders, [], 'the skill names a Guard code the engine does not define — the D-1 defect');
+  });
+
+  test('every Guard code the skill tells the turn it will SEE is one some code path throws (AC-14)', () => {
+    // Declaration is not emission, and the difference is the whole D-1 shape.
+    // The skill's refusal table is the turn's dispatch table: a row keyed on a
+    // code nothing constructs is dead instruction, and the check above passed
+    // on `G-7` while no `GuardRefusal('G-7', …)` existed anywhere.
+    const thrown = new Set<string>();
+    for (const file of collectTs(join(ROOT, 'src'))) {
+      const source = readFileSync(file, 'utf8');
+      // Two forms, because two exist. Most codes are thrown directly; the
+      // store preflight instead *returns* `guardCode: 'G-20a' | 'G-20c'` and
+      // the engine wraps that into a GuardRefusal, so a scan for the
+      // constructor alone would call two live codes dead. The first version of
+      // this check did exactly that.
+      for (const match of source.matchAll(/GuardRefusal\(\s*'(G-\d+[a-c]?)'/g)) thrown.add(match[1] ?? '');
+      for (const match of source.matchAll(/guardCode:\s*'(G-\d+[a-c]?)'/g)) thrown.add(match[1] ?? '');
+    }
+    assert.ok(thrown.size >= 10, `only ${thrown.size} codes found thrown — the scan is broken, not the skill`);
+    const named = [...new Set([...TEXT.matchAll(/\bG-\d+[a-c]?\b/g)].map((match) => match[0]))];
+    const dead = named.filter((code) => !thrown.has(code));
+    assert.deepEqual(dead, [], 'the skill documents a refusal no code path can produce');
   });
 
   test('every phase name the skill names is a declared StagePhase', () => {
@@ -101,37 +151,68 @@ describe('every identifier the skill names resolves to something real', () => {
   });
 });
 
-describe('the sequence the skill documents is one the Guard actually permits', () => {
-  /** Each step of the documented happy path, as (phase, tool) — the claim the
-   *  skill's step list makes, resolved against the transition registry rather
-   *  than believed. */
-  const DOCUMENTED: readonly (readonly [string, ToolName])[] = [
-    ['received', 'prepareContext'],
-    ['drafting', 'submitDraft'],
-    ['validating', 'presentForApproval'],
-    ['awaiting-approval', 'recordApproval'],
-    ['handoff-ready', 'buildHandoff'],
-    ['handoff-ready', 'closeRun'],
-    ['validating', 'openClarification'],
-    ['awaiting-clarification', 'answerClarification'],
-  ];
-
-  for (const [phase, tool] of DOCUMENTED) {
-    test(`${tool} is reachable from ${phase}, as the skill instructs`, () => {
-      assert.ok(
-        isToolReachableFromPhase(tool, phase as (typeof STAGE_PHASES)[number]),
-        `the skill tells the turn to call ${tool} from ${phase}, which G-11 refuses`,
-      );
-    });
+/**
+ * AC-13. This block used to iterate a hand-written `DOCUMENTED` literal that
+ * never read `TEXT` — so an audit could rewrite the skill's phase table to send
+ * the turn into four G-11 refusals and all 28 tests still passed, under the
+ * heading "the sequence the skill documents is one the Guard actually permits".
+ * The table is now **parsed out of the document** and each cell resolved
+ * through the registry, so the assertion is about what the skill says rather
+ * than about what someone once transcribed from it.
+ */
+describe('the sequence the skill documents is one the Guard actually permits (AC-13)', () => {
+  /** `| \`phase\` | entered by | model's job | exits via |` — the exits column
+   *  is the load-bearing one: it names what the turn calls next from there. */
+  function parsePhaseTable(): readonly { readonly phase: string; readonly exits: readonly string[] }[] {
+    const rows: { phase: string; exits: readonly string[] }[] = [];
+    for (const line of TEXT.split('\n')) {
+      const cells = line.split('|').map((cell) => cell.trim());
+      if (cells.length < 6) continue;
+      const phase = (cells[1] ?? '').replace(/`/g, '');
+      if (!(STAGE_PHASES as readonly string[]).includes(phase)) continue;
+      const exits = [...(cells[4] ?? '').matchAll(/`([a-z][a-z-]*)`/g)]
+        .map((match) => match[1] ?? '')
+        .filter((name) => SUBCOMMANDS.has(name));
+      rows.push({ phase, exits });
+    }
+    return rows;
   }
 
-  test('the skill instructs no call the Guard would refuse from that phase', () => {
-    // The inverse direction: a pairing the skill documents that is NOT in the
-    // registry would be an instruction to walk into a refusal.
-    const unreachable = DOCUMENTED.filter(
-      ([phase, tool]) => !isToolReachableFromPhase(tool, phase as (typeof STAGE_PHASES)[number]),
-    );
-    assert.deepEqual(unreachable, []);
+  const TABLE = parsePhaseTable();
+
+  test('the table was actually parsed — every phase, and exits on the ones that have them', () => {
+    assert.equal(TABLE.length, STAGE_PHASES.length, `parsed ${TABLE.length} rows for ${STAGE_PHASES.length} phases`);
+    // Not a magic count: the union of every exits cell must cover the tools
+    // that actually move a run forward. A parser that silently matched nothing
+    // would fail this, and so would a table that stopped naming a step.
+    const exits = new Set(TABLE.flatMap((row) => row.exits));
+    for (const required of ['prepare-context', 'submit-draft', 'record-approval', 'build-handoff', 'close-run', 'answer-clarification']) {
+      assert.ok(exits.has(required), `no table row names "${required}" as an exit — parser broken, or the table lost a step`);
+    }
+  });
+
+  test('every tool the table says exits a phase is reachable from that phase', () => {
+    const unreachable: string[] = [];
+    for (const row of TABLE) {
+      for (const subcommand of row.exits) {
+        const spec = lookupTool(subcommand);
+        assert.ok(spec !== undefined, `${subcommand} is not a declared subcommand`);
+        if (!isToolReachableFromPhase(spec.tool as ToolName, row.phase as (typeof STAGE_PHASES)[number])) {
+          unreachable.push(`${row.phase} -> ${subcommand}`);
+        }
+      }
+    }
+    assert.deepEqual(unreachable, [], 'the skill instructs a call G-11 refuses from that phase');
+  });
+
+  test('the numbered happy path is reachable step by step, read from the document', () => {
+    // The step list, not the table: `1. **\`resolve-command …\`**` etc. Each
+    // phase-scoped step must be reachable from the phase the previous one left.
+    const steps = [...TEXT.matchAll(/^\d+\.\s+\*\*`([a-z][a-z-]*)/gm)].map((match) => match[1] ?? '');
+    assert.ok(steps.length >= 6, `parsed ${steps.length} numbered steps — the check would be vacuous`);
+    for (const step of steps) assert.ok(SUBCOMMANDS.has(step), `step names "${step}", which is not a subcommand`);
+    // And the sequence must be the §4 order, not merely a set of valid tools.
+    assert.deepEqual(steps.slice(0, 3), ['resolve-command', 'begin-run', 'prepare-context']);
   });
 });
 
@@ -169,11 +250,20 @@ describe('the route command and the skill agree on how to run one', () => {
     assert.ok(create.includes('skills/coordinator-run/SKILL.md'));
   });
 
-  test('every subcommand the command file names is also named by the skill', () => {
-    const inCommand = subcommandsNamedIn(create);
+  test('every subcommand ANY command file names is also named by the skill (AC-21)', () => {
+    // This read `create-component.md` only, so the two maintenance commands
+    // instructed `run-maintenance` while the skill — which their own frontmatter
+    // tells the turn to load "for any route" — never mentioned maintenance at
+    // all. One hard-coded filename hid a whole missing section.
     const inSkill = new Set(subcommandsNamedIn(TEXT));
-    const orphans = inCommand.filter((name) => !inSkill.has(name));
-    assert.deepEqual(orphans, [], 'the command file documents a step the skill does not');
+    const orphans: string[] = [];
+    for (const file of readCommandFiles()) {
+      const body = readFileSync(join(COMMANDS_DIR, `${file.name}.md`), 'utf8');
+      for (const name of subcommandsNamedIn(body)) {
+        if (!inSkill.has(name)) orphans.push(`${file.publicName}: ${name}`);
+      }
+    }
+    assert.deepEqual(orphans, [], 'a command file documents a step the skill does not');
   });
 
   test('the gated routes name no run sequence at all — they refuse before one exists', () => {

@@ -30,6 +30,10 @@ One call, no run, no phase:
 node "${CLAUDE_PLUGIN_ROOT}/src/runtimes/claude-code/cli.ts" run-maintenance --operation-id source.validate
 ```
 
-It returns `{ ok, outcome, invalidated_run_ids }`. Report the outcome, and report every id in
-`invalidated_run_ids` in §16.2's designer-facing form — *the design-system data changed, so that
-proposal must be regenerated* — never as a hash or an event kind.
+It returns `{ ok, outcome, invalidated_run_ids }`. Report the outcome, and nothing else.
+
+**`invalidated_run_ids` is always empty here, and you must not report it as though it might not be.**
+This operation writes nothing, so it invalidates nothing — the engine returns `[]` unconditionally
+for `source.validate`. Telling a designer "the design-system data changed" after an operation that
+changed no data is a false statement about their design system. That sentence belongs to
+`/refresh-source`, which can actually produce one.

@@ -39,12 +39,12 @@ type Rule = {
 const FORBIDDEN: readonly Rule[] = [
   {
     name: 'claude CLI invocation',
-    pattern: /claude\s+-p\b/,
+    pattern: /claude\s+(?:-p\b|--print\b)/,
     why: 'the shared engine must not depend on the Claude Code CLI (§5.6)',
   },
   {
     name: 'absolute POSIX user path',
-    pattern: /['"`]\/(?:Users|home|var\/folders)\//,
+    pattern: /['"`]\/(?:Users|home|var\/folders|private\/tmp)\//,
     why: 'file locations must enter through typed config or injected ports (§5.6)',
   },
   {
@@ -59,22 +59,31 @@ const FORBIDDEN: readonly Rule[] = [
   },
   {
     name: 'child_process',
-    pattern: /from\s+['"`](?:node:)?child_process['"`]|require\(['"`](?:node:)?child_process['"`]\)/,
+    pattern: /['"`](?:node:)?(?:child_process|worker_threads)['"`]/,
     why: 'no subprocess execution in the shared engine (§5.6)',
   },
   {
     name: 'network client',
-    pattern: /from\s+['"`](?:node:)?(?:http|https|net)['"`]|\bfetch\s*\(/,
+    // `\bfetch\b` was tried and rejected: FD-4's own claim text says "Per-run
+    // target fetch is within auth and rate limits", and flagging an English
+    // word in a documented dependency is how a scan gets switched off. The
+    // call and the indirect forms are what matter.
+    pattern: /['"`](?:node:)?(?:http|https|http2|net|dgram|tls)['"`]|\bfetch\s*\(|\[['"`]fetch['"`]\]|['"`]undici['"`]/,
     why: 'Phase 1 has no model adapter and makes zero model calls (§7.2, §15.5)',
   },
   {
     name: 'Anthropic SDK / model client',
-    pattern: /@anthropic-ai|anthropic\.messages|\bmessages\.create\b/,
+    pattern: /@anthropic-ai|anthropic\.messages|\bmessages\.create\b|api\.anthropic\.com/,
     why: 'the first live model call belongs to Phase 2 (§17.4)',
   },
   {
     name: 'Figma write capability',
-    pattern: /figma\.(?:createFrame|createComponent|appendChild)|FIGMA_TOKEN|figma_api_key/i,
+    // Deliberately NOT case-insensitive on the env-var half: `figma_file_key`
+    // is a legitimate field of the curated export and appears in the leakage
+    // detector's own pattern list, so a case-insensitive `FIGMA…KEY` flagged
+    // the guard rather than a credential. Uppercase is the env-var convention;
+    // the lowercase form kept below is the one real-world spelling that isn't.
+    pattern: /figma\.(?:createFrame|createComponent|createInstance|appendChild)|\bFIGMA[_A-Z]*(?:TOKEN|SECRET|PAT)\b|figma_api_key/,
     why: 'Builder is the only Figma writer, and not in Phase 1 (§5.4, §7.2)',
   },
   {
@@ -83,6 +92,25 @@ const FORBIDDEN: readonly Rule[] = [
     why: 'no plugin hooks, frontmatter or command invocation inside the shared engine (§5.6)',
   },
 ];
+
+/**
+ * Removes `//` line comments and `/* … *\/` block comments while preserving
+ * code on the same line. Not a tokenizer: a `//` or `/*` inside a string
+ * literal would be over-removed, which errs toward scanning *less* text — the
+ * safe direction is the opposite, so the one place that matters (a forbidden
+ * import) cannot hide behind a quote either, because an import statement is
+ * never inside a string literal in this codebase's own source.
+ */
+export function stripComments(text: string): string {
+  return text
+    .replace(/\/\*[\s\S]*?\*\//g, ' ')
+    .split('\n')
+    .map((line) => {
+      const marker = line.indexOf('//');
+      return marker === -1 ? line : line.slice(0, marker);
+    })
+    .join('\n');
+}
 
 describe('shared engine portability', () => {
   const files = collectSourceFiles(SRC_DIR);
@@ -99,10 +127,11 @@ describe('shared engine portability', () => {
         // Strip line comments so an explanatory comment naming a forbidden
         // pattern does not fail the scan; block comments are handled by the
         // narrowness of the patterns themselves.
-        const code = text
-          .split('\n')
-          .filter((line) => !/^\s*(?:\/\/|\*|\/\*)/.test(line))
-          .join('\n');
+        // AC-22: this dropped **every line beginning with `/*`, including any
+        // real code after the comment closed** — so `/* c */ import { execSync }
+        // from "node:child_process";` passed the scan clean. Comments are now
+        // removed as spans, leaving the code that shares their line.
+        const code = stripComments(text);
         if (rule.pattern.test(code)) {
           offenders.push(relative(SRC_DIR, file));
         }
@@ -110,4 +139,39 @@ describe('shared engine portability', () => {
       assert.deepEqual(offenders, [], `${rule.name} found — ${rule.why}`);
     });
   }
+
+  test('every rule matches its own violation — the list is not decoration (AC-22)', () => {
+    // An audit demonstrated seven working evasions of the previous patterns,
+    // including `claude --print` for the "second model invocation" rule and
+    // `FIGMA_ACCESS_TOKEN` for the credential rule. Each rule now carries a
+    // violation it must catch, so a pattern that silently stops matching fails
+    // here instead of letting the sweep above pass over a real defect.
+    const violations: Readonly<Record<string, readonly string[]>> = {
+      'claude CLI invocation': ['run claude -p "x"', 'run claude --print "x"'],
+      'absolute POSIX user path': ["const p = '/Users/someone/x'", "const q = '/private/tmp/y'"],
+      'absolute Windows path': ["const p = 'C:\\Users\\x'"],
+      'OneDrive / cloud-sync path': ['const p = OneDrive', 'CloudStorage'],
+      child_process: ["import { x } from 'node:child_process'", "await import('worker_threads')"],
+      'network client': ["from 'node:http2'", 'fetch("https://x")', "const f = g['fetch']", "from 'undici'"],
+      'Anthropic SDK / model client': ['@anthropic-ai/sdk', 'messages.create(', 'https://api.anthropic.com/v1/messages'],
+      'Figma write capability': ['figma.createInstance(', 'process.env.FIGMA_ACCESS_TOKEN', 'figma_api_key'],
+      'plugin surface coupling': ['.claude-plugin/plugin.json', 'allowed-tools: Bash', 'PreToolUse'],
+    };
+    for (const rule of FORBIDDEN) {
+      const cases = violations[rule.name];
+      assert.ok(cases !== undefined, `no falsifier written for the rule "${rule.name}"`);
+      for (const violation of cases) {
+        assert.ok(rule.pattern.test(violation), `"${rule.name}" did not match its own violation: ${violation}`);
+      }
+    }
+  });
+
+  test('the comment strip preserves code that shares a line with a comment (AC-22)', () => {
+    // The exact evasion: a line beginning with `/*` used to be dropped whole.
+    const evasion = '/* harmless */ import { execSync } from "node:child_process";';
+    assert.match(stripComments(evasion), /child_process/);
+    // And it still removes what it is meant to remove.
+    assert.ok(!/child_process/.test(stripComments('// import from "node:child_process"')));
+    assert.ok(!/child_process/.test(stripComments('/*\n * "node:child_process"\n */')));
+  });
 });

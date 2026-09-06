@@ -115,18 +115,32 @@ describe('the boundary names no capability it does not have', () => {
     .filter((line) => !/^\s*(?:\/\/|\*|\/\*)/.test(line))
     .join('\n');
 
+  // AC-23: each of these was narrower than the prohibition it names. An audit
+  // appended real code to a copy of `cli.ts` and walked past five of the six:
+  // `worker_threads` for the subprocess rule, a variable-held `globalThis.fetch`
+  // and a third-party client for the network rule, `claude --print` for the
+  // model rule, and `process.env['ADALFI_CURATED_SOURCE']` for the source rule.
   for (const [what, pattern] of [
-    ['list_by_category', /list_by_category|listByCategory/],
+    ['list_by_category', /list_by_category|listByCategory|CALLER_RUN_GUARD/],
     ['a Figma capability', /figma/i],
-    ['a network client', /from\s+['"`](?:node:)?(?:http|https|net)['"`]|\bfetch\s*\(/],
-    ['a second model invocation', /@anthropic-ai|messages\.create|claude\s+-p\b/],
-    ['a subprocess', /(?:node:)?child_process/],
-    ['the raw curated source', /curatedSourcePath|curated\.json/],
+    ['a network client', /['"`](?:node:)?(?:http|https|http2|net|dgram|tls)['"`]|\bfetch\s*\(|\[['"`]fetch['"`]\]|['"`](?:undici|got|axios|node-fetch)['"`]/],
+    ['a second model invocation', /@anthropic-ai|messages\.create|claude\s+(?:-p\b|--print\b)|api\.anthropic\.com/],
+    ['a subprocess', /['"`](?:node:)?(?:child_process|worker_threads)['"`]/],
+    ['the raw curated source', /curatedSourcePath|curated\.json|ADALFI_CURATED_SOURCE/],
   ] as const) {
     test(`no ${what} in the tool boundary`, () => {
       assert.ok(!pattern.test(code), `${what} appears in cli.ts`);
     });
   }
+
+  test('the boundary scan covers the whole runtime adapter, not just one file (AC-23)', () => {
+    // `src/runtimes/claude-code/index.ts` is the other half of the boundary and
+    // was scanned by nothing but the (previously evadable) portability rules.
+    const adapter = readFileSync(join(dirname(fileURLToPath(import.meta.url)), '..', '..', 'src', 'runtimes', 'claude-code', 'index.ts'), 'utf8');
+    for (const pattern of [/['"`](?:node:)?(?:child_process|worker_threads)['"`]/, /\bfetch\s*\(/, /@anthropic-ai/]) {
+      assert.ok(!pattern.test(adapter), 'the runtime adapter must obey the boundary’s prohibitions too');
+    }
+  });
 });
 
 describe('argument parsing refuses rather than reinterprets', () => {

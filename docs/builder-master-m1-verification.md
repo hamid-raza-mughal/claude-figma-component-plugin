@@ -118,20 +118,19 @@ $ … prepare-context --run-id 22e0cadf-90d1-4b4f-b28c-1e169c698331
 exit: 0
 ```
 
-Shape returned (candidate payload elided for length):
+The result's four keys are `candidates`, `schema_card`, `route_module` and `assembled_bytes`, as
+§13 specifies. The candidate payload is long, so what follows is a **summary I computed from that
+output — not the output itself.** (An audit caught the first version of this section presenting the
+summary inside a block headed "verbatim", with two key names — `candidate_categories`,
+`candidates_per_category` — that the boundary does not return and that I had invented while
+reshaping it for print. In a repository whose review discipline is "evidence is what the artifact
+does", a derived shape typeset as raw output is the defect, not the summarising.)
 
-```json
-{
-  "ok": true,
-  "tool": "prepareContext",
-  "result": {
-    "candidate_categories": ["category:color", "category:typography", "category:spacing", "category:effect", "category:corner-radius"],
-    "candidates_per_category": { "category:color": 2, "category:typography": 1, "category:spacing": 1, "category:effect": 0, "category:corner-radius": 0 },
-    "schema_card": "<snapshot, body, byte_length, generated_from_index>",
-    "route_module": "route-new",
-    "assembled_bytes": 11843
-  }
-}
+```
+candidates          5 category keys — color (2), typography (1), spacing (1), effect (0), corner-radius (0)
+schema_card         snapshot, body, byte_length, generated_from_index
+route_module        "route-new"
+assembled_bytes     11843
 ```
 
 The one paint-style candidate, verbatim — **note its `confidence`, which §C returns to**:
@@ -333,7 +332,10 @@ correctness. That is the defect class §5 of the plan tells me to hunt.
 
 **Not fixed in this work package, deliberately.** A4's job is to record what the system does, and a
 verification document that quietly fixed what it was verifying would be worth nothing. It is
-finding **AC-1** of audit cycle 1, which runs next.
+finding **AC-1** of audit cycle 1, which ran immediately after and **fixed it**: see
+`docs/builder-master-audit-cycle-1.md`. The approval view now reads `Aggregate confidence: low` for
+this run, and carries a `broadened_retrieval` disclosure saying why. Everything above records the
+behaviour at commit `8236e50`, before that fix, and is left as it was recorded.
 
 ---
 

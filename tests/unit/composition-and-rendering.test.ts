@@ -727,10 +727,39 @@ describe('dual rendering from one object (§16.3)', () => {
   });
 
   /** Text-style size is provenance, not an assertion. */
-  test('a text-style resolution shows how its size was established', () => {
+  test('a text-style resolution shows how its size was established — honestly (AC-8)', () => {
     assert.ok(output !== undefined);
     if (output === undefined) return;
-    assert.match(renderApprovalView(output).body, /confirmed by the bound type-scale variable/);
+    // This assertion used to read `/confirmed by the bound type-scale variable/`
+    // and passed against a fixture with **no** `bound_variable_ids` at all —
+    // the renderer emitted the clause unconditionally, so the test asserted a
+    // provenance claim nothing had established. That is the v1 14px-vs-12px
+    // defect the contract says it structurally fixed, restated in the view the
+    // designer approves from. Now both directions are checked, so neither the
+    // claim nor its absence can be printed for the wrong resolution.
+    const body = renderApprovalView(output).body;
+    assert.match(body, /font-size 14 \(literal — no bound type-scale variable\)/);
+    assert.ok(!/confirmed by the bound type-scale variable/.test(body), 'no join happened, so nothing may claim one');
+  });
+
+  test('the "confirmed by" clause appears exactly when the binding it names exists (AC-8)', () => {
+    assert.ok(output !== undefined);
+    if (output === undefined) return;
+    if (output.status !== 'ready' || output.run_type !== 'new') return;
+    // The same output with the type-scale binding present. Built by rewriting
+    // the resolution rather than by a second fixture, so the only difference
+    // between the two renders is the field under test.
+    const bound = {
+      ...output,
+      resolutions: output.resolutions.map((resolution) =>
+        resolution.ref_class === 'text-style'
+          ? { ...resolution, bound_variable_ids: { font_size: 'VariableID:1:10' } }
+          : resolution,
+      ),
+    } as typeof output;
+    const body = renderApprovalView(bound).body;
+    assert.match(body, /font-size 14 \(literal, confirmed by the bound type-scale variable\)/);
+    assert.ok(!/no bound type-scale variable/.test(body));
   });
 
   test('the handoff carries the payload verbatim and never recomputes the route', () => {

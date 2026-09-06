@@ -59,11 +59,13 @@ import { collectSelectedCandidateIds } from '../contracts/coordinator-draft.ts';
 import { renderApprovalView, type ApprovalView } from '../rendering/render-approval-view.ts';
 import { renderMachineHandoff, renderingsAgree, type MachineHandoff } from '../rendering/render-machine-handoff.ts';
 import { SchemaRegistry } from '../validation/schema-validator.ts';
-import { findOperationalLeaks, type ApprovalRecord } from '../contracts/run-envelope.ts';
+import { findOperationalLeaks, GATE_MODES, RESPONSE_SOURCES, type ApprovalRecord, type GateMode } from '../contracts/run-envelope.ts';
+import { FAILURE_CLASSES, FAILURE_IS_TERMINAL, type FailureClass, type FailureEvidence } from '../contracts/failures.ts';
 import { hasBlockingGap } from '../contracts/resolution.ts';
 import type { CoordinatorJudgmentDraft } from '../contracts/coordinator-draft.ts';
 import type { CoordinatorOutput } from '../contracts/coordinator-output.ts';
 import type { ResolverCandidate } from '../contracts/resolution.ts';
+import { CONFIDENCE_LEVELS, type Confidence, type Disclosure } from '../contracts/resolution.ts';
 import type { SchemaCard } from '../contracts/source.ts';
 
 /** §11.3.1's constant, until a Phase 3+ artifact widens the spec. Not a config
@@ -77,6 +79,46 @@ const SPEC_SCHEMA_VERSION = '2.0.0';
  *  "compact by contract"), so this stays a bounded spread, not a dump. */
 const GENERIC_CANDIDATE_CATEGORIES = ['color', 'typography', 'spacing', 'effect', 'corner-radius'] as const;
 const GENERIC_CANDIDATE_CAP = 5;
+
+/** AC-1: flattens `prepareContext`'s per-category candidate lists into the
+ *  `candidate_id -> confidence` map persisted on the preparation event. The
+ *  same candidate can legitimately appear under two categories; the resolver
+ *  assigns it one confidence per retrieval, so a later occurrence overwriting
+ *  an earlier one writes the same value. */
+/**
+ * AC-4: the one disclosure this route can always make truthfully. `actionable`
+ * is the literal `false` its type demands — a disclosure can never block, which
+ * is why this is safe to emit on every run rather than only on some.
+ */
+function broadenedRetrievalDisclosure(
+  runId: string,
+  candidates: Readonly<Record<string, readonly ResolverCandidate[]>>,
+): readonly Disclosure[] {
+  const total = Object.values(candidates).reduce((sum, list) => sum + list.length, 0);
+  if (total === 0) return [];
+  return [
+    {
+      disclosure_id: `broadened-retrieval-${runId}`,
+      kind: 'broadened_retrieval',
+      owner: 'coordinator',
+      evidence:
+        `All ${total} candidates came from a capped per-category listing, not from a query planned ` +
+        'against semantic elements — on a new-component run none exist yet (PD-7). Nothing here has ' +
+        'been ranked against the request, which is why every reference reads low confidence.',
+      actionable: false,
+    },
+  ];
+}
+
+function candidateConfidence(
+  candidates: Readonly<Record<string, readonly ResolverCandidate[]>>,
+): Record<string, Confidence> {
+  const out: Record<string, Confidence> = {};
+  for (const list of Object.values(candidates)) {
+    for (const candidate of list) out[candidate.candidate_id] = candidate.confidence;
+  }
+  return out;
+}
 
 export type EngineConfig = {
   readonly phase1Config: () => Phase1Config;
@@ -102,10 +144,29 @@ export type PrepareContextResult = {
   readonly assembled_bytes: number;
 };
 
+/**
+ * §13's three verdicts, with the `accepted` case split by composed status.
+ *
+ * **AC-2 (docs/builder-master-audit-cycle-1.md).** A `blocked` composition is
+ * `ok` (§4.6: "composition still returns ok with a `BlockedOutput`"), so it
+ * used to return the same bare `accepted` a ready one does — and carried an
+ * `artifact_sha256` naming an object that was deliberately **not** written as
+ * an artifact row, since §4.4 only persists a `ready` composition. A caller
+ * could not tell the two apart, so the documented next step
+ * (`presentForApproval`) walked straight into G-19a. The Guard caught it, which
+ * is why this was never a safety hole — but a boundary that tells its caller
+ * the wrong next step and names a hash for an artifact that does not exist is
+ * two accounts of one fact, which is this project's known failure mode.
+ *
+ * `status` now discriminates, and the blocked case carries `output_sha256` —
+ * the hash of a composed output — rather than `artifact_sha256`, which names a
+ * stored artifact row. Different things get different names.
+ */
 export type SubmitDraftResult =
-  | { readonly outcome: 'accepted'; readonly artifact_sha256: string }
-  | { readonly outcome: 'repairable'; readonly evidence: readonly { readonly code: string; readonly message: string }[] }
-  | { readonly outcome: 'terminal'; readonly evidence: readonly { readonly code: string; readonly message: string }[] };
+  | { readonly outcome: 'accepted'; readonly status: 'ready'; readonly artifact_sha256: string }
+  | { readonly outcome: 'accepted'; readonly status: 'blocked'; readonly output_sha256: string }
+  | { readonly outcome: 'repairable'; readonly evidence: readonly FailureEvidence[] }
+  | { readonly outcome: 'terminal'; readonly evidence: readonly FailureEvidence[] };
 
 export type PresentForApprovalResult = {
   readonly artifact_sha256: string;
@@ -149,7 +210,15 @@ export type RunMaintenanceResult = {
 };
 
 /** §3.3.1: 72 hours, one value for both runtimes. */
-const STALENESS_THRESHOLD_MS = 72 * 60 * 60 * 1000;
+/**
+ * AC-17: exported in hours as well, because the skill and the owner testing
+ * guide both state "72 hours" as an instruction, and nothing could bind those
+ * sentences to this constant while it was module-private. That is D-12's shape
+ * — one fact, three accounts, no agreement test — and the fix is to make the
+ * constant reachable rather than to trust three copies to move together.
+ */
+export const STALENESS_THRESHOLD_HOURS = 72;
+const STALENESS_THRESHOLD_MS = STALENESS_THRESHOLD_HOURS * 60 * 60 * 1000;
 
 function msSince(iso: string, now: string): number {
   return new Date(now).getTime() - new Date(iso).getTime();
@@ -161,6 +230,52 @@ function msSince(iso: string, now: string): number {
  * ...) over the generic `.name` every `Error` already has — falling back to
  * `.name` only for errors that never named themselves more specifically.
  */
+/**
+ * AC-5's read side. `ApprovalRow` types `gate_mode` and `response_source` as
+ * bare `string` — SQLite has no enums — so reading them back needs a
+ * narrowing. It is a **refusal**, not a cast: a stored value outside the
+ * closed set means the store holds something no code path should have written,
+ * and laundering it into a typed record is precisely the defect AC-5 fixes.
+ * G-9a already refuses `authorising` at write time; this refuses anything
+ * unrecognised at read time, so neither direction can invent a qualifier.
+ */
+function assertStoredEnum<T extends string>(
+  allowed: readonly T[],
+  value: string,
+  field: string,
+  runId: string,
+): T {
+  if (!(allowed as readonly string[]).includes(value)) {
+    throw new GuardRefusal(
+      'G-9b',
+      `Run "${runId}"'s stored approval carries ${field} "${value}", which is not a legal value ` +
+        `(${allowed.join(' | ')}). The record is not readable as an ApprovalRecord.`,
+    );
+  }
+  return value as T;
+}
+
+/**
+ * `gate_mode` needs both checks, and they are different rules. An unrecognised
+ * value is unreadable (G-9b, via `assertStoredEnum`). `authorising` is
+ * perfectly readable and **refused anyway**: G-9a bans it "anywhere in Phase 2"
+ * (§7.2), and the store enforces that on write only. Reading it back and
+ * quietly rewriting it to observe-only — which is what this code did before
+ * AC-5 — is the worst of the three options, because it makes an illegal record
+ * look legal in the artifact a downstream stage consumes.
+ */
+function assertStoredGateMode(value: string, runId: string): GateMode {
+  const mode = assertStoredEnum(GATE_MODES, value, 'gate_mode', runId);
+  if (mode === 'authorising') {
+    throw new GuardRefusal(
+      'G-9a',
+      `Run "${runId}"'s stored approval carries gate_mode "authorising", which is refused in Phase 2 (§7.2). ` +
+        'It is surfaced rather than rewritten: an illegal record must not be made to look legal.',
+    );
+  }
+  return mode;
+}
+
 function errorCodeOf(error: unknown): string {
   if (typeof error === 'object' && error !== null && 'code' in error) {
     const code = (error as { code: unknown }).code;
@@ -228,6 +343,33 @@ export class CoordinatorEngine {
   private foldRun(runId: string): DerivedRunState {
     const events = this.getStore().getEvents(runId);
     return foldRunEvents(events);
+  }
+
+  /**
+   * AC-1's read side: the confidences `prepareContext` recorded for this run's
+   * candidates, keyed by `candidate_id`.
+   *
+   * A candidate id the model selected but that was never offered is **absent
+   * from this map on purpose** — it does not get a manufactured value here.
+   * The composer's own fallback is `'low'`, and materialization refuses a
+   * fabricated id outright, so an unknown selection can never round *up*.
+   */
+  private perResolutionConfidenceFor(runId: string): ReadonlyMap<string, Confidence> {
+    const prepared = this.mostRecentEventOfKind(runId, 'context-preparation-succeeded');
+    const recorded = prepared?.payload['candidate_confidence'];
+    if (typeof recorded !== 'object' || recorded === null) return new Map();
+    const out = new Map<string, Confidence>();
+    for (const [candidateId, confidence] of Object.entries(recorded as Record<string, unknown>)) {
+      if (CONFIDENCE_LEVELS.includes(confidence as Confidence)) out.set(candidateId, confidence as Confidence);
+    }
+    return out;
+  }
+
+  /** AC-4's read side: the disclosures `prepareContext` recorded for this run. */
+  private disclosuresFor(runId: string): readonly Disclosure[] {
+    const prepared = this.mostRecentEventOfKind(runId, 'context-preparation-succeeded');
+    const recorded = prepared?.payload['disclosures'];
+    return Array.isArray(recorded) ? (recorded as readonly Disclosure[]) : [];
   }
 
   private mostRecentEventOfKind(runId: string, kind: RunEventRow['kind']): RunEventRow | undefined {
@@ -404,6 +546,26 @@ export class CoordinatorEngine {
       const state = this.foldRun(runId);
       this.assertReachable('failRun', state.phase);
       this.refuseIfSourceInvalidated(runId, state);
+      // AC-6: §13's `failRun` row states one refusal — "non-terminal class" —
+      // and this method's own doc comment claimed to implement it while the
+      // body never read `FAILURE_CLASSES` or `FAILURE_IS_TERMINAL`. Any string
+      // reached a terminal `run_event` payload, including `validation-failure`,
+      // which the contract marks repairable and non-terminal: the terminal
+      // record then misclassified the run. Free text in a field a terminal
+      // outcome depends on is the D-1…D-4 shape exactly.
+      if (!FAILURE_CLASSES.includes(failureClass as FailureClass)) {
+        throw new GuardRefusal(
+          'G-1',
+          `"${failureClass}" is not a registered failure class (§8.3). Registered: ${FAILURE_CLASSES.join(', ')}.`,
+        );
+      }
+      if (!FAILURE_IS_TERMINAL[failureClass as FailureClass]) {
+        throw new GuardRefusal(
+          'G-1',
+          `failRun refuses the non-terminal failure class "${failureClass}" (§13). ` +
+            'A repairable class closes no run; use the repair budget, or a terminal class.',
+        );
+      }
       const kindByPhase: Partial<Record<StagePhase, 'run-failed-during-received' | 'run-failed-during-preparing' | 'run-failed-during-validation'>> = {
         received: 'run-failed-during-received',
         preparing: 'run-failed-during-preparing',
@@ -503,7 +665,29 @@ export class CoordinatorEngine {
         const seq = store.getMaxSeq(runId) + 1;
         const started = store.appendEvent(runId, seq, at, 'context-preparation-started', 'received', 'preparing', {});
         if (!started.ok) throw new GuardRefusal('G-20b', 'CAS conflict starting context preparation.');
-        const succeeded = store.appendEvent(runId, seq + 1, at, 'context-preparation-succeeded', 'preparing', 'drafting', {});
+        // AC-1: the confidence of every candidate the model was actually shown,
+        // persisted here because it is the only place it exists. Confidence is
+        // a property of the *retrieval*, not of the record — `broadened-retrieval`
+        // is why this run's candidates are `low` — so it cannot be re-derived at
+        // `submitDraft` without re-running the same query, and re-deriving it
+        // from a different query would invent a different number. See
+        // `perResolutionConfidenceFor` below for the read side.
+        const succeeded = store.appendEvent(runId, seq + 1, at, 'context-preparation-succeeded', 'preparing', 'drafting', {
+          candidate_confidence: candidateConfidence(candidates),
+          // AC-4: every candidate on this route arrives through PD-7's capped
+          // per-category listing, so every one is `broadened-retrieval` and
+          // therefore `low`. That is honest, and it was also invisible: the
+          // composed output's `disclosures` was structurally always empty, and
+          // `coordinator-output.ts` says withholding a disclosure "is how a
+          // known limitation becomes invisible". The designer was shown a
+          // confidence without the one fact that explains it.
+          disclosures: broadenedRetrievalDisclosure(runId, candidates),
+          // AC-9: the leakage assertion's own report. Two of its five checks
+          // cannot run here (§15.6 — only ingestion may read raw curated JSON),
+          // and nothing recorded which. A run that passed three checks and a
+          // run that passed five were indistinguishable in the record.
+          leakage: { clean: leakage.clean, checks_run: leakage.checks_run, raw_source_checked: leakage.raw_source_checked },
+        });
         if (!succeeded.ok) throw new GuardRefusal('G-20b', 'CAS conflict completing context preparation.');
 
         return {
@@ -557,6 +741,8 @@ export class CoordinatorEngine {
         const materialized = new Map(materialization.resolutions.map((r) => [r.candidate_id, r]));
 
         const composed = composeTrustedOutput({
+          perResolutionConfidence: this.perResolutionConfidenceFor(runId),
+          disclosures: this.disclosuresFor(runId),
           invocation,
           draft,
           snapshot: {
@@ -598,7 +784,9 @@ export class CoordinatorEngine {
                 )
               : store.appendEvent(runId, seq, at, 'draft-submitted', 'drafting', 'validating', eventPayload);
           if (!appended.ok) throw new GuardRefusal('G-20b', 'CAS conflict appending draft-submitted.');
-          return { outcome: 'accepted', artifact_sha256: composed.output_sha256 };
+          return composed.output.status === 'ready'
+            ? { outcome: 'accepted', status: 'ready', artifact_sha256: composed.output_sha256 }
+            : { outcome: 'accepted', status: 'blocked', output_sha256: composed.output_sha256 };
         }
 
         // ok:false is always validation-failure (§6.1), repairable up to the
@@ -609,7 +797,14 @@ export class CoordinatorEngine {
           ...(composed.output === undefined ? {} : { canonical_output: composed.output }),
         });
         if (!submitted.ok) throw new GuardRefusal('G-20b', 'CAS conflict appending draft-submitted.');
-        const evidence = composed.findings.map((f) => ({ code: f.code, message: f.message }));
+        // AC-3: the findings are passed through whole. §6.3 requires the repair
+        // input to be "stable codes and JSON Pointers, never prose", and this
+        // line used to project each finding down to `{code, message}` —
+        // discarding `instance_path`, `contract_path` and `enforced_by`. The
+        // model then got one repair call and a message like "must be equal to
+        // one of the allowed values" with no indication of *which* field, which
+        // is a rule stranding its own tool.
+        const evidence: readonly FailureEvidence[] = composed.findings;
 
         if (checkRepairEligibility(state)) {
           const repair = store.appendEvent(runId, seq + 1, at, 'draft-repair-requested', 'validating', 'drafting', {
@@ -854,17 +1049,46 @@ export class CoordinatorEngine {
       }
 
       const approvalRow = store.getLatestApproval(runId);
+      // AC-7: G-7 — "advancing past the gate without a recorded response whose
+      // hash equals the current artifact" (§12.1). It was declared, documented
+      // to the host turn in the orchestration skill, and never thrown: only
+      // G-8 (a response presented *after* the artifact changed) was, and
+      // `buildHandoff` tolerated no approval at all. The two conditions are
+      // different and §13 lists both against the gate, so both are enforced.
+      if (approvalRow === undefined) {
+        throw new GuardRefusal(
+          'G-7',
+          `Run "${runId}" has no recorded response — buildHandoff cannot advance past the gate (§7.5).`,
+        );
+      }
+      if (approvalRow.approved_artifact_sha256 !== artifact.artifact_sha256) {
+        throw new GuardRefusal(
+          'G-7',
+          `Run "${runId}"'s recorded response binds ${approvalRow.approved_artifact_sha256.slice(0, 12)}…, ` +
+            `but the current artifact is ${artifact.artifact_sha256.slice(0, 12)}… (§7.5).`,
+        );
+      }
       const approval: ApprovalRecord | undefined =
         approvalRow === undefined
           ? undefined
           : {
               gate: approvalRow.gate,
-              gate_mode: 'observe-only-validation',
+              // AC-5: read, not re-minted. `run-envelope.ts` justifies these
+              // four qualifiers travelling *on* the record precisely because
+              // "renderMachineHandoff embeds the record verbatim — a receiving
+              // stage must see the qualification". Two of the four were
+              // literals here while their siblings were read from the row, so
+              // a stored `gate_mode: 'authorising'` was silently downgraded to
+              // observe-only in the handoff: the failure mode inverted, and a
+              // record asserting a property of itself that nothing checked.
+              // G-9a/G-9b are what keep these values honest at write time; this
+              // is a read, and a read must not launder what it reads.
+              gate_mode: assertStoredGateMode(approvalRow.gate_mode, runId),
               approved_artifact_sha256: approvalRow.approved_artifact_sha256,
               approved_at: approvalRow.approved_at,
               approved_by: approvalRow.approved_by,
               decision: approvalRow.decision,
-              response_source: 'model-relayed',
+              response_source: assertStoredEnum(RESPONSE_SOURCES, approvalRow.response_source, 'response_source', runId),
               verified: approvalRow.verified,
               authorizing: approvalRow.authorizing,
             };

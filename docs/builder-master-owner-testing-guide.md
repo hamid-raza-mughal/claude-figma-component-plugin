@@ -103,8 +103,10 @@ That is the correct behaviour, not a crash. If you ever see it, the fix is the v
 
 You do **not** need it to run the plugin, and the plan's mention of it is about the test suite, not
 the product. It points at the external artifact bundle that the strict developer gate
-(`npm run verify`) needs in order to run 84 extra tests. Without it the suite runs source-only and
-says so out loud. It has no effect on anything you type below.
+(`npm run verify`) needs in order to run its extra, source-backed tests. Without it the suite runs
+source-only and says so out loud. (The exact number is deliberately not quoted here: the only figure
+on record is a 2026-07-30 measurement that `tools/run-suite.ts` uses as a *lower bound*, and turning
+a declared lower bound into a stated fact is the move that file explicitly refuses to make.) It has no effect on anything you type below.
 
 ---
 
@@ -162,9 +164,11 @@ Approving binds this exact artifact: sha256 24a2c65ab950cd2c…
 - **Every resolved reference must be a token that actually exists in your design system.** They were
   looked up against your curated JSON, not invented — if a name or key is wrong, that is the most
   important kind of defect you can find.
-- **The aggregate confidence is a known-suspect field.** It is supposed to be the *weakest*
-  individual resolution, never an average. If it reads higher than the worst reference on the list,
-  say so — I already have one confirmed instance of this and want to know if you see others.
+- **The aggregate confidence must never read higher than the worst reference on the list.** It is
+  the *weakest* individual resolution, never an average. This was broken and is now fixed (AC-1,
+  `docs/builder-master-audit-cycle-1.md`): before the fix it said `medium` for every run regardless
+  of what the references actually resolved to. **Expect to see `low` a lot** — that is honest, not a
+  regression. If you ever see it read higher than the worst reference, say so.
 - **The `sha256` is what your approval binds to.** If you change your mind and the proposal is
   re-composed, that number changes and the old approval stops counting. You do not need to check it;
   you just need to know that is what it is for.
@@ -254,7 +258,8 @@ project's history were found by looking at what a tool actually returned, not at
 | What you see | What it means | What to do |
 |---|---|---|
 | `"code": "ConfigError"` | one of the three variables is unset | set the one it names, in `~/.claude/settings.json` |
-| `"code": "G-20a"` or `"G-20c"` | the run store is unreachable, or the directory does not belong to this install | check `ADALFI_APPROVED_DATA_DIR` points where you think, and that it is not the same as `ADALFI_DERIVED_DIR` |
+| `"code": "ConfigError"` naming `approvedDataDirectory` | `ADALFI_APPROVED_DATA_DIR` and `ADALFI_DERIVED_DIR` both point at the same directory | give them different directories — the run store is authoritative and must not live inside the one the system may delete and rebuild |
+| `"code": "G-20a"` or `"G-20c"` | the run store is unreachable, or the directory does not belong to this install | check `ADALFI_APPROVED_DATA_DIR` points where you think it does, and that nothing has deleted the database or its `store-identity.json` |
 | `command not found: claude` | the CLI is not on your `PATH` | open a new terminal |
 | the command is not offered at all | the plugin is not installed or not enabled | `claude plugin list`, then `claude plugin enable manage-ds-components` |
 | a stale-looking result after I said I fixed something | you are running the installed copy from before the fix | `claude plugin marketplace update manage-ds-components-local` |

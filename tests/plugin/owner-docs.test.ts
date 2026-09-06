@@ -16,6 +16,8 @@ import { readFileSync, existsSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { OPERATIONS } from '../../src/registry/operations.ts';
+import { resolvePhase1Config, ConfigError } from '../../src/config/phase1-config.ts';
+import { scanText } from '../../tools/identifier-scan.ts';
 import { GUARD_CODES } from '../../src/guard/errors.ts';
 import { readCommandFiles, slashCommandNames, PLUGIN_MANIFEST } from '../../tools/command-surface.ts';
 
@@ -60,16 +62,24 @@ describe('the marketplace manifest makes this repository installable by path', (
 });
 
 describe('the owner testing guide names only things that exist', () => {
-  test('every slash command it tells the owner to type is registered', () => {
-    const named = [...new Set([...guide.matchAll(/`?\/([a-z][a-z-]*)`?/g)].map((match) => `/${match[1] ?? ''}`))];
+  test('every slash command it tells the owner to type is registered (AC-18)', () => {
+    // The old narrowing was `/^\/[a-z]+-[a-z]+$/` — exactly two hyphen-separated
+    // segments — so `/build`, `/publish-to-figma-now` and `/build_component`
+    // all sailed through a test named "every slash command … is registered".
+    // A command is now anything backticked that starts with a slash, which is
+    // how the guide actually writes one, with no shape narrowing at all.
     const registered = new Set(slashCommandNames());
-    // Paths and prose contain slash-words too; only check the ones that look
-    // like a command and are not obviously a path segment.
-    const commandLike = named.filter((name) => guide.includes(`\`${name}`) || guide.includes(`${name} `));
-    const offenders = commandLike.filter(
-      (name) => /^\/[a-z]+-[a-z]+$/.test(name) && !registered.has(name),
-    );
+    const named = [...new Set([...guide.matchAll(/`(\/[A-Za-z][\w-]*)`?/g)].map((match) => match[1] ?? ''))];
+    assert.ok(named.length >= registered.size, `extracted ${named.length} command-shaped tokens — the check would be weak`);
+    const offenders = named.filter((name) => !registered.has(name));
     assert.deepEqual(offenders, [], 'the guide tells the owner to type a command that is not registered');
+  });
+
+  test('the extraction above catches every shape an unregistered command could take', () => {
+    // The narrowing is the thing that failed last time, so it gets a falsifier.
+    const probe = 'Type `/build` then `/publish-to-figma-now` and `/build_component`.';
+    const found = [...probe.matchAll(/`(\/[A-Za-z][\w-]*)`?/g)].map((match) => match[1] ?? '');
+    assert.deepEqual(found, ['/build', '/publish-to-figma-now', '/build_component']);
   });
 
   test('every registered command appears in the guide — none is left undocumented', () => {
@@ -93,6 +103,29 @@ describe('the owner testing guide names only things that exist', () => {
     for (const code of [...new Set([...guide.matchAll(/\bG-\d+[a-c]?\b/g)].map((m) => m[0]))]) {
       assert.ok((GUARD_CODES as readonly string[]).includes(code), `the guide names ${code}, which does not exist`);
     }
+  });
+
+  test('the code the guide attributes to equal data directories is the one that actually fires (AC-19)', () => {
+    // The §6 table used to key that remedy to G-20a/G-20c. The real refusal is
+    // `ConfigError` from `resolvePhase1Config` — so an owner who set both
+    // variables to one directory saw a code the table's *first* row explains as
+    // "a variable is unset", and was sent to change the wrong thing.
+    let observed = '';
+    try {
+      resolvePhase1Config({
+        curatedSourcePath: '/tmp/curated.json',
+        derivedDir: '/tmp/same',
+        approvedDataDirectory: '/tmp/same',
+      });
+    } catch (error) {
+      observed = error instanceof ConfigError ? 'ConfigError' : 'other';
+    }
+    assert.equal(observed, 'ConfigError');
+    assert.ok(
+      /ConfigError[^|]*\|[^|]*same directory|same directory[^|]*\|[^|]*ConfigError/.test(guide.replace(/\n/g, ' ')) ||
+        guide.includes('both point at the same directory'),
+      'the guide must attribute the equal-directories failure to ConfigError',
+    );
   });
 
   test('the install command names the marketplace and the plugin as the manifests declare them', () => {
@@ -186,22 +219,15 @@ describe('the M1 verification record claims nothing it did not run', () => {
     assert.match(verification, /commit `[0-9a-f]{7,40}`/);
   });
 
-  test('it names no real Figma identifier (BP-5)', () => {
-    assert.ok(!/figma\.com\/(?:file|design)\//i.test(verification));
-    // A Figma node id is `\d+:\d+` — which is also the shape of the
-    // clock-time inside every ISO timestamp in the transcript. Timestamps are
-    // removed first so this checks identifiers rather than counting the hour.
-    const withoutTimestamps = verification.replace(/\d{4}-\d{2}-\d{2}T[\d:.]+Z/g, '<timestamp>');
-    const nodeIdLike = [...withoutTimestamps.matchAll(/\b\d+:\d+\b/g)].map((m) => m[0]);
-    assert.deepEqual(nodeIdLike, [], `a Figma-node-shaped identifier appears: ${nodeIdLike.join(', ')}`);
-  });
-
-  test('the timestamp-stripping above cannot hide a real node id', () => {
-    // The strip is a narrowing, so it needs its own falsifier: a node id that
-    // is not inside a timestamp must still be caught.
-    const withTimestamps = '2026-09-06T11:52:45.961Z and node 848:3342';
-    const stripped = withTimestamps.replace(/\d{4}-\d{2}-\d{2}T[\d:.]+Z/g, '<timestamp>');
-    assert.deepEqual([...stripped.matchAll(/\b\d+:\d+\b/g)].map((m) => m[0]), ['848:3342']);
+  test('neither document names a real Figma identifier (BP-5)', () => {
+    // AC-24: this hand-rolled a node-id check over the verification record and
+    // never ran it over the owner guide at all — an audit put a real node id
+    // into the guide and all 23 tests passed. Both now go through the one
+    // scanner that implements every shape BP-5 names, timestamp handling and
+    // allowlist included, and `tests/unit/identifier-leakage.test.ts` runs it
+    // over the whole repository so no file is covered only by accident.
+    assert.deepEqual(scanText('docs/builder-master-m1-verification.md', verification), []);
+    assert.deepEqual(scanText('docs/builder-master-owner-testing-guide.md', guide), []);
   });
 });
 

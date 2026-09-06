@@ -56,7 +56,13 @@ describe('submitDraft — accepted', () => {
     const paint = findCandidate(prepared.candidates, 'paint-style');
     const result = engine.submitDraft(run_id, readyDraft(paint.candidate_id));
     assert.equal(result.outcome, 'accepted');
-    if (result.outcome === 'accepted') assert.match(result.artifact_sha256, /^[0-9a-f]{64}$/);
+    // AC-2: `accepted` alone no longer implies a persisted artifact — a blocked
+    // composition is also `ok`. The status must be narrowed before the hash of
+    // a stored artifact can be read, which is the whole point of the split.
+    assert.equal(result.outcome === 'accepted' ? result.status : undefined, 'ready');
+    if (result.outcome === 'accepted' && result.status === 'ready') {
+      assert.match(result.artifact_sha256, /^[0-9a-f]{64}$/);
+    }
     assert.equal(engine.resumeRun(run_id).phase, 'validating');
   });
 

@@ -243,8 +243,15 @@ export function composeTrustedOutput(input: ComposeInput): CompositionResult {
   completed.push('4-verify-snapshot', '5-materialize-resolutions', '6-cross-record-semantics', '7-reject-altered-references');
 
   // ---- 8. Trusted aggregate ----
+  // The fallback is `'low'`, not `'medium'` (AC-1, docs/builder-master-audit-cycle-1.md).
+  // An unrecorded confidence is not a middling one: `'medium'` here made the
+  // artifact state a quality about itself that nothing had measured, and state
+  // it *higher* than the truth — a `low` candidate summarised as `medium` in
+  // the view the designer approves from. `aggregateConfidence` already treats
+  // "no resolutions at all" as `low` for the same reason, so this is the
+  // module's own existing answer to an absent value, applied consistently.
   const perResolution: Confidence[] = resolutions.map(
-    (resolution) => input.perResolutionConfidence?.get(resolution.candidate_id) ?? 'medium',
+    (resolution) => input.perResolutionConfidence?.get(resolution.candidate_id) ?? 'low',
   );
   const aggregate = aggregateConfidence(perResolution);
   completed.push('8-trusted-aggregate');
