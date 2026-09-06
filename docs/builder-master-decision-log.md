@@ -158,3 +158,55 @@ block a run.
 confidence becomes genuinely multi-valued and the disclosure should stop firing on runs that did not
 broaden — and AC-25 and AC-26, recorded in audit cycle 1, become load-bearing and must be fixed
 first.
+
+---
+
+## MB-7 · The contract instance carries no rule catalogue of its own
+
+**Ruling.** The promoted `0.4.1-draft` schema drops the two top-level rule arrays the research
+contract carried, `validationRules` (`VR-*`) and `contractIntegrityRules` (`CV-*`). The normative
+rule catalogue is the single `REP-*` registry in `src/representation/` (WP B2), where each row names
+exactly one `EnforcementOwner` and records the research rule it descends from. A contract instance is
+data; the rules that validate it are code.
+
+**Why this is the smallest safe option.** BP-6 already decides this and the ruling only follows it
+through: "Every production representation invariant is one `REP-*` row in a single registry." Leaving
+the arrays in place would put a second, per-document copy of every rule beside that registry — two
+representations of one contract, which `tests/contracts/schema-agreement.test.ts:1–9` names as this
+project's known failure mode, and which the research package demonstrates rather than hypothesises.
+**D-5 is that failure, already realised:** three ids (`CV-4`, `CV-9`, `CV-19`) were asserted by
+fixtures against rules the contract never declared, while `CV-3` was declared with no negative
+fixture at all — a divergence only possible because the declaration and the enforcement lived in
+different files with nothing reconciling them. One declaration makes both directions of D-5
+structurally unreachable rather than merely tested for. The rejected alternative — keeping the arrays
+and adding a check that they agree with the registry — buys the same guarantee at the cost of a third
+artifact that can itself drift.
+
+**Revisit trigger.** A contract that legitimately needs a rule no other contract has. That would be
+the first evidence the catalogue is per-document rather than shared, and it would need a written
+account of how the per-document rule is enforced before it is added.
+
+---
+
+## MB-8 · The promoted schema is corrected for `ajv` strict mode, and the correction is proved by compilation
+
+**Ruling.** Thirty-six subschemas inherited from the research schema are corrected during promotion:
+twenty carrying a type-implying keyword (`pattern`, `minItems`, `required`, …) with no `type`, and
+sixteen naming a `required` property the subschema never declares. Each correction states what the
+keyword already implies — the implied `type`, or the name declared as the always-true schema `true` —
+and none adds or removes a constraint. Every affected gate carries a negative fixture asserting it
+still rejects at that gate.
+
+**Why this is the smallest safe option.** `SchemaRegistry.register` is `ajv.addSchema`, which defers
+compilation: the uncorrected schema **registers without complaint and throws on first use**, at
+whichever call site validates first. A registration test would therefore have passed over a schema
+that cannot validate anything — the shape of self-asserted trust this repository exists to remove.
+The alternative, relaxing `strict` for this schema, was rejected outright: format assertion and
+strict typing are the settings whose absence let a non-UUID `run_id` pass the v1 schema
+(`src/validation/schema-validator.ts:1–15`), and B1's own acceptance is that the schema registers
+**unchanged** with the existing registry. Worth recording plainly: the research package's suite is
+fully green and could not see any of the thirty-six, because its Python validator enforces neither
+rule. That is the same class as D-4 — a checker that cannot observe the defect it is pointed at.
+
+**Revisit trigger.** A future `ajv` major changing what `strictTypes` or `strictRequired` accept, at
+which point the corrections are re-derived by compiling rather than by editing to taste.

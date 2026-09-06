@@ -1,0 +1,202 @@
+{
+  "note": "Schema-level fixtures for the promoted representation contract (0.4.1-draft). Every valid fixture must pass with format assertion on; every invalid fixture must fail AT ITS INTENDED GATE, which is what expected_schema_path_contains asserts. A fixture that merely fails is not evidence the gate works.",
+  "fixtures": [
+    {
+      "file": "positive/minimal-contract.json",
+      "expect": "valid",
+      "intended_error_code": null,
+      "expected_schema_path_contains": [],
+      "expected_instance_path_contains": [],
+      "purpose": "The smallest contract the schema accepts. Synthetic throughout: it describes no real design system and carries no real identifier."
+    },
+    {
+      "file": "negative/promotion-gate-1.0.0-not-approved.json",
+      "expect": "invalid",
+      "intended_error_code": "SCHEMA_ENUM_MISMATCH",
+      "expected_schema_path_contains": [
+        "allOf",
+        "2",
+        "then",
+        "properties",
+        "readinessStatus",
+        "const"
+      ],
+      "expected_instance_path_contains": [],
+      "purpose": "BP-3: a 1.0.0 version string requires ready_for_production and zero blockers, so it cannot be used to dress an unapproved contract as approved."
+    },
+    {
+      "file": "negative/promotion-gate-draft-declared-ready.json",
+      "expect": "invalid",
+      "intended_error_code": "SCHEMA_ENUM_MISMATCH",
+      "expected_schema_path_contains": [
+        "allOf",
+        "4",
+        "then",
+        "properties",
+        "readinessStatus",
+        "enum"
+      ],
+      "expected_instance_path_contains": [],
+      "purpose": "A -draft version permits only not_ready or validation_ready. This is the gate that keeps the -draft suffix honest."
+    },
+    {
+      "file": "negative/approved-with-open-blockers.json",
+      "expect": "invalid",
+      "intended_error_code": "SCHEMA_CONSTRAINT_FAILED",
+      "expected_schema_path_contains": [
+        "allOf",
+        "0",
+        "then",
+        "properties",
+        "blockers",
+        "maxItems"
+      ],
+      "expected_instance_path_contains": [
+        "/approvalStatus"
+      ],
+      "purpose": "D-5 orphan CV-4: approval must not coexist with open blockers. The research fixture set asserted this rule id against a rule the contract never declared."
+    },
+    {
+      "file": "negative/list-representation-carrying-allocation.json",
+      "expect": "invalid",
+      "intended_error_code": "SCHEMA_CONSTRAINT_FAILED",
+      "expected_schema_path_contains": [
+        "allOf",
+        "0",
+        "else",
+        "not"
+      ],
+      "expected_instance_path_contains": [
+        "/layoutRepresentations/0"
+      ],
+      "purpose": "D-5 orphan CV-9 / C-1: only a matrix representation may carry an allocation. D-3 is the consequence of nobody checking which strategy a target actually has."
+    },
+    {
+      "file": "negative/naming-observed-only-with-uniqueness.json",
+      "expect": "invalid",
+      "intended_error_code": "SCHEMA_ENUM_MISMATCH",
+      "expected_schema_path_contains": [
+        "allOf",
+        "1",
+        "then",
+        "properties",
+        "uniquenessPolicy",
+        "const"
+      ],
+      "expected_instance_path_contains": [
+        "/namingRules/0"
+      ],
+      "purpose": "D-5 orphan CV-19 / C-10: enforcement=observed_only requires uniquenessPolicy not_applicable. A rule nobody enforces cannot also claim uniqueness."
+    },
+    {
+      "file": "negative/finding-without-target.json",
+      "expect": "invalid",
+      "intended_error_code": "SCHEMA_MISSING_REQUIRED",
+      "expected_schema_path_contains": [
+        "/properties/structuralFindings/items/required"
+      ],
+      "expected_instance_path_contains": [
+        "/structuralFindings/0"
+      ],
+      "purpose": "D-1 class: a finding with no structured target is a claim nothing can resolve."
+    },
+    {
+      "file": "negative/blocker-without-target.json",
+      "expect": "invalid",
+      "intended_error_code": "SCHEMA_MISSING_REQUIRED",
+      "expected_schema_path_contains": [
+        "/properties/approvalStatus/properties/blockers/items/required"
+      ],
+      "expected_instance_path_contains": [
+        "/approvalStatus/blockers/0"
+      ],
+      "purpose": "D-2 and D-7 class: a blocker whose subject and cited artifact live only in prose."
+    },
+    {
+      "file": "negative/limitation-without-target.json",
+      "expect": "invalid",
+      "intended_error_code": "SCHEMA_MISSING_REQUIRED",
+      "expected_schema_path_contains": [
+        "/properties/knownLimitations/items/required"
+      ],
+      "expected_instance_path_contains": [
+        "/knownLimitations/0"
+      ],
+      "purpose": "D-2 had a knownLimitations twin asserting a fact the corpus contradicted. An unanchored limitation cannot be checked against what it describes."
+    },
+    {
+      "file": "negative/required-strategy-on-non-layout-target.json",
+      "expect": "invalid",
+      "intended_error_code": "SCHEMA_CONSTRAINT_FAILED",
+      "expected_schema_path_contains": [
+        "allOf",
+        "0",
+        "else",
+        "not"
+      ],
+      "expected_instance_path_contains": [
+        "/structuralFindings/0/target"
+      ],
+      "purpose": "requiredStrategy is meaningful only for a layout_representation target; permitting it elsewhere would make kind-compatibility unenforceable."
+    },
+    {
+      "file": "negative/artifact-target-without-hash.json",
+      "expect": "invalid",
+      "intended_error_code": "SCHEMA_MISSING_REQUIRED",
+      "expected_schema_path_contains": [
+        "allOf",
+        "1",
+        "then",
+        "required"
+      ],
+      "expected_instance_path_contains": [
+        "/approvalStatus/blockers/0/target"
+      ],
+      "purpose": "D-7 exactly: a blocker citing an artifact. An unpinned path can resolve to different bytes than the ones the claim was made over, so the pin is required, not optional."
+    },
+    {
+      "file": "negative/contract-target-carrying-prose.json",
+      "expect": "invalid",
+      "intended_error_code": "SCHEMA_ENUM_MISMATCH",
+      "expected_schema_path_contains": [
+        "allOf",
+        "2",
+        "then",
+        "properties",
+        "targetRef",
+        "const"
+      ],
+      "expected_instance_path_contains": [
+        "/knownLimitations/0/target"
+      ],
+      "purpose": "The target field is where prose is not allowed. A contract target takes the literal \"self\"."
+    },
+    {
+      "file": "negative/narrative-carrying-a-reference.json",
+      "expect": "invalid",
+      "intended_error_code": "SCHEMA_UNKNOWN_FIELD",
+      "expected_schema_path_contains": [
+        "/properties/structuralFindings/items/properties/narrative/additionalProperties"
+      ],
+      "expected_instance_path_contains": [
+        "/structuralFindings/0/narrative"
+      ],
+      "purpose": "D-1 is a reference smuggled into a sentence. The narrative object is closed so a new reference cannot be added there instead of to target."
+    },
+    {
+      "file": "negative/authored-contract-with-migration-report.json",
+      "expect": "invalid",
+      "intended_error_code": "SCHEMA_TYPE_MISMATCH",
+      "expected_schema_path_contains": [
+        "allOf",
+        "0",
+        "then",
+        "properties",
+        "migrationReportRef",
+        "type"
+      ],
+      "expected_instance_path_contains": [],
+      "purpose": "authoringMode is the discriminator that makes \"legacy states are migration-only\" enforceable without version-sniffing."
+    }
+  ]
+}
