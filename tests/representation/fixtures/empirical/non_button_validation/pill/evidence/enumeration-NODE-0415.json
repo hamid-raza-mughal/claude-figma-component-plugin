@@ -1,0 +1,398 @@
+{
+  "componentSetId": "NODE-0415",
+  "fileKey": "FILEKEY-0002",
+  "capturedAt": "2026-08-16T08:55:00Z",
+  "enumerationMethodClass": "plugin_api_variant_properties",
+  "toolIdentity": "mcp__plugin_figma_figma__use_figma",
+  "apiFieldsRead": [
+    "COMPONENT_SET.children",
+    "COMPONENT.variantProperties"
+  ],
+  "rawCaptureRef": "evidence/api-capture-component-sets.json",
+  "children": [
+    {
+      "componentId": "NODE-0416",
+      "variantProperties": {
+        "Accent": "Success",
+        "Size": "Regular",
+        "Icon": "Leading"
+      }
+    },
+    {
+      "componentId": "NODE-0417",
+      "variantProperties": {
+        "Accent": "Success",
+        "Size": "Regular",
+        "Icon": "Trailing"
+      }
+    },
+    {
+      "componentId": "NODE-0418",
+      "variantProperties": {
+        "Accent": "Success",
+        "Size": "Regular",
+        "Icon": "None"
+      }
+    },
+    {
+      "componentId": "NODE-0419",
+      "variantProperties": {
+        "Accent": "Success",
+        "Size": "Small",
+        "Icon": "Leading"
+      }
+    },
+    {
+      "componentId": "NODE-0420",
+      "variantProperties": {
+        "Accent": "Success",
+        "Size": "Small",
+        "Icon": "Trailing"
+      }
+    },
+    {
+      "componentId": "NODE-0421",
+      "variantProperties": {
+        "Accent": "Success",
+        "Size": "Small",
+        "Icon": "None"
+      }
+    },
+    {
+      "componentId": "NODE-0422",
+      "variantProperties": {
+        "Accent": "Success",
+        "Size": "XSmall",
+        "Icon": "Leading"
+      }
+    },
+    {
+      "componentId": "NODE-0423",
+      "variantProperties": {
+        "Accent": "Success",
+        "Size": "XSmall",
+        "Icon": "Trailing"
+      }
+    },
+    {
+      "componentId": "NODE-0424",
+      "variantProperties": {
+        "Accent": "Success",
+        "Size": "XSmall",
+        "Icon": "None"
+      }
+    },
+    {
+      "componentId": "NODE-0425",
+      "variantProperties": {
+        "Accent": "Success",
+        "Size": "XXSmall",
+        "Icon": "Leading"
+      }
+    },
+    {
+      "componentId": "NODE-0426",
+      "variantProperties": {
+        "Accent": "Success",
+        "Size": "XXSmall",
+        "Icon": "Trailing"
+      }
+    },
+    {
+      "componentId": "NODE-0427",
+      "variantProperties": {
+        "Accent": "Success",
+        "Size": "XXSmall",
+        "Icon": "None"
+      }
+    },
+    {
+      "componentId": "NODE-0428",
+      "variantProperties": {
+        "Accent": "Warning",
+        "Size": "Regular",
+        "Icon": "Leading"
+      }
+    },
+    {
+      "componentId": "NODE-0429",
+      "variantProperties": {
+        "Accent": "Warning",
+        "Size": "Regular",
+        "Icon": "Trailing"
+      }
+    },
+    {
+      "componentId": "NODE-0430",
+      "variantProperties": {
+        "Accent": "Warning",
+        "Size": "Regular",
+        "Icon": "None"
+      }
+    },
+    {
+      "componentId": "NODE-0431",
+      "variantProperties": {
+        "Accent": "Warning",
+        "Size": "Small",
+        "Icon": "Leading"
+      }
+    },
+    {
+      "componentId": "NODE-0432",
+      "variantProperties": {
+        "Accent": "Warning",
+        "Size": "Small",
+        "Icon": "Trailing"
+      }
+    },
+    {
+      "componentId": "NODE-0433",
+      "variantProperties": {
+        "Accent": "Warning",
+        "Size": "Small",
+        "Icon": "None"
+      }
+    },
+    {
+      "componentId": "NODE-0434",
+      "variantProperties": {
+        "Accent": "Warning",
+        "Size": "XSmall",
+        "Icon": "Leading"
+      }
+    },
+    {
+      "componentId": "NODE-0435",
+      "variantProperties": {
+        "Accent": "Warning",
+        "Size": "XSmall",
+        "Icon": "Trailing"
+      }
+    },
+    {
+      "componentId": "NODE-0436",
+      "variantProperties": {
+        "Accent": "Warning",
+        "Size": "XSmall",
+        "Icon": "None"
+      }
+    },
+    {
+      "componentId": "NODE-0437",
+      "variantProperties": {
+        "Accent": "Warning",
+        "Size": "XXSmall",
+        "Icon": "Leading"
+      }
+    },
+    {
+      "componentId": "NODE-0438",
+      "variantProperties": {
+        "Accent": "Warning",
+        "Size": "XXSmall",
+        "Icon": "Trailing"
+      }
+    },
+    {
+      "componentId": "NODE-0439",
+      "variantProperties": {
+        "Accent": "Warning",
+        "Size": "XXSmall",
+        "Icon": "None"
+      }
+    },
+    {
+      "componentId": "NODE-0440",
+      "variantProperties": {
+        "Accent": "Error",
+        "Size": "Regular",
+        "Icon": "Leading"
+      }
+    },
+    {
+      "componentId": "NODE-0441",
+      "variantProperties": {
+        "Accent": "Error",
+        "Size": "Regular",
+        "Icon": "Trailing"
+      }
+    },
+    {
+      "componentId": "NODE-0442",
+      "variantProperties": {
+        "Accent": "Error",
+        "Size": "Regular",
+        "Icon": "None"
+      }
+    },
+    {
+      "componentId": "NODE-0443",
+      "variantProperties": {
+        "Accent": "Error",
+        "Size": "Small",
+        "Icon": "Leading"
+      }
+    },
+    {
+      "componentId": "NODE-0444",
+      "variantProperties": {
+        "Accent": "Error",
+        "Size": "Small",
+        "Icon": "Trailing"
+      }
+    },
+    {
+      "componentId": "NODE-0445",
+      "variantProperties": {
+        "Accent": "Error",
+        "Size": "Small",
+        "Icon": "None"
+      }
+    },
+    {
+      "componentId": "NODE-0446",
+      "variantProperties": {
+        "Accent": "Error",
+        "Size": "XSmall",
+        "Icon": "Leading"
+      }
+    },
+    {
+      "componentId": "NODE-0447",
+      "variantProperties": {
+        "Accent": "Error",
+        "Size": "XSmall",
+        "Icon": "Trailing"
+      }
+    },
+    {
+      "componentId": "NODE-0448",
+      "variantProperties": {
+        "Accent": "Error",
+        "Size": "XSmall",
+        "Icon": "None"
+      }
+    },
+    {
+      "componentId": "NODE-0449",
+      "variantProperties": {
+        "Accent": "Error",
+        "Size": "XXSmall",
+        "Icon": "Leading"
+      }
+    },
+    {
+      "componentId": "NODE-0450",
+      "variantProperties": {
+        "Accent": "Error",
+        "Size": "XXSmall",
+        "Icon": "Trailing"
+      }
+    },
+    {
+      "componentId": "NODE-0451",
+      "variantProperties": {
+        "Accent": "Error",
+        "Size": "XXSmall",
+        "Icon": "None"
+      }
+    },
+    {
+      "componentId": "NODE-0452",
+      "variantProperties": {
+        "Accent": "Info",
+        "Size": "Regular",
+        "Icon": "Leading"
+      }
+    },
+    {
+      "componentId": "NODE-0453",
+      "variantProperties": {
+        "Accent": "Info",
+        "Size": "Regular",
+        "Icon": "Trailing"
+      }
+    },
+    {
+      "componentId": "NODE-0454",
+      "variantProperties": {
+        "Accent": "Info",
+        "Size": "Regular",
+        "Icon": "None"
+      }
+    },
+    {
+      "componentId": "NODE-0455",
+      "variantProperties": {
+        "Accent": "Info",
+        "Size": "Small",
+        "Icon": "Leading"
+      }
+    },
+    {
+      "componentId": "NODE-0456",
+      "variantProperties": {
+        "Accent": "Info",
+        "Size": "Small",
+        "Icon": "Trailing"
+      }
+    },
+    {
+      "componentId": "NODE-0457",
+      "variantProperties": {
+        "Accent": "Info",
+        "Size": "Small",
+        "Icon": "None"
+      }
+    },
+    {
+      "componentId": "NODE-0458",
+      "variantProperties": {
+        "Accent": "Info",
+        "Size": "XSmall",
+        "Icon": "Leading"
+      }
+    },
+    {
+      "componentId": "NODE-0459",
+      "variantProperties": {
+        "Accent": "Info",
+        "Size": "XSmall",
+        "Icon": "Trailing"
+      }
+    },
+    {
+      "componentId": "NODE-0460",
+      "variantProperties": {
+        "Accent": "Info",
+        "Size": "XSmall",
+        "Icon": "None"
+      }
+    },
+    {
+      "componentId": "NODE-0461",
+      "variantProperties": {
+        "Accent": "Info",
+        "Size": "XXSmall",
+        "Icon": "Leading"
+      }
+    },
+    {
+      "componentId": "NODE-0462",
+      "variantProperties": {
+        "Accent": "Info",
+        "Size": "XXSmall",
+        "Icon": "Trailing"
+      }
+    },
+    {
+      "componentId": "NODE-0463",
+      "variantProperties": {
+        "Accent": "Info",
+        "Size": "XXSmall",
+        "Icon": "None"
+      }
+    }
+  ]
+}

@@ -1,0 +1,314 @@
+{
+  "capture": "Fresh re-capture verification digest for all five Pill COMPONENT_SETs",
+  "why": "Repair #2. The original component-sets tool response was TRUNCATED mid-session. Rather than reconstruct provenance for a response that cannot be honestly reproduced, this read was RE-RUN FRESH against the live file. It is a verification digest: enough to independently re-verify every normalized artifact without re-transmitting all 216 rows.",
+  "captureMethod": "mcp__plugin_figma_figma__use_figma (read-only script; no write operation was issued)",
+  "fileKey": "FILEKEY-0002",
+  "pageId": "NODE-0538",
+  "pageName": "Pills",
+  "sourceNodeIds": [
+    "NODE-0539",
+    "NODE-0545"
+  ],
+  "capturedAt": "2026-08-16T09:30:00Z",
+  "apiFieldsRead": [
+    "node.type",
+    "node.visible",
+    "node.key",
+    "node.parent.id",
+    "COMPONENT_SET.children",
+    "COMPONENT_SET.componentPropertyDefinitions",
+    "COMPONENT.variantProperties"
+  ],
+  "script": "const root = await figma.getNodeByIdAsync('NODE-0539');\nlet a = root, page = null;\nwhile (a) { if (a.type === 'PAGE') { page = a; break; } a = a.parent; }\nawait figma.setCurrentPageAsync(page);\nconst holder = await figma.getNodeByIdAsync('NODE-0545');\nfor (const cs of holder.children) {\n  const defs = cs.componentPropertyDefinitions;\n  const axes = Object.keys(defs).filter(k => defs[k].type === 'VARIANT');\n  const keys = cs.children.map(c => axes.map(x => c.variantProperties[x]).join('|')).sort();\n  /* id, name, type, visible, key, parentId, childCount, childTypes, axes,\n     propertyKeys, defaults, variantOptions, firstChildId, lastChildId,\n     distinctCombinations */\n}",
+  "derivationRelationship": {
+    "normalizedArtifacts": [
+      "evidence/api-capture-component-sets.json",
+      "evidence/enumeration-787-14141.json",
+      "evidence/enumeration-787-14271.json",
+      "evidence/enumeration-787-14401.json",
+      "evidence/enumeration-787-14531.json",
+      "evidence/enumeration-787-14660.json"
+    ],
+    "note": "The normalized artifacts are the authoritative per-child records; this digest cross-verifies them."
+  },
+  "limitations": [
+    "A digest, not a full per-child dump. Per-child variantProperties live in the normalized enumeration artifacts.",
+    "Figma file version identity is not exposed by the Plugin API and is therefore recorded nowhere.",
+    "The R-1 get_metadata capture (evidence/figma-metadata-787-4538.xml) is retained separately for child geometry only."
+  ],
+  "response": {
+    "capturedFrom": "NODE-0545",
+    "page": "Pills",
+    "pageId": "NODE-0538",
+    "sets": [
+      {
+        "id": "NODE-0317",
+        "name": "Pill – Highline",
+        "type": "COMPONENT_SET",
+        "visible": true,
+        "key": "KEY-0015",
+        "parentId": "NODE-0545",
+        "childCount": 48,
+        "childTypes": [
+          "COMPONENT"
+        ],
+        "axes": [
+          "Accent",
+          "Size",
+          "Icon"
+        ],
+        "propertyKeys": [
+          "Pill Value#NODE-0301",
+          "Pill Symbol#NODE-0295",
+          "Accent",
+          "Size",
+          "Icon"
+        ],
+        "defaults": {
+          "Pill Value#NODE-0301": "Label",
+          "Pill Symbol#NODE-0295": "NODE-0315",
+          "Accent": "Success",
+          "Size": "XXSmall",
+          "Icon": "None"
+        },
+        "variantOptions": {
+          "Accent": [
+            "Warning",
+            "Error",
+            "Success",
+            "Info"
+          ],
+          "Size": [
+            "Regular",
+            "Small",
+            "XSmall",
+            "XXSmall"
+          ],
+          "Icon": [
+            "Leading",
+            "None",
+            "Trailing"
+          ]
+        },
+        "firstChildId": "NODE-0318",
+        "lastChildId": "NODE-0365",
+        "distinctCombinations": 48
+      },
+      {
+        "id": "NODE-0366",
+        "name": "Pill – Highlighted",
+        "type": "COMPONENT_SET",
+        "visible": true,
+        "key": "KEY-0017",
+        "parentId": "NODE-0545",
+        "childCount": 48,
+        "childTypes": [
+          "COMPONENT"
+        ],
+        "axes": [
+          "Accent",
+          "Size",
+          "Icon"
+        ],
+        "propertyKeys": [
+          "Pill Value#NODE-0301",
+          "Pill Symbol#NODE-0295",
+          "Accent",
+          "Size",
+          "Icon"
+        ],
+        "defaults": {
+          "Pill Value#NODE-0301": "Label",
+          "Pill Symbol#NODE-0295": "NODE-0315",
+          "Accent": "Success",
+          "Size": "XXSmall",
+          "Icon": "None"
+        },
+        "variantOptions": {
+          "Accent": [
+            "Warning",
+            "Error",
+            "Success",
+            "Info"
+          ],
+          "Size": [
+            "Regular",
+            "Small",
+            "XSmall",
+            "XXSmall"
+          ],
+          "Icon": [
+            "Leading",
+            "None",
+            "Trailing"
+          ]
+        },
+        "firstChildId": "NODE-0367",
+        "lastChildId": "NODE-0414",
+        "distinctCombinations": 48
+      },
+      {
+        "id": "NODE-0415",
+        "name": "Pill – Filled",
+        "type": "COMPONENT_SET",
+        "visible": true,
+        "key": "KEY-0016",
+        "parentId": "NODE-0545",
+        "childCount": 48,
+        "childTypes": [
+          "COMPONENT"
+        ],
+        "axes": [
+          "Accent",
+          "Size",
+          "Icon"
+        ],
+        "propertyKeys": [
+          "Pill Value#NODE-0301",
+          "Pill Symbol#NODE-0295",
+          "Accent",
+          "Size",
+          "Icon"
+        ],
+        "defaults": {
+          "Pill Value#NODE-0301": "Label",
+          "Pill Symbol#NODE-0295": "NODE-0315",
+          "Accent": "Success",
+          "Size": "XXSmall",
+          "Icon": "None"
+        },
+        "variantOptions": {
+          "Accent": [
+            "Warning",
+            "Error",
+            "Success",
+            "Info"
+          ],
+          "Size": [
+            "Regular",
+            "Small",
+            "XSmall",
+            "XXSmall"
+          ],
+          "Icon": [
+            "Leading",
+            "None",
+            "Trailing"
+          ]
+        },
+        "firstChildId": "NODE-0416",
+        "lastChildId": "NODE-0463",
+        "distinctCombinations": 48
+      },
+      {
+        "id": "NODE-0464",
+        "name": "Pill – Text",
+        "type": "COMPONENT_SET",
+        "visible": true,
+        "key": "KEY-0013",
+        "parentId": "NODE-0545",
+        "childCount": 48,
+        "childTypes": [
+          "COMPONENT"
+        ],
+        "axes": [
+          "Accent",
+          "Size",
+          "Icon"
+        ],
+        "propertyKeys": [
+          "Pill Value#NODE-0301",
+          "Pill Symbol#NODE-0295",
+          "Accent",
+          "Size",
+          "Icon"
+        ],
+        "defaults": {
+          "Pill Value#NODE-0301": "Label",
+          "Pill Symbol#NODE-0295": "NODE-0315",
+          "Accent": "Success",
+          "Size": "XXSmall",
+          "Icon": "None"
+        },
+        "variantOptions": {
+          "Accent": [
+            "Warning",
+            "Error",
+            "Success",
+            "Info"
+          ],
+          "Size": [
+            "Regular",
+            "Small",
+            "XSmall",
+            "XXSmall"
+          ],
+          "Icon": [
+            "Leading",
+            "None",
+            "Trailing"
+          ]
+        },
+        "firstChildId": "NODE-0465",
+        "lastChildId": "NODE-0512",
+        "distinctCombinations": 48
+      },
+      {
+        "id": "NODE-0513",
+        "name": "Pill – Pulse Animation",
+        "type": "COMPONENT_SET",
+        "visible": false,
+        "key": "KEY-0005",
+        "parentId": "NODE-0545",
+        "childCount": 24,
+        "childTypes": [
+          "COMPONENT"
+        ],
+        "axes": [
+          "Type",
+          "Style",
+          "Size",
+          "Animation"
+        ],
+        "propertyKeys": [
+          "Badge Value#NODE-0301",
+          "Trend Symbol#NODE-0294",
+          "Type",
+          "Style",
+          "Size",
+          "Animation"
+        ],
+        "defaults": {
+          "Badge Value#NODE-0301": "-3.2%",
+          "Trend Symbol#NODE-0294": "NODE-0316",
+          "Type": "Warning",
+          "Style": "Highline",
+          "Size": "Small",
+          "Animation": "S1"
+        },
+        "variantOptions": {
+          "Type": [
+            "Warning",
+            "Error"
+          ],
+          "Style": [
+            "Highline",
+            "Filled"
+          ],
+          "Size": [
+            "Large",
+            "Regular",
+            "Small"
+          ],
+          "Animation": [
+            "S1",
+            "S2"
+          ]
+        },
+        "firstChildId": "NODE-0514",
+        "lastChildId": "NODE-0537",
+        "distinctCombinations": 24
+      }
+    ]
+  }
+}

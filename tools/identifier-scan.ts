@@ -183,10 +183,50 @@ export function collectFiles(dir: string = REPO_ROOT): readonly string[] {
   return out;
 }
 
+/**
+ * A path is as tracked as a line inside a file.
+ *
+ * `.gitignore` carried two rules naming raw Figma exports whose filenames embed
+ * a node id, and every content rule here read straight past them because a file
+ * name is not a line of any file. A node id in a path is written with a hyphen
+ * rather than a colon, so the `node-id` rule cannot see it either.
+ *
+ * The pattern is narrow on purpose. `\d{3,6}-\d{4,6}` excludes the shapes that
+ * would otherwise drown it: an ISO date (`2026-09-06`, four-two), a semantic
+ * version fragment, and a two- or three-digit sequence number. A Figma node id
+ * has a substantial second field, and that is what is matched.
+ */
+export const PATH_RULE = {
+  id: 'node-id-in-path',
+  what: 'a Figma node id inside a tracked file or directory name',
+  pattern: /\b\d{3,6}-\d{4,6}\b/g,
+  why:
+    'a tracked path carries its identifier as durably as a tracked field, and BP-5 does not ' +
+    'distinguish the two',
+} as const;
+
+export function scanPath(relPath: string): readonly Finding[] {
+  const found: Finding[] = [];
+  for (const match of relPath.matchAll(PATH_RULE.pattern)) {
+    if (ALLOWED.has(match[0])) continue;
+    found.push({
+      file: relPath,
+      line: 0,
+      rule: PATH_RULE.id,
+      what: PATH_RULE.what,
+      match: match[0],
+      why: PATH_RULE.why,
+    });
+  }
+  return found;
+}
+
 export function scanRepository(root: string = REPO_ROOT): readonly Finding[] {
   const found: Finding[] = [];
   for (const file of collectFiles(root)) {
-    found.push(...scanText(relative(root, file), readFileSync(file, 'utf8')));
+    const relPath = relative(root, file);
+    found.push(...scanPath(relPath));
+    found.push(...scanText(relPath, readFileSync(file, 'utf8')));
   }
   return found;
 }

@@ -1,0 +1,30 @@
+{
+  "fileKey": "FILEKEY-0002",
+  "sourceNodeId": "NODE-0317",
+  "sourceNodeDescription": "COMPONENT_SET 'Pill - Highline' on the library canvas",
+  "captureMethod": "mcp__Figma__get_variable_defs",
+  "capturedAt": "2026-08-15T19:44:00Z",
+  "evidenceClassification": "observed",
+  "response": {
+    "Solid/Green 1": "#072126",
+    "System/Expressions/success": "#43db70",
+    "sys/dark/expressions/success": "#43DB70",
+    "aux/xs": "6",
+    "4-scale/xs": "12",
+    "4-scale/xxs": "4",
+    "aux/md": "10",
+    "tiny/lg": "3",
+    "8-scale/xxs": "8",
+    "tiny/md": "2",
+    "System/Expressions/warning": "#fbaf44",
+    "sys/dark/expressions/warning": "#FBAF44",
+    "System/Expressions/error": "#ff645c",
+    "sys/dark/expressions/error": "#FF645C",
+    "System/Expressions/info": "#48befe",
+    "sys/dark/expressions/info": "#48BEFE"
+  },
+  "limitations": [
+    "Returns resolved name->value pairs only. Variable IDs, variable-collection name/ID, and mode names/IDs are NOT exposed by this tool.",
+    "Does not distinguish a variable bound on this node from one inherited by a descendant."
+  ]
+}

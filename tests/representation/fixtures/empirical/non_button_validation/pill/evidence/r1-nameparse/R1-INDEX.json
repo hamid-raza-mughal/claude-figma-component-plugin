@@ -1,0 +1,48 @@
+{
+  "pass": "R-1 (name-parse)",
+  "immutable": true,
+  "reconstruction": "Deterministically reconstructed from the immutable evidence/figma-metadata-787-4538.xml capture using the R-1 method and R-1 timestamp, then hash-verified against the SHA-256 values recorded in the R-1 CHECKSUMS.sha256 manifest. All five match byte-for-byte, so this archive is a verified reconstruction, not a re-derivation.",
+  "sourceCapture": {
+    "path": "evidence/figma-metadata-787-4538.xml",
+    "sha256": "0875c48b83a182d478a7702cb100470a4433ffd0b5498daf04fa79be107cb3af"
+  },
+  "enumerationMethod": "figma_mcp_get_metadata_descent__component_child_name_parse (COMPONENT children of the COMPONENT_SET listed structurally via mcp__Figma__get_metadata; each child's variantProperties parsed from its Figma-generated 'Axis=Value, Axis=Value' node name, NOT read from a variantProperties API field)",
+  "capturedAt": "2026-08-15T19:44:00Z",
+  "artifacts": {
+    "NODE-0317": {
+      "path": "evidence/r1-nameparse/enumeration-787-14141.json",
+      "recordedR1Sha256": "caaa9f4ce52d8271fe2efd4b1fb52e027ad5e48bd401ae57e8247aa3b9278ea3",
+      "reconstructedSha256": "caaa9f4ce52d8271fe2efd4b1fb52e027ad5e48bd401ae57e8247aa3b9278ea3",
+      "match": true,
+      "childCount": 48
+    },
+    "NODE-0366": {
+      "path": "evidence/r1-nameparse/enumeration-787-14271.json",
+      "recordedR1Sha256": "8140a2c4859db1be2d74e1d068e08a70b54a1baa0a187b590cd9942e3b5f8368",
+      "reconstructedSha256": "8140a2c4859db1be2d74e1d068e08a70b54a1baa0a187b590cd9942e3b5f8368",
+      "match": true,
+      "childCount": 48
+    },
+    "NODE-0415": {
+      "path": "evidence/r1-nameparse/enumeration-787-14401.json",
+      "recordedR1Sha256": "e0cba84fb16dc6d1230b677ba408873557c431abf20ebde8c8dcf5cc5e79cbb1",
+      "reconstructedSha256": "e0cba84fb16dc6d1230b677ba408873557c431abf20ebde8c8dcf5cc5e79cbb1",
+      "match": true,
+      "childCount": 48
+    },
+    "NODE-0464": {
+      "path": "evidence/r1-nameparse/enumeration-787-14531.json",
+      "recordedR1Sha256": "387823a322e97384b8020bd80f8e25939dc66cf8c2bf2443598a5461fab4fb9e",
+      "reconstructedSha256": "387823a322e97384b8020bd80f8e25939dc66cf8c2bf2443598a5461fab4fb9e",
+      "match": true,
+      "childCount": 48
+    },
+    "NODE-0513": {
+      "path": "evidence/r1-nameparse/enumeration-787-14660.json",
+      "recordedR1Sha256": "465ca76984e762c1af27ac5a1c2437e3d9bd7017d4e48f223cf8ae73d0649f80",
+      "reconstructedSha256": "465ca76984e762c1af27ac5a1c2437e3d9bd7017d4e48f223cf8ae73d0649f80",
+      "match": true,
+      "childCount": 24
+    }
+  }
+}

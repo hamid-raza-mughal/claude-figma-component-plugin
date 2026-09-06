@@ -1,0 +1,1153 @@
+{
+  "note": "Allocation evidence for LR-2. The validator (CV-12) re-derives rows/columns/bands/fixedFilters from `observations` per sourceDocumentationNodeId and rejects any mismatch, so the declared allocation is recomputed rather than trusted.",
+  "representationId": "LR-2",
+  "fileKey": "FILEKEY-0002",
+  "capturedAt": "2026-08-16T08:55:00Z",
+  "sourceDocumentationNodeIds": [
+    "NODE-0133",
+    "NODE-0213"
+  ],
+  "derivationMethod": "instance_variant_properties_and_geometry",
+  "observationCount": 64,
+  "observations": [
+    {
+      "sourceDocumentationNodeId": "NODE-0133",
+      "instanceId": "NODE-0138",
+      "componentSetId": "NODE-0317",
+      "schemaVariantId": "PSV-1",
+      "rowGroupNodeId": "NODE-0134",
+      "observedRowGroupName": "row_Highline",
+      "semanticValue": "Highline",
+      "namingRuleRef": "NR-matrix-row",
+      "variantProperties": {
+        "Accent": "Success",
+        "Icon": "None",
+        "Size": "Regular"
+      },
+      "absoluteX": -1484,
+      "absoluteY": 2117
+    },
+    {
+      "sourceDocumentationNodeId": "NODE-0133",
+      "instanceId": "NODE-0142",
+      "componentSetId": "NODE-0317",
+      "schemaVariantId": "PSV-1",
+      "rowGroupNodeId": "NODE-0134",
+      "observedRowGroupName": "row_Highline",
+      "semanticValue": "Highline",
+      "namingRuleRef": "NR-matrix-row",
+      "variantProperties": {
+        "Accent": "Error",
+        "Icon": "None",
+        "Size": "Regular"
+      },
+      "absoluteX": -1412,
+      "absoluteY": 2117
+    },
+    {
+      "sourceDocumentationNodeId": "NODE-0133",
+      "instanceId": "NODE-0146",
+      "componentSetId": "NODE-0317",
+      "schemaVariantId": "PSV-1",
+      "rowGroupNodeId": "NODE-0134",
+      "observedRowGroupName": "row_Highline",
+      "semanticValue": "Highline",
+      "namingRuleRef": "NR-matrix-row",
+      "variantProperties": {
+        "Accent": "Warning",
+        "Icon": "None",
+        "Size": "Regular"
+      },
+      "absoluteX": -1340,
+      "absoluteY": 2117
+    },
+    {
+      "sourceDocumentationNodeId": "NODE-0133",
+      "instanceId": "NODE-0150",
+      "componentSetId": "NODE-0317",
+      "schemaVariantId": "PSV-1",
+      "rowGroupNodeId": "NODE-0134",
+      "observedRowGroupName": "row_Highline",
+      "semanticValue": "Highline",
+      "namingRuleRef": "NR-matrix-row",
+      "variantProperties": {
+        "Accent": "Info",
+        "Icon": "None",
+        "Size": "Regular"
+      },
+      "absoluteX": -1268,
+      "absoluteY": 2117
+    },
+    {
+      "sourceDocumentationNodeId": "NODE-0133",
+      "instanceId": "NODE-0139",
+      "componentSetId": "NODE-0317",
+      "schemaVariantId": "PSV-1",
+      "rowGroupNodeId": "NODE-0134",
+      "observedRowGroupName": "row_Highline",
+      "semanticValue": "Highline",
+      "namingRuleRef": "NR-matrix-row",
+      "variantProperties": {
+        "Accent": "Success",
+        "Icon": "None",
+        "Size": "Small"
+      },
+      "absoluteX": -1479,
+      "absoluteY": 2155
+    },
+    {
+      "sourceDocumentationNodeId": "NODE-0133",
+      "instanceId": "NODE-0143",
+      "componentSetId": "NODE-0317",
+      "schemaVariantId": "PSV-1",
+      "rowGroupNodeId": "NODE-0134",
+      "observedRowGroupName": "row_Highline",
+      "semanticValue": "Highline",
+      "namingRuleRef": "NR-matrix-row",
+      "variantProperties": {
+        "Accent": "Error",
+        "Icon": "None",
+        "Size": "Small"
+      },
+      "absoluteX": -1407,
+      "absoluteY": 2155
+    },
+    {
+      "sourceDocumentationNodeId": "NODE-0133",
+      "instanceId": "NODE-0147",
+      "componentSetId": "NODE-0317",
+      "schemaVariantId": "PSV-1",
+      "rowGroupNodeId": "NODE-0134",
+      "observedRowGroupName": "row_Highline",
+      "semanticValue": "Highline",
+      "namingRuleRef": "NR-matrix-row",
+      "variantProperties": {
+        "Accent": "Warning",
+        "Icon": "None",
+        "Size": "Small"
+      },
+      "absoluteX": -1335,
+      "absoluteY": 2155
+    },
+    {
+      "sourceDocumentationNodeId": "NODE-0133",
+      "instanceId": "NODE-0151",
+      "componentSetId": "NODE-0317",
+      "schemaVariantId": "PSV-1",
+      "rowGroupNodeId": "NODE-0134",
+      "observedRowGroupName": "row_Highline",
+      "semanticValue": "Highline",
+      "namingRuleRef": "NR-matrix-row",
+      "variantProperties": {
+        "Accent": "Info",
+        "Icon": "None",
+        "Size": "Small"
+      },
+      "absoluteX": -1263,
+      "absoluteY": 2155
+    },
+    {
+      "sourceDocumentationNodeId": "NODE-0133",
+      "instanceId": "NODE-0158",
+      "componentSetId": "NODE-0366",
+      "schemaVariantId": "PSV-1",
+      "rowGroupNodeId": "NODE-0154",
+      "observedRowGroupName": "row_Highlighted",
+      "semanticValue": "Highlighted",
+      "namingRuleRef": "NR-matrix-row",
+      "variantProperties": {
+        "Accent": "Success",
+        "Icon": "None",
+        "Size": "Regular"
+      },
+      "absoluteX": -1484,
+      "absoluteY": 2291
+    },
+    {
+      "sourceDocumentationNodeId": "NODE-0133",
+      "instanceId": "NODE-0162",
+      "componentSetId": "NODE-0366",
+      "schemaVariantId": "PSV-1",
+      "rowGroupNodeId": "NODE-0154",
+      "observedRowGroupName": "row_Highlighted",
+      "semanticValue": "Highlighted",
+      "namingRuleRef": "NR-matrix-row",
+      "variantProperties": {
+        "Accent": "Error",
+        "Icon": "None",
+        "Size": "Regular"
+      },
+      "absoluteX": -1412,
+      "absoluteY": 2291
+    },
+    {
+      "sourceDocumentationNodeId": "NODE-0133",
+      "instanceId": "NODE-0166",
+      "componentSetId": "NODE-0366",
+      "schemaVariantId": "PSV-1",
+      "rowGroupNodeId": "NODE-0154",
+      "observedRowGroupName": "row_Highlighted",
+      "semanticValue": "Highlighted",
+      "namingRuleRef": "NR-matrix-row",
+      "variantProperties": {
+        "Accent": "Warning",
+        "Icon": "None",
+        "Size": "Regular"
+      },
+      "absoluteX": -1340,
+      "absoluteY": 2291
+    },
+    {
+      "sourceDocumentationNodeId": "NODE-0133",
+      "instanceId": "NODE-0170",
+      "componentSetId": "NODE-0366",
+      "schemaVariantId": "PSV-1",
+      "rowGroupNodeId": "NODE-0154",
+      "observedRowGroupName": "row_Highlighted",
+      "semanticValue": "Highlighted",
+      "namingRuleRef": "NR-matrix-row",
+      "variantProperties": {
+        "Accent": "Info",
+        "Icon": "None",
+        "Size": "Regular"
+      },
+      "absoluteX": -1268,
+      "absoluteY": 2291
+    },
+    {
+      "sourceDocumentationNodeId": "NODE-0133",
+      "instanceId": "NODE-0159",
+      "componentSetId": "NODE-0366",
+      "schemaVariantId": "PSV-1",
+      "rowGroupNodeId": "NODE-0154",
+      "observedRowGroupName": "row_Highlighted",
+      "semanticValue": "Highlighted",
+      "namingRuleRef": "NR-matrix-row",
+      "variantProperties": {
+        "Accent": "Success",
+        "Icon": "None",
+        "Size": "Small"
+      },
+      "absoluteX": -1479,
+      "absoluteY": 2329
+    },
+    {
+      "sourceDocumentationNodeId": "NODE-0133",
+      "instanceId": "NODE-0163",
+      "componentSetId": "NODE-0366",
+      "schemaVariantId": "PSV-1",
+      "rowGroupNodeId": "NODE-0154",
+      "observedRowGroupName": "row_Highlighted",
+      "semanticValue": "Highlighted",
+      "namingRuleRef": "NR-matrix-row",
+      "variantProperties": {
+        "Accent": "Error",
+        "Icon": "None",
+        "Size": "Small"
+      },
+      "absoluteX": -1407,
+      "absoluteY": 2329
+    },
+    {
+      "sourceDocumentationNodeId": "NODE-0133",
+      "instanceId": "NODE-0167",
+      "componentSetId": "NODE-0366",
+      "schemaVariantId": "PSV-1",
+      "rowGroupNodeId": "NODE-0154",
+      "observedRowGroupName": "row_Highlighted",
+      "semanticValue": "Highlighted",
+      "namingRuleRef": "NR-matrix-row",
+      "variantProperties": {
+        "Accent": "Warning",
+        "Icon": "None",
+        "Size": "Small"
+      },
+      "absoluteX": -1335,
+      "absoluteY": 2329
+    },
+    {
+      "sourceDocumentationNodeId": "NODE-0133",
+      "instanceId": "NODE-0171",
+      "componentSetId": "NODE-0366",
+      "schemaVariantId": "PSV-1",
+      "rowGroupNodeId": "NODE-0154",
+      "observedRowGroupName": "row_Highlighted",
+      "semanticValue": "Highlighted",
+      "namingRuleRef": "NR-matrix-row",
+      "variantProperties": {
+        "Accent": "Info",
+        "Icon": "None",
+        "Size": "Small"
+      },
+      "absoluteX": -1263,
+      "absoluteY": 2329
+    },
+    {
+      "sourceDocumentationNodeId": "NODE-0133",
+      "instanceId": "NODE-0178",
+      "componentSetId": "NODE-0415",
+      "schemaVariantId": "PSV-1",
+      "rowGroupNodeId": "NODE-0174",
+      "observedRowGroupName": "row_Filled",
+      "semanticValue": "Filled",
+      "namingRuleRef": "NR-matrix-row",
+      "variantProperties": {
+        "Accent": "Success",
+        "Icon": "None",
+        "Size": "Regular"
+      },
+      "absoluteX": -1484,
+      "absoluteY": 2465
+    },
+    {
+      "sourceDocumentationNodeId": "NODE-0133",
+      "instanceId": "NODE-0182",
+      "componentSetId": "NODE-0415",
+      "schemaVariantId": "PSV-1",
+      "rowGroupNodeId": "NODE-0174",
+      "observedRowGroupName": "row_Filled",
+      "semanticValue": "Filled",
+      "namingRuleRef": "NR-matrix-row",
+      "variantProperties": {
+        "Accent": "Error",
+        "Icon": "None",
+        "Size": "Regular"
+      },
+      "absoluteX": -1412,
+      "absoluteY": 2465
+    },
+    {
+      "sourceDocumentationNodeId": "NODE-0133",
+      "instanceId": "NODE-0186",
+      "componentSetId": "NODE-0415",
+      "schemaVariantId": "PSV-1",
+      "rowGroupNodeId": "NODE-0174",
+      "observedRowGroupName": "row_Filled",
+      "semanticValue": "Filled",
+      "namingRuleRef": "NR-matrix-row",
+      "variantProperties": {
+        "Accent": "Warning",
+        "Icon": "None",
+        "Size": "Regular"
+      },
+      "absoluteX": -1340,
+      "absoluteY": 2465
+    },
+    {
+      "sourceDocumentationNodeId": "NODE-0133",
+      "instanceId": "NODE-0190",
+      "componentSetId": "NODE-0415",
+      "schemaVariantId": "PSV-1",
+      "rowGroupNodeId": "NODE-0174",
+      "observedRowGroupName": "row_Filled",
+      "semanticValue": "Filled",
+      "namingRuleRef": "NR-matrix-row",
+      "variantProperties": {
+        "Accent": "Info",
+        "Icon": "None",
+        "Size": "Regular"
+      },
+      "absoluteX": -1268,
+      "absoluteY": 2465
+    },
+    {
+      "sourceDocumentationNodeId": "NODE-0133",
+      "instanceId": "NODE-0179",
+      "componentSetId": "NODE-0415",
+      "schemaVariantId": "PSV-1",
+      "rowGroupNodeId": "NODE-0174",
+      "observedRowGroupName": "row_Filled",
+      "semanticValue": "Filled",
+      "namingRuleRef": "NR-matrix-row",
+      "variantProperties": {
+        "Accent": "Success",
+        "Icon": "None",
+        "Size": "Small"
+      },
+      "absoluteX": -1479,
+      "absoluteY": 2503
+    },
+    {
+      "sourceDocumentationNodeId": "NODE-0133",
+      "instanceId": "NODE-0183",
+      "componentSetId": "NODE-0415",
+      "schemaVariantId": "PSV-1",
+      "rowGroupNodeId": "NODE-0174",
+      "observedRowGroupName": "row_Filled",
+      "semanticValue": "Filled",
+      "namingRuleRef": "NR-matrix-row",
+      "variantProperties": {
+        "Accent": "Error",
+        "Icon": "None",
+        "Size": "Small"
+      },
+      "absoluteX": -1407,
+      "absoluteY": 2503
+    },
+    {
+      "sourceDocumentationNodeId": "NODE-0133",
+      "instanceId": "NODE-0187",
+      "componentSetId": "NODE-0415",
+      "schemaVariantId": "PSV-1",
+      "rowGroupNodeId": "NODE-0174",
+      "observedRowGroupName": "row_Filled",
+      "semanticValue": "Filled",
+      "namingRuleRef": "NR-matrix-row",
+      "variantProperties": {
+        "Accent": "Warning",
+        "Icon": "None",
+        "Size": "Small"
+      },
+      "absoluteX": -1335,
+      "absoluteY": 2503
+    },
+    {
+      "sourceDocumentationNodeId": "NODE-0133",
+      "instanceId": "NODE-0191",
+      "componentSetId": "NODE-0415",
+      "schemaVariantId": "PSV-1",
+      "rowGroupNodeId": "NODE-0174",
+      "observedRowGroupName": "row_Filled",
+      "semanticValue": "Filled",
+      "namingRuleRef": "NR-matrix-row",
+      "variantProperties": {
+        "Accent": "Info",
+        "Icon": "None",
+        "Size": "Small"
+      },
+      "absoluteX": -1263,
+      "absoluteY": 2503
+    },
+    {
+      "sourceDocumentationNodeId": "NODE-0133",
+      "instanceId": "NODE-0198",
+      "componentSetId": "NODE-0464",
+      "schemaVariantId": "PSV-1",
+      "rowGroupNodeId": "NODE-0194",
+      "observedRowGroupName": "row_Text",
+      "semanticValue": "Text",
+      "namingRuleRef": "NR-matrix-row",
+      "variantProperties": {
+        "Accent": "Success",
+        "Icon": "None",
+        "Size": "Regular"
+      },
+      "absoluteX": -1478,
+      "absoluteY": 2639
+    },
+    {
+      "sourceDocumentationNodeId": "NODE-0133",
+      "instanceId": "NODE-0202",
+      "componentSetId": "NODE-0464",
+      "schemaVariantId": "PSV-1",
+      "rowGroupNodeId": "NODE-0194",
+      "observedRowGroupName": "row_Text",
+      "semanticValue": "Text",
+      "namingRuleRef": "NR-matrix-row",
+      "variantProperties": {
+        "Accent": "Error",
+        "Icon": "None",
+        "Size": "Regular"
+      },
+      "absoluteX": -1425,
+      "absoluteY": 2639
+    },
+    {
+      "sourceDocumentationNodeId": "NODE-0133",
+      "instanceId": "NODE-0206",
+      "componentSetId": "NODE-0464",
+      "schemaVariantId": "PSV-1",
+      "rowGroupNodeId": "NODE-0194",
+      "observedRowGroupName": "row_Text",
+      "semanticValue": "Text",
+      "namingRuleRef": "NR-matrix-row",
+      "variantProperties": {
+        "Accent": "Warning",
+        "Icon": "None",
+        "Size": "Regular"
+      },
+      "absoluteX": -1371,
+      "absoluteY": 2639
+    },
+    {
+      "sourceDocumentationNodeId": "NODE-0133",
+      "instanceId": "NODE-0210",
+      "componentSetId": "NODE-0464",
+      "schemaVariantId": "PSV-1",
+      "rowGroupNodeId": "NODE-0194",
+      "observedRowGroupName": "row_Text",
+      "semanticValue": "Text",
+      "namingRuleRef": "NR-matrix-row",
+      "variantProperties": {
+        "Accent": "Info",
+        "Icon": "None",
+        "Size": "Regular"
+      },
+      "absoluteX": -1318,
+      "absoluteY": 2639
+    },
+    {
+      "sourceDocumentationNodeId": "NODE-0133",
+      "instanceId": "NODE-0199",
+      "componentSetId": "NODE-0464",
+      "schemaVariantId": "PSV-1",
+      "rowGroupNodeId": "NODE-0194",
+      "observedRowGroupName": "row_Text",
+      "semanticValue": "Text",
+      "namingRuleRef": "NR-matrix-row",
+      "variantProperties": {
+        "Accent": "Success",
+        "Icon": "None",
+        "Size": "Small"
+      },
+      "absoluteX": -1476,
+      "absoluteY": 2665
+    },
+    {
+      "sourceDocumentationNodeId": "NODE-0133",
+      "instanceId": "NODE-0203",
+      "componentSetId": "NODE-0464",
+      "schemaVariantId": "PSV-1",
+      "rowGroupNodeId": "NODE-0194",
+      "observedRowGroupName": "row_Text",
+      "semanticValue": "Text",
+      "namingRuleRef": "NR-matrix-row",
+      "variantProperties": {
+        "Accent": "Error",
+        "Icon": "None",
+        "Size": "Small"
+      },
+      "absoluteX": -1422,
+      "absoluteY": 2665
+    },
+    {
+      "sourceDocumentationNodeId": "NODE-0133",
+      "instanceId": "NODE-0207",
+      "componentSetId": "NODE-0464",
+      "schemaVariantId": "PSV-1",
+      "rowGroupNodeId": "NODE-0194",
+      "observedRowGroupName": "row_Text",
+      "semanticValue": "Text",
+      "namingRuleRef": "NR-matrix-row",
+      "variantProperties": {
+        "Accent": "Warning",
+        "Icon": "None",
+        "Size": "Small"
+      },
+      "absoluteX": -1369,
+      "absoluteY": 2665
+    },
+    {
+      "sourceDocumentationNodeId": "NODE-0133",
+      "instanceId": "NODE-0211",
+      "componentSetId": "NODE-0464",
+      "schemaVariantId": "PSV-1",
+      "rowGroupNodeId": "NODE-0194",
+      "observedRowGroupName": "row_Text",
+      "semanticValue": "Text",
+      "namingRuleRef": "NR-matrix-row",
+      "variantProperties": {
+        "Accent": "Info",
+        "Icon": "None",
+        "Size": "Small"
+      },
+      "absoluteX": -1315,
+      "absoluteY": 2665
+    },
+    {
+      "sourceDocumentationNodeId": "NODE-0213",
+      "instanceId": "NODE-0218",
+      "componentSetId": "NODE-0317",
+      "schemaVariantId": "PSV-1",
+      "rowGroupNodeId": "NODE-0214",
+      "observedRowGroupName": "row_Highline",
+      "semanticValue": "Highline",
+      "namingRuleRef": "NR-matrix-row",
+      "variantProperties": {
+        "Accent": "Success",
+        "Icon": "None",
+        "Size": "Regular"
+      },
+      "absoluteX": -247,
+      "absoluteY": 2117
+    },
+    {
+      "sourceDocumentationNodeId": "NODE-0213",
+      "instanceId": "NODE-0222",
+      "componentSetId": "NODE-0317",
+      "schemaVariantId": "PSV-1",
+      "rowGroupNodeId": "NODE-0214",
+      "observedRowGroupName": "row_Highline",
+      "semanticValue": "Highline",
+      "namingRuleRef": "NR-matrix-row",
+      "variantProperties": {
+        "Accent": "Error",
+        "Icon": "None",
+        "Size": "Regular"
+      },
+      "absoluteX": -175,
+      "absoluteY": 2117
+    },
+    {
+      "sourceDocumentationNodeId": "NODE-0213",
+      "instanceId": "NODE-0226",
+      "componentSetId": "NODE-0317",
+      "schemaVariantId": "PSV-1",
+      "rowGroupNodeId": "NODE-0214",
+      "observedRowGroupName": "row_Highline",
+      "semanticValue": "Highline",
+      "namingRuleRef": "NR-matrix-row",
+      "variantProperties": {
+        "Accent": "Warning",
+        "Icon": "None",
+        "Size": "Regular"
+      },
+      "absoluteX": -103,
+      "absoluteY": 2117
+    },
+    {
+      "sourceDocumentationNodeId": "NODE-0213",
+      "instanceId": "NODE-0230",
+      "componentSetId": "NODE-0317",
+      "schemaVariantId": "PSV-1",
+      "rowGroupNodeId": "NODE-0214",
+      "observedRowGroupName": "row_Highline",
+      "semanticValue": "Highline",
+      "namingRuleRef": "NR-matrix-row",
+      "variantProperties": {
+        "Accent": "Info",
+        "Icon": "None",
+        "Size": "Regular"
+      },
+      "absoluteX": -31,
+      "absoluteY": 2117
+    },
+    {
+      "sourceDocumentationNodeId": "NODE-0213",
+      "instanceId": "NODE-0219",
+      "componentSetId": "NODE-0317",
+      "schemaVariantId": "PSV-1",
+      "rowGroupNodeId": "NODE-0214",
+      "observedRowGroupName": "row_Highline",
+      "semanticValue": "Highline",
+      "namingRuleRef": "NR-matrix-row",
+      "variantProperties": {
+        "Accent": "Success",
+        "Icon": "None",
+        "Size": "Small"
+      },
+      "absoluteX": -242,
+      "absoluteY": 2155
+    },
+    {
+      "sourceDocumentationNodeId": "NODE-0213",
+      "instanceId": "NODE-0223",
+      "componentSetId": "NODE-0317",
+      "schemaVariantId": "PSV-1",
+      "rowGroupNodeId": "NODE-0214",
+      "observedRowGroupName": "row_Highline",
+      "semanticValue": "Highline",
+      "namingRuleRef": "NR-matrix-row",
+      "variantProperties": {
+        "Accent": "Error",
+        "Icon": "None",
+        "Size": "Small"
+      },
+      "absoluteX": -170,
+      "absoluteY": 2155
+    },
+    {
+      "sourceDocumentationNodeId": "NODE-0213",
+      "instanceId": "NODE-0227",
+      "componentSetId": "NODE-0317",
+      "schemaVariantId": "PSV-1",
+      "rowGroupNodeId": "NODE-0214",
+      "observedRowGroupName": "row_Highline",
+      "semanticValue": "Highline",
+      "namingRuleRef": "NR-matrix-row",
+      "variantProperties": {
+        "Accent": "Warning",
+        "Icon": "None",
+        "Size": "Small"
+      },
+      "absoluteX": -98,
+      "absoluteY": 2155
+    },
+    {
+      "sourceDocumentationNodeId": "NODE-0213",
+      "instanceId": "NODE-0231",
+      "componentSetId": "NODE-0317",
+      "schemaVariantId": "PSV-1",
+      "rowGroupNodeId": "NODE-0214",
+      "observedRowGroupName": "row_Highline",
+      "semanticValue": "Highline",
+      "namingRuleRef": "NR-matrix-row",
+      "variantProperties": {
+        "Accent": "Info",
+        "Icon": "None",
+        "Size": "Small"
+      },
+      "absoluteX": -26,
+      "absoluteY": 2155
+    },
+    {
+      "sourceDocumentationNodeId": "NODE-0213",
+      "instanceId": "NODE-0238",
+      "componentSetId": "NODE-0366",
+      "schemaVariantId": "PSV-1",
+      "rowGroupNodeId": "NODE-0234",
+      "observedRowGroupName": "row_Highlighted",
+      "semanticValue": "Highlighted",
+      "namingRuleRef": "NR-matrix-row",
+      "variantProperties": {
+        "Accent": "Success",
+        "Icon": "None",
+        "Size": "Regular"
+      },
+      "absoluteX": -247,
+      "absoluteY": 2291
+    },
+    {
+      "sourceDocumentationNodeId": "NODE-0213",
+      "instanceId": "NODE-0242",
+      "componentSetId": "NODE-0366",
+      "schemaVariantId": "PSV-1",
+      "rowGroupNodeId": "NODE-0234",
+      "observedRowGroupName": "row_Highlighted",
+      "semanticValue": "Highlighted",
+      "namingRuleRef": "NR-matrix-row",
+      "variantProperties": {
+        "Accent": "Error",
+        "Icon": "None",
+        "Size": "Regular"
+      },
+      "absoluteX": -175,
+      "absoluteY": 2291
+    },
+    {
+      "sourceDocumentationNodeId": "NODE-0213",
+      "instanceId": "NODE-0246",
+      "componentSetId": "NODE-0366",
+      "schemaVariantId": "PSV-1",
+      "rowGroupNodeId": "NODE-0234",
+      "observedRowGroupName": "row_Highlighted",
+      "semanticValue": "Highlighted",
+      "namingRuleRef": "NR-matrix-row",
+      "variantProperties": {
+        "Accent": "Warning",
+        "Icon": "None",
+        "Size": "Regular"
+      },
+      "absoluteX": -103,
+      "absoluteY": 2291
+    },
+    {
+      "sourceDocumentationNodeId": "NODE-0213",
+      "instanceId": "NODE-0250",
+      "componentSetId": "NODE-0366",
+      "schemaVariantId": "PSV-1",
+      "rowGroupNodeId": "NODE-0234",
+      "observedRowGroupName": "row_Highlighted",
+      "semanticValue": "Highlighted",
+      "namingRuleRef": "NR-matrix-row",
+      "variantProperties": {
+        "Accent": "Info",
+        "Icon": "None",
+        "Size": "Regular"
+      },
+      "absoluteX": -31,
+      "absoluteY": 2291
+    },
+    {
+      "sourceDocumentationNodeId": "NODE-0213",
+      "instanceId": "NODE-0239",
+      "componentSetId": "NODE-0366",
+      "schemaVariantId": "PSV-1",
+      "rowGroupNodeId": "NODE-0234",
+      "observedRowGroupName": "row_Highlighted",
+      "semanticValue": "Highlighted",
+      "namingRuleRef": "NR-matrix-row",
+      "variantProperties": {
+        "Accent": "Success",
+        "Icon": "None",
+        "Size": "Small"
+      },
+      "absoluteX": -242,
+      "absoluteY": 2329
+    },
+    {
+      "sourceDocumentationNodeId": "NODE-0213",
+      "instanceId": "NODE-0243",
+      "componentSetId": "NODE-0366",
+      "schemaVariantId": "PSV-1",
+      "rowGroupNodeId": "NODE-0234",
+      "observedRowGroupName": "row_Highlighted",
+      "semanticValue": "Highlighted",
+      "namingRuleRef": "NR-matrix-row",
+      "variantProperties": {
+        "Accent": "Error",
+        "Icon": "None",
+        "Size": "Small"
+      },
+      "absoluteX": -170,
+      "absoluteY": 2329
+    },
+    {
+      "sourceDocumentationNodeId": "NODE-0213",
+      "instanceId": "NODE-0247",
+      "componentSetId": "NODE-0366",
+      "schemaVariantId": "PSV-1",
+      "rowGroupNodeId": "NODE-0234",
+      "observedRowGroupName": "row_Highlighted",
+      "semanticValue": "Highlighted",
+      "namingRuleRef": "NR-matrix-row",
+      "variantProperties": {
+        "Accent": "Warning",
+        "Icon": "None",
+        "Size": "Small"
+      },
+      "absoluteX": -98,
+      "absoluteY": 2329
+    },
+    {
+      "sourceDocumentationNodeId": "NODE-0213",
+      "instanceId": "NODE-0251",
+      "componentSetId": "NODE-0366",
+      "schemaVariantId": "PSV-1",
+      "rowGroupNodeId": "NODE-0234",
+      "observedRowGroupName": "row_Highlighted",
+      "semanticValue": "Highlighted",
+      "namingRuleRef": "NR-matrix-row",
+      "variantProperties": {
+        "Accent": "Info",
+        "Icon": "None",
+        "Size": "Small"
+      },
+      "absoluteX": -26,
+      "absoluteY": 2329
+    },
+    {
+      "sourceDocumentationNodeId": "NODE-0213",
+      "instanceId": "NODE-0258",
+      "componentSetId": "NODE-0415",
+      "schemaVariantId": "PSV-1",
+      "rowGroupNodeId": "NODE-0254",
+      "observedRowGroupName": "row_Filled",
+      "semanticValue": "Filled",
+      "namingRuleRef": "NR-matrix-row",
+      "variantProperties": {
+        "Accent": "Success",
+        "Icon": "None",
+        "Size": "Regular"
+      },
+      "absoluteX": -247,
+      "absoluteY": 2465
+    },
+    {
+      "sourceDocumentationNodeId": "NODE-0213",
+      "instanceId": "NODE-0262",
+      "componentSetId": "NODE-0415",
+      "schemaVariantId": "PSV-1",
+      "rowGroupNodeId": "NODE-0254",
+      "observedRowGroupName": "row_Filled",
+      "semanticValue": "Filled",
+      "namingRuleRef": "NR-matrix-row",
+      "variantProperties": {
+        "Accent": "Error",
+        "Icon": "None",
+        "Size": "Regular"
+      },
+      "absoluteX": -175,
+      "absoluteY": 2465
+    },
+    {
+      "sourceDocumentationNodeId": "NODE-0213",
+      "instanceId": "NODE-0266",
+      "componentSetId": "NODE-0415",
+      "schemaVariantId": "PSV-1",
+      "rowGroupNodeId": "NODE-0254",
+      "observedRowGroupName": "row_Filled",
+      "semanticValue": "Filled",
+      "namingRuleRef": "NR-matrix-row",
+      "variantProperties": {
+        "Accent": "Warning",
+        "Icon": "None",
+        "Size": "Regular"
+      },
+      "absoluteX": -103,
+      "absoluteY": 2465
+    },
+    {
+      "sourceDocumentationNodeId": "NODE-0213",
+      "instanceId": "NODE-0270",
+      "componentSetId": "NODE-0415",
+      "schemaVariantId": "PSV-1",
+      "rowGroupNodeId": "NODE-0254",
+      "observedRowGroupName": "row_Filled",
+      "semanticValue": "Filled",
+      "namingRuleRef": "NR-matrix-row",
+      "variantProperties": {
+        "Accent": "Info",
+        "Icon": "None",
+        "Size": "Regular"
+      },
+      "absoluteX": -31,
+      "absoluteY": 2465
+    },
+    {
+      "sourceDocumentationNodeId": "NODE-0213",
+      "instanceId": "NODE-0259",
+      "componentSetId": "NODE-0415",
+      "schemaVariantId": "PSV-1",
+      "rowGroupNodeId": "NODE-0254",
+      "observedRowGroupName": "row_Filled",
+      "semanticValue": "Filled",
+      "namingRuleRef": "NR-matrix-row",
+      "variantProperties": {
+        "Accent": "Success",
+        "Icon": "None",
+        "Size": "Small"
+      },
+      "absoluteX": -242,
+      "absoluteY": 2503
+    },
+    {
+      "sourceDocumentationNodeId": "NODE-0213",
+      "instanceId": "NODE-0263",
+      "componentSetId": "NODE-0415",
+      "schemaVariantId": "PSV-1",
+      "rowGroupNodeId": "NODE-0254",
+      "observedRowGroupName": "row_Filled",
+      "semanticValue": "Filled",
+      "namingRuleRef": "NR-matrix-row",
+      "variantProperties": {
+        "Accent": "Error",
+        "Icon": "None",
+        "Size": "Small"
+      },
+      "absoluteX": -170,
+      "absoluteY": 2503
+    },
+    {
+      "sourceDocumentationNodeId": "NODE-0213",
+      "instanceId": "NODE-0267",
+      "componentSetId": "NODE-0415",
+      "schemaVariantId": "PSV-1",
+      "rowGroupNodeId": "NODE-0254",
+      "observedRowGroupName": "row_Filled",
+      "semanticValue": "Filled",
+      "namingRuleRef": "NR-matrix-row",
+      "variantProperties": {
+        "Accent": "Warning",
+        "Icon": "None",
+        "Size": "Small"
+      },
+      "absoluteX": -98,
+      "absoluteY": 2503
+    },
+    {
+      "sourceDocumentationNodeId": "NODE-0213",
+      "instanceId": "NODE-0271",
+      "componentSetId": "NODE-0415",
+      "schemaVariantId": "PSV-1",
+      "rowGroupNodeId": "NODE-0254",
+      "observedRowGroupName": "row_Filled",
+      "semanticValue": "Filled",
+      "namingRuleRef": "NR-matrix-row",
+      "variantProperties": {
+        "Accent": "Info",
+        "Icon": "None",
+        "Size": "Small"
+      },
+      "absoluteX": -26,
+      "absoluteY": 2503
+    },
+    {
+      "sourceDocumentationNodeId": "NODE-0213",
+      "instanceId": "NODE-0278",
+      "componentSetId": "NODE-0464",
+      "schemaVariantId": "PSV-1",
+      "rowGroupNodeId": "NODE-0274",
+      "observedRowGroupName": "row_Text",
+      "semanticValue": "Text",
+      "namingRuleRef": "NR-matrix-row",
+      "variantProperties": {
+        "Accent": "Success",
+        "Icon": "None",
+        "Size": "Regular"
+      },
+      "absoluteX": -241,
+      "absoluteY": 2639
+    },
+    {
+      "sourceDocumentationNodeId": "NODE-0213",
+      "instanceId": "NODE-0282",
+      "componentSetId": "NODE-0464",
+      "schemaVariantId": "PSV-1",
+      "rowGroupNodeId": "NODE-0274",
+      "observedRowGroupName": "row_Text",
+      "semanticValue": "Text",
+      "namingRuleRef": "NR-matrix-row",
+      "variantProperties": {
+        "Accent": "Error",
+        "Icon": "None",
+        "Size": "Regular"
+      },
+      "absoluteX": -188,
+      "absoluteY": 2639
+    },
+    {
+      "sourceDocumentationNodeId": "NODE-0213",
+      "instanceId": "NODE-0286",
+      "componentSetId": "NODE-0464",
+      "schemaVariantId": "PSV-1",
+      "rowGroupNodeId": "NODE-0274",
+      "observedRowGroupName": "row_Text",
+      "semanticValue": "Text",
+      "namingRuleRef": "NR-matrix-row",
+      "variantProperties": {
+        "Accent": "Warning",
+        "Icon": "None",
+        "Size": "Regular"
+      },
+      "absoluteX": -134,
+      "absoluteY": 2639
+    },
+    {
+      "sourceDocumentationNodeId": "NODE-0213",
+      "instanceId": "NODE-0290",
+      "componentSetId": "NODE-0464",
+      "schemaVariantId": "PSV-1",
+      "rowGroupNodeId": "NODE-0274",
+      "observedRowGroupName": "row_Text",
+      "semanticValue": "Text",
+      "namingRuleRef": "NR-matrix-row",
+      "variantProperties": {
+        "Accent": "Info",
+        "Icon": "None",
+        "Size": "Regular"
+      },
+      "absoluteX": -81,
+      "absoluteY": 2639
+    },
+    {
+      "sourceDocumentationNodeId": "NODE-0213",
+      "instanceId": "NODE-0279",
+      "componentSetId": "NODE-0464",
+      "schemaVariantId": "PSV-1",
+      "rowGroupNodeId": "NODE-0274",
+      "observedRowGroupName": "row_Text",
+      "semanticValue": "Text",
+      "namingRuleRef": "NR-matrix-row",
+      "variantProperties": {
+        "Accent": "Success",
+        "Icon": "None",
+        "Size": "Small"
+      },
+      "absoluteX": -239,
+      "absoluteY": 2665
+    },
+    {
+      "sourceDocumentationNodeId": "NODE-0213",
+      "instanceId": "NODE-0283",
+      "componentSetId": "NODE-0464",
+      "schemaVariantId": "PSV-1",
+      "rowGroupNodeId": "NODE-0274",
+      "observedRowGroupName": "row_Text",
+      "semanticValue": "Text",
+      "namingRuleRef": "NR-matrix-row",
+      "variantProperties": {
+        "Accent": "Error",
+        "Icon": "None",
+        "Size": "Small"
+      },
+      "absoluteX": -185,
+      "absoluteY": 2665
+    },
+    {
+      "sourceDocumentationNodeId": "NODE-0213",
+      "instanceId": "NODE-0287",
+      "componentSetId": "NODE-0464",
+      "schemaVariantId": "PSV-1",
+      "rowGroupNodeId": "NODE-0274",
+      "observedRowGroupName": "row_Text",
+      "semanticValue": "Text",
+      "namingRuleRef": "NR-matrix-row",
+      "variantProperties": {
+        "Accent": "Warning",
+        "Icon": "None",
+        "Size": "Small"
+      },
+      "absoluteX": -132,
+      "absoluteY": 2665
+    },
+    {
+      "sourceDocumentationNodeId": "NODE-0213",
+      "instanceId": "NODE-0291",
+      "componentSetId": "NODE-0464",
+      "schemaVariantId": "PSV-1",
+      "rowGroupNodeId": "NODE-0274",
+      "observedRowGroupName": "row_Text",
+      "semanticValue": "Text",
+      "namingRuleRef": "NR-matrix-row",
+      "variantProperties": {
+        "Accent": "Info",
+        "Icon": "None",
+        "Size": "Small"
+      },
+      "absoluteX": -78,
+      "absoluteY": 2665
+    }
+  ],
+  "perSourceBlockDerivation": {
+    "NODE-0133": {
+      "rows": [
+        "NODE-0317",
+        "NODE-0366",
+        "NODE-0415",
+        "NODE-0464"
+      ],
+      "columns": [
+        "Success",
+        "Error",
+        "Warning",
+        "Info"
+      ],
+      "bands": [
+        "Regular",
+        "Small"
+      ],
+      "fixedFilters": {
+        "Icon": "None"
+      }
+    },
+    "NODE-0213": {
+      "rows": [
+        "NODE-0317",
+        "NODE-0366",
+        "NODE-0415",
+        "NODE-0464"
+      ],
+      "columns": [
+        "Success",
+        "Error",
+        "Warning",
+        "Info"
+      ],
+      "bands": [
+        "Regular",
+        "Small"
+      ],
+      "fixedFilters": {
+        "Icon": "None"
+      }
+    }
+  },
+  "parallelBlocksAgree": true,
+  "recomputationCheck": {
+    "rowColumnCellsPerBlock": 16,
+    "rowColumnBandPositionsPerBlock": 32,
+    "observedInstancesPerBlock": 32,
+    "metricDiscriminationNote": "16 row-column cells, 32 row-column-band positions and 32 instance placements per block are three different integers describing the same block; v0.4 records each as its own discriminated coverageMetric."
+  }
+}

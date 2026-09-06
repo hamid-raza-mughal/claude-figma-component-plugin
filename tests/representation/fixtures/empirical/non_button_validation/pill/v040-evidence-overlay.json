@@ -1,0 +1,1916 @@
+{
+  "description": "Pill R-2 captured evidence, supplied to the v0.3.1->v0.4.0 migration so that real evidence replaces legacy placeholders. Anything not covered here stays legacy or stays an owner blocker.",
+  "replace": {
+    "namingRules": [
+      {
+        "namingRuleId": "NR-matrix-row",
+        "appliesToRole": "matrix_row_group",
+        "template": "row_{semanticValue}",
+        "enforcement": "required",
+        "uniquenessPolicy": "required_within_scope",
+        "scope": {
+          "scopeType": "contract",
+          "scopeRef": "NAME-0001-pill-non-button-experimental-representation-contract"
+        },
+        "note": "Semantic layer: the row name encodes the component-set identity the row documents. Unique within its parent content block (4 rows, 4 distinct names, verified)."
+      },
+      {
+        "namingRuleId": "NR-axis-strip-row",
+        "appliesToRole": "axis_strip_row",
+        "template": "{axisKey_lower}_row",
+        "enforcement": "required",
+        "uniquenessPolicy": "required_within_scope",
+        "scope": {
+          "scopeType": "contract",
+          "scopeRef": "NAME-0001-pill-non-button-experimental-representation-contract"
+        },
+        "note": "Semantic layer: size_row / style_row / accent_row / icon_row. Unique within its parent content block (verified)."
+      },
+      {
+        "namingRuleId": "NR-theme-card",
+        "appliesToRole": "theme_card",
+        "template": "card",
+        "enforcement": "recommended",
+        "uniquenessPolicy": "duplicates_allowed",
+        "scope": {
+          "scopeType": "contract",
+          "scopeRef": "NAME-0001-pill-non-button-experimental-representation-contract"
+        },
+        "note": "Structural wrapper. Both Pill theme containers are literally named 'card'; identity comes from containerNodeId, never the name."
+      },
+      {
+        "namingRuleId": "NR-doc-block",
+        "appliesToRole": "documentation_block",
+        "template": "content",
+        "enforcement": "recommended",
+        "uniquenessPolicy": "duplicates_allowed",
+        "scope": {
+          "scopeType": "contract",
+          "scopeRef": "NAME-0001-pill-non-button-experimental-representation-contract"
+        },
+        "note": "Structural wrapper. TWO content siblings exist per card (the list strip and the matrix). Parent-scoped uniqueness is demonstrably false for this role; the resolver disambiguates by layoutRepresentationRef + rootNodeId."
+      },
+      {
+        "namingRuleId": "NR-specimen-group",
+        "appliesToRole": "specimen_group",
+        "template": "pills",
+        "enforcement": "recommended",
+        "uniquenessPolicy": "duplicates_allowed",
+        "scope": {
+          "scopeType": "contract",
+          "scopeRef": "NAME-0001-pill-non-button-experimental-representation-contract"
+        },
+        "note": "Structural wrapper, 16 occurrences."
+      },
+      {
+        "namingRuleId": "NR-specimen-column",
+        "appliesToRole": "specimen_column",
+        "template": "col",
+        "enforcement": "recommended",
+        "uniquenessPolicy": "duplicates_allowed",
+        "scope": {
+          "scopeType": "contract",
+          "scopeRef": "NAME-0001-pill-non-button-experimental-representation-contract"
+        },
+        "note": "Structural wrapper, 62 occurrences."
+      },
+      {
+        "namingRuleId": "NR-block-headline",
+        "appliesToRole": "block_headline",
+        "template": "headline",
+        "enforcement": "recommended",
+        "uniquenessPolicy": "duplicates_allowed",
+        "scope": {
+          "scopeType": "contract",
+          "scopeRef": "NAME-0001-pill-non-button-experimental-representation-contract"
+        },
+        "note": "Structural wrapper, 3 occurrences at two depths."
+      },
+      {
+        "namingRuleId": "NR-doc-container",
+        "appliesToRole": "documentation_container",
+        "template": "container",
+        "enforcement": "recommended",
+        "uniquenessPolicy": "duplicates_allowed",
+        "scope": {
+          "scopeType": "contract",
+          "scopeRef": "NAME-0001-pill-non-button-experimental-representation-contract"
+        },
+        "note": "Structural wrapper."
+      },
+      {
+        "namingRuleId": "NR-doc-holder",
+        "appliesToRole": "documentation_holder",
+        "template": "components_holder",
+        "enforcement": "recommended",
+        "uniquenessPolicy": "duplicates_allowed",
+        "scope": {
+          "scopeType": "contract",
+          "scopeRef": "NAME-0001-pill-non-button-experimental-representation-contract"
+        },
+        "note": "Structural wrapper; also used for the build holder NODE-0545."
+      },
+      {
+        "namingRuleId": "NR-rule-divider",
+        "appliesToRole": "rule_divider",
+        "template": "hr",
+        "enforcement": "observed_only",
+        "uniquenessPolicy": "not_applicable",
+        "scope": {
+          "scopeType": "contract",
+          "scopeRef": "NAME-0001-pill-non-button-experimental-representation-contract"
+        },
+        "note": "Incidental layer, 12 occurrences, all siblings. Recorded, never enforced; the resolver performs no uniqueness enforcement for observed_only roles."
+      }
+    ],
+    "layoutRepresentations": [
+      {
+        "representationId": "LR-1",
+        "strategy": "list",
+        "appliesTo": {
+          "schemaVariantIds": [
+            "PSV-1"
+          ],
+          "componentSetIds": [
+            "NODE-0317",
+            "NODE-0366",
+            "NODE-0415",
+            "NODE-0464"
+          ]
+        },
+        "evidenceNodeIds": [
+          "NODE-0008",
+          "NODE-0072"
+        ],
+        "namingRuleRefs": [
+          "NR-axis-strip-row",
+          "NR-specimen-group",
+          "NR-specimen-column",
+          "NR-rule-divider"
+        ],
+        "evidence": {
+          "classification": "observed",
+          "sourceFile": "evidence/api-capture-documentation-instances.json",
+          "confidence": "high",
+          "nodeIds": [
+            "NODE-0008",
+            "NODE-0072"
+          ],
+          "note": "Per-axis list strip: four rows, one axis each (Size, Style, Accent, Icon), 15 Pill instances per theme card. This block and the matrix block below coexist in every card -- the v0.3.1 scalar layoutStrategy could not say so."
+        }
+      },
+      {
+        "representationId": "LR-2",
+        "strategy": "matrix",
+        "appliesTo": {
+          "schemaVariantIds": [
+            "PSV-1"
+          ],
+          "componentSetIds": [
+            "NODE-0317",
+            "NODE-0366",
+            "NODE-0415",
+            "NODE-0464"
+          ]
+        },
+        "evidenceNodeIds": [
+          "NODE-0133",
+          "NODE-0213"
+        ],
+        "namingRuleRefs": [
+          "NR-matrix-row",
+          "NR-specimen-group",
+          "NR-specimen-column"
+        ],
+        "allocation": {
+          "rows": {
+            "kind": "component_set_identity",
+            "orderingRule": "ascending_absolute_y",
+            "items": [
+              {
+                "componentSetId": "NODE-0317",
+                "semanticValue": "Highline",
+                "observedLayerName": "row_Highline",
+                "expectedLayerName": "row_Highline",
+                "namingRuleRef": "NR-matrix-row"
+              },
+              {
+                "componentSetId": "NODE-0366",
+                "semanticValue": "Highlighted",
+                "observedLayerName": "row_Highlighted",
+                "expectedLayerName": "row_Highlighted",
+                "namingRuleRef": "NR-matrix-row"
+              },
+              {
+                "componentSetId": "NODE-0415",
+                "semanticValue": "Filled",
+                "observedLayerName": "row_Filled",
+                "expectedLayerName": "row_Filled",
+                "namingRuleRef": "NR-matrix-row"
+              },
+              {
+                "componentSetId": "NODE-0464",
+                "semanticValue": "Text",
+                "observedLayerName": "row_Text",
+                "expectedLayerName": "row_Text",
+                "namingRuleRef": "NR-matrix-row"
+              }
+            ]
+          },
+          "columns": {
+            "kind": "variant_property",
+            "propertyKey": "Accent",
+            "orderedValues": [
+              "Success",
+              "Error",
+              "Warning",
+              "Info"
+            ],
+            "orderingRule": "ascending_absolute_x"
+          },
+          "bands": [
+            {
+              "kind": "variant_property",
+              "propertyKey": "Size",
+              "orderedValues": [
+                "Regular",
+                "Small"
+              ],
+              "orderingRule": "ascending_absolute_y"
+            }
+          ],
+          "fixedFilters": [
+            {
+              "kind": "fixed_filter",
+              "propertyKey": "Icon",
+              "value": "None"
+            }
+          ],
+          "allocationEvidence": {
+            "status": "verified",
+            "artifactPath": "evidence/allocation-evidence-LR-2.json",
+            "artifactSha256": "a83bedbb1ea879ca261313f372a832545f1b64e2b3a1985282151094a23396a3",
+            "derivationMethod": "instance_variant_properties_and_geometry"
+          },
+          "approvalStatus": "draft",
+          "ownerConfirmationRef": null
+        },
+        "evidence": {
+          "classification": "computed",
+          "sourceFile": "evidence/allocation-evidence-LR-2.json",
+          "confidence": "high",
+          "nodeIds": [
+            "NODE-0133",
+            "NODE-0213"
+          ],
+          "note": "Rows are COMPONENT_SET identity, recomputed from 64 instances' ownership and absoluteY ordering; columns are Accent by absoluteX; bands are Size {Regular, Small}; Icon is fixed at None across all 64. Dark and Light were derived independently and agree."
+        }
+      }
+    ],
+    "representationNodeBindings": [
+      {
+        "layoutRepresentationRef": "LR-1",
+        "containerNodeId": "NODE-0008",
+        "rootNodeId": "NODE-0005",
+        "semanticRole": "documentation_block",
+        "observedLayerName": "content",
+        "expectedParentRef": "NODE-0005"
+      },
+      {
+        "layoutRepresentationRef": "LR-1",
+        "containerNodeId": "NODE-0072",
+        "rootNodeId": "NODE-0069",
+        "semanticRole": "documentation_block",
+        "observedLayerName": "content",
+        "expectedParentRef": "NODE-0069"
+      },
+      {
+        "layoutRepresentationRef": "LR-2",
+        "containerNodeId": "NODE-0133",
+        "rootNodeId": "NODE-0005",
+        "semanticRole": "documentation_block",
+        "observedLayerName": "content",
+        "expectedParentRef": "NODE-0005"
+      },
+      {
+        "layoutRepresentationRef": "LR-2",
+        "containerNodeId": "NODE-0213",
+        "rootNodeId": "NODE-0069",
+        "semanticRole": "documentation_block",
+        "observedLayerName": "content",
+        "expectedParentRef": "NODE-0069"
+      }
+    ],
+    "undocumentedSchemaVariantIds": [
+      "PSV-2"
+    ],
+    "themeModel": {
+      "collections": [
+        {
+          "collectionId": "VC-0002",
+          "collectionKey": "KEY-0008",
+          "collectionName": "colors",
+          "remote": true,
+          "defaultModeId": "NODE-0299",
+          "variableCount": 105,
+          "themeVarying": true,
+          "modes": [
+            {
+              "modeId": "NODE-0299",
+              "modeName": "Dark",
+              "isDefault": true
+            },
+            {
+              "modeId": "NODE-0558",
+              "modeName": "Light",
+              "isDefault": false
+            }
+          ]
+        },
+        {
+          "collectionId": "VC-0001",
+          "collectionKey": "KEY-0002",
+          "collectionName": "layout-scale",
+          "remote": true,
+          "defaultModeId": "6:1",
+          "variableCount": 15,
+          "themeVarying": false,
+          "modes": [
+            {
+              "modeId": "6:1",
+              "modeName": "Default",
+              "isDefault": true
+            }
+          ]
+        }
+      ],
+      "containers": [
+        {
+          "containerNodeId": "NODE-0005",
+          "containerNodeName": "card",
+          "labelSourceNodeId": "NODE-0007",
+          "labelText": "Dark Mode",
+          "modeBindings": [
+            {
+              "collectionId": "VC-0002",
+              "resolvedModeId": "NODE-0299",
+              "resolvedModeName": "Dark",
+              "provenanceStatus": "verified",
+              "provenance": "inherited_default",
+              "provenanceEvidenceNodeIds": [
+                "NODE-0005",
+                "NODE-0004",
+                "NODE-0001",
+                "NODE-0539",
+                "NODE-0538"
+              ]
+            },
+            {
+              "collectionId": "VC-0001",
+              "resolvedModeId": "6:1",
+              "resolvedModeName": "Default",
+              "provenanceStatus": "verified",
+              "provenance": "inherited_default",
+              "provenanceEvidenceNodeIds": [
+                "NODE-0005"
+              ]
+            }
+          ],
+          "evidence": {
+            "classification": "observed",
+            "sourceFile": "evidence/api-capture-theme.json",
+            "confidence": "high",
+            "nodeIds": [
+              "NODE-0005",
+              "NODE-0007"
+            ],
+            "note": "explicitVariableModes is empty on this node AND on every ancestor up to and including PAGE NODE-0538. NODE-0299 is the colors collection defaultModeId, so the Dark resolution is a pure default-inheritance, not a declared choice."
+          }
+        },
+        {
+          "containerNodeId": "NODE-0069",
+          "containerNodeName": "card",
+          "labelSourceNodeId": "NODE-0071",
+          "labelText": "Light Mode",
+          "modeBindings": [
+            {
+              "collectionId": "VC-0002",
+              "resolvedModeId": "NODE-0558",
+              "resolvedModeName": "Light",
+              "provenanceStatus": "verified",
+              "provenance": "explicit",
+              "provenanceEvidenceNodeIds": [
+                "NODE-0069",
+                "NODE-0004",
+                "NODE-0001",
+                "NODE-0539",
+                "NODE-0538"
+              ]
+            },
+            {
+              "collectionId": "VC-0001",
+              "resolvedModeId": "6:1",
+              "resolvedModeName": "Default",
+              "provenanceStatus": "verified",
+              "provenance": "inherited_default",
+              "provenanceEvidenceNodeIds": [
+                "NODE-0069"
+              ]
+            }
+          ],
+          "evidence": {
+            "classification": "observed",
+            "sourceFile": "evidence/api-capture-theme.json",
+            "confidence": "high",
+            "nodeIds": [
+              "NODE-0069",
+              "NODE-0071"
+            ],
+            "note": "explicitVariableModes on this node declares the colors collection -> mode NODE-0558 (Light). No ancestor sets it."
+          }
+        }
+      ],
+      "variablesUsedByDescendants": [
+        {
+          "variableId": "VAR-0002",
+          "variableKey": "KEY-0006",
+          "variableName": "System/Expressions/success",
+          "resolvedType": "COLOR",
+          "collectionId": "VC-0002",
+          "valuesByMode": {
+            "NODE-0299": "#43DB70",
+            "NODE-0558": "#17CF60"
+          },
+          "sampledOnNodeIds": [
+            "NODE-0178",
+            "NODE-0258"
+          ],
+          "exhaustive": false
+        },
+        {
+          "variableId": "VAR-0001",
+          "variableKey": "KEY-0003",
+          "variableName": "System/Expressions/on_success",
+          "resolvedType": "COLOR",
+          "collectionId": "VC-0002",
+          "valuesByMode": {
+            "NODE-0299": "#01180D",
+            "NODE-0558": "#FFFFFF"
+          },
+          "sampledOnNodeIds": [
+            "NODE-0178",
+            "NODE-0258"
+          ],
+          "exhaustive": false
+        },
+        {
+          "variableId": "VAR-0004",
+          "variableKey": "KEY-0014",
+          "variableName": "4-scale/xs",
+          "resolvedType": "FLOAT",
+          "collectionId": "VC-0001",
+          "valuesByMode": {
+            "6:1": 12
+          },
+          "sampledOnNodeIds": [
+            "NODE-0178",
+            "NODE-0258"
+          ],
+          "exhaustive": false
+        },
+        {
+          "variableId": "VAR-0003",
+          "variableKey": "KEY-0010",
+          "variableName": "aux/xs",
+          "resolvedType": "FLOAT",
+          "collectionId": "VC-0001",
+          "valuesByMode": {
+            "6:1": 6
+          },
+          "sampledOnNodeIds": [
+            "NODE-0178",
+            "NODE-0258"
+          ],
+          "exhaustive": false
+        }
+      ],
+      "mechanismEvidence": {
+        "resolvedValuesDifferPerContainer": true,
+        "explicitPerFrameModeOverrideObserved": true,
+        "classification": "observed"
+      }
+    },
+    "coveragePolicy.perComponentSetCoverage": [
+      {
+        "componentSetId": "NODE-0317",
+        "coverageMetrics": [
+          {
+            "kind": "classified",
+            "metric": "instance_placements",
+            "value": 18,
+            "evidenceNodeIds": [
+              "NODE-0001"
+            ]
+          },
+          {
+            "kind": "classified",
+            "metric": "unique_variant_combinations",
+            "value": 8,
+            "evidenceNodeIds": [
+              "NODE-0001"
+            ]
+          },
+          {
+            "kind": "classified",
+            "metric": "matrix_cells",
+            "value": 4,
+            "representationId": "LR-2"
+          }
+        ],
+        "physicalCoverageEvidenceLevel": "component_children_enumerated",
+        "physicalCompletenessClaimed": false,
+        "ownerConfirmationRef": null,
+        "enumerationEvidence": {
+          "status": "enumerated",
+          "enumeratedAxes": [
+            "Accent",
+            "Size",
+            "Icon"
+          ],
+          "enumeratedAxisCombinations": [
+            {
+              "Accent": "Error",
+              "Size": "Regular",
+              "Icon": "Leading"
+            },
+            {
+              "Accent": "Error",
+              "Size": "Small",
+              "Icon": "Leading"
+            },
+            {
+              "Accent": "Error",
+              "Size": "XSmall",
+              "Icon": "Leading"
+            },
+            {
+              "Accent": "Error",
+              "Size": "XXSmall",
+              "Icon": "Leading"
+            },
+            {
+              "Accent": "Error",
+              "Size": "Regular",
+              "Icon": "None"
+            },
+            {
+              "Accent": "Error",
+              "Size": "Small",
+              "Icon": "None"
+            },
+            {
+              "Accent": "Error",
+              "Size": "XSmall",
+              "Icon": "None"
+            },
+            {
+              "Accent": "Error",
+              "Size": "XXSmall",
+              "Icon": "None"
+            },
+            {
+              "Accent": "Error",
+              "Size": "Regular",
+              "Icon": "Trailing"
+            },
+            {
+              "Accent": "Error",
+              "Size": "Small",
+              "Icon": "Trailing"
+            },
+            {
+              "Accent": "Error",
+              "Size": "XSmall",
+              "Icon": "Trailing"
+            },
+            {
+              "Accent": "Error",
+              "Size": "XXSmall",
+              "Icon": "Trailing"
+            },
+            {
+              "Accent": "Info",
+              "Size": "Regular",
+              "Icon": "Leading"
+            },
+            {
+              "Accent": "Info",
+              "Size": "Small",
+              "Icon": "Leading"
+            },
+            {
+              "Accent": "Info",
+              "Size": "XSmall",
+              "Icon": "Leading"
+            },
+            {
+              "Accent": "Info",
+              "Size": "XXSmall",
+              "Icon": "Leading"
+            },
+            {
+              "Accent": "Info",
+              "Size": "Regular",
+              "Icon": "None"
+            },
+            {
+              "Accent": "Info",
+              "Size": "Small",
+              "Icon": "None"
+            },
+            {
+              "Accent": "Info",
+              "Size": "XSmall",
+              "Icon": "None"
+            },
+            {
+              "Accent": "Info",
+              "Size": "XXSmall",
+              "Icon": "None"
+            },
+            {
+              "Accent": "Info",
+              "Size": "Regular",
+              "Icon": "Trailing"
+            },
+            {
+              "Accent": "Info",
+              "Size": "Small",
+              "Icon": "Trailing"
+            },
+            {
+              "Accent": "Info",
+              "Size": "XSmall",
+              "Icon": "Trailing"
+            },
+            {
+              "Accent": "Info",
+              "Size": "XXSmall",
+              "Icon": "Trailing"
+            },
+            {
+              "Accent": "Success",
+              "Size": "Regular",
+              "Icon": "Leading"
+            },
+            {
+              "Accent": "Success",
+              "Size": "Small",
+              "Icon": "Leading"
+            },
+            {
+              "Accent": "Success",
+              "Size": "XSmall",
+              "Icon": "Leading"
+            },
+            {
+              "Accent": "Success",
+              "Size": "XXSmall",
+              "Icon": "Leading"
+            },
+            {
+              "Accent": "Success",
+              "Size": "Regular",
+              "Icon": "None"
+            },
+            {
+              "Accent": "Success",
+              "Size": "Small",
+              "Icon": "None"
+            },
+            {
+              "Accent": "Success",
+              "Size": "XSmall",
+              "Icon": "None"
+            },
+            {
+              "Accent": "Success",
+              "Size": "XXSmall",
+              "Icon": "None"
+            },
+            {
+              "Accent": "Success",
+              "Size": "Regular",
+              "Icon": "Trailing"
+            },
+            {
+              "Accent": "Success",
+              "Size": "Small",
+              "Icon": "Trailing"
+            },
+            {
+              "Accent": "Success",
+              "Size": "XSmall",
+              "Icon": "Trailing"
+            },
+            {
+              "Accent": "Success",
+              "Size": "XXSmall",
+              "Icon": "Trailing"
+            },
+            {
+              "Accent": "Warning",
+              "Size": "Regular",
+              "Icon": "Leading"
+            },
+            {
+              "Accent": "Warning",
+              "Size": "Small",
+              "Icon": "Leading"
+            },
+            {
+              "Accent": "Warning",
+              "Size": "XSmall",
+              "Icon": "Leading"
+            },
+            {
+              "Accent": "Warning",
+              "Size": "XXSmall",
+              "Icon": "Leading"
+            },
+            {
+              "Accent": "Warning",
+              "Size": "Regular",
+              "Icon": "None"
+            },
+            {
+              "Accent": "Warning",
+              "Size": "Small",
+              "Icon": "None"
+            },
+            {
+              "Accent": "Warning",
+              "Size": "XSmall",
+              "Icon": "None"
+            },
+            {
+              "Accent": "Warning",
+              "Size": "XXSmall",
+              "Icon": "None"
+            },
+            {
+              "Accent": "Warning",
+              "Size": "Regular",
+              "Icon": "Trailing"
+            },
+            {
+              "Accent": "Warning",
+              "Size": "Small",
+              "Icon": "Trailing"
+            },
+            {
+              "Accent": "Warning",
+              "Size": "XSmall",
+              "Icon": "Trailing"
+            },
+            {
+              "Accent": "Warning",
+              "Size": "XXSmall",
+              "Icon": "Trailing"
+            }
+          ],
+          "artifactPath": "evidence/enumeration-787-14141.json",
+          "artifactSha256": "6931f12bbbb7178c3802bc1ccaf18c19d834fbb87c3619302da3e4770117818a",
+          "enumeratedCount": 48,
+          "method": {
+            "class": "plugin_api_variant_properties",
+            "toolIdentity": "mcp__plugin_figma_figma__use_figma",
+            "apiFieldsRead": [
+              "COMPONENT_SET.children",
+              "COMPONENT.variantProperties",
+              "COMPONENT_SET.componentPropertyDefinitions"
+            ],
+            "inferredFields": [],
+            "rawCaptureRef": {
+              "artifactPath": "evidence/api-capture-component-sets.json",
+              "artifactSha256": "fef66a30a2495a6d0cca9a69bc4c98b668fd800efa7e1ea4afd7ac968e2c04b5"
+            },
+            "normalizedArtifactRef": {
+              "artifactPath": "evidence/enumeration-787-14141.json",
+              "artifactSha256": "6931f12bbbb7178c3802bc1ccaf18c19d834fbb87c3619302da3e4770117818a"
+            }
+          }
+        }
+      },
+      {
+        "componentSetId": "NODE-0366",
+        "coverageMetrics": [
+          {
+            "kind": "classified",
+            "metric": "instance_placements",
+            "value": 18,
+            "evidenceNodeIds": [
+              "NODE-0001"
+            ]
+          },
+          {
+            "kind": "classified",
+            "metric": "unique_variant_combinations",
+            "value": 8,
+            "evidenceNodeIds": [
+              "NODE-0001"
+            ]
+          },
+          {
+            "kind": "classified",
+            "metric": "matrix_cells",
+            "value": 4,
+            "representationId": "LR-2"
+          }
+        ],
+        "physicalCoverageEvidenceLevel": "component_children_enumerated",
+        "physicalCompletenessClaimed": false,
+        "ownerConfirmationRef": null,
+        "enumerationEvidence": {
+          "status": "enumerated",
+          "enumeratedAxes": [
+            "Accent",
+            "Size",
+            "Icon"
+          ],
+          "enumeratedAxisCombinations": [
+            {
+              "Accent": "Error",
+              "Size": "Regular",
+              "Icon": "Leading"
+            },
+            {
+              "Accent": "Error",
+              "Size": "Small",
+              "Icon": "Leading"
+            },
+            {
+              "Accent": "Error",
+              "Size": "XSmall",
+              "Icon": "Leading"
+            },
+            {
+              "Accent": "Error",
+              "Size": "XXSmall",
+              "Icon": "Leading"
+            },
+            {
+              "Accent": "Error",
+              "Size": "Regular",
+              "Icon": "None"
+            },
+            {
+              "Accent": "Error",
+              "Size": "Small",
+              "Icon": "None"
+            },
+            {
+              "Accent": "Error",
+              "Size": "XSmall",
+              "Icon": "None"
+            },
+            {
+              "Accent": "Error",
+              "Size": "XXSmall",
+              "Icon": "None"
+            },
+            {
+              "Accent": "Error",
+              "Size": "Regular",
+              "Icon": "Trailing"
+            },
+            {
+              "Accent": "Error",
+              "Size": "Small",
+              "Icon": "Trailing"
+            },
+            {
+              "Accent": "Error",
+              "Size": "XSmall",
+              "Icon": "Trailing"
+            },
+            {
+              "Accent": "Error",
+              "Size": "XXSmall",
+              "Icon": "Trailing"
+            },
+            {
+              "Accent": "Info",
+              "Size": "Regular",
+              "Icon": "Leading"
+            },
+            {
+              "Accent": "Info",
+              "Size": "Small",
+              "Icon": "Leading"
+            },
+            {
+              "Accent": "Info",
+              "Size": "XSmall",
+              "Icon": "Leading"
+            },
+            {
+              "Accent": "Info",
+              "Size": "XXSmall",
+              "Icon": "Leading"
+            },
+            {
+              "Accent": "Info",
+              "Size": "Regular",
+              "Icon": "None"
+            },
+            {
+              "Accent": "Info",
+              "Size": "Small",
+              "Icon": "None"
+            },
+            {
+              "Accent": "Info",
+              "Size": "XSmall",
+              "Icon": "None"
+            },
+            {
+              "Accent": "Info",
+              "Size": "XXSmall",
+              "Icon": "None"
+            },
+            {
+              "Accent": "Info",
+              "Size": "Regular",
+              "Icon": "Trailing"
+            },
+            {
+              "Accent": "Info",
+              "Size": "Small",
+              "Icon": "Trailing"
+            },
+            {
+              "Accent": "Info",
+              "Size": "XSmall",
+              "Icon": "Trailing"
+            },
+            {
+              "Accent": "Info",
+              "Size": "XXSmall",
+              "Icon": "Trailing"
+            },
+            {
+              "Accent": "Success",
+              "Size": "Regular",
+              "Icon": "Leading"
+            },
+            {
+              "Accent": "Success",
+              "Size": "Small",
+              "Icon": "Leading"
+            },
+            {
+              "Accent": "Success",
+              "Size": "XSmall",
+              "Icon": "Leading"
+            },
+            {
+              "Accent": "Success",
+              "Size": "XXSmall",
+              "Icon": "Leading"
+            },
+            {
+              "Accent": "Success",
+              "Size": "Regular",
+              "Icon": "None"
+            },
+            {
+              "Accent": "Success",
+              "Size": "Small",
+              "Icon": "None"
+            },
+            {
+              "Accent": "Success",
+              "Size": "XSmall",
+              "Icon": "None"
+            },
+            {
+              "Accent": "Success",
+              "Size": "XXSmall",
+              "Icon": "None"
+            },
+            {
+              "Accent": "Success",
+              "Size": "Regular",
+              "Icon": "Trailing"
+            },
+            {
+              "Accent": "Success",
+              "Size": "Small",
+              "Icon": "Trailing"
+            },
+            {
+              "Accent": "Success",
+              "Size": "XSmall",
+              "Icon": "Trailing"
+            },
+            {
+              "Accent": "Success",
+              "Size": "XXSmall",
+              "Icon": "Trailing"
+            },
+            {
+              "Accent": "Warning",
+              "Size": "Regular",
+              "Icon": "Leading"
+            },
+            {
+              "Accent": "Warning",
+              "Size": "Small",
+              "Icon": "Leading"
+            },
+            {
+              "Accent": "Warning",
+              "Size": "XSmall",
+              "Icon": "Leading"
+            },
+            {
+              "Accent": "Warning",
+              "Size": "XXSmall",
+              "Icon": "Leading"
+            },
+            {
+              "Accent": "Warning",
+              "Size": "Regular",
+              "Icon": "None"
+            },
+            {
+              "Accent": "Warning",
+              "Size": "Small",
+              "Icon": "None"
+            },
+            {
+              "Accent": "Warning",
+              "Size": "XSmall",
+              "Icon": "None"
+            },
+            {
+              "Accent": "Warning",
+              "Size": "XXSmall",
+              "Icon": "None"
+            },
+            {
+              "Accent": "Warning",
+              "Size": "Regular",
+              "Icon": "Trailing"
+            },
+            {
+              "Accent": "Warning",
+              "Size": "Small",
+              "Icon": "Trailing"
+            },
+            {
+              "Accent": "Warning",
+              "Size": "XSmall",
+              "Icon": "Trailing"
+            },
+            {
+              "Accent": "Warning",
+              "Size": "XXSmall",
+              "Icon": "Trailing"
+            }
+          ],
+          "artifactPath": "evidence/enumeration-787-14271.json",
+          "artifactSha256": "1fc02bbd89e5cb88724c1f5503cf8e7c320a540c85afb3a80bfcd0f40f494bda",
+          "enumeratedCount": 48,
+          "method": {
+            "class": "plugin_api_variant_properties",
+            "toolIdentity": "mcp__plugin_figma_figma__use_figma",
+            "apiFieldsRead": [
+              "COMPONENT_SET.children",
+              "COMPONENT.variantProperties",
+              "COMPONENT_SET.componentPropertyDefinitions"
+            ],
+            "inferredFields": [],
+            "rawCaptureRef": {
+              "artifactPath": "evidence/api-capture-component-sets.json",
+              "artifactSha256": "fef66a30a2495a6d0cca9a69bc4c98b668fd800efa7e1ea4afd7ac968e2c04b5"
+            },
+            "normalizedArtifactRef": {
+              "artifactPath": "evidence/enumeration-787-14271.json",
+              "artifactSha256": "1fc02bbd89e5cb88724c1f5503cf8e7c320a540c85afb3a80bfcd0f40f494bda"
+            }
+          }
+        }
+      },
+      {
+        "componentSetId": "NODE-0415",
+        "coverageMetrics": [
+          {
+            "kind": "classified",
+            "metric": "instance_placements",
+            "value": 40,
+            "evidenceNodeIds": [
+              "NODE-0001"
+            ]
+          },
+          {
+            "kind": "classified",
+            "metric": "unique_variant_combinations",
+            "value": 12,
+            "evidenceNodeIds": [
+              "NODE-0001"
+            ]
+          },
+          {
+            "kind": "classified",
+            "metric": "matrix_cells",
+            "value": 4,
+            "representationId": "LR-2"
+          }
+        ],
+        "physicalCoverageEvidenceLevel": "component_children_enumerated",
+        "physicalCompletenessClaimed": false,
+        "ownerConfirmationRef": null,
+        "enumerationEvidence": {
+          "status": "enumerated",
+          "enumeratedAxes": [
+            "Accent",
+            "Size",
+            "Icon"
+          ],
+          "enumeratedAxisCombinations": [
+            {
+              "Accent": "Error",
+              "Size": "Regular",
+              "Icon": "Leading"
+            },
+            {
+              "Accent": "Error",
+              "Size": "Small",
+              "Icon": "Leading"
+            },
+            {
+              "Accent": "Error",
+              "Size": "XSmall",
+              "Icon": "Leading"
+            },
+            {
+              "Accent": "Error",
+              "Size": "XXSmall",
+              "Icon": "Leading"
+            },
+            {
+              "Accent": "Error",
+              "Size": "Regular",
+              "Icon": "None"
+            },
+            {
+              "Accent": "Error",
+              "Size": "Small",
+              "Icon": "None"
+            },
+            {
+              "Accent": "Error",
+              "Size": "XSmall",
+              "Icon": "None"
+            },
+            {
+              "Accent": "Error",
+              "Size": "XXSmall",
+              "Icon": "None"
+            },
+            {
+              "Accent": "Error",
+              "Size": "Regular",
+              "Icon": "Trailing"
+            },
+            {
+              "Accent": "Error",
+              "Size": "Small",
+              "Icon": "Trailing"
+            },
+            {
+              "Accent": "Error",
+              "Size": "XSmall",
+              "Icon": "Trailing"
+            },
+            {
+              "Accent": "Error",
+              "Size": "XXSmall",
+              "Icon": "Trailing"
+            },
+            {
+              "Accent": "Info",
+              "Size": "Regular",
+              "Icon": "Leading"
+            },
+            {
+              "Accent": "Info",
+              "Size": "Small",
+              "Icon": "Leading"
+            },
+            {
+              "Accent": "Info",
+              "Size": "XSmall",
+              "Icon": "Leading"
+            },
+            {
+              "Accent": "Info",
+              "Size": "XXSmall",
+              "Icon": "Leading"
+            },
+            {
+              "Accent": "Info",
+              "Size": "Regular",
+              "Icon": "None"
+            },
+            {
+              "Accent": "Info",
+              "Size": "Small",
+              "Icon": "None"
+            },
+            {
+              "Accent": "Info",
+              "Size": "XSmall",
+              "Icon": "None"
+            },
+            {
+              "Accent": "Info",
+              "Size": "XXSmall",
+              "Icon": "None"
+            },
+            {
+              "Accent": "Info",
+              "Size": "Regular",
+              "Icon": "Trailing"
+            },
+            {
+              "Accent": "Info",
+              "Size": "Small",
+              "Icon": "Trailing"
+            },
+            {
+              "Accent": "Info",
+              "Size": "XSmall",
+              "Icon": "Trailing"
+            },
+            {
+              "Accent": "Info",
+              "Size": "XXSmall",
+              "Icon": "Trailing"
+            },
+            {
+              "Accent": "Success",
+              "Size": "Regular",
+              "Icon": "Leading"
+            },
+            {
+              "Accent": "Success",
+              "Size": "Small",
+              "Icon": "Leading"
+            },
+            {
+              "Accent": "Success",
+              "Size": "XSmall",
+              "Icon": "Leading"
+            },
+            {
+              "Accent": "Success",
+              "Size": "XXSmall",
+              "Icon": "Leading"
+            },
+            {
+              "Accent": "Success",
+              "Size": "Regular",
+              "Icon": "None"
+            },
+            {
+              "Accent": "Success",
+              "Size": "Small",
+              "Icon": "None"
+            },
+            {
+              "Accent": "Success",
+              "Size": "XSmall",
+              "Icon": "None"
+            },
+            {
+              "Accent": "Success",
+              "Size": "XXSmall",
+              "Icon": "None"
+            },
+            {
+              "Accent": "Success",
+              "Size": "Regular",
+              "Icon": "Trailing"
+            },
+            {
+              "Accent": "Success",
+              "Size": "Small",
+              "Icon": "Trailing"
+            },
+            {
+              "Accent": "Success",
+              "Size": "XSmall",
+              "Icon": "Trailing"
+            },
+            {
+              "Accent": "Success",
+              "Size": "XXSmall",
+              "Icon": "Trailing"
+            },
+            {
+              "Accent": "Warning",
+              "Size": "Regular",
+              "Icon": "Leading"
+            },
+            {
+              "Accent": "Warning",
+              "Size": "Small",
+              "Icon": "Leading"
+            },
+            {
+              "Accent": "Warning",
+              "Size": "XSmall",
+              "Icon": "Leading"
+            },
+            {
+              "Accent": "Warning",
+              "Size": "XXSmall",
+              "Icon": "Leading"
+            },
+            {
+              "Accent": "Warning",
+              "Size": "Regular",
+              "Icon": "None"
+            },
+            {
+              "Accent": "Warning",
+              "Size": "Small",
+              "Icon": "None"
+            },
+            {
+              "Accent": "Warning",
+              "Size": "XSmall",
+              "Icon": "None"
+            },
+            {
+              "Accent": "Warning",
+              "Size": "XXSmall",
+              "Icon": "None"
+            },
+            {
+              "Accent": "Warning",
+              "Size": "Regular",
+              "Icon": "Trailing"
+            },
+            {
+              "Accent": "Warning",
+              "Size": "Small",
+              "Icon": "Trailing"
+            },
+            {
+              "Accent": "Warning",
+              "Size": "XSmall",
+              "Icon": "Trailing"
+            },
+            {
+              "Accent": "Warning",
+              "Size": "XXSmall",
+              "Icon": "Trailing"
+            }
+          ],
+          "artifactPath": "evidence/enumeration-787-14401.json",
+          "artifactSha256": "a5ea89641381007d4fda374b80cb92cd3c201a9141a7a55e1a192b20dbccc8eb",
+          "enumeratedCount": 48,
+          "method": {
+            "class": "plugin_api_variant_properties",
+            "toolIdentity": "mcp__plugin_figma_figma__use_figma",
+            "apiFieldsRead": [
+              "COMPONENT_SET.children",
+              "COMPONENT.variantProperties",
+              "COMPONENT_SET.componentPropertyDefinitions"
+            ],
+            "inferredFields": [],
+            "rawCaptureRef": {
+              "artifactPath": "evidence/api-capture-component-sets.json",
+              "artifactSha256": "fef66a30a2495a6d0cca9a69bc4c98b668fd800efa7e1ea4afd7ac968e2c04b5"
+            },
+            "normalizedArtifactRef": {
+              "artifactPath": "evidence/enumeration-787-14401.json",
+              "artifactSha256": "a5ea89641381007d4fda374b80cb92cd3c201a9141a7a55e1a192b20dbccc8eb"
+            }
+          }
+        }
+      },
+      {
+        "componentSetId": "NODE-0464",
+        "coverageMetrics": [
+          {
+            "kind": "classified",
+            "metric": "instance_placements",
+            "value": 18,
+            "evidenceNodeIds": [
+              "NODE-0001"
+            ]
+          },
+          {
+            "kind": "classified",
+            "metric": "unique_variant_combinations",
+            "value": 8,
+            "evidenceNodeIds": [
+              "NODE-0001"
+            ]
+          },
+          {
+            "kind": "classified",
+            "metric": "matrix_cells",
+            "value": 4,
+            "representationId": "LR-2"
+          }
+        ],
+        "physicalCoverageEvidenceLevel": "component_children_enumerated",
+        "physicalCompletenessClaimed": false,
+        "ownerConfirmationRef": null,
+        "enumerationEvidence": {
+          "status": "enumerated",
+          "enumeratedAxes": [
+            "Accent",
+            "Size",
+            "Icon"
+          ],
+          "enumeratedAxisCombinations": [
+            {
+              "Accent": "Error",
+              "Size": "Regular",
+              "Icon": "Leading"
+            },
+            {
+              "Accent": "Error",
+              "Size": "Small",
+              "Icon": "Leading"
+            },
+            {
+              "Accent": "Error",
+              "Size": "XSmall",
+              "Icon": "Leading"
+            },
+            {
+              "Accent": "Error",
+              "Size": "XXSmall",
+              "Icon": "Leading"
+            },
+            {
+              "Accent": "Error",
+              "Size": "Regular",
+              "Icon": "None"
+            },
+            {
+              "Accent": "Error",
+              "Size": "Small",
+              "Icon": "None"
+            },
+            {
+              "Accent": "Error",
+              "Size": "XSmall",
+              "Icon": "None"
+            },
+            {
+              "Accent": "Error",
+              "Size": "XXSmall",
+              "Icon": "None"
+            },
+            {
+              "Accent": "Error",
+              "Size": "Regular",
+              "Icon": "Trailing"
+            },
+            {
+              "Accent": "Error",
+              "Size": "Small",
+              "Icon": "Trailing"
+            },
+            {
+              "Accent": "Error",
+              "Size": "XSmall",
+              "Icon": "Trailing"
+            },
+            {
+              "Accent": "Error",
+              "Size": "XXSmall",
+              "Icon": "Trailing"
+            },
+            {
+              "Accent": "Info",
+              "Size": "Regular",
+              "Icon": "Leading"
+            },
+            {
+              "Accent": "Info",
+              "Size": "Small",
+              "Icon": "Leading"
+            },
+            {
+              "Accent": "Info",
+              "Size": "XSmall",
+              "Icon": "Leading"
+            },
+            {
+              "Accent": "Info",
+              "Size": "XXSmall",
+              "Icon": "Leading"
+            },
+            {
+              "Accent": "Info",
+              "Size": "Regular",
+              "Icon": "None"
+            },
+            {
+              "Accent": "Info",
+              "Size": "Small",
+              "Icon": "None"
+            },
+            {
+              "Accent": "Info",
+              "Size": "XSmall",
+              "Icon": "None"
+            },
+            {
+              "Accent": "Info",
+              "Size": "XXSmall",
+              "Icon": "None"
+            },
+            {
+              "Accent": "Info",
+              "Size": "Regular",
+              "Icon": "Trailing"
+            },
+            {
+              "Accent": "Info",
+              "Size": "Small",
+              "Icon": "Trailing"
+            },
+            {
+              "Accent": "Info",
+              "Size": "XSmall",
+              "Icon": "Trailing"
+            },
+            {
+              "Accent": "Info",
+              "Size": "XXSmall",
+              "Icon": "Trailing"
+            },
+            {
+              "Accent": "Success",
+              "Size": "Regular",
+              "Icon": "Leading"
+            },
+            {
+              "Accent": "Success",
+              "Size": "Small",
+              "Icon": "Leading"
+            },
+            {
+              "Accent": "Success",
+              "Size": "XSmall",
+              "Icon": "Leading"
+            },
+            {
+              "Accent": "Success",
+              "Size": "XXSmall",
+              "Icon": "Leading"
+            },
+            {
+              "Accent": "Success",
+              "Size": "Regular",
+              "Icon": "None"
+            },
+            {
+              "Accent": "Success",
+              "Size": "Small",
+              "Icon": "None"
+            },
+            {
+              "Accent": "Success",
+              "Size": "XSmall",
+              "Icon": "None"
+            },
+            {
+              "Accent": "Success",
+              "Size": "XXSmall",
+              "Icon": "None"
+            },
+            {
+              "Accent": "Success",
+              "Size": "Regular",
+              "Icon": "Trailing"
+            },
+            {
+              "Accent": "Success",
+              "Size": "Small",
+              "Icon": "Trailing"
+            },
+            {
+              "Accent": "Success",
+              "Size": "XSmall",
+              "Icon": "Trailing"
+            },
+            {
+              "Accent": "Success",
+              "Size": "XXSmall",
+              "Icon": "Trailing"
+            },
+            {
+              "Accent": "Warning",
+              "Size": "Regular",
+              "Icon": "Leading"
+            },
+            {
+              "Accent": "Warning",
+              "Size": "Small",
+              "Icon": "Leading"
+            },
+            {
+              "Accent": "Warning",
+              "Size": "XSmall",
+              "Icon": "Leading"
+            },
+            {
+              "Accent": "Warning",
+              "Size": "XXSmall",
+              "Icon": "Leading"
+            },
+            {
+              "Accent": "Warning",
+              "Size": "Regular",
+              "Icon": "None"
+            },
+            {
+              "Accent": "Warning",
+              "Size": "Small",
+              "Icon": "None"
+            },
+            {
+              "Accent": "Warning",
+              "Size": "XSmall",
+              "Icon": "None"
+            },
+            {
+              "Accent": "Warning",
+              "Size": "XXSmall",
+              "Icon": "None"
+            },
+            {
+              "Accent": "Warning",
+              "Size": "Regular",
+              "Icon": "Trailing"
+            },
+            {
+              "Accent": "Warning",
+              "Size": "Small",
+              "Icon": "Trailing"
+            },
+            {
+              "Accent": "Warning",
+              "Size": "XSmall",
+              "Icon": "Trailing"
+            },
+            {
+              "Accent": "Warning",
+              "Size": "XXSmall",
+              "Icon": "Trailing"
+            }
+          ],
+          "artifactPath": "evidence/enumeration-787-14531.json",
+          "artifactSha256": "65eb35f5fb57f84f5762e10576189d45ac4d4ac3e74835b211d8eccb823d13f1",
+          "enumeratedCount": 48,
+          "method": {
+            "class": "plugin_api_variant_properties",
+            "toolIdentity": "mcp__plugin_figma_figma__use_figma",
+            "apiFieldsRead": [
+              "COMPONENT_SET.children",
+              "COMPONENT.variantProperties",
+              "COMPONENT_SET.componentPropertyDefinitions"
+            ],
+            "inferredFields": [],
+            "rawCaptureRef": {
+              "artifactPath": "evidence/api-capture-component-sets.json",
+              "artifactSha256": "fef66a30a2495a6d0cca9a69bc4c98b668fd800efa7e1ea4afd7ac968e2c04b5"
+            },
+            "normalizedArtifactRef": {
+              "artifactPath": "evidence/enumeration-787-14531.json",
+              "artifactSha256": "65eb35f5fb57f84f5762e10576189d45ac4d4ac3e74835b211d8eccb823d13f1"
+            }
+          }
+        }
+      },
+      {
+        "componentSetId": "NODE-0513",
+        "coverageMetrics": [
+          {
+            "kind": "classified",
+            "metric": "instance_placements",
+            "value": 0,
+            "evidenceNodeIds": [
+              "NODE-0001"
+            ]
+          },
+          {
+            "kind": "classified",
+            "metric": "unique_variant_combinations",
+            "value": 0,
+            "evidenceNodeIds": [
+              "NODE-0001"
+            ]
+          }
+        ],
+        "physicalCoverageEvidenceLevel": "component_children_enumerated",
+        "physicalCompletenessClaimed": false,
+        "ownerConfirmationRef": null,
+        "enumerationEvidence": {
+          "status": "enumerated",
+          "enumeratedAxes": [
+            "Type",
+            "Style",
+            "Size",
+            "Animation"
+          ],
+          "enumeratedAxisCombinations": [
+            {
+              "Type": "Error",
+              "Style": "Filled",
+              "Size": "Large",
+              "Animation": "S1"
+            },
+            {
+              "Type": "Warning",
+              "Style": "Filled",
+              "Size": "Large",
+              "Animation": "S1"
+            },
+            {
+              "Type": "Error",
+              "Style": "Highline",
+              "Size": "Large",
+              "Animation": "S1"
+            },
+            {
+              "Type": "Warning",
+              "Style": "Highline",
+              "Size": "Large",
+              "Animation": "S1"
+            },
+            {
+              "Type": "Error",
+              "Style": "Filled",
+              "Size": "Regular",
+              "Animation": "S1"
+            },
+            {
+              "Type": "Warning",
+              "Style": "Filled",
+              "Size": "Regular",
+              "Animation": "S1"
+            },
+            {
+              "Type": "Error",
+              "Style": "Highline",
+              "Size": "Regular",
+              "Animation": "S1"
+            },
+            {
+              "Type": "Warning",
+              "Style": "Highline",
+              "Size": "Regular",
+              "Animation": "S1"
+            },
+            {
+              "Type": "Error",
+              "Style": "Filled",
+              "Size": "Small",
+              "Animation": "S1"
+            },
+            {
+              "Type": "Warning",
+              "Style": "Filled",
+              "Size": "Small",
+              "Animation": "S1"
+            },
+            {
+              "Type": "Error",
+              "Style": "Highline",
+              "Size": "Small",
+              "Animation": "S1"
+            },
+            {
+              "Type": "Warning",
+              "Style": "Highline",
+              "Size": "Small",
+              "Animation": "S1"
+            },
+            {
+              "Type": "Error",
+              "Style": "Filled",
+              "Size": "Large",
+              "Animation": "S2"
+            },
+            {
+              "Type": "Warning",
+              "Style": "Filled",
+              "Size": "Large",
+              "Animation": "S2"
+            },
+            {
+              "Type": "Error",
+              "Style": "Highline",
+              "Size": "Large",
+              "Animation": "S2"
+            },
+            {
+              "Type": "Warning",
+              "Style": "Highline",
+              "Size": "Large",
+              "Animation": "S2"
+            },
+            {
+              "Type": "Error",
+              "Style": "Filled",
+              "Size": "Regular",
+              "Animation": "S2"
+            },
+            {
+              "Type": "Warning",
+              "Style": "Filled",
+              "Size": "Regular",
+              "Animation": "S2"
+            },
+            {
+              "Type": "Error",
+              "Style": "Highline",
+              "Size": "Regular",
+              "Animation": "S2"
+            },
+            {
+              "Type": "Warning",
+              "Style": "Highline",
+              "Size": "Regular",
+              "Animation": "S2"
+            },
+            {
+              "Type": "Error",
+              "Style": "Filled",
+              "Size": "Small",
+              "Animation": "S2"
+            },
+            {
+              "Type": "Warning",
+              "Style": "Filled",
+              "Size": "Small",
+              "Animation": "S2"
+            },
+            {
+              "Type": "Error",
+              "Style": "Highline",
+              "Size": "Small",
+              "Animation": "S2"
+            },
+            {
+              "Type": "Warning",
+              "Style": "Highline",
+              "Size": "Small",
+              "Animation": "S2"
+            }
+          ],
+          "artifactPath": "evidence/enumeration-787-14660.json",
+          "artifactSha256": "c7568e9d4972909641016b9bf48aa37c52b7a9c462aa804485e660dfcd688350",
+          "enumeratedCount": 24,
+          "method": {
+            "class": "plugin_api_variant_properties",
+            "toolIdentity": "mcp__plugin_figma_figma__use_figma",
+            "apiFieldsRead": [
+              "COMPONENT_SET.children",
+              "COMPONENT.variantProperties",
+              "COMPONENT_SET.componentPropertyDefinitions"
+            ],
+            "inferredFields": [],
+            "rawCaptureRef": {
+              "artifactPath": "evidence/api-capture-component-sets.json",
+              "artifactSha256": "fef66a30a2495a6d0cca9a69bc4c98b668fd800efa7e1ea4afd7ac968e2c04b5"
+            },
+            "normalizedArtifactRef": {
+              "artifactPath": "evidence/enumeration-787-14660.json",
+              "artifactSha256": "c7568e9d4972909641016b9bf48aa37c52b7a9c462aa804485e660dfcd688350"
+            }
+          }
+        }
+      }
+    ]
+  },
+  "resolves": [
+    "layoutRepresentations[",
+    "coveragePolicy[",
+    "themeModel.containers[",
+    "representationNodeBindings["
+  ]
+}

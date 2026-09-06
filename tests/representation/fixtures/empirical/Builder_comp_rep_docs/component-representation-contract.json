@@ -1,0 +1,2386 @@
+{
+  "contractId": "NAME-0001-buttons-component-representation-contract",
+  "contractVersion": "0.4.0-draft",
+  "provenance": {
+    "file": "NAME-0001 Components",
+    "fileKey": "FILEKEY-0002",
+    "rootNodeId": "NODE-0578",
+    "rootNodeName": "component_box",
+    "analyzedComponent": "Buttons",
+    "exportsUsed": [
+      {
+        "fileName": "NAME-0001-components-848-3342-basic-tree.json",
+        "capabilities": [
+          "name",
+          "type",
+          "id",
+          "children"
+        ],
+        "selfReportsValidation": false,
+        "sha256": "defa3dcd2b9179e5c84949a4092adc46af1fe8e401a3cfb265b32c9a0dffea81",
+        "capturedAt": null
+      },
+      {
+        "fileName": "NAME-0001-components-848-3342-terminal.json",
+        "capabilities": [
+          "name",
+          "type",
+          "id",
+          "children",
+          "styles.properties",
+          "styles.boundVariables",
+          "styles.namedStyles",
+          "styles.componentMetadata",
+          "namedStyleCatalog",
+          "variableCatalog",
+          "variableCollectionCatalog",
+          "validation"
+        ],
+        "selfReportsValidation": true,
+        "sha256": "34a68c62eae06c1a6a5aa8eb3087d97ae02766e59a9778772ceea32acea73bde",
+        "capturedAt": "2026-08-11T09:NODE-0300.312Z"
+      }
+    ],
+    "liveFigmaAccessLog": [
+      {
+        "nodeId": "NODE-0578",
+        "operation": "get_metadata",
+        "result": "Confirmed root node name='component_box', type=SECTION, matching both exports.",
+        "evidenceClassification": "observed",
+        "resultingEvidenceLevel": null,
+        "capturedAt": null,
+        "toolIdentity": "mcp__plugin_figma_figma__get_metadata",
+        "toolVersionKnown": false,
+        "figmaFileVersionIdentity": null,
+        "artifactAvailable": false,
+        "artifactPath": null,
+        "artifactSha256": null,
+        "rawResponsePath": null
+      },
+      {
+        "nodeId": "NODE-0557",
+        "operation": "get_screenshot(maxDimension=2000)",
+        "result": "Revealed true visual top-to-bottom order of the four comp_build_variant_section bands under 'comp_build' (Central-Optional topmost, no children-array x/y data existed to determine this from JSON alone). Also showed the Button - Primary - Filled - Gradient COMPONENT_SET (NODE-0313) rendered as a 4-band x 5-row x 5-column grid with no visible empty cells, for this one component set only. This is a visual render, not a structural enumeration of the set's real children -- it establishes visual_matrix_verified, not component_children_enumerated.",
+        "evidenceClassification": "observed",
+        "resultingEvidenceLevel": "visual_matrix_verified",
+        "capturedAt": null,
+        "toolIdentity": "mcp__plugin_figma_figma__get_screenshot",
+        "toolVersionKnown": false,
+        "figmaFileVersionIdentity": null,
+        "artifactAvailable": true,
+        "artifactPath": "evidence/comp_build_750-2443_screenshot.png",
+        "artifactSha256": "f6c241bc125f96f0ce01db847a81f2494b26f13ba47f130d653e355a05bab171",
+        "rawResponsePath": null
+      }
+    ]
+  },
+  "componentIdentity": {
+    "name": "Buttons",
+    "description": "Buttons are the digital triggers that let you interact with the application. Common functions include: Submitting data, Navigation, and Confirmation.",
+    "evidence": {
+      "classification": "observed",
+      "sourceFile": "NAME-0001-components-848-3342-terminal.json",
+      "nodeIds": [
+        "NODE-0312"
+      ],
+      "confidence": "high"
+    }
+  },
+  "semanticFamilies": [
+    {
+      "familyId": "primary_buttons",
+      "displayName": "Primary Buttons",
+      "componentSetIds": [
+        "NODE-0313",
+        "NODE-0563",
+        "NODE-0565",
+        "NODE-0567"
+      ],
+      "evidence": {
+        "classification": "observed",
+        "sourceFile": "NAME-0001-components-848-3342-terminal.json",
+        "confidence": "high"
+      }
+    },
+    {
+      "familyId": "secondary_buttons",
+      "displayName": "Secondary Buttons",
+      "componentSetIds": [
+        "NODE-0571",
+        "NODE-0577",
+        "NODE-0573",
+        "NODE-0575"
+      ],
+      "evidence": {
+        "classification": "observed",
+        "sourceFile": "NAME-0001-components-848-3342-terminal.json",
+        "confidence": "high"
+      }
+    },
+    {
+      "familyId": "disabled_buttons_variants",
+      "displayName": "Disabled Buttons Variants",
+      "componentSetIds": [
+        "NODE-0561",
+        "NODE-0569"
+      ],
+      "evidence": {
+        "classification": "observed",
+        "sourceFile": "NAME-0001-components-848-3342-terminal.json",
+        "confidence": "high"
+      }
+    }
+  ],
+  "componentSets": [
+    {
+      "id": "NODE-0313",
+      "buildFrameId": "NODE-0557",
+      "name": "Button - Primary - Filled - Gradient",
+      "familyId": "primary_buttons",
+      "schemaVariantId": "schema_a_full_state",
+      "evidence": {
+        "classification": "observed",
+        "sourceFile": "NAME-0001-components-848-3342-terminal.json",
+        "nodeIds": [
+          "NODE-0313",
+          "NODE-0557"
+        ],
+        "confidence": "high"
+      },
+      "treatment": {
+        "kind": "set_identity",
+        "label": "Filled - Gradient"
+      },
+      "nonVariantPropertyCoverage": [
+        {
+          "propertyKey": "Leading#NODE-0304",
+          "role": "boolean_toggle",
+          "declaredDefault": false,
+          "overrideEvidenceStatus": "not_enumerated"
+        },
+        {
+          "propertyKey": "Trailing#NODE-0306",
+          "role": "boolean_toggle",
+          "declaredDefault": false,
+          "overrideEvidenceStatus": "not_enumerated"
+        },
+        {
+          "propertyKey": "Main Icon#NODE-0307",
+          "role": "content_instance_swap",
+          "declaredDefault": "NODE-0309",
+          "overrideEvidenceStatus": "not_enumerated"
+        },
+        {
+          "propertyKey": "Trail Icon#NODE-0308",
+          "role": "content_instance_swap",
+          "declaredDefault": "NODE-0310",
+          "overrideEvidenceStatus": "not_enumerated"
+        },
+        {
+          "propertyKey": "Label#NODE-0305",
+          "role": "content_text",
+          "declaredDefault": "Label",
+          "overrideEvidenceStatus": "not_enumerated"
+        }
+      ]
+    },
+    {
+      "id": "NODE-0563",
+      "buildFrameId": "NODE-0562",
+      "name": "Button - Primary - Tonal - Solid",
+      "familyId": "primary_buttons",
+      "schemaVariantId": "schema_a_full_state",
+      "evidence": {
+        "classification": "observed",
+        "sourceFile": "NAME-0001-components-848-3342-terminal.json",
+        "nodeIds": [
+          "NODE-0563",
+          "NODE-0562"
+        ],
+        "confidence": "high"
+      },
+      "treatment": {
+        "kind": "set_identity",
+        "label": "Tonal - Solid"
+      },
+      "nonVariantPropertyCoverage": [
+        {
+          "propertyKey": "Leading#NODE-0304",
+          "role": "boolean_toggle",
+          "declaredDefault": false,
+          "overrideEvidenceStatus": "not_enumerated"
+        },
+        {
+          "propertyKey": "Trailing#NODE-0306",
+          "role": "boolean_toggle",
+          "declaredDefault": false,
+          "overrideEvidenceStatus": "not_enumerated"
+        },
+        {
+          "propertyKey": "Main Icon#NODE-0307",
+          "role": "content_instance_swap",
+          "declaredDefault": "NODE-0309",
+          "overrideEvidenceStatus": "not_enumerated"
+        },
+        {
+          "propertyKey": "Trail Icon#NODE-0308",
+          "role": "content_instance_swap",
+          "declaredDefault": "NODE-0310",
+          "overrideEvidenceStatus": "not_enumerated"
+        },
+        {
+          "propertyKey": "Label#NODE-0305",
+          "role": "content_text",
+          "declaredDefault": "Label",
+          "overrideEvidenceStatus": "not_enumerated"
+        }
+      ]
+    },
+    {
+      "id": "NODE-0565",
+      "buildFrameId": "NODE-0564",
+      "name": "Button - Primary - Outline - Gradient",
+      "familyId": "primary_buttons",
+      "schemaVariantId": "schema_a_full_state",
+      "evidence": {
+        "classification": "observed",
+        "sourceFile": "NAME-0001-components-848-3342-terminal.json",
+        "nodeIds": [
+          "NODE-0565",
+          "NODE-0564"
+        ],
+        "confidence": "high"
+      },
+      "treatment": {
+        "kind": "set_identity",
+        "label": "Outline - Gradient"
+      },
+      "nonVariantPropertyCoverage": [
+        {
+          "propertyKey": "Leading#NODE-0304",
+          "role": "boolean_toggle",
+          "declaredDefault": false,
+          "overrideEvidenceStatus": "not_enumerated"
+        },
+        {
+          "propertyKey": "Trailing#NODE-0306",
+          "role": "boolean_toggle",
+          "declaredDefault": false,
+          "overrideEvidenceStatus": "not_enumerated"
+        },
+        {
+          "propertyKey": "Main Icon#NODE-0307",
+          "role": "content_instance_swap",
+          "declaredDefault": "NODE-0309",
+          "overrideEvidenceStatus": "not_enumerated"
+        },
+        {
+          "propertyKey": "Trail Icon#NODE-0308",
+          "role": "content_instance_swap",
+          "declaredDefault": "NODE-0310",
+          "overrideEvidenceStatus": "not_enumerated"
+        },
+        {
+          "propertyKey": "Label#NODE-0305",
+          "role": "content_text",
+          "declaredDefault": "Label",
+          "overrideEvidenceStatus": "not_enumerated"
+        }
+      ]
+    },
+    {
+      "id": "NODE-0567",
+      "buildFrameId": "NODE-0566",
+      "name": "Button - Primary - Text - Void",
+      "familyId": "primary_buttons",
+      "schemaVariantId": "schema_a_full_state",
+      "evidence": {
+        "classification": "observed",
+        "sourceFile": "NAME-0001-components-848-3342-terminal.json",
+        "nodeIds": [
+          "NODE-0567",
+          "NODE-0566"
+        ],
+        "confidence": "high"
+      },
+      "treatment": {
+        "kind": "set_identity",
+        "label": "Text - Void"
+      },
+      "nonVariantPropertyCoverage": [
+        {
+          "propertyKey": "Leading#NODE-0304",
+          "role": "boolean_toggle",
+          "declaredDefault": false,
+          "overrideEvidenceStatus": "not_enumerated"
+        },
+        {
+          "propertyKey": "Trailing#NODE-0306",
+          "role": "boolean_toggle",
+          "declaredDefault": false,
+          "overrideEvidenceStatus": "not_enumerated"
+        },
+        {
+          "propertyKey": "Main Icon#NODE-0307",
+          "role": "content_instance_swap",
+          "declaredDefault": "NODE-0309",
+          "overrideEvidenceStatus": "not_enumerated"
+        },
+        {
+          "propertyKey": "Trail Icon#NODE-0308",
+          "role": "content_instance_swap",
+          "declaredDefault": "NODE-0310",
+          "overrideEvidenceStatus": "not_enumerated"
+        },
+        {
+          "propertyKey": "Label#NODE-0305",
+          "role": "content_text",
+          "declaredDefault": "Label",
+          "overrideEvidenceStatus": "not_enumerated"
+        }
+      ]
+    },
+    {
+      "id": "NODE-0571",
+      "buildFrameId": "NODE-0570",
+      "name": "Button - Secondary - Filled - Solid",
+      "familyId": "secondary_buttons",
+      "schemaVariantId": "schema_a_full_state",
+      "evidence": {
+        "classification": "observed",
+        "sourceFile": "NAME-0001-components-848-3342-terminal.json",
+        "nodeIds": [
+          "NODE-0571",
+          "NODE-0570"
+        ],
+        "confidence": "high"
+      },
+      "treatment": {
+        "kind": "set_identity",
+        "label": "Filled - Solid"
+      },
+      "nonVariantPropertyCoverage": [
+        {
+          "propertyKey": "Leading#NODE-0304",
+          "role": "boolean_toggle",
+          "declaredDefault": false,
+          "overrideEvidenceStatus": "not_enumerated"
+        },
+        {
+          "propertyKey": "Trailing#NODE-0306",
+          "role": "boolean_toggle",
+          "declaredDefault": false,
+          "overrideEvidenceStatus": "not_enumerated"
+        },
+        {
+          "propertyKey": "Main Icon#NODE-0307",
+          "role": "content_instance_swap",
+          "declaredDefault": "NODE-0309",
+          "overrideEvidenceStatus": "not_enumerated"
+        },
+        {
+          "propertyKey": "Trail Icon#NODE-0308",
+          "role": "content_instance_swap",
+          "declaredDefault": "NODE-0310",
+          "overrideEvidenceStatus": "not_enumerated"
+        },
+        {
+          "propertyKey": "Label#NODE-0305",
+          "role": "content_text",
+          "declaredDefault": "Label",
+          "overrideEvidenceStatus": "not_enumerated"
+        }
+      ]
+    },
+    {
+      "id": "NODE-0577",
+      "buildFrameId": "NODE-0576",
+      "name": "Button - Secondary - Tonal - Solid",
+      "familyId": "secondary_buttons",
+      "schemaVariantId": "schema_a_full_state",
+      "evidence": {
+        "classification": "observed",
+        "sourceFile": "NAME-0001-components-848-3342-terminal.json",
+        "nodeIds": [
+          "NODE-0577",
+          "NODE-0576"
+        ],
+        "confidence": "high"
+      },
+      "treatment": {
+        "kind": "set_identity",
+        "label": "Tonal - Solid"
+      },
+      "nonVariantPropertyCoverage": [
+        {
+          "propertyKey": "Leading#NODE-0304",
+          "role": "boolean_toggle",
+          "declaredDefault": false,
+          "overrideEvidenceStatus": "not_enumerated"
+        },
+        {
+          "propertyKey": "Trailing#NODE-0306",
+          "role": "boolean_toggle",
+          "declaredDefault": false,
+          "overrideEvidenceStatus": "not_enumerated"
+        },
+        {
+          "propertyKey": "Main Icon#NODE-0307",
+          "role": "content_instance_swap",
+          "declaredDefault": "NODE-0309",
+          "overrideEvidenceStatus": "not_enumerated"
+        },
+        {
+          "propertyKey": "Trail Icon#NODE-0308",
+          "role": "content_instance_swap",
+          "declaredDefault": "NODE-0310",
+          "overrideEvidenceStatus": "not_enumerated"
+        },
+        {
+          "propertyKey": "Label#NODE-0305",
+          "role": "content_text",
+          "declaredDefault": "Label",
+          "overrideEvidenceStatus": "not_enumerated"
+        }
+      ]
+    },
+    {
+      "id": "NODE-0573",
+      "buildFrameId": "NODE-0572",
+      "name": "Button - Secondary - Outline - Solid",
+      "familyId": "secondary_buttons",
+      "schemaVariantId": "schema_a_full_state",
+      "evidence": {
+        "classification": "observed",
+        "sourceFile": "NAME-0001-components-848-3342-terminal.json",
+        "nodeIds": [
+          "NODE-0573",
+          "NODE-0572"
+        ],
+        "confidence": "high"
+      },
+      "treatment": {
+        "kind": "set_identity",
+        "label": "Outline - Solid"
+      },
+      "nonVariantPropertyCoverage": [
+        {
+          "propertyKey": "Leading#NODE-0304",
+          "role": "boolean_toggle",
+          "declaredDefault": false,
+          "overrideEvidenceStatus": "not_enumerated"
+        },
+        {
+          "propertyKey": "Trailing#NODE-0306",
+          "role": "boolean_toggle",
+          "declaredDefault": false,
+          "overrideEvidenceStatus": "not_enumerated"
+        },
+        {
+          "propertyKey": "Main Icon#NODE-0307",
+          "role": "content_instance_swap",
+          "declaredDefault": "NODE-0309",
+          "overrideEvidenceStatus": "not_enumerated"
+        },
+        {
+          "propertyKey": "Trail Icon#NODE-0308",
+          "role": "content_instance_swap",
+          "declaredDefault": "NODE-0310",
+          "overrideEvidenceStatus": "not_enumerated"
+        },
+        {
+          "propertyKey": "Label#NODE-0305",
+          "role": "content_text",
+          "declaredDefault": "Label",
+          "overrideEvidenceStatus": "not_enumerated"
+        }
+      ]
+    },
+    {
+      "id": "NODE-0575",
+      "buildFrameId": "NODE-0574",
+      "name": "Button - Secondary - Text - Void",
+      "familyId": "secondary_buttons",
+      "schemaVariantId": "schema_a_full_state",
+      "evidence": {
+        "classification": "observed",
+        "sourceFile": "NAME-0001-components-848-3342-terminal.json",
+        "nodeIds": [
+          "NODE-0575",
+          "NODE-0574"
+        ],
+        "confidence": "high"
+      },
+      "treatment": {
+        "kind": "set_identity",
+        "label": "Text - Void"
+      },
+      "nonVariantPropertyCoverage": [
+        {
+          "propertyKey": "Leading#NODE-0304",
+          "role": "boolean_toggle",
+          "declaredDefault": false,
+          "overrideEvidenceStatus": "not_enumerated"
+        },
+        {
+          "propertyKey": "Trailing#NODE-0306",
+          "role": "boolean_toggle",
+          "declaredDefault": false,
+          "overrideEvidenceStatus": "not_enumerated"
+        },
+        {
+          "propertyKey": "Main Icon#NODE-0307",
+          "role": "content_instance_swap",
+          "declaredDefault": "NODE-0309",
+          "overrideEvidenceStatus": "not_enumerated"
+        },
+        {
+          "propertyKey": "Trail Icon#NODE-0308",
+          "role": "content_instance_swap",
+          "declaredDefault": "NODE-0310",
+          "overrideEvidenceStatus": "not_enumerated"
+        },
+        {
+          "propertyKey": "Label#NODE-0305",
+          "role": "content_text",
+          "declaredDefault": "Label",
+          "overrideEvidenceStatus": "not_enumerated"
+        }
+      ]
+    },
+    {
+      "id": "NODE-0561",
+      "buildFrameId": "NODE-0560",
+      "name": "Button - Disabled - Outlined",
+      "familyId": "disabled_buttons_variants",
+      "schemaVariantId": "schema_b_disabled_state",
+      "evidence": {
+        "classification": "observed",
+        "sourceFile": "NAME-0001-components-848-3342-terminal.json",
+        "nodeIds": [
+          "NODE-0561",
+          "NODE-0560"
+        ],
+        "confidence": "high",
+        "note": "buildFrameId corrected per direct user correction, independently re-verified against the raw export in this revision."
+      },
+      "treatment": {
+        "kind": "set_identity",
+        "label": "Outlined"
+      },
+      "nonVariantPropertyCoverage": [
+        {
+          "propertyKey": "Leading#NODE-0304",
+          "role": "boolean_toggle",
+          "declaredDefault": false,
+          "overrideEvidenceStatus": "not_enumerated"
+        },
+        {
+          "propertyKey": "Trailing#NODE-0306",
+          "role": "boolean_toggle",
+          "declaredDefault": false,
+          "overrideEvidenceStatus": "not_enumerated"
+        },
+        {
+          "propertyKey": "Main Icon#NODE-0307",
+          "role": "content_instance_swap",
+          "declaredDefault": "NODE-0309",
+          "overrideEvidenceStatus": "not_enumerated"
+        },
+        {
+          "propertyKey": "Trail Icon#NODE-0308",
+          "role": "content_instance_swap",
+          "declaredDefault": "NODE-0310",
+          "overrideEvidenceStatus": "not_enumerated"
+        },
+        {
+          "propertyKey": "Label#NODE-0305",
+          "role": "content_text",
+          "declaredDefault": "Label",
+          "overrideEvidenceStatus": "not_enumerated"
+        }
+      ]
+    },
+    {
+      "id": "NODE-0569",
+      "buildFrameId": "NODE-0568",
+      "name": "Button - Disabled - TextOnly",
+      "familyId": "disabled_buttons_variants",
+      "schemaVariantId": "schema_b_disabled_state",
+      "evidence": {
+        "classification": "observed",
+        "sourceFile": "NAME-0001-components-848-3342-terminal.json",
+        "nodeIds": [
+          "NODE-0569",
+          "NODE-0568"
+        ],
+        "confidence": "high",
+        "note": "buildFrameId corrected per direct user correction, independently re-verified against the raw export in this revision."
+      },
+      "treatment": {
+        "kind": "set_identity",
+        "label": "TextOnly"
+      },
+      "nonVariantPropertyCoverage": [
+        {
+          "propertyKey": "Leading#NODE-0304",
+          "role": "boolean_toggle",
+          "declaredDefault": false,
+          "overrideEvidenceStatus": "not_enumerated"
+        },
+        {
+          "propertyKey": "Trailing#NODE-0306",
+          "role": "boolean_toggle",
+          "declaredDefault": false,
+          "overrideEvidenceStatus": "not_enumerated"
+        },
+        {
+          "propertyKey": "Main Icon#NODE-0307",
+          "role": "content_instance_swap",
+          "declaredDefault": "NODE-0309",
+          "overrideEvidenceStatus": "not_enumerated"
+        },
+        {
+          "propertyKey": "Trail Icon#NODE-0308",
+          "role": "content_instance_swap",
+          "declaredDefault": "NODE-0310",
+          "overrideEvidenceStatus": "not_enumerated"
+        },
+        {
+          "propertyKey": "Label#NODE-0305",
+          "role": "content_text",
+          "declaredDefault": "Label",
+          "overrideEvidenceStatus": "not_enumerated"
+        }
+      ]
+    }
+  ],
+  "propertySchemaVariants": [
+    {
+      "variantId": "schema_a_full_state",
+      "appliesToComponentSetIds": [
+        "NODE-0313",
+        "NODE-0563",
+        "NODE-0565",
+        "NODE-0567",
+        "NODE-0571",
+        "NODE-0577",
+        "NODE-0573",
+        "NODE-0575"
+      ],
+      "properties": [
+        {
+          "propertyKey": "Size",
+          "type": "VARIANT",
+          "defaultValue": "Tiny",
+          "canonicalOptions": [
+            "Tiny",
+            "Small",
+            "Regular",
+            "Medium",
+            "Large"
+          ],
+          "evidenceLevel": "observed_instances",
+          "role": "variant_axis"
+        },
+        {
+          "propertyKey": "Layout",
+          "type": "VARIANT",
+          "defaultValue": "Center - Fill",
+          "canonicalOptions": [
+            "Center - Fill",
+            "Left - Hug"
+          ],
+          "evidenceLevel": "observed_instances",
+          "role": "variant_axis"
+        },
+        {
+          "propertyKey": "State",
+          "type": "VARIANT",
+          "defaultValue": "Enabled",
+          "canonicalOptions": [
+            "Enabled",
+            "Hovered",
+            "Focused",
+            "Pressed",
+            "Disabled"
+          ],
+          "evidenceLevel": "schema_only",
+          "role": "variant_axis"
+        },
+        {
+          "propertyKey": "Symbol",
+          "type": "VARIANT",
+          "defaultValue": "Optional",
+          "canonicalOptions": [
+            "Leading",
+            "Trailing",
+            "Both",
+            "Optional"
+          ],
+          "evidenceLevel": "observed_instances",
+          "role": "variant_axis"
+        },
+        {
+          "propertyKey": "Leading#NODE-0304",
+          "type": "BOOLEAN",
+          "defaultValue": false,
+          "evidenceLevel": "observed_instances",
+          "role": "boolean_toggle"
+        },
+        {
+          "propertyKey": "Trailing#NODE-0306",
+          "type": "BOOLEAN",
+          "defaultValue": false,
+          "evidenceLevel": "observed_instances",
+          "role": "boolean_toggle"
+        },
+        {
+          "propertyKey": "Main Icon#NODE-0307",
+          "type": "INSTANCE_SWAP",
+          "defaultValue": "NODE-0309",
+          "preferredValues": [
+            {
+              "type": "COMPONENT",
+              "key": "KEY-0007"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "KEY-0004"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "KEY-0012"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "KEY-0018"
+            }
+          ],
+          "evidenceLevel": "observed_instances",
+          "role": "content_instance_swap"
+        },
+        {
+          "propertyKey": "Trail Icon#NODE-0308",
+          "type": "INSTANCE_SWAP",
+          "defaultValue": "NODE-0310",
+          "preferredValues": [
+            {
+              "type": "COMPONENT",
+              "key": "KEY-0007"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "KEY-0004"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "KEY-0012"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "KEY-0018"
+            }
+          ],
+          "evidenceLevel": "observed_instances",
+          "role": "content_instance_swap"
+        },
+        {
+          "propertyKey": "Label#NODE-0305",
+          "type": "TEXT",
+          "defaultValue": "Label",
+          "evidenceLevel": "schema_only",
+          "role": "content_text"
+        }
+      ],
+      "evidence": {
+        "classification": "observed",
+        "sourceFile": "NAME-0001-components-848-3342-terminal.json",
+        "nodeIds": [
+          "NODE-0313"
+        ],
+        "confidence": "high",
+        "note": "Property IDs (e.g. Leading#NODE-0304) are byte-identical across all 8 sets in this variant, suggesting shared lineage; not directly provable as design intent from the export."
+      }
+    },
+    {
+      "variantId": "schema_b_disabled_state",
+      "appliesToComponentSetIds": [
+        "NODE-0561",
+        "NODE-0569"
+      ],
+      "properties": [
+        {
+          "propertyKey": "Size",
+          "type": "VARIANT",
+          "defaultValue": "Tiny",
+          "canonicalOptions": [
+            "Tiny",
+            "Small",
+            "Regular",
+            "Medium",
+            "Large"
+          ],
+          "evidenceLevel": "observed_instances",
+          "role": "variant_axis"
+        },
+        {
+          "propertyKey": "Layout",
+          "type": "VARIANT",
+          "defaultValue": "Center - Fill",
+          "canonicalOptions": [
+            "Center - Fill",
+            "Left - Hug"
+          ],
+          "evidenceLevel": "observed_instances",
+          "role": "variant_axis"
+        },
+        {
+          "propertyKey": "State",
+          "type": "VARIANT",
+          "defaultValue": "Disabled",
+          "canonicalOptions": [
+            "Disabled"
+          ],
+          "evidenceLevel": "observed_instances",
+          "role": "variant_axis"
+        },
+        {
+          "propertyKey": "Symbol",
+          "type": "VARIANT",
+          "defaultValue": "Optional",
+          "canonicalOptions": [
+            "Leading",
+            "Trailing",
+            "Both",
+            "Optional"
+          ],
+          "evidenceLevel": "observed_instances",
+          "role": "variant_axis"
+        },
+        {
+          "propertyKey": "Leading#NODE-0304",
+          "type": "BOOLEAN",
+          "defaultValue": false,
+          "evidenceLevel": "observed_instances",
+          "role": "boolean_toggle"
+        },
+        {
+          "propertyKey": "Trailing#NODE-0306",
+          "type": "BOOLEAN",
+          "defaultValue": false,
+          "evidenceLevel": "observed_instances",
+          "role": "boolean_toggle"
+        },
+        {
+          "propertyKey": "Main Icon#NODE-0307",
+          "type": "INSTANCE_SWAP",
+          "defaultValue": "NODE-0309",
+          "preferredValues": [
+            {
+              "type": "COMPONENT",
+              "key": "KEY-0007"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "KEY-0004"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "KEY-0012"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "KEY-0018"
+            }
+          ],
+          "evidenceLevel": "observed_instances",
+          "role": "content_instance_swap"
+        },
+        {
+          "propertyKey": "Trail Icon#NODE-0308",
+          "type": "INSTANCE_SWAP",
+          "defaultValue": "NODE-0310",
+          "preferredValues": [
+            {
+              "type": "COMPONENT",
+              "key": "KEY-0007"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "KEY-0004"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "KEY-0012"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "KEY-0018"
+            }
+          ],
+          "evidenceLevel": "observed_instances",
+          "role": "content_instance_swap"
+        },
+        {
+          "propertyKey": "Label#NODE-0305",
+          "type": "TEXT",
+          "defaultValue": "Label",
+          "evidenceLevel": "schema_only",
+          "role": "content_text"
+        }
+      ],
+      "evidence": {
+        "classification": "observed",
+        "sourceFile": "NAME-0001-components-848-3342-terminal.json",
+        "nodeIds": [
+          "NODE-0561",
+          "NODE-0569"
+        ],
+        "confidence": "high",
+        "note": "Differs from schema_a_full_state only in State.canonicalOptions (restricted to ['Disabled']). All other properties, including property IDs, are identical."
+      }
+    }
+  ],
+  "canonicalValueDisplayLabelMap": [
+    {
+      "axis": "Layout",
+      "canonicalValue": "Center - Fill",
+      "displayLabelSurfaces": {
+        "var_col_title": "Center - Filled",
+        "variant_value_caption": "Central"
+      },
+      "relationship": "editorial_mapping",
+      "evidence": {
+        "classification": "observed",
+        "sourceFile": "NAME-0001-components-848-3342-terminal.json",
+        "confidence": "high"
+      }
+    },
+    {
+      "axis": "Layout",
+      "canonicalValue": "Center - Fill",
+      "displayLabelSurfaces": {
+        "var_col_title_typo_occurrence": "Center - FIlled"
+      },
+      "relationship": "typo",
+      "evidence": {
+        "classification": "observed",
+        "sourceFile": "NAME-0001-components-848-3342-terminal.json",
+        "confidence": "high",
+        "note": "Capital-I mid-word typo, observed in both the dark and light 'Layout' representation panels; ships to end users as-is."
+      }
+    },
+    {
+      "axis": "Layout",
+      "canonicalValue": "Left - Hug",
+      "displayLabelSurfaces": {
+        "var_col_title": "Left - Hug",
+        "variant_value_caption": "Hug"
+      },
+      "relationship": "editorial_mapping",
+      "evidence": {
+        "classification": "observed",
+        "sourceFile": "NAME-0001-components-848-3342-terminal.json",
+        "confidence": "high"
+      }
+    },
+    {
+      "axis": "treatment",
+      "canonicalValue": "Tonal - Solid",
+      "displayLabelSurfaces": {
+        "var_col_title": "Tonal",
+        "build_title": "Tonal/Highlighted"
+      },
+      "relationship": "editorial_mapping",
+      "evidence": {
+        "classification": "observed",
+        "sourceFile": "NAME-0001-components-848-3342-terminal.json",
+        "confidence": "high"
+      }
+    },
+    {
+      "axis": "treatment",
+      "canonicalValue": "Outline - Gradient",
+      "displayLabelSurfaces": {
+        "var_col_title": "Outline",
+        "build_title": "Outlined"
+      },
+      "relationship": "editorial_mapping",
+      "evidence": {
+        "classification": "observed",
+        "sourceFile": "NAME-0001-components-848-3342-terminal.json",
+        "confidence": "high"
+      }
+    },
+    {
+      "axis": "treatment",
+      "canonicalValue": "Text - Void",
+      "displayLabelSurfaces": {
+        "var_col_title": "Text",
+        "build_title": "Text/Void"
+      },
+      "relationship": "editorial_mapping",
+      "evidence": {
+        "classification": "observed",
+        "sourceFile": "NAME-0001-components-848-3342-terminal.json",
+        "confidence": "high"
+      }
+    },
+    {
+      "axis": "treatment",
+      "canonicalValue": "TextOnly",
+      "displayLabelSurfaces": {
+        "build_title": "Text Only"
+      },
+      "relationship": "editorial_mapping",
+      "evidence": {
+        "classification": "observed",
+        "sourceFile": "NAME-0001-components-848-3342-terminal.json",
+        "confidence": "high"
+      }
+    }
+  ],
+  "correlatedAxisTuples": [
+    {
+      "tupleId": "CAT-1",
+      "axes": [
+        "Layout",
+        "Symbol"
+      ],
+      "appliesToSchemaVariantIds": [
+        "schema_a_full_state",
+        "schema_b_disabled_state"
+      ],
+      "observedCombinations": [
+        {
+          "Layout": "Center - Fill",
+          "Symbol": "Optional"
+        },
+        {
+          "Layout": "Left - Hug",
+          "Symbol": "Leading"
+        },
+        {
+          "Layout": "Left - Hug",
+          "Symbol": "Trailing"
+        },
+        {
+          "Layout": "Left - Hug",
+          "Symbol": "Both"
+        }
+      ],
+      "proposedValidCombinations": [
+        {
+          "Layout": "Center - Fill",
+          "Symbol": "Optional"
+        },
+        {
+          "Layout": "Left - Hug",
+          "Symbol": "Leading"
+        },
+        {
+          "Layout": "Left - Hug",
+          "Symbol": "Trailing"
+        },
+        {
+          "Layout": "Left - Hug",
+          "Symbol": "Both"
+        }
+      ],
+      "approvedCombinations": [],
+      "approvalBasis": "unresolved",
+      "ownerConfirmationRef": null,
+      "evidence": {
+        "classification": "computed",
+        "sourceFile": "NAME-0001-components-848-3342-terminal.json",
+        "confidence": "high",
+        "note": "Derived by cross-referencing every comp_build_variant_section annotation pair (40/40 bands, 10/10 component sets) against every INSTANCE's variantProperties (196/196 instances, all located in components_representations). No annotation band or instance ever pairs Center - Fill with a Symbol other than Optional, or pairs Left - Hug with Symbol=Optional. proposedValidCombinations currently equals observedCombinations exactly -- nothing beyond what was directly observed has been hypothesized. This is pattern-detection over the file's own data (approvalBasis=unresolved), not an owner confirmation and not a structural enumeration; per CV-6/CV-8 it must not be promoted to approvedCombinations without one or the other."
+      }
+    }
+  ],
+  "ownerConfirmations": [],
+  "themeModel": {
+    "collections": [
+      {
+        "collectionId": "VC-0002",
+        "collectionKey": null,
+        "collectionName": "colors",
+        "remote": true,
+        "defaultModeId": "NODE-0299",
+        "variableCount": null,
+        "themeVarying": true,
+        "modes": [
+          {
+            "modeId": "NODE-0299",
+            "modeName": "Dark",
+            "isDefault": true
+          },
+          {
+            "modeId": "NODE-0558",
+            "modeName": "Light",
+            "isDefault": false
+          }
+        ]
+      }
+    ],
+    "containers": [
+      {
+        "containerNodeId": "unbound-container-0",
+        "containerNodeName": "dark_rep_container",
+        "labelSourceNodeId": null,
+        "labelText": null,
+        "modeBindings": [
+          {
+            "collectionId": "VC-0002",
+            "resolvedModeId": "NODE-0299",
+            "resolvedModeName": "Dark",
+            "provenanceStatus": "legacy_unverified",
+            "legacyState": {
+              "missingEvidence": "Whether the mode is explicitly set on this container or inherited was never captured; v0.3.1 recorded only a single bound variable id.",
+              "originalField": "themeModel.containerBindings[].boundVariableId",
+              "responsibleOwner": "NAME-0001 design-system owner",
+              "resolutionCondition": "Re-read explicitVariableModes on the container and its ancestry, then set provenanceStatus='verified' with an explicit/inherited_from_ancestor/inherited_default value."
+            }
+          }
+        ],
+        "evidence": {
+          "classification": "observed",
+          "sourceFile": "NAME-0001-components-848-3342-terminal.json",
+          "confidence": "high"
+        }
+      },
+      {
+        "containerNodeId": "unbound-container-1",
+        "containerNodeName": "light_rep_container",
+        "labelSourceNodeId": null,
+        "labelText": null,
+        "modeBindings": [
+          {
+            "collectionId": "VC-0002",
+            "resolvedModeId": "NODE-0558",
+            "resolvedModeName": "Light",
+            "provenanceStatus": "legacy_unverified",
+            "legacyState": {
+              "missingEvidence": "Whether the mode is explicitly set on this container or inherited was never captured; v0.3.1 recorded only a single bound variable id.",
+              "originalField": "themeModel.containerBindings[].boundVariableId",
+              "responsibleOwner": "NAME-0001 design-system owner",
+              "resolutionCondition": "Re-read explicitVariableModes on the container and its ancestry, then set provenanceStatus='verified' with an explicit/inherited_from_ancestor/inherited_default value."
+            }
+          }
+        ],
+        "evidence": {
+          "classification": "observed",
+          "sourceFile": "NAME-0001-components-848-3342-terminal.json",
+          "confidence": "high"
+        }
+      }
+    ],
+    "variablesUsedByDescendants": [
+      {
+        "variableId": "VAR-0006",
+        "variableKey": null,
+        "variableName": "unknown (v0.3.1 recorded only the id)",
+        "resolvedType": null,
+        "collectionId": "VC-0002",
+        "valuesByMode": {},
+        "sampledOnNodeIds": [
+          "unbound-container-0"
+        ],
+        "exhaustive": false
+      }
+    ],
+    "mechanismEvidence": {
+      "resolvedValuesDifferPerContainer": true,
+      "explicitPerFrameModeOverrideObserved": false,
+      "classification": "unverified"
+    }
+  },
+  "representativeExamples": [
+    {
+      "sectionName": "Size",
+      "axis": "Size",
+      "valuesShown": [
+        "Tiny",
+        "Small",
+        "Regular",
+        "Medium",
+        "Large"
+      ],
+      "evidence": {
+        "classification": "observed",
+        "sourceFile": "NAME-0001-components-848-3342-terminal.json",
+        "confidence": "high"
+      }
+    },
+    {
+      "sectionName": "Style",
+      "axis": "treatmentLabel",
+      "valuesShown": [
+        "Filled",
+        "Tonal",
+        "Outline",
+        "Text"
+      ],
+      "evidence": {
+        "classification": "observed",
+        "sourceFile": "NAME-0001-components-848-3342-terminal.json",
+        "confidence": "high"
+      }
+    },
+    {
+      "sectionName": "Layout",
+      "axis": "Layout",
+      "valuesShown": [
+        "Center - Filled",
+        "Left - Hug"
+      ],
+      "evidence": {
+        "classification": "observed",
+        "sourceFile": "NAME-0001-components-848-3342-terminal.json",
+        "confidence": "high",
+        "note": "Column captions shown verbatim, including the 'Center - Filled' editorial spelling (distinct from canonical 'Center - Fill')."
+      }
+    },
+    {
+      "sectionName": "Leading Symbol",
+      "axis": "Layout",
+      "valuesShown": [
+        "Center - Filled",
+        "Left - Hug"
+      ],
+      "evidence": {
+        "classification": "observed",
+        "sourceFile": "NAME-0001-components-848-3342-terminal.json",
+        "confidence": "medium",
+        "note": "Panel title names the Symbol concept but its columns are captioned by Layout value; the semantic intent behind this pairing was not independently re-verified."
+      }
+    },
+    {
+      "sectionName": "Trailing Symbol",
+      "axis": "Layout",
+      "valuesShown": [
+        "Center - Filled",
+        "Left - Hug"
+      ],
+      "evidence": {
+        "classification": "observed",
+        "sourceFile": "NAME-0001-components-848-3342-terminal.json",
+        "confidence": "medium"
+      }
+    },
+    {
+      "sectionName": "Both Leading & Trailing Symbols",
+      "axis": "Layout",
+      "valuesShown": [
+        "Center - Filled",
+        "Left - Hug"
+      ],
+      "evidence": {
+        "classification": "observed",
+        "sourceFile": "NAME-0001-components-848-3342-terminal.json",
+        "confidence": "medium"
+      }
+    },
+    {
+      "sectionName": "Disabled Buttons",
+      "axis": "Layout",
+      "valuesShown": [
+        "Center - Filled",
+        "Left - Hug"
+      ],
+      "evidence": {
+        "classification": "observed",
+        "sourceFile": "NAME-0001-components-848-3342-terminal.json",
+        "confidence": "medium"
+      }
+    }
+  ],
+  "coveragePolicy": {
+    "statement": "Physical completeness -- the claim that every documented (row,column,band) cell has a real backing COMPONENT child -- may only be asserted when evidence reaches component_children_enumerated or owner_confirmed. A visual/screenshot check (visual_matrix_verified) does NOT establish structural child completeness -- it is a different kind of check, not a weaker version of enumeration. A documented pairing count derived from annotation-band text or from INSTANCE.variantProperties is evidence of the intended design space, not proof that every cell is physically realized inside the COMPONENT_SET.",
+    "perComponentSetCoverage": [
+      {
+        "componentSetId": "NODE-0313",
+        "physicalCoverageEvidenceLevel": "visual_matrix_verified",
+        "physicalCompletenessClaimed": false,
+        "ownerConfirmationRef": null,
+        "enumerationEvidence": {
+          "status": "not_enumerated",
+          "enumeratedAxisCombinations": [],
+          "artifactPath": null,
+          "artifactSha256": null,
+          "enumeratedCount": null,
+          "enumeratedAxes": [],
+          "method": null
+        },
+        "coverageMetrics": [
+          {
+            "kind": "legacy_unclassified",
+            "value": 100,
+            "legacyState": {
+              "missingEvidence": "The metric kind this integer counts (instance placements, unique variant combinations, or matrix cells) is not recorded anywhere in v0.3.1.",
+              "originalField": "coveragePolicy.perComponentSetCoverage[].documentedPairingCount",
+              "responsibleOwner": "NAME-0001 design-system owner",
+              "resolutionCondition": "Owner defines which metric the value counts (gate G-3); then re-emit as kind='classified' with an explicit metric."
+            }
+          }
+        ]
+      },
+      {
+        "componentSetId": "NODE-0563",
+        "physicalCoverageEvidenceLevel": "schema_only",
+        "physicalCompletenessClaimed": false,
+        "ownerConfirmationRef": null,
+        "enumerationEvidence": {
+          "status": "not_enumerated",
+          "enumeratedAxisCombinations": [],
+          "artifactPath": null,
+          "artifactSha256": null,
+          "enumeratedCount": null,
+          "enumeratedAxes": [],
+          "method": null
+        },
+        "coverageMetrics": [
+          {
+            "kind": "legacy_unclassified",
+            "value": 100,
+            "legacyState": {
+              "missingEvidence": "The metric kind this integer counts (instance placements, unique variant combinations, or matrix cells) is not recorded anywhere in v0.3.1.",
+              "originalField": "coveragePolicy.perComponentSetCoverage[].documentedPairingCount",
+              "responsibleOwner": "NAME-0001 design-system owner",
+              "resolutionCondition": "Owner defines which metric the value counts (gate G-3); then re-emit as kind='classified' with an explicit metric."
+            }
+          }
+        ]
+      },
+      {
+        "componentSetId": "NODE-0565",
+        "physicalCoverageEvidenceLevel": "schema_only",
+        "physicalCompletenessClaimed": false,
+        "ownerConfirmationRef": null,
+        "enumerationEvidence": {
+          "status": "not_enumerated",
+          "enumeratedAxisCombinations": [],
+          "artifactPath": null,
+          "artifactSha256": null,
+          "enumeratedCount": null,
+          "enumeratedAxes": [],
+          "method": null
+        },
+        "coverageMetrics": [
+          {
+            "kind": "legacy_unclassified",
+            "value": 100,
+            "legacyState": {
+              "missingEvidence": "The metric kind this integer counts (instance placements, unique variant combinations, or matrix cells) is not recorded anywhere in v0.3.1.",
+              "originalField": "coveragePolicy.perComponentSetCoverage[].documentedPairingCount",
+              "responsibleOwner": "NAME-0001 design-system owner",
+              "resolutionCondition": "Owner defines which metric the value counts (gate G-3); then re-emit as kind='classified' with an explicit metric."
+            }
+          }
+        ]
+      },
+      {
+        "componentSetId": "NODE-0567",
+        "physicalCoverageEvidenceLevel": "schema_only",
+        "physicalCompletenessClaimed": false,
+        "ownerConfirmationRef": null,
+        "enumerationEvidence": {
+          "status": "not_enumerated",
+          "enumeratedAxisCombinations": [],
+          "artifactPath": null,
+          "artifactSha256": null,
+          "enumeratedCount": null,
+          "enumeratedAxes": [],
+          "method": null
+        },
+        "coverageMetrics": [
+          {
+            "kind": "legacy_unclassified",
+            "value": 100,
+            "legacyState": {
+              "missingEvidence": "The metric kind this integer counts (instance placements, unique variant combinations, or matrix cells) is not recorded anywhere in v0.3.1.",
+              "originalField": "coveragePolicy.perComponentSetCoverage[].documentedPairingCount",
+              "responsibleOwner": "NAME-0001 design-system owner",
+              "resolutionCondition": "Owner defines which metric the value counts (gate G-3); then re-emit as kind='classified' with an explicit metric."
+            }
+          }
+        ]
+      },
+      {
+        "componentSetId": "NODE-0571",
+        "physicalCoverageEvidenceLevel": "schema_only",
+        "physicalCompletenessClaimed": false,
+        "ownerConfirmationRef": null,
+        "enumerationEvidence": {
+          "status": "not_enumerated",
+          "enumeratedAxisCombinations": [],
+          "artifactPath": null,
+          "artifactSha256": null,
+          "enumeratedCount": null,
+          "enumeratedAxes": [],
+          "method": null
+        },
+        "coverageMetrics": [
+          {
+            "kind": "legacy_unclassified",
+            "value": 100,
+            "legacyState": {
+              "missingEvidence": "The metric kind this integer counts (instance placements, unique variant combinations, or matrix cells) is not recorded anywhere in v0.3.1.",
+              "originalField": "coveragePolicy.perComponentSetCoverage[].documentedPairingCount",
+              "responsibleOwner": "NAME-0001 design-system owner",
+              "resolutionCondition": "Owner defines which metric the value counts (gate G-3); then re-emit as kind='classified' with an explicit metric."
+            }
+          }
+        ]
+      },
+      {
+        "componentSetId": "NODE-0577",
+        "physicalCoverageEvidenceLevel": "schema_only",
+        "physicalCompletenessClaimed": false,
+        "ownerConfirmationRef": null,
+        "enumerationEvidence": {
+          "status": "not_enumerated",
+          "enumeratedAxisCombinations": [],
+          "artifactPath": null,
+          "artifactSha256": null,
+          "enumeratedCount": null,
+          "enumeratedAxes": [],
+          "method": null
+        },
+        "coverageMetrics": [
+          {
+            "kind": "legacy_unclassified",
+            "value": 100,
+            "legacyState": {
+              "missingEvidence": "The metric kind this integer counts (instance placements, unique variant combinations, or matrix cells) is not recorded anywhere in v0.3.1.",
+              "originalField": "coveragePolicy.perComponentSetCoverage[].documentedPairingCount",
+              "responsibleOwner": "NAME-0001 design-system owner",
+              "resolutionCondition": "Owner defines which metric the value counts (gate G-3); then re-emit as kind='classified' with an explicit metric."
+            }
+          }
+        ]
+      },
+      {
+        "componentSetId": "NODE-0573",
+        "physicalCoverageEvidenceLevel": "schema_only",
+        "physicalCompletenessClaimed": false,
+        "ownerConfirmationRef": null,
+        "enumerationEvidence": {
+          "status": "not_enumerated",
+          "enumeratedAxisCombinations": [],
+          "artifactPath": null,
+          "artifactSha256": null,
+          "enumeratedCount": null,
+          "enumeratedAxes": [],
+          "method": null
+        },
+        "coverageMetrics": [
+          {
+            "kind": "legacy_unclassified",
+            "value": 100,
+            "legacyState": {
+              "missingEvidence": "The metric kind this integer counts (instance placements, unique variant combinations, or matrix cells) is not recorded anywhere in v0.3.1.",
+              "originalField": "coveragePolicy.perComponentSetCoverage[].documentedPairingCount",
+              "responsibleOwner": "NAME-0001 design-system owner",
+              "resolutionCondition": "Owner defines which metric the value counts (gate G-3); then re-emit as kind='classified' with an explicit metric."
+            }
+          }
+        ]
+      },
+      {
+        "componentSetId": "NODE-0575",
+        "physicalCoverageEvidenceLevel": "schema_only",
+        "physicalCompletenessClaimed": false,
+        "ownerConfirmationRef": null,
+        "enumerationEvidence": {
+          "status": "not_enumerated",
+          "enumeratedAxisCombinations": [],
+          "artifactPath": null,
+          "artifactSha256": null,
+          "enumeratedCount": null,
+          "enumeratedAxes": [],
+          "method": null
+        },
+        "coverageMetrics": [
+          {
+            "kind": "legacy_unclassified",
+            "value": 100,
+            "legacyState": {
+              "missingEvidence": "The metric kind this integer counts (instance placements, unique variant combinations, or matrix cells) is not recorded anywhere in v0.3.1.",
+              "originalField": "coveragePolicy.perComponentSetCoverage[].documentedPairingCount",
+              "responsibleOwner": "NAME-0001 design-system owner",
+              "resolutionCondition": "Owner defines which metric the value counts (gate G-3); then re-emit as kind='classified' with an explicit metric."
+            }
+          }
+        ]
+      },
+      {
+        "componentSetId": "NODE-0561",
+        "physicalCoverageEvidenceLevel": "schema_only",
+        "physicalCompletenessClaimed": false,
+        "ownerConfirmationRef": null,
+        "enumerationEvidence": {
+          "status": "not_enumerated",
+          "enumeratedAxisCombinations": [],
+          "artifactPath": null,
+          "artifactSha256": null,
+          "enumeratedCount": null,
+          "enumeratedAxes": [],
+          "method": null
+        },
+        "coverageMetrics": [
+          {
+            "kind": "legacy_unclassified",
+            "value": 20,
+            "legacyState": {
+              "missingEvidence": "The metric kind this integer counts (instance placements, unique variant combinations, or matrix cells) is not recorded anywhere in v0.3.1.",
+              "originalField": "coveragePolicy.perComponentSetCoverage[].documentedPairingCount",
+              "responsibleOwner": "NAME-0001 design-system owner",
+              "resolutionCondition": "Owner defines which metric the value counts (gate G-3); then re-emit as kind='classified' with an explicit metric."
+            }
+          }
+        ]
+      },
+      {
+        "componentSetId": "NODE-0569",
+        "physicalCoverageEvidenceLevel": "schema_only",
+        "physicalCompletenessClaimed": false,
+        "ownerConfirmationRef": null,
+        "enumerationEvidence": {
+          "status": "not_enumerated",
+          "enumeratedAxisCombinations": [],
+          "artifactPath": null,
+          "artifactSha256": null,
+          "enumeratedCount": null,
+          "enumeratedAxes": [],
+          "method": null
+        },
+        "coverageMetrics": [
+          {
+            "kind": "legacy_unclassified",
+            "value": 20,
+            "legacyState": {
+              "missingEvidence": "The metric kind this integer counts (instance placements, unique variant combinations, or matrix cells) is not recorded anywhere in v0.3.1.",
+              "originalField": "coveragePolicy.perComponentSetCoverage[].documentedPairingCount",
+              "responsibleOwner": "NAME-0001 design-system owner",
+              "resolutionCondition": "Owner defines which metric the value counts (gate G-3); then re-emit as kind='classified' with an explicit metric."
+            }
+          }
+        ]
+      }
+    ],
+    "qualifyingEvidenceLevelsForPhysicalCompletenessClaim": [
+      "component_children_enumerated",
+      "owner_confirmed"
+    ]
+  },
+  "structuralFindings": [
+    {
+      "findingId": "SF-01",
+      "description": "comp_build internal shape (variant-band annotations -> COMPONENT_SET -> y-axis legends -> build_description) held identically across all 10 comp_build instances.",
+      "evidence": {
+        "classification": "observed",
+        "sourceFile": "NAME-0001-components-848-3342-terminal.json",
+        "confidence": "high"
+      },
+      "appliesToScopes": [
+        {
+          "scopeType": "contract",
+          "scopeRef": "NAME-0001-buttons-component-representation-contract"
+        }
+      ],
+      "corroboration": {
+        "level": "single_component_observed",
+        "corroboratingContracts": []
+      }
+    },
+    {
+      "findingId": "SF-02",
+      "description": "comp_build_var_description grammar '{key} - {value}' repeated, joined by a dot-separator glyph, held identically across all 40 annotation bands.",
+      "evidence": {
+        "classification": "observed",
+        "sourceFile": "NAME-0001-components-848-3342-terminal.json",
+        "confidence": "high"
+      },
+      "appliesToScopes": [
+        {
+          "scopeType": "contract",
+          "scopeRef": "NAME-0001-buttons-component-representation-contract"
+        }
+      ],
+      "corroboration": {
+        "level": "single_component_observed",
+        "corroboratingContracts": []
+      }
+    },
+    {
+      "findingId": "SF-03",
+      "description": "en_dash text nodes contain a literal hyphen (U+002D), never a typographic en dash (U+2013), across all 80 occurrences.",
+      "evidence": {
+        "classification": "observed",
+        "sourceFile": "NAME-0001-components-848-3342-terminal.json",
+        "confidence": "high"
+      },
+      "appliesToScopes": [
+        {
+          "scopeType": "contract",
+          "scopeRef": "NAME-0001-buttons-component-representation-contract"
+        }
+      ],
+      "corroboration": {
+        "level": "single_component_observed",
+        "corroboratingContracts": []
+      }
+    },
+    {
+      "findingId": "SF-04",
+      "description": "The specific pairing {Center - Fill <-> Optional, Left - Hug <-> Leading/Trailing/Both} is the exact Layout/Symbol correlation observed in every one of the 10 Button component sets.",
+      "evidence": {
+        "classification": "observed",
+        "sourceFile": "NAME-0001-components-848-3342-terminal.json",
+        "confidence": "high"
+      },
+      "appliesToScopes": [
+        {
+          "scopeType": "contract",
+          "scopeRef": "NAME-0001-buttons-component-representation-contract"
+        }
+      ],
+      "corroboration": {
+        "level": "single_component_observed",
+        "corroboratingContracts": []
+      }
+    },
+    {
+      "findingId": "SF-05",
+      "description": "The general principle that declared VARIANT axes on a COMPONENT_SET may be correlated rather than independently combinable, and that naive Cartesian expansion can overstate the real design space, is a Figma-level phenomenon (not a Button API detail) but is only evidenced here via Buttons.",
+      "evidence": {
+        "classification": "inferred",
+        "sourceFile": "NAME-0001-components-848-3342-terminal.json",
+        "confidence": "medium",
+        "note": "Not verified against any non-Button component in this file or elsewhere."
+      },
+      "appliesToScopes": [
+        {
+          "scopeType": "contract",
+          "scopeRef": "NAME-0001-buttons-component-representation-contract"
+        }
+      ],
+      "corroboration": {
+        "level": "single_component_observed",
+        "corroboratingContracts": []
+      }
+    },
+    {
+      "findingId": "SF-06",
+      "description": "Disabled-restricted component sets (State limited to one value) omit the x-axis legend row but retain build_description (headline + divider), for both of the 2 observed disabled sets.",
+      "evidence": {
+        "classification": "observed",
+        "sourceFile": "NAME-0001-components-848-3342-terminal.json",
+        "confidence": "high"
+      },
+      "appliesToScopes": [
+        {
+          "scopeType": "contract",
+          "scopeRef": "NAME-0001-buttons-component-representation-contract"
+        }
+      ],
+      "corroboration": {
+        "level": "single_component_observed",
+        "corroboratingContracts": []
+      }
+    },
+    {
+      "findingId": "SF-07",
+      "description": "Theme is implemented by binding the same variable to different container frames, which resolve to different mode-specific literal values, for both of the 2 observed theme containers in this file.",
+      "evidence": {
+        "classification": "observed",
+        "sourceFile": "NAME-0001-components-848-3342-terminal.json",
+        "confidence": "high"
+      },
+      "appliesToScopes": [
+        {
+          "scopeType": "contract",
+          "scopeRef": "NAME-0001-buttons-component-representation-contract"
+        }
+      ],
+      "corroboration": {
+        "level": "single_component_observed",
+        "corroboratingContracts": []
+      }
+    },
+    {
+      "findingId": "SF-08",
+      "description": "The general principle that Figma variable modes (rather than duplicate named styles) can implement theme switching is a file/Figma-level mechanism, not Button-specific, but is only evidenced here via the Buttons page's two theme containers.",
+      "evidence": {
+        "classification": "inferred",
+        "sourceFile": "NAME-0001-components-848-3342-terminal.json",
+        "confidence": "medium"
+      },
+      "appliesToScopes": [
+        {
+          "scopeType": "contract",
+          "scopeRef": "NAME-0001-buttons-component-representation-contract"
+        }
+      ],
+      "corroboration": {
+        "level": "single_component_observed",
+        "corroboratingContracts": []
+      }
+    },
+    {
+      "findingId": "SF-09",
+      "description": "The top-level page order (intro -> divider -> representation -> divider -> builds) occurs exactly once in this file (one component_box); it has not been observed to repeat, even within Buttons.",
+      "evidence": {
+        "classification": "observed",
+        "sourceFile": "NAME-0001-components-848-3342-terminal.json",
+        "confidence": "high",
+        "note": "Classified 'unknown' for generalizability specifically because n=1 within this file; the shape itself is observed, its recurrence is not."
+      },
+      "appliesToScopes": [
+        {
+          "scopeType": "contract",
+          "scopeRef": "NAME-0001-buttons-component-representation-contract",
+          "migrationReviewRequired": true
+        }
+      ],
+      "corroboration": {
+        "level": "single_component_observed",
+        "corroboratingContracts": []
+      }
+    },
+    {
+      "findingId": "SF-10",
+      "description": "The partition into exactly 3 semantic families (Primary/Secondary/Disabled) with hr dividers between them is specific to this one component_builds_section; the comp_build_section internal shape (headline + builds_container) does repeat 3/3 times.",
+      "evidence": {
+        "classification": "observed",
+        "sourceFile": "NAME-0001-components-848-3342-terminal.json",
+        "confidence": "high"
+      },
+      "appliesToScopes": [
+        {
+          "scopeType": "contract",
+          "scopeRef": "NAME-0001-buttons-component-representation-contract",
+          "migrationReviewRequired": true
+        }
+      ],
+      "corroboration": {
+        "level": "single_component_observed",
+        "corroboratingContracts": []
+      }
+    },
+    {
+      "findingId": "SF-11",
+      "description": "Naming-convention violations exist and are not schema/lint-enforced: 4/38 var_col-title-role nodes are named 'Label' instead of 'var_col_title'; 4 comp_pan-role wrapper frames are named 'container'; the light-mode theme heading is named 'Subheading' vs. the dark-mode 'rep_title'; a capital-I typo ('Center - FIlled') ships in both theme panels.",
+      "evidence": {
+        "classification": "observed",
+        "sourceFile": "NAME-0001-components-848-3342-terminal.json",
+        "confidence": "high",
+        "note": "Classification 'unknown' used deliberately: this finding describes an absence of enforcement, not a structural invariant, and the enum has no dedicated 'confirmed_inconsistency' value."
+      },
+      "appliesToScopes": [
+        {
+          "scopeType": "contract",
+          "scopeRef": "NAME-0001-buttons-component-representation-contract"
+        }
+      ],
+      "corroboration": {
+        "level": "single_component_observed",
+        "corroboratingContracts": []
+      }
+    },
+    {
+      "findingId": "SF-12",
+      "description": "All 196 exported INSTANCE nodes are located inside components_representations; 0 are located inside any comp_build. INSTANCE.variantProperties data therefore proves specific axis combinations exist as real components, but only for the combinations shown in the representation gallery, not for the matrix cells inside each COMPONENT_SET.",
+      "evidence": {
+        "classification": "observed",
+        "sourceFile": "NAME-0001-components-848-3342-terminal.json",
+        "confidence": "high",
+        "note": "196/196 instances confirmed under components_representations; 0/196 elsewhere. Re-verified directly for this correction."
+      },
+      "appliesToScopes": [
+        {
+          "scopeType": "contract",
+          "scopeRef": "NAME-0001-buttons-component-representation-contract"
+        }
+      ],
+      "corroboration": {
+        "level": "single_component_observed",
+        "corroboratingContracts": []
+      }
+    },
+    {
+      "findingId": "SF-13",
+      "description": "The mechanism by which dark_rep_container and light_rep_container resolve an identical bound variable to different literal values (explicit per-frame mode override vs. inherited vs. some other Figma mechanism) is not observable from either export; explicitVariableModes occurs 0 times anywhere in the terminal export.",
+      "evidence": {
+        "classification": "unverified",
+        "sourceFile": "NAME-0001-components-848-3342-terminal.json",
+        "confidence": "low"
+      },
+      "appliesToScopes": [
+        {
+          "scopeType": "contract",
+          "scopeRef": "NAME-0001-buttons-component-representation-contract",
+          "migrationReviewRequired": true
+        }
+      ],
+      "corroboration": {
+        "level": "single_component_observed",
+        "corroboratingContracts": []
+      }
+    },
+    {
+      "findingId": "SF-14",
+      "description": "The v0.2.0-draft contract treated the get_screenshot(NODE-0557) result as component_children_verified-level evidence and claimed physical completeness for NODE-0313. That evidence level has been split (visual_matrix_verified vs. component_children_enumerated) and the screenshot correctly reclassified as visual_matrix_verified only, which does not meet the completeness bar. Net effect: 0 of 10 component sets now meet the bar (previously reported as 1 of 10). This finding exists purely for cross-version traceability.",
+      "evidence": {
+        "classification": "computed",
+        "sourceFile": "NAME-0001-components-848-3342-terminal.json",
+        "confidence": "high",
+        "note": "See CHANGELOG.md for the full 0.2.0-draft -> 0.3.0-draft diff."
+      },
+      "appliesToScopes": [
+        {
+          "scopeType": "contract",
+          "scopeRef": "NAME-0001-buttons-component-representation-contract",
+          "migrationReviewRequired": true
+        }
+      ],
+      "corroboration": {
+        "level": "single_component_observed",
+        "corroboratingContracts": []
+      }
+    },
+    {
+      "findingId": "SF-15",
+      "description": "The v0.3.0-draft contract and validator claimed 5/5 enforceability but had five real enforcement gaps: fully_enumerated was label-based (an artifact could be fabricated/reused across sets); ownerConfirmations resolution was one-directional (an orphan confirmation record passed silently); layoutRepresentations[].allocation coverage only checked for zero coverage, not exactly-one, and its axis check unioned declared axes across referenced variants instead of requiring every one; the qualifying-evidence-levels policy field was unconstrained; and generate_tables.py had no drift-detection mode. All five are closed in v0.3.1-draft (CV-11 added; CV-3/CV-6/CV-7 corrected; CV-1 gained a schema-enforced floor restriction; generate_tables.py --check added). This finding exists purely for cross-version traceability.",
+      "evidence": {
+        "classification": "computed",
+        "sourceFile": "NAME-0001-components-848-3342-terminal.json",
+        "confidence": "high",
+        "note": "See CHANGELOG.md for the full 0.3.0-draft -> 0.3.1-draft diff. Every gap was independently verified empirically (a synthetic document exercising it) before being fixed, and re-verified as rejected after."
+      },
+      "appliesToScopes": [
+        {
+          "scopeType": "contract",
+          "scopeRef": "NAME-0001-buttons-component-representation-contract",
+          "migrationReviewRequired": true
+        }
+      ],
+      "corroboration": {
+        "level": "single_component_observed",
+        "corroboratingContracts": []
+      }
+    }
+  ],
+  "validationRules": [
+    {
+      "ruleId": "VR-1",
+      "description": "Naming drift with an unambiguous structural role.",
+      "severity": "warning",
+      "detectionCondition": "A node's literal name differs from the conventional name for its structural role, but the role is still unambiguous from node type, position, and sibling context.",
+      "action": "Log the mismatch as a finding; continue processing using the structural role, not the literal name.",
+      "recoveryOrEscalation": "No escalation required; include in the build's finding report for human awareness.",
+      "evidenceLevelRequired": "observed_instances"
+    },
+    {
+      "ruleId": "VR-2",
+      "description": "Ambiguous structural role.",
+      "severity": "blocker",
+      "detectionCondition": "A node's name, type, and position are jointly insufficient to determine its structural role with confidence.",
+      "action": "Halt processing of that subtree.",
+      "recoveryOrEscalation": "Escalate to human review before continuing; do not guess the role.",
+      "evidenceLevelRequired": "schema_only"
+    },
+    {
+      "ruleId": "VR-3",
+      "description": "Unresolved axis correlation must not gate a write.",
+      "severity": "blocker",
+      "detectionCondition": "A correlatedAxisTuples entry has approvalBasis == 'unresolved', and a downstream operation would use its proposedValidCombinations/observedCombinations to restrict or expand a variant matrix.",
+      "action": "Do not use this tuple to allocate a matrix or to gate any Figma write operation.",
+      "recoveryOrEscalation": "Escalate for owner confirmation (approvalBasis -> owner_confirmed) or structural enumeration (approvalBasis -> fully_enumerated) before use.",
+      "evidenceLevelRequired": "owner_confirmed"
+    },
+    {
+      "ruleId": "VR-4",
+      "description": "A 'fully_enumerated' approval must be re-checked at use time, not just trusted from the contract.",
+      "severity": "error",
+      "detectionCondition": "A correlatedAxisTuples entry has approvalBasis == 'fully_enumerated' and a Builder is about to rely on its approvedCombinations for a write, without independently re-confirming that every relevant component set still shows component_children_enumerated coverage (data can go stale between contract authoring and Builder use).",
+      "action": "Re-verify coverage before trusting the approval; do not treat a past 'fully_enumerated' label as a standing guarantee.",
+      "recoveryOrEscalation": "If re-verification fails or cannot be performed, escalate to human review before proceeding.",
+      "evidenceLevelRequired": "component_children_enumerated"
+    },
+    {
+      "ruleId": "VR-5",
+      "description": "Physical completeness claims require component-child-level evidence.",
+      "severity": "blocker",
+      "detectionCondition": "coveragePolicy.perComponentSetCoverage[i].physicalCompletenessClaimed=true while physicalCoverageEvidenceLevel is schema_only, observed_instances, or visual_matrix_verified.",
+      "action": "Reject the claim; downgrade physicalCompletenessClaimed to false.",
+      "recoveryOrEscalation": "Obtain component_children_enumerated evidence (a real structural descent/API listing of the COMPONENT_SET's children, not merely a screenshot) or owner_confirmed sign-off before re-claiming.",
+      "evidenceLevelRequired": "component_children_enumerated"
+    },
+    {
+      "ruleId": "VR-6",
+      "description": "Matrix allocation requires explicit human approval before use.",
+      "severity": "blocker",
+      "detectionCondition": "Any layoutRepresentations[].allocation[] entry's approvalStatus is not 'approved'.",
+      "action": "Do not generate or write any documentation matrix based on that allocation.",
+      "recoveryOrEscalation": "Route to a human reviewer for explicit approval with a resolvable ownerConfirmationRef; re-check status before any Figma write.",
+      "evidenceLevelRequired": "owner_confirmed"
+    },
+    {
+      "ruleId": "VR-7",
+      "description": "Theme mode names must be read from the file, never assumed.",
+      "severity": "error",
+      "detectionCondition": "Any logic assumes theme mode names 'Dark'/'Light' (or any fixed pair) without reading themeModel.modes for the specific file being processed.",
+      "action": "Reject the assumption.",
+      "recoveryOrEscalation": "Re-derive theme handling from themeModel.modes for the specific file being processed.",
+      "evidenceLevelRequired": "observed_instances"
+    },
+    {
+      "ruleId": "VR-8",
+      "description": "Canonical values and display-label captions must not be interchanged.",
+      "severity": "warning",
+      "detectionCondition": "A caption string sourced from var_col_title, variant_value, or build_title is passed as the canonical property value to a Figma write operation.",
+      "action": "Block the write; substitute the canonical value from componentSets/propertySchemaVariants.",
+      "recoveryOrEscalation": "Log the substitution and continue.",
+      "evidenceLevelRequired": "schema_only"
+    },
+    {
+      "ruleId": "VR-9",
+      "description": "Button-scoped findings must not be silently generalized to other components.",
+      "severity": "error",
+      "detectionCondition": "A structuralFindings entry with appliesToScopes=buttons or classification=button_specific_pattern is applied to a non-Button component without a corresponding candidate_cross_component_invariant or owner_declared_standard entry covering that same finding.",
+      "action": "Reject the generalization.",
+      "recoveryOrEscalation": "Re-scope the finding to owner_declared_standard only after explicit confirmation, or re-derive the rule for the new component from its own evidence.",
+      "evidenceLevelRequired": "owner_confirmed"
+    }
+  ],
+  "contractIntegrityRules": [
+    {
+      "ruleId": "CV-1",
+      "description": "Weak evidence must not be paired with a physical-completeness claim.",
+      "severity": "blocker",
+      "detectionCondition": "physicalCompletenessClaimed==true while physicalCoverageEvidenceLevel is outside {component_children_enumerated, owner_confirmed}, or is absent from the declared qualifying set.",
+      "action": "Reject the document.",
+      "recoveryOrEscalation": "Downgrade the claim, or obtain the required evidence level.",
+      "enforcedBy": "schema_and_semantic_validator",
+      "evidenceLevelRequired": "component_children_enumerated"
+    },
+    {
+      "ruleId": "CV-2",
+      "description": "Duplicate identifiers within a namespace.",
+      "severity": "blocker",
+      "detectionCondition": "Two entries in the same array share an id. componentSets[].id must be unique; buildFrameId is a many-to-one REFERENCE and may repeat freely, but must never equal any componentSets id.",
+      "action": "Reject the document.",
+      "recoveryOrEscalation": "Assign a unique id; re-run the validator.",
+      "enforcedBy": "semantic_validator"
+    },
+    {
+      "ruleId": "CV-3",
+      "description": "Broken or inconsistent cross-references.",
+      "severity": "blocker",
+      "detectionCondition": "familyId / schemaVariantId / coverage references do not resolve, or bidirectional membership disagrees.",
+      "action": "Reject the document.",
+      "recoveryOrEscalation": "Fix the reference on both sides.",
+      "enforcedBy": "semantic_validator"
+    },
+    {
+      "ruleId": "CV-3b",
+      "description": "Layout-representation and typed-scope reference integrity, and explicit representation of undocumented schema variants.",
+      "severity": "blocker",
+      "detectionCondition": "A layoutRepresentations appliesTo / namingRuleRef, a typedScope scopeRef, a treatment propertyKey or a nonVariantPropertyCoverage key fails to resolve; OR a schema variant is covered by no representation and is not listed in undocumentedSchemaVariantIds.",
+      "action": "Reject the document.",
+      "recoveryOrEscalation": "Fix the reference, or declare the variant undocumented explicitly.",
+      "enforcedBy": "semantic_validator"
+    },
+    {
+      "ruleId": "CV-5",
+      "description": "Incomplete or duplicate correlated-axis tuple entry.",
+      "severity": "blocker",
+      "detectionCondition": "A combination's keys do not equal the tuple axes, a value is not canonical in every referenced variant, or two combinations are semantically duplicate.",
+      "action": "Reject the document.",
+      "recoveryOrEscalation": "Fix the combination or the tuple scope.",
+      "enforcedBy": "semantic_validator"
+    },
+    {
+      "ruleId": "CV-6",
+      "description": "Owner approval without a resolvable, bidirectionally-agreeing confirmation record.",
+      "severity": "blocker",
+      "detectionCondition": "Any owner-gated claim references a confirmation that does not resolve, or whose scopeType/scopeRef does not point back at the same object; or a confirmation is orphaned.",
+      "action": "Reject the document.",
+      "recoveryOrEscalation": "Add a real confirmation, or downgrade the claim.",
+      "enforcedBy": "semantic_validator"
+    },
+    {
+      "ruleId": "CV-7",
+      "description": "Allocation dimension referencing something that does not exist or is out of scope.",
+      "severity": "blocker",
+      "detectionCondition": "Dispatched on dimension kind: variant_property/fixed_filter must name a VARIANT property declared in EVERY referenced schema variant with canonical values; component_set_identity must reference real component sets inside the representation's appliesTo scope and real naming rules.",
+      "action": "Reject the document.",
+      "recoveryOrEscalation": "Correct the dimension or the representation scope.",
+      "enforcedBy": "semantic_validator"
+    },
+    {
+      "ruleId": "CV-8",
+      "description": "Unauthorized promotion into approvedCombinations.",
+      "severity": "blocker",
+      "detectionCondition": "Non-empty approvedCombinations without owner confirmation, or with approvalBasis='fully_enumerated' but not equal to the intersection of enumerated combinations across all in-scope sets.",
+      "action": "Reject the document.",
+      "recoveryOrEscalation": "Obtain confirmation, or set approvedCombinations to the true intersection.",
+      "enforcedBy": "semantic_validator"
+    },
+    {
+      "ruleId": "CV-10",
+      "description": "Version/readiness/approval promotion gate.",
+      "severity": "blocker",
+      "detectionCondition": "contractVersion, readinessStatus, approvalStatus.overall, blockers and the contract-level owner confirmation do not all agree.",
+      "action": "Reject the document.",
+      "recoveryOrEscalation": "Align all legs.",
+      "enforcedBy": "schema_and_semantic_validator"
+    },
+    {
+      "ruleId": "CV-11",
+      "description": "Enumeration evidence must be artifact-backed and internally consistent.",
+      "severity": "blocker",
+      "detectionCondition": "status='enumerated' without a contained, existing, hash-matching, shape-valid artifact whose componentSetId/fileKey/enumerationMethodClass agree, whose capturedAt parses, whose componentIds are unique, and whose derived combinations and count exactly match the declaration.",
+      "action": "Reject the document.",
+      "recoveryOrEscalation": "Produce a real artifact, or downgrade to not_enumerated.",
+      "enforcedBy": "schema_and_semantic_validator",
+      "evidenceLevelRequired": "component_children_enumerated"
+    },
+    {
+      "ruleId": "CV-12",
+      "description": "Matrix allocations must be RECOMPUTABLE from evidence, per source documentation block.",
+      "severity": "blocker",
+      "detectionCondition": "allocationEvidence.status='verified' without a contained, existing, hash-matching, shape-valid artifact; OR zero observations; OR observations referencing out-of-scope sets; OR rows/columns/bands/fixedFilters recomputed per source block that differ from the declared allocation; OR parallel source blocks that do not derive the same semantic allocation.",
+      "action": "Reject the document.",
+      "recoveryOrEscalation": "Recapture the allocation evidence, or correct the declared allocation to match it.",
+      "enforcedBy": "semantic_validator",
+      "evidenceLevelRequired": "observed_instances"
+    },
+    {
+      "ruleId": "CV-13",
+      "description": "Enumeration-provenance class rules.",
+      "severity": "blocker",
+      "detectionCondition": "class='node_name_parse' backing physicalCompletenessClaimed=true without a resolvable corroborating owner confirmation; or class='owner_supplied' without both a resolvable confirmation and a rawCaptureRef artifact.",
+      "action": "Reject the document.",
+      "recoveryOrEscalation": "Re-capture via an API class, or obtain the corroborating confirmation.",
+      "enforcedBy": "semantic_validator",
+      "evidenceLevelRequired": "component_children_enumerated"
+    },
+    {
+      "ruleId": "CV-14",
+      "description": "Competing display-label mappings within one effective scope.",
+      "severity": "blocker",
+      "detectionCondition": "Two canonicalValueDisplayLabelMap entries share an (axis, canonicalValue) pair AND the same relationship class with overlapping effective scopes (including the unscoped case); OR two entries for one (axis, canonicalValue) with overlapping scopes declare the same display surface with different labels. An editorial_mapping and a typo entry for the same value are complementary, not competing, and are preserved separately by design.",
+      "action": "Reject the document.",
+      "recoveryOrEscalation": "Scope the mappings disjointly, or reconcile the conflicting surface.",
+      "enforcedBy": "semantic_validator"
+    },
+    {
+      "ruleId": "CV-15",
+      "description": "Corroboration must resolve to hashed external contracts.",
+      "severity": "blocker",
+      "detectionCondition": "level='multi_component_corroborated' with no external contract; a corroborating entry naming the current contract; or an artifact that is missing, hash-mismatched, unparseable, or declares a different contractId.",
+      "action": "Reject the document.",
+      "recoveryOrEscalation": "Add a real, hashed external contract, or downgrade to single_component_observed.",
+      "enforcedBy": "semantic_validator"
+    },
+    {
+      "ruleId": "CV-16",
+      "description": "Coverage metrics must be discriminated and non-duplicated.",
+      "severity": "blocker",
+      "detectionCondition": "Two classified metrics of the same kind within one (component set, representation) scope, or a matrix_cells metric whose representationId does not resolve.",
+      "action": "Reject the document.",
+      "recoveryOrEscalation": "Merge or rescope the metrics.",
+      "enforcedBy": "semantic_validator"
+    },
+    {
+      "ruleId": "CV-17",
+      "description": "Migration provenance, legacy states and migration-review gate.",
+      "severity": "blocker",
+      "detectionCondition": "authoringMode='authored' with a migrationReportRef or any legacy_*/migrationReviewRequired state; OR authoringMode='migrated' without a resolvable hash-verified migration report (required even when zero legacy states remain); OR a report that fails to pin the source contract or the migration tool by hash; OR any mismatch in either direction between emitted unresolved states and reported ones; OR unresolved states coexisting with approvalStatus='approved', readinessStatus='ready_for_production', or a missing blocker of the matching blockerClass; OR a legacy state backing a completeness claim or an approved allocation.",
+      "action": "Reject the document.",
+      "recoveryOrEscalation": "Emit a complete migration report, or resolve the states.",
+      "enforcedBy": "schema_and_semantic_validator"
+    },
+    {
+      "ruleId": "CV-18",
+      "description": "Representation node bindings (the operational locator table).",
+      "severity": "blocker",
+      "detectionCondition": "A binding whose layoutRepresentationRef does not resolve; a duplicate containerNodeId; a rootNodeId equal to its own containerNodeId; or a verified matrix allocation with a source documentation block that no binding covers.",
+      "action": "Reject the document.",
+      "recoveryOrEscalation": "Add or correct the binding. evidenceNodeIds is provenance and must never be used as an operational locator.",
+      "enforcedBy": "semantic_validator"
+    }
+  ],
+  "readinessStatus": "validation_ready",
+  "approvalStatus": {
+    "overall": "blocked",
+    "ownerConfirmationRef": null,
+    "blockers": [
+      {
+        "blockerId": "BLK-1",
+        "description": "correlatedAxisTuples CAT-1 (Layout x Symbol) has approvalBasis='unresolved'; it is neither owner-confirmed nor fully-enumerated.",
+        "mustBeResolvedBefore": "Any Figma write that relies on restricting axis combinations for this or any other component.",
+        "blockerClass": "owner_decision"
+      },
+      {
+        "blockerId": "BLK-2",
+        "description": "Neither layoutRepresentations[].allocation entry (LR-1, LR-2) has approvalStatus='approved' with a resolvable ownerConfirmationRef.",
+        "mustBeResolvedBefore": "Generating or writing any documentation matrix based on either allocation.",
+        "blockerClass": "owner_decision"
+      },
+      {
+        "blockerId": "BLK-3",
+        "description": "0 of 10 component sets have reached component_children_enumerated coverage; 1 of 10 (NODE-0313) reached only visual_matrix_verified, which does not qualify. The other 9 remain schema_only.",
+        "mustBeResolvedBefore": "Claiming physical completeness for any of the 10 sets, or using any of them as a coverage template for a new component.",
+        "blockerClass": "owner_decision"
+      },
+      {
+        "blockerId": "BLK-4",
+        "description": "The theme-mode resolution mechanism (explicit per-frame override vs. inherited vs. other) is unverified; explicitVariableModes was not found anywhere in the export.",
+        "mustBeResolvedBefore": "Generalizing the theme-binding mechanism to any other component or file.",
+        "blockerClass": "owner_decision"
+      },
+      {
+        "blockerId": "BLK-5",
+        "description": "No second, non-Button component has been analyzed; every candidate_cross_component_invariant classification in this contract remains an unverified hypothesis.",
+        "mustBeResolvedBefore": "Treating any candidate_cross_component_invariant finding as a default Builder behavior.",
+        "blockerClass": "owner_decision"
+      },
+      {
+        "blockerId": "BLK-6",
+        "description": "ownerConfirmations is empty; no owner-confirmed record exists anywhere in this contract.",
+        "mustBeResolvedBefore": "Any approval path (correlatedAxisTuples, layoutRepresentations[].allocation, coveragePolicy, or contract-overall) that depends on owner_confirmed evidence.",
+        "blockerClass": "owner_decision"
+      },
+      {
+        "blockerId": "BLK-7",
+        "description": "approvalStatus.overall cannot become 'approved' without a resolvable contract-level owner confirmation (scopeType=contract_overall), which does not yet exist.",
+        "mustBeResolvedBefore": "Setting approvalStatus.overall to 'approved', and therefore before contractVersion can ever become 1.0.0.",
+        "blockerClass": "owner_decision"
+      },
+      {
+        "blockerId": "MIG-1",
+        "blockerClass": "legacy_migration_state",
+        "description": "Migrated from v0.3.1-draft with unresolved legacy states (allocation evidence, coverage metric kinds, theme mode provenance). Each is listed in the migration report with its owner and resolution condition.",
+        "mustBeResolvedBefore": "approval or any production-readiness claim"
+      },
+      {
+        "blockerId": "MIG-2",
+        "blockerClass": "migration_review",
+        "description": "Migration could not mechanically infer some finding scopes and node bindings; those are flagged migrationReviewRequired and need human review before approval.",
+        "mustBeResolvedBefore": "approval or any production-readiness claim"
+      }
+    ]
+  },
+  "knownLimitations": [
+    "Only the terminal export self-reports validation statistics; basic-tree counts were independently recomputed, not self-reported, and both recomputations agree with each other and with the terminal export's self-report.",
+    "Reference-resolution validation (unresolved named styles, unresolved variables, duplicate IDs) is only possible from the terminal export, because the basic-tree export carries no style or variable data at all.",
+    "explicitVariableModes occurs 0 times anywhere in the terminal export. The theme-mode resolution mechanism is therefore unverified, not directly observed, despite the resolved-value difference itself being directly observed.",
+    "Physical coverage verification at the component_children_enumerated level exists for 0 of 10 component sets. NODE-0313 was screenshotted (visual_matrix_verified), which is a real but categorically different, weaker kind of evidence -- it does not establish structural completeness. This is a correction from the prior contract revision, which had treated the screenshot as sufficient for a physical-completeness claim.",
+    "The 8 previously-unrecorded buildFrameId values (all sets except NODE-0313 and the two Disabled sets, which were separately corrected/confirmed) were derived by the same script-based extraction method used to confirm the user-supplied corrections for NODE-0560 and NODE-0568, and were independently cross-checked by a separate review pass. High confidence, Buttons scope.",
+    "The screenshot evidence artifact for NODE-0313 (evidence/comp_build_750-2443_screenshot.png) was originally saved only to an ephemeral, session-scoped scratch directory outside the project; it has been copied into this project's evidence/ folder specifically so it remains durable and independently re-hashable rather than pointing at a path that could vanish.",
+    "No non-Button component has been analyzed in this file or elsewhere. Every candidate_cross_component_invariant classification in this contract is an unverified hypothesis pending a second component example, not a confirmed rule.",
+    "correlatedAxisTuples CAT-1 was derived by automatic pattern detection over this file's own annotation text and instance data (approvalBasis='unresolved'); it has not been owner-confirmed or structurally enumerated, and per CV-6/CV-8 must not be treated as approved for any Figma write.",
+    "Identical rule/finding id sets appearing across this contract and its companion markdown documents (SF-*, VR-*, CV-*, BLK-*) are necessary but not sufficient evidence of semantic consistency between the documents -- the CV/VR rule tables in the markdown docs are generated directly from this file's own description/detectionCondition/action text specifically to close that gap; other prose was not mechanically diffed and could still drift.",
+    "v0.3.0-draft's enforcement had five real gaps (see SF-15) despite claiming full enforceability; v0.3.1-draft closes them, but this is a reminder that a validator passing 0 violations is only as strong as the checks it actually runs -- absence of a rejection is not proof of correctness beyond what was specifically tested. The fixture suite (33 fixtures as of this revision) is the concrete evidence for what is and is not covered; it is not exhaustive for every micro-check within CV-11 (see the fixture table's own scoping note).",
+    "Migrated from v0.3.1-draft by migrate_v031_to_v040.py. Unresolved migration states are recorded in the migration report and block approval; they were not resolved by the migration."
+  ],
+  "authoringMode": "migrated",
+  "migrationReportRef": {
+    "artifactPath": "migration-report-buttons-0.4.0-draft.json",
+    "artifactSha256": "28ed63b8b34c0e0f877b8c8b7d07573f7adb6b07ad81f4c3ebc48ad0d95a4a97"
+  },
+  "layoutRepresentations": [
+    {
+      "representationId": "LR-1",
+      "strategy": "matrix",
+      "appliesTo": {
+        "schemaVariantIds": [
+          "schema_a_full_state"
+        ],
+        "componentSetIds": [
+          "NODE-0313",
+          "NODE-0563",
+          "NODE-0565",
+          "NODE-0567",
+          "NODE-0571",
+          "NODE-0577",
+          "NODE-0573",
+          "NODE-0575"
+        ]
+      },
+      "evidenceNodeIds": [
+        "NODE-0313"
+      ],
+      "namingRuleRefs": [],
+      "allocation": {
+        "rows": {
+          "kind": "variant_property",
+          "propertyKey": "Size",
+          "orderedValues": [
+            "Tiny",
+            "Small",
+            "Regular",
+            "Medium",
+            "Large"
+          ],
+          "orderingRule": "declared_variant_option_order"
+        },
+        "columns": {
+          "kind": "variant_property",
+          "propertyKey": "State",
+          "orderedValues": [
+            "Enabled",
+            "Hovered",
+            "Focused",
+            "Pressed",
+            "Disabled"
+          ],
+          "orderingRule": "declared_variant_option_order"
+        },
+        "bands": [
+          {
+            "kind": "variant_property",
+            "propertyKey": "Layout",
+            "orderedValues": [
+              "Center - Fill",
+              "Left - Hug"
+            ],
+            "orderingRule": "declared_variant_option_order"
+          },
+          {
+            "kind": "variant_property",
+            "propertyKey": "Symbol",
+            "orderedValues": [
+              "Leading",
+              "Trailing",
+              "Both",
+              "Optional"
+            ],
+            "orderingRule": "declared_variant_option_order"
+          }
+        ],
+        "fixedFilters": [],
+        "allocationEvidence": {
+          "status": "legacy_unverified",
+          "artifactPath": null,
+          "artifactSha256": null,
+          "derivationMethod": null,
+          "legacyState": {
+            "missingEvidence": "No instance-level observation artifact exists: the v0.3.1 allocation was asserted from structure, never recomputed from documented instances.",
+            "originalField": "matrixAllocations['MA-1']",
+            "responsibleOwner": "NAME-0001 design-system owner",
+            "resolutionCondition": "Capture an allocation evidence artifact (source blocks, documented instances, real variantProperties, positions) and set allocationEvidence.status='verified'."
+          }
+        },
+        "approvalStatus": "pending_review",
+        "ownerConfirmationRef": null
+      },
+      "evidence": {
+        "classification": "observed",
+        "sourceFile": "NAME-0001-components-848-3342-terminal.json",
+        "confidence": "high",
+        "note": "Applies to the 8 Primary/Secondary sets. bandsAxes references correlatedAxisTuples[tupleId=CAT-1] for which (Layout,Symbol) pairs are actually valid -- 4 bands, not the naive 2x4=8 Cartesian product. Not yet human-approved; approvalStatus must reach 'approved' with a resolvable ownerConfirmationRef before this allocation may be used as a Figma-write template."
+      }
+    },
+    {
+      "representationId": "LR-2",
+      "strategy": "matrix",
+      "appliesTo": {
+        "schemaVariantIds": [
+          "schema_b_disabled_state"
+        ],
+        "componentSetIds": [
+          "NODE-0561",
+          "NODE-0569"
+        ]
+      },
+      "evidenceNodeIds": [
+        "NODE-0561"
+      ],
+      "namingRuleRefs": [],
+      "allocation": {
+        "rows": {
+          "kind": "variant_property",
+          "propertyKey": "Size",
+          "orderedValues": [
+            "Tiny",
+            "Small",
+            "Regular",
+            "Medium",
+            "Large"
+          ],
+          "orderingRule": "declared_variant_option_order"
+        },
+        "columns": null,
+        "bands": [
+          {
+            "kind": "variant_property",
+            "propertyKey": "Layout",
+            "orderedValues": [
+              "Center - Fill",
+              "Left - Hug"
+            ],
+            "orderingRule": "declared_variant_option_order"
+          },
+          {
+            "kind": "variant_property",
+            "propertyKey": "Symbol",
+            "orderedValues": [
+              "Leading",
+              "Trailing",
+              "Both",
+              "Optional"
+            ],
+            "orderingRule": "declared_variant_option_order"
+          }
+        ],
+        "fixedFilters": [],
+        "allocationEvidence": {
+          "status": "legacy_unverified",
+          "artifactPath": null,
+          "artifactSha256": null,
+          "derivationMethod": null,
+          "legacyState": {
+            "missingEvidence": "No instance-level observation artifact exists: the v0.3.1 allocation was asserted from structure, never recomputed from documented instances.",
+            "originalField": "matrixAllocations['MA-2']",
+            "responsibleOwner": "NAME-0001 design-system owner",
+            "resolutionCondition": "Capture an allocation evidence artifact (source blocks, documented instances, real variantProperties, positions) and set allocationEvidence.status='verified'."
+          }
+        },
+        "approvalStatus": "pending_review",
+        "ownerConfirmationRef": null
+      },
+      "evidence": {
+        "classification": "observed",
+        "sourceFile": "NAME-0001-components-848-3342-terminal.json",
+        "confidence": "high",
+        "note": "Applies to the 2 Disabled sets. columnsAxis is structurally null (not a free-text note) because State has a single declared value here and no column header row is rendered. Same 4-band correlation as MA-1."
+      }
+    }
+  ],
+  "representationNodeBindings": [
+    {
+      "layoutRepresentationRef": "LR-1",
+      "containerNodeId": "NODE-0313",
+      "rootNodeId": "NODE-0578",
+      "semanticRole": "documentation_block",
+      "observedLayerName": "",
+      "migrationReviewRequired": true
+    },
+    {
+      "layoutRepresentationRef": "LR-2",
+      "containerNodeId": "NODE-0561",
+      "rootNodeId": "NODE-0578",
+      "semanticRole": "documentation_block",
+      "observedLayerName": "",
+      "migrationReviewRequired": true
+    }
+  ],
+  "undocumentedSchemaVariantIds": [],
+  "namingRules": []
+}

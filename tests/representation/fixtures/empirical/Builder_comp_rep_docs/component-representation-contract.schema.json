@@ -1,0 +1,1100 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://NAME-0001.internal/schemas/component-representation-contract.schema.json",
+  "title": "Component Representation Contract",
+  "description": "v0.4.0-draft. Component-neutral. Breaking successor to v0.3.1-draft: layoutStrategy/matrixAllocations replaced by layoutRepresentations[] with typed dimensions and recomputable allocation evidence; Button-hardcoded scope vocabulary replaced by typed appliesToScopes[] plus corroboration; theme binding remodelled around collection->mode provenance; coverage metrics discriminated; enumeration provenance structured; naming rules and operational node bindings added.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "contractId",
+    "contractVersion",
+    "authoringMode",
+    "migrationReportRef",
+    "provenance",
+    "componentIdentity",
+    "componentSets",
+    "propertySchemaVariants",
+    "canonicalValueDisplayLabelMap",
+    "correlatedAxisTuples",
+    "ownerConfirmations",
+    "themeModel",
+    "representativeExamples",
+    "namingRules",
+    "layoutRepresentations",
+    "representationNodeBindings",
+    "undocumentedSchemaVariantIds",
+    "coveragePolicy",
+    "structuralFindings",
+    "validationRules",
+    "contractIntegrityRules",
+    "readinessStatus",
+    "approvalStatus",
+    "knownLimitations"
+  ],
+  "properties": {
+    "contractId": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Stable identity for this contract document, unchanged across versions. Used as the scopeRef target for scopeType=contract."
+    },
+    "contractVersion": { "type": "string", "pattern": "^\\d+\\.\\d+\\.\\d+(-draft)?$" },
+
+    "authoringMode": {
+      "$ref": "#/$defs/authoringMode"
+    },
+    "migrationReportRef": {
+      "anyOf": [{ "$ref": "#/$defs/hashedArtifactRef" }, { "type": "null" }],
+      "description": "Required (non-null) whenever authoringMode is 'migrated', EVEN IF no legacy state remains. Must be null when authoringMode is 'authored'. Enforced by CV-17 legs a/b."
+    },
+
+    "provenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["file", "fileKey", "rootNodeId", "rootNodeName", "analyzedComponent", "exportsUsed"],
+      "properties": {
+        "file": { "type": "string" },
+        "fileKey": { "type": "string" },
+        "pageId": { "$ref": "#/$defs/nullableString" },
+        "pageName": { "$ref": "#/$defs/nullableString" },
+        "rootNodeId": { "type": "string" },
+        "rootNodeName": { "type": "string" },
+        "analyzedComponent": { "type": "string" },
+        "exportsUsed": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["fileName", "capabilities", "selfReportsValidation", "sha256", "capturedAt"],
+            "properties": {
+              "fileName": { "type": "string" },
+              "capabilities": { "type": "array", "items": { "type": "string" } },
+              "selfReportsValidation": { "type": "boolean" },
+              "sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+              "capturedAt": { "$ref": "#/$defs/nullableString" }
+            }
+          }
+        },
+        "liveFigmaAccessLog": { "type": "array", "items": { "$ref": "#/$defs/figmaAccessLogEntry" } }
+      }
+    },
+
+    "componentIdentity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "description", "evidence"],
+      "properties": {
+        "name": { "type": "string" },
+        "description": { "type": "string" },
+        "evidence": { "$ref": "#/$defs/evidenceRecord" }
+      }
+    },
+
+    "semanticFamilies": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["familyId", "displayName", "componentSetIds", "evidence"],
+        "properties": {
+          "familyId": { "type": "string" },
+          "displayName": { "type": "string" },
+          "componentSetIds": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
+          "evidence": { "$ref": "#/$defs/evidenceRecord" }
+        }
+      }
+    },
+
+    "componentSets": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "buildFrameId", "name", "familyId", "treatment", "schemaVariantId", "evidence"],
+        "properties": {
+          "id": { "type": "string" },
+          "buildFrameId": {
+            "$ref": "#/$defs/nullableString",
+            "description": "C-11: a many-to-one reference, NOT an identifier. Multiple component sets may share one build frame. CV-2 enforces uniqueness on id only, and separately that no buildFrameId equals any id."
+          },
+          "name": { "type": "string" },
+          "familyId": { "$ref": "#/$defs/nullableString" },
+          "treatment": { "$ref": "#/$defs/treatment" },
+          "schemaVariantId": { "type": "string" },
+          "nonVariantPropertyCoverage": {
+            "type": "array",
+            "items": { "$ref": "#/$defs/nonVariantPropertyCoverageEntry" }
+          },
+          "evidence": { "$ref": "#/$defs/evidenceRecord" }
+        }
+      }
+    },
+
+    "propertySchemaVariants": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["variantId", "appliesToComponentSetIds", "properties", "evidence"],
+        "properties": {
+          "variantId": { "type": "string" },
+          "appliesToComponentSetIds": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
+          "properties": { "type": "array", "items": { "$ref": "#/$defs/propertyDefinition" }, "minItems": 1 },
+          "evidence": { "$ref": "#/$defs/evidenceRecord" }
+        }
+      }
+    },
+
+    "canonicalValueDisplayLabelMap": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["axis", "canonicalValue", "displayLabelSurfaces", "relationship", "evidence"],
+        "properties": {
+          "axis": { "type": "string" },
+          "canonicalValue": { "type": "string" },
+          "displayLabelSurfaces": { "type": "object", "additionalProperties": { "type": "string" } },
+          "relationship": { "type": "string", "enum": ["exact_match", "editorial_mapping", "typo", "unknown"] },
+          "appliesToScopes": {
+            "type": "array",
+            "items": { "$ref": "#/$defs/typedScope" },
+            "description": "C-10. Absent or empty means the mapping applies unscoped. CV-14 rejects two entries sharing (axis, canonicalValue) with overlapping effective scopes."
+          },
+          "evidence": { "$ref": "#/$defs/evidenceRecord" }
+        }
+      }
+    },
+
+    "correlatedAxisTuples": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["tupleId", "axes", "appliesToSchemaVariantIds", "observedCombinations", "proposedValidCombinations", "approvedCombinations", "approvalBasis", "ownerConfirmationRef", "evidence"],
+        "properties": {
+          "tupleId": { "type": "string", "pattern": "^CAT-[0-9]+$" },
+          "axes": { "type": "array", "items": { "type": "string" }, "minItems": 2 },
+          "appliesToSchemaVariantIds": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
+          "observedCombinations": { "type": "array", "items": { "$ref": "#/$defs/combinationObject" } },
+          "proposedValidCombinations": { "type": "array", "items": { "$ref": "#/$defs/combinationObject" }, "minItems": 1 },
+          "approvedCombinations": { "type": "array", "items": { "$ref": "#/$defs/combinationObject" } },
+          "approvalBasis": { "type": "string", "enum": ["unresolved", "owner_confirmed", "fully_enumerated"] },
+          "ownerConfirmationRef": { "$ref": "#/$defs/nullableString" },
+          "evidence": { "$ref": "#/$defs/evidenceRecord" }
+        },
+        "allOf": [
+          {
+            "if": { "properties": { "approvedCombinations": { "minItems": 1 } }, "required": ["approvedCombinations"] },
+            "then": { "properties": { "approvalBasis": { "enum": ["owner_confirmed", "fully_enumerated"] } }, "required": ["approvalBasis"] }
+          }
+        ]
+      }
+    },
+
+    "ownerConfirmations": { "type": "array", "items": { "$ref": "#/$defs/ownerConfirmationRecord" } },
+
+    "themeModel": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["collections", "containers", "variablesUsedByDescendants", "mechanismEvidence"],
+      "properties": {
+        "collections": { "type": "array", "items": { "$ref": "#/$defs/variableCollection" } },
+        "containers": { "type": "array", "items": { "$ref": "#/$defs/themeContainer" } },
+        "variablesUsedByDescendants": { "type": "array", "items": { "$ref": "#/$defs/descendantVariableUse" } },
+        "mechanismEvidence": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["resolvedValuesDifferPerContainer", "explicitPerFrameModeOverrideObserved", "classification"],
+          "properties": {
+            "resolvedValuesDifferPerContainer": { "type": "boolean" },
+            "explicitPerFrameModeOverrideObserved": { "type": "boolean" },
+            "classification": { "$ref": "#/$defs/claimClassification" }
+          }
+        }
+      }
+    },
+
+    "representativeExamples": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["sectionName", "axis", "valuesShown", "evidence"],
+        "properties": {
+          "sectionName": { "type": "string" },
+          "axis": { "type": "string" },
+          "valuesShown": { "type": "array", "items": { "type": "string" } },
+          "evidence": { "$ref": "#/$defs/evidenceRecord" }
+        }
+      }
+    },
+
+    "namingRules": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/namingRule" },
+      "description": "Component-neutral layer-naming rules. Layer names are first-class contract data but are never the sole semantic or referential identity."
+    },
+
+    "layoutRepresentations": {
+      "type": "array",
+      "minItems": 0,
+      "items": { "$ref": "#/$defs/layoutRepresentation" },
+      "description": "C-1. Replaces scalar layoutStrategy and top-level matrixAllocations. Independently scoped; a component may carry several simultaneously. An empty array is the honest representation of 'no documentation'."
+    },
+
+    "representationNodeBindings": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/representationNodeBinding" },
+      "description": "The OPERATIONAL locator table. naming_resolver.py resolves nodes exclusively through these bindings. layoutRepresentations[].evidenceNodeIds is provenance only and must never be used as a runtime locator."
+    },
+
+    "undocumentedSchemaVariantIds": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Schema variants that no layoutRepresentation covers. Silence must be explicit: CV-3b rejects a variant that is neither covered nor listed here."
+    },
+
+    "coveragePolicy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["statement", "qualifyingEvidenceLevelsForPhysicalCompletenessClaim", "perComponentSetCoverage"],
+      "properties": {
+        "statement": { "type": "string" },
+        "qualifyingEvidenceLevelsForPhysicalCompletenessClaim": {
+          "type": "array",
+          "items": { "enum": ["component_children_enumerated", "owner_confirmed"] },
+          "minItems": 1
+        },
+        "perComponentSetCoverage": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["componentSetId", "coverageMetrics", "physicalCoverageEvidenceLevel", "physicalCompletenessClaimed", "ownerConfirmationRef", "enumerationEvidence"],
+            "properties": {
+              "componentSetId": { "type": "string" },
+              "coverageMetrics": {
+                "type": "array",
+                "minItems": 1,
+                "items": { "$ref": "#/$defs/coverageMetric" },
+                "description": "C-5. Replaces the untyped documentedPairingCount."
+              },
+              "physicalCoverageEvidenceLevel": { "$ref": "#/$defs/evidenceLevel" },
+              "physicalCompletenessClaimed": { "type": "boolean" },
+              "ownerConfirmationRef": { "$ref": "#/$defs/nullableString" },
+              "enumerationEvidence": { "$ref": "#/$defs/enumerationEvidence" }
+            },
+            "allOf": [
+              {
+                "if": { "properties": { "physicalCompletenessClaimed": { "const": true } }, "required": ["physicalCompletenessClaimed"] },
+                "then": {
+                  "properties": { "physicalCoverageEvidenceLevel": { "enum": ["component_children_enumerated", "owner_confirmed"] } },
+                  "required": ["physicalCoverageEvidenceLevel"]
+                }
+              },
+              {
+                "if": {
+                  "properties": { "physicalCoverageEvidenceLevel": { "const": "component_children_enumerated" } },
+                  "required": ["physicalCoverageEvidenceLevel"]
+                },
+                "then": {
+                  "properties": { "enumerationEvidence": { "properties": { "status": { "const": "enumerated" } }, "required": ["status"] } },
+                  "required": ["enumerationEvidence"]
+                }
+              },
+              {
+                "if": {
+                  "properties": { "enumerationEvidence": { "properties": { "status": { "const": "enumerated" } }, "required": ["status"] } },
+                  "required": ["enumerationEvidence"]
+                },
+                "then": {
+                  "properties": { "physicalCoverageEvidenceLevel": { "enum": ["component_children_enumerated", "owner_confirmed"] } },
+                  "required": ["physicalCoverageEvidenceLevel"]
+                }
+              }
+            ]
+          }
+        }
+      }
+    },
+
+    "structuralFindings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["findingId", "description", "appliesToScopes", "corroboration", "evidence"],
+        "properties": {
+          "findingId": { "type": "string" },
+          "description": { "type": "string" },
+          "appliesToScopes": {
+            "type": "array",
+            "minItems": 1,
+            "items": { "$ref": "#/$defs/typedScope" },
+            "description": "C-3. Plural: a finding may span several component sets or families. Every scopeRef must resolve against the array named by its scopeType."
+          },
+          "corroboration": { "$ref": "#/$defs/corroboration" },
+          "evidence": { "$ref": "#/$defs/evidenceRecord" }
+        }
+      }
+    },
+
+    "validationRules": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["ruleId", "description", "severity", "detectionCondition", "action", "recoveryOrEscalation"],
+        "properties": {
+          "ruleId": { "type": "string", "pattern": "^VR-[0-9]+$" },
+          "description": { "type": "string" },
+          "severity": { "$ref": "#/$defs/severity" },
+          "detectionCondition": { "type": "string" },
+          "action": { "type": "string" },
+          "recoveryOrEscalation": { "type": "string" },
+          "evidenceLevelRequired": { "$ref": "#/$defs/evidenceLevel" }
+        }
+      }
+    },
+
+    "contractIntegrityRules": {
+      "type": "array",
+      "minItems": 1,
+      "description": "Document-integrity rules (CV-*) checked by this schema and/or semantic_validator.py, distinct from validationRules (VR-*), which govern a Builder's runtime behavior when consuming an already-valid contract.",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["ruleId", "description", "severity", "detectionCondition", "action", "recoveryOrEscalation", "enforcedBy"],
+        "properties": {
+          "ruleId": { "type": "string", "pattern": "^CV-[0-9]+[a-z]?$" },
+          "description": { "type": "string" },
+          "severity": { "$ref": "#/$defs/severity" },
+          "detectionCondition": { "type": "string" },
+          "action": { "type": "string" },
+          "recoveryOrEscalation": { "type": "string" },
+          "enforcedBy": { "type": "string", "enum": ["schema", "semantic_validator", "schema_and_semantic_validator"] },
+          "evidenceLevelRequired": { "$ref": "#/$defs/evidenceLevel" }
+        }
+      }
+    },
+
+    "readinessStatus": { "$ref": "#/$defs/readinessStatus" },
+
+    "approvalStatus": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["overall", "blockers", "ownerConfirmationRef"],
+      "properties": {
+        "overall": { "$ref": "#/$defs/approvalState" },
+        "ownerConfirmationRef": { "$ref": "#/$defs/nullableString" },
+        "blockers": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["blockerId", "description", "mustBeResolvedBefore"],
+            "properties": {
+              "blockerId": { "type": "string" },
+              "description": { "type": "string" },
+              "mustBeResolvedBefore": { "type": "string" },
+              "blockerClass": { "$ref": "#/$defs/blockerClass" }
+            }
+          }
+        }
+      },
+      "allOf": [
+        {
+          "if": { "properties": { "overall": { "const": "approved" } }, "required": ["overall"] },
+          "then": { "properties": { "blockers": { "maxItems": 0 }, "ownerConfirmationRef": { "type": "string", "minLength": 1 } }, "required": ["blockers", "ownerConfirmationRef"] }
+        },
+        {
+          "if": { "properties": { "overall": { "const": "blocked" } }, "required": ["overall"] },
+          "then": { "properties": { "blockers": { "minItems": 1 } }, "required": ["blockers"] }
+        }
+      ]
+    },
+
+    "knownLimitations": { "type": "array", "items": { "type": "string" } }
+  },
+
+  "allOf": [
+    {
+      "if": { "properties": { "authoringMode": { "const": "authored" } }, "required": ["authoringMode"] },
+      "then": { "properties": { "migrationReportRef": { "type": "null" } }, "required": ["migrationReportRef"] }
+    },
+    {
+      "if": { "properties": { "authoringMode": { "const": "migrated" } }, "required": ["authoringMode"] },
+      "then": { "properties": { "migrationReportRef": { "$ref": "#/$defs/hashedArtifactRef" } }, "required": ["migrationReportRef"] }
+    },
+    {
+      "if": { "properties": { "contractVersion": { "pattern": "^1\\.0\\.0$" } }, "required": ["contractVersion"] },
+      "then": {
+        "required": ["readinessStatus", "approvalStatus"],
+        "properties": {
+          "readinessStatus": { "const": "ready_for_production" },
+          "approvalStatus": { "required": ["overall", "blockers"], "properties": { "overall": { "const": "approved" }, "blockers": { "maxItems": 0 } } }
+        }
+      }
+    },
+    {
+      "if": { "properties": { "readinessStatus": { "const": "ready_for_production" } }, "required": ["readinessStatus"] },
+      "then": {
+        "required": ["contractVersion", "approvalStatus"],
+        "properties": { "contractVersion": { "pattern": "^1\\.0\\.0$" }, "approvalStatus": { "required": ["overall"], "properties": { "overall": { "const": "approved" } } } }
+      }
+    },
+    {
+      "if": { "properties": { "contractVersion": { "pattern": "-draft$" } }, "required": ["contractVersion"] },
+      "then": { "required": ["readinessStatus"], "properties": { "readinessStatus": { "enum": ["not_ready", "validation_ready"] } } }
+    }
+  ],
+
+  "$defs": {
+    "authoringMode": {
+      "type": "string",
+      "enum": ["authored", "migrated"],
+      "description": "How this contract came into existence. The discriminator that makes 'legacy states are migration-only' enforceable WITHOUT version-sniffing. 'authored' forbids every legacy_* state and every migrationReviewRequired flag."
+    },
+
+    "hashedArtifactRef": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["artifactPath", "artifactSha256"],
+      "properties": {
+        "artifactPath": { "type": "string", "minLength": 1 },
+        "artifactSha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" }
+      }
+    },
+
+    "evidenceLevel": {
+      "type": "string",
+      "enum": ["schema_only", "observed_instances", "visual_matrix_verified", "component_children_enumerated", "owner_confirmed"],
+      "description": "How strongly a claim is backed. visual_matrix_verified and component_children_enumerated are deliberately NOT an ordered pair -- a screenshot never upgrades to enumeration; they are different kinds of check, not different strengths of the same check."
+    },
+
+    "claimClassification": {
+      "type": "string",
+      "enum": ["observed", "computed", "inferred", "unverified"],
+      "description": "observed = read directly from source data. computed = derived deterministically from observed data. inferred = a plausible explanation not directly provable. unverified = could not be established."
+    },
+
+    "severity": { "type": "string", "enum": ["blocker", "error", "warning", "info"] },
+    "approvalState": { "type": "string", "enum": ["draft", "pending_review", "approved", "blocked"] },
+
+    "readinessStatus": {
+      "type": "string",
+      "enum": ["not_ready", "validation_ready", "ready_for_production"],
+      "description": "Component-neutral. 'validation_ready' means the package validates and is checksum-pinned; it is NOT production approval."
+    },
+
+    "blockerClass": {
+      "type": "string",
+      "enum": ["owner_decision", "legacy_migration_state", "migration_review", "evidence_gap"],
+      "description": "Lets CV-17 match an unresolved-migration artifact to its blocker without string matching."
+    },
+
+    "nullableString": { "type": ["string", "null"] },
+    "combinationObject": { "type": "object", "additionalProperties": { "type": "string" } },
+
+    "scopeType": {
+      "type": "string",
+      "enum": ["node", "component_set", "schema_variant", "semantic_family", "layout_representation", "contract"],
+      "description": "C-3. Names the array that scopeRef must resolve against. Deliberately excludes any cross-contract member: scope (what a finding applies to) is kept separate from corroboration (how broadly it has been observed)."
+    },
+
+    "typedScope": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["scopeType", "scopeRef"],
+      "properties": {
+        "scopeType": { "$ref": "#/$defs/scopeType" },
+        "scopeRef": { "type": "string", "minLength": 1 },
+        "migrationReviewRequired": {
+          "type": "boolean",
+          "description": "Set by migration when the intended scope could not be inferred mechanically. NOT a passive marker: CV-17 leg f requires a matching approval blocker and forbids approved/ready_for_production."
+        }
+      }
+    },
+
+    "corroborationLevel": {
+      "type": "string",
+      "enum": ["single_component_observed", "multi_component_corroborated", "owner_declared_standard"],
+      "description": "single_component_observed = seen in the current contract only. multi_component_corroborated = the current contract PLUS at least one distinct external contract. owner_declared_standard = backed by a resolvable owner confirmation."
+    },
+
+    "corroboration": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["level", "corroboratingContracts"],
+      "properties": {
+        "level": { "$ref": "#/$defs/corroborationLevel" },
+        "corroboratingContracts": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["contractId", "artifactPath", "artifactSha256"],
+            "properties": {
+              "contractId": { "type": "string", "minLength": 1 },
+              "artifactPath": { "type": "string", "minLength": 1 },
+              "artifactSha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" }
+            }
+          },
+          "description": "External contracts only -- the current contract is implicit. A bare contract id is not sufficient evidence; each entry is hash-verified by CV-15."
+        },
+        "ownerConfirmationRef": { "$ref": "#/$defs/nullableString" }
+      },
+      "allOf": [
+        {
+          "if": { "properties": { "level": { "const": "multi_component_corroborated" } }, "required": ["level"] },
+          "then": { "properties": { "corroboratingContracts": { "minItems": 1 } }, "required": ["corroboratingContracts"] }
+        },
+        {
+          "if": { "properties": { "level": { "const": "single_component_observed" } }, "required": ["level"] },
+          "then": { "properties": { "corroboratingContracts": { "maxItems": 0 } }, "required": ["corroboratingContracts"] }
+        },
+        {
+          "if": { "properties": { "level": { "const": "owner_declared_standard" } }, "required": ["level"] },
+          "then": { "properties": { "ownerConfirmationRef": { "type": "string", "minLength": 1 } }, "required": ["ownerConfirmationRef"] }
+        }
+      ]
+    },
+
+    "evidenceRecord": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["classification", "sourceFile"],
+      "properties": {
+        "classification": { "$ref": "#/$defs/claimClassification" },
+        "sourceFile": { "type": "string" },
+        "nodeIds": { "type": "array", "items": { "type": "string" } },
+        "confidence": { "type": "string", "enum": ["high", "medium", "low"] },
+        "note": { "type": "string" }
+      },
+      "description": "An observation record. It carries NO generalization scope: generalization belongs on structuralFindings[].appliesToScopes / corroboration. Conflating the two was the v0.3.1 defect C-3 exists to fix."
+    },
+
+    "figmaAccessLogEntry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["nodeId", "operation", "result", "evidenceClassification", "resultingEvidenceLevel", "capturedAt", "toolIdentity", "toolVersionKnown", "figmaFileVersionIdentity", "artifactAvailable", "artifactPath", "artifactSha256", "rawResponsePath"],
+      "properties": {
+        "nodeId": { "type": "string" },
+        "operation": { "type": "string" },
+        "result": { "type": "string" },
+        "evidenceClassification": { "$ref": "#/$defs/claimClassification" },
+        "resultingEvidenceLevel": { "anyOf": [{ "$ref": "#/$defs/evidenceLevel" }, { "type": "null" }] },
+        "capturedAt": { "$ref": "#/$defs/nullableString" },
+        "toolIdentity": { "type": "string" },
+        "toolVersionKnown": { "type": "boolean" },
+        "figmaFileVersionIdentity": { "$ref": "#/$defs/nullableString" },
+        "artifactAvailable": { "type": "boolean" },
+        "artifactPath": { "$ref": "#/$defs/nullableString" },
+        "artifactSha256": { "$ref": "#/$defs/nullableString" },
+        "rawResponsePath": { "$ref": "#/$defs/nullableString" }
+      }
+    },
+
+    "propertyRole": {
+      "type": "string",
+      "enum": ["variant_axis", "content_text", "boolean_toggle", "content_instance_swap"],
+      "description": "C-9. Component-neutral Builder role, consistency-checked against the Figma property type."
+    },
+
+    "propertyDefinition": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["propertyKey", "type", "role", "evidenceLevel"],
+      "properties": {
+        "propertyKey": { "type": "string" },
+        "type": { "type": "string", "enum": ["VARIANT", "BOOLEAN", "TEXT", "INSTANCE_SWAP"] },
+        "role": { "$ref": "#/$defs/propertyRole" },
+        "defaultValue": {},
+        "canonicalOptions": { "type": "array", "items": { "type": "string" } },
+        "preferredValues": { "type": "array", "items": { "type": "object" } },
+        "evidenceLevel": { "$ref": "#/$defs/evidenceLevel" }
+      },
+      "allOf": [
+        { "if": { "properties": { "type": { "const": "VARIANT" } }, "required": ["type"] },
+          "then": { "properties": { "role": { "const": "variant_axis" }, "canonicalOptions": { "minItems": 1 } }, "required": ["role", "canonicalOptions"] } },
+        { "if": { "properties": { "type": { "const": "TEXT" } }, "required": ["type"] },
+          "then": { "properties": { "role": { "const": "content_text" } }, "required": ["role"] } },
+        { "if": { "properties": { "type": { "const": "BOOLEAN" } }, "required": ["type"] },
+          "then": { "properties": { "role": { "const": "boolean_toggle" } }, "required": ["role"] } },
+        { "if": { "properties": { "type": { "const": "INSTANCE_SWAP" } }, "required": ["type"] },
+          "then": { "properties": { "role": { "const": "content_instance_swap" } }, "required": ["role"] } }
+      ]
+    },
+
+    "overrideEvidenceStatus": {
+      "type": "string",
+      "enum": ["not_enumerated", "enumerated_none", "enumerated_present"],
+      "description": "C-9 tri-state. Replaces a bare boolean, which conflated 'checked and absent' with 'not inspected'."
+    },
+
+    "nonVariantPropertyCoverageEntry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["propertyKey", "role", "declaredDefault", "overrideEvidenceStatus"],
+      "properties": {
+        "propertyKey": { "type": "string" },
+        "role": { "$ref": "#/$defs/propertyRole" },
+        "declaredDefault": {},
+        "overrideEvidenceStatus": { "$ref": "#/$defs/overrideEvidenceStatus" },
+        "observedOverrides": { "type": "array", "items": { "type": "object" } },
+        "evidenceNodeIds": { "type": "array", "items": { "type": "string" } }
+      },
+      "allOf": [
+        {
+          "if": { "properties": { "overrideEvidenceStatus": { "const": "enumerated_present" } }, "required": ["overrideEvidenceStatus"] },
+          "then": { "properties": { "observedOverrides": { "minItems": 1 }, "evidenceNodeIds": { "minItems": 1 } }, "required": ["observedOverrides", "evidenceNodeIds"] }
+        },
+        {
+          "if": { "properties": { "overrideEvidenceStatus": { "const": "enumerated_none" } }, "required": ["overrideEvidenceStatus"] },
+          "then": { "properties": { "evidenceNodeIds": { "minItems": 1 } }, "required": ["evidenceNodeIds"] }
+        },
+        {
+          "if": { "properties": { "overrideEvidenceStatus": { "const": "not_enumerated" } }, "required": ["overrideEvidenceStatus"] },
+          "then": { "properties": { "observedOverrides": { "maxItems": 0 } } }
+        }
+      ]
+    },
+
+    "treatment": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind"],
+      "properties": {
+        "kind": { "type": "string", "enum": ["set_identity", "in_set_variant_axis", "none"] },
+        "label": { "type": "string" },
+        "propertyKey": { "type": "string" }
+      },
+      "allOf": [
+        { "if": { "properties": { "kind": { "const": "set_identity" } }, "required": ["kind"] },
+          "then": { "properties": { "label": { "type": "string", "minLength": 1 } }, "required": ["label"] } },
+        { "if": { "properties": { "kind": { "const": "in_set_variant_axis" } }, "required": ["kind"] },
+          "then": { "properties": { "propertyKey": { "type": "string", "minLength": 1 } }, "required": ["propertyKey"] } },
+        { "if": { "properties": { "kind": { "const": "none" } }, "required": ["kind"] },
+          "then": { "not": { "anyOf": [{ "required": ["label"] }, { "required": ["propertyKey"] }] } } }
+      ],
+      "description": "C-8. Replaces the required non-nullable treatmentLabel string. No sentinel strings."
+    },
+
+    "legacyMigrationState": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["missingEvidence", "originalField", "responsibleOwner", "resolutionCondition"],
+      "properties": {
+        "missingEvidence": { "type": "string", "minLength": 1 },
+        "originalField": { "type": "string", "minLength": 1 },
+        "responsibleOwner": { "type": "string", "minLength": 1 },
+        "resolutionCondition": { "type": "string", "minLength": 1 }
+      },
+      "description": "Shared shape for every migration-only unresolved state. Governed by CV-17: forbidden when authoringMode=authored; blocks approval and production readiness; can never satisfy a completeness claim or make an allocation an approved Builder default."
+    },
+
+    "orderingRule": {
+      "type": "string",
+      "enum": ["ascending_absolute_x", "ascending_absolute_y", "declared_variant_option_order", "document_order"]
+    },
+
+    "dimension": {
+      "type": "object",
+      "required": ["kind"],
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["kind", "propertyKey", "orderedValues", "orderingRule"],
+          "properties": {
+            "kind": { "const": "variant_property" },
+            "propertyKey": { "type": "string", "minLength": 1 },
+            "orderedValues": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
+            "orderingRule": { "$ref": "#/$defs/orderingRule" }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["kind", "items", "orderingRule"],
+          "properties": {
+            "kind": { "const": "component_set_identity" },
+            "orderingRule": { "$ref": "#/$defs/orderingRule" },
+            "items": {
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": ["componentSetId", "semanticValue", "observedLayerName", "expectedLayerName", "namingRuleRef"],
+                "properties": {
+                  "componentSetId": { "type": "string" },
+                  "semanticValue": { "type": "string" },
+                  "observedLayerName": { "type": "string" },
+                  "expectedLayerName": { "type": "string" },
+                  "namingRuleRef": { "type": "string" }
+                }
+              }
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["kind", "propertyKey", "value"],
+          "properties": {
+            "kind": { "const": "fixed_filter" },
+            "propertyKey": { "type": "string", "minLength": 1 },
+            "value": { "type": "string" }
+          }
+        }
+      ],
+      "description": "C-2. Tagged union. No magic strings such as __treatment__."
+    },
+
+    "allocationEvidenceStatus": {
+      "type": "string",
+      "enum": ["verified", "legacy_unverified", "not_applicable"],
+      "description": "C-4. 'verified' requires a recomputable artifact. 'legacy_unverified' is migration-only and governed by CV-17. No version-number-based exemption exists."
+    },
+
+    "allocation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["rows", "columns", "bands", "fixedFilters", "allocationEvidence", "approvalStatus", "ownerConfirmationRef"],
+      "properties": {
+        "rows": { "$ref": "#/$defs/dimension" },
+        "columns": { "anyOf": [{ "$ref": "#/$defs/dimension" }, { "type": "null" }] },
+        "bands": { "type": "array", "items": { "$ref": "#/$defs/dimension" } },
+        "fixedFilters": { "type": "array", "items": { "$ref": "#/$defs/dimension" } },
+        "allocationEvidence": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["status"],
+          "properties": {
+            "status": { "$ref": "#/$defs/allocationEvidenceStatus" },
+            "artifactPath": { "$ref": "#/$defs/nullableString" },
+            "artifactSha256": { "$ref": "#/$defs/nullableString" },
+            "derivationMethod": { "$ref": "#/$defs/nullableString" },
+            "legacyState": { "$ref": "#/$defs/legacyMigrationState" }
+          },
+          "allOf": [
+            {
+              "if": { "properties": { "status": { "const": "verified" } }, "required": ["status"] },
+              "then": {
+                "properties": {
+                  "artifactPath": { "type": "string", "minLength": 1 },
+                  "artifactSha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+                  "derivationMethod": { "type": "string", "minLength": 1 }
+                },
+                "required": ["artifactPath", "artifactSha256", "derivationMethod"],
+                "not": { "required": ["legacyState"] }
+              }
+            },
+            {
+              "if": { "properties": { "status": { "const": "legacy_unverified" } }, "required": ["status"] },
+              "then": { "required": ["legacyState"], "properties": { "artifactPath": { "type": "null" }, "artifactSha256": { "type": "null" } } }
+            },
+            {
+              "if": { "properties": { "status": { "const": "not_applicable" } }, "required": ["status"] },
+              "then": { "not": { "required": ["legacyState"] }, "properties": { "artifactPath": { "type": "null" }, "artifactSha256": { "type": "null" } } }
+            }
+          ]
+        },
+        "approvalStatus": { "$ref": "#/$defs/approvalState" },
+        "ownerConfirmationRef": { "$ref": "#/$defs/nullableString" }
+      },
+      "allOf": [
+        {
+          "if": { "properties": { "approvalStatus": { "const": "approved" } }, "required": ["approvalStatus"] },
+          "then": { "properties": { "ownerConfirmationRef": { "type": "string", "minLength": 1 } }, "required": ["ownerConfirmationRef"] }
+        }
+      ]
+    },
+
+    "layoutRepresentation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["representationId", "strategy", "appliesTo", "evidenceNodeIds", "evidence"],
+      "properties": {
+        "representationId": { "type": "string", "pattern": "^LR-[0-9]+$" },
+        "strategy": { "type": "string", "enum": ["matrix", "list", "scenario_gallery"] },
+        "appliesTo": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["schemaVariantIds", "componentSetIds"],
+          "properties": {
+            "schemaVariantIds": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
+            "componentSetIds": { "type": "array", "items": { "type": "string" }, "minItems": 1 }
+          }
+        },
+        "evidenceNodeIds": {
+          "type": "array",
+          "items": { "type": "string" },
+          "minItems": 1,
+          "description": "PROVENANCE ONLY. Never a runtime locator -- use representationNodeBindings[]."
+        },
+        "namingRuleRefs": { "type": "array", "items": { "type": "string" } },
+        "allocation": { "$ref": "#/$defs/allocation" },
+        "evidence": { "$ref": "#/$defs/evidenceRecord" }
+      },
+      "allOf": [
+        { "if": { "properties": { "strategy": { "const": "matrix" } }, "required": ["strategy"] },
+          "then": { "required": ["allocation"] },
+          "else": { "not": { "required": ["allocation"] } } }
+      ]
+    },
+
+    "representationNodeBinding": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["layoutRepresentationRef", "containerNodeId", "rootNodeId", "semanticRole", "observedLayerName"],
+      "properties": {
+        "layoutRepresentationRef": { "type": "string", "pattern": "^LR-[0-9]+$" },
+        "containerNodeId": { "type": "string", "minLength": 1 },
+        "rootNodeId": { "type": "string", "minLength": 1 },
+        "semanticRole": { "type": "string", "minLength": 1 },
+        "observedLayerName": { "type": "string" },
+        "expectedParentRef": { "$ref": "#/$defs/nullableString" },
+        "expectedAncestorRefs": { "type": "array", "items": { "type": "string" } },
+        "migrationReviewRequired": { "type": "boolean" }
+      },
+      "description": "The operational locator. containerNodeId is the node to act on; rootNodeId bounds the resolver's scoped fallback search."
+    },
+
+    "namingEnforcement": { "type": "string", "enum": ["required", "recommended", "observed_only"] },
+    "uniquenessPolicy": { "type": "string", "enum": ["required_within_scope", "duplicates_allowed", "not_applicable"] },
+
+    "namingRule": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["namingRuleId", "appliesToRole", "template", "enforcement", "uniquenessPolicy", "scope"],
+      "properties": {
+        "namingRuleId": { "type": "string", "pattern": "^NR-[A-Za-z0-9_-]+$" },
+        "appliesToRole": { "type": "string", "minLength": 1 },
+        "template": { "type": "string", "minLength": 1 },
+        "enforcement": { "$ref": "#/$defs/namingEnforcement" },
+        "uniquenessPolicy": { "$ref": "#/$defs/uniquenessPolicy" },
+        "scope": { "$ref": "#/$defs/typedScope" },
+        "note": { "type": "string" }
+      },
+      "allOf": [
+        {
+          "if": { "properties": { "enforcement": { "enum": ["required", "recommended"] } }, "required": ["enforcement"] },
+          "then": { "properties": { "uniquenessPolicy": { "enum": ["required_within_scope", "duplicates_allowed"] } }, "required": ["uniquenessPolicy"] }
+        },
+        {
+          "if": { "properties": { "enforcement": { "const": "observed_only" } }, "required": ["enforcement"] },
+          "then": { "properties": { "uniquenessPolicy": { "const": "not_applicable" } }, "required": ["uniquenessPolicy"] }
+        }
+      ],
+      "description": "Layer names are first-class contract data (creation, location, conformity, renaming, update) but never the sole semantic or referential identity."
+    },
+
+    "coverageMetric": {
+      "type": "object",
+      "required": ["kind"],
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["kind", "metric", "value"],
+          "properties": {
+            "kind": { "const": "classified" },
+            "metric": { "type": "string", "enum": ["instance_placements", "unique_variant_combinations", "matrix_cells"] },
+            "value": { "type": "integer", "minimum": 0 },
+            "evidenceNodeIds": { "type": "array", "items": { "type": "string" } },
+            "representationId": { "type": "string", "pattern": "^LR-[0-9]+$" }
+          },
+          "allOf": [
+            { "if": { "properties": { "metric": { "const": "matrix_cells" } }, "required": ["metric"] },
+              "then": { "properties": { "representationId": { "type": "string" } }, "required": ["representationId"] } }
+          ]
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["kind", "value", "legacyState"],
+          "properties": {
+            "kind": { "const": "legacy_unclassified" },
+            "value": { "type": "integer", "minimum": 0 },
+            "legacyState": { "$ref": "#/$defs/legacyMigrationState" }
+          }
+        }
+      ],
+      "description": "C-5. matrix_cells is defined as rows x columns, EXCLUDING bands. legacy_unclassified preserves a value whose metric kind is unknown and is migration-only."
+    },
+
+    "enumerationMethodClass": {
+      "type": "string",
+      "enum": ["plugin_api_variant_properties", "rest_api_node_payload", "node_name_parse", "owner_supplied"]
+    },
+
+    "enumerationMethodRecord": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["class", "toolIdentity", "apiFieldsRead", "inferredFields"],
+      "properties": {
+        "class": { "$ref": "#/$defs/enumerationMethodClass" },
+        "toolIdentity": { "type": "string", "minLength": 1 },
+        "apiFieldsRead": { "type": "array", "items": { "type": "string" } },
+        "inferredFields": { "type": "array", "items": { "type": "string" } },
+        "rawCaptureRef": { "anyOf": [{ "$ref": "#/$defs/hashedArtifactRef" }, { "type": "null" }] },
+        "normalizedArtifactRef": { "anyOf": [{ "$ref": "#/$defs/hashedArtifactRef" }, { "type": "null" }] },
+        "ownerConfirmationRef": { "$ref": "#/$defs/nullableString" }
+      }
+    },
+
+    "enumerationEvidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status", "enumeratedAxes", "enumeratedAxisCombinations", "artifactPath", "artifactSha256", "enumeratedCount", "method"],
+      "properties": {
+        "status": { "type": "string", "enum": ["not_enumerated", "enumerated"] },
+        "enumeratedAxes": { "type": "array", "items": { "type": "string" } },
+        "enumeratedAxisCombinations": { "type": "array", "items": { "$ref": "#/$defs/combinationObject" } },
+        "artifactPath": { "$ref": "#/$defs/nullableString" },
+        "artifactSha256": { "$ref": "#/$defs/nullableString" },
+        "enumeratedCount": { "type": ["integer", "null"], "minimum": 0 },
+        "method": { "anyOf": [{ "$ref": "#/$defs/enumerationMethodRecord" }, { "type": "null" }] }
+      },
+      "allOf": [
+        {
+          "if": { "properties": { "status": { "const": "enumerated" } }, "required": ["status"] },
+          "then": {
+            "properties": {
+              "enumeratedAxes": { "minItems": 1 },
+              "artifactPath": { "type": "string", "minLength": 1 },
+              "artifactSha256": { "type": "string", "minLength": 1 },
+              "enumeratedCount": { "type": "integer" },
+              "method": { "$ref": "#/$defs/enumerationMethodRecord" }
+            },
+            "required": ["enumeratedAxes", "artifactPath", "artifactSha256", "enumeratedCount", "method"]
+          }
+        },
+        {
+          "if": { "properties": { "status": { "const": "not_enumerated" } }, "required": ["status"] },
+          "then": {
+            "properties": {
+              "enumeratedAxes": { "maxItems": 0 },
+              "enumeratedAxisCombinations": { "maxItems": 0 },
+              "artifactPath": { "type": "null" },
+              "artifactSha256": { "type": "null" },
+              "enumeratedCount": { "type": "null" },
+              "method": { "type": "null" }
+            }
+          }
+        }
+      ]
+    },
+
+    "variableCollection": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["collectionId", "collectionName", "remote", "defaultModeId", "modes", "themeVarying"],
+      "properties": {
+        "collectionId": { "type": "string" },
+        "collectionKey": { "$ref": "#/$defs/nullableString" },
+        "collectionName": { "type": "string" },
+        "remote": { "type": "boolean" },
+        "defaultModeId": { "type": "string" },
+        "variableCount": { "type": ["integer", "null"], "minimum": 0 },
+        "themeVarying": { "type": "boolean" },
+        "modes": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["modeId", "modeName"],
+            "properties": {
+              "modeId": { "type": "string" },
+              "modeName": { "type": "string" },
+              "isDefault": { "type": "boolean" }
+            }
+          }
+        }
+      }
+    },
+
+    "modeBinding": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["collectionId", "resolvedModeId", "provenanceStatus"],
+      "properties": {
+        "collectionId": { "type": "string" },
+        "resolvedModeId": { "type": "string" },
+        "resolvedModeName": { "$ref": "#/$defs/nullableString" },
+        "provenanceStatus": { "type": "string", "enum": ["verified", "legacy_unverified"] },
+        "provenance": { "type": "string", "enum": ["explicit", "inherited_from_ancestor", "inherited_default"] },
+        "provenanceEvidenceNodeIds": { "type": "array", "items": { "type": "string" } },
+        "legacyState": { "$ref": "#/$defs/legacyMigrationState" }
+      },
+      "allOf": [
+        {
+          "if": { "properties": { "provenanceStatus": { "const": "verified" } }, "required": ["provenanceStatus"] },
+          "then": {
+            "required": ["provenance", "provenanceEvidenceNodeIds"],
+            "properties": { "provenanceEvidenceNodeIds": { "minItems": 1 } },
+            "not": { "required": ["legacyState"] }
+          }
+        },
+        {
+          "if": { "properties": { "provenanceStatus": { "const": "legacy_unverified" } }, "required": ["provenanceStatus"] },
+          "then": { "required": ["legacyState"], "not": { "required": ["provenance"] } }
+        }
+      ],
+      "description": "C-7. provenanceStatus is separate from provenance so migration never has to invent an out-of-enum provenance value."
+    },
+
+    "themeContainer": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["containerNodeId", "containerNodeName", "modeBindings"],
+      "properties": {
+        "containerNodeId": { "type": "string", "minLength": 1 },
+        "containerNodeName": { "type": "string" },
+        "labelSourceNodeId": { "$ref": "#/$defs/nullableString" },
+        "labelText": { "$ref": "#/$defs/nullableString" },
+        "modeBindings": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/modeBinding" } },
+        "evidence": { "$ref": "#/$defs/evidenceRecord" }
+      },
+      "description": "Identity is containerNodeId, not containerNodeName -- names are not unique (NAME-0001 Pill has two containers both literally named 'card')."
+    },
+
+    "descendantVariableUse": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["variableId", "variableName", "collectionId", "exhaustive"],
+      "properties": {
+        "variableId": { "type": "string" },
+        "variableKey": { "$ref": "#/$defs/nullableString" },
+        "variableName": { "type": "string" },
+        "resolvedType": { "$ref": "#/$defs/nullableString" },
+        "collectionId": { "type": "string" },
+        "valuesByMode": { "type": "object", "additionalProperties": true },
+        "sampledOnNodeIds": { "type": "array", "items": { "type": "string" } },
+        "exhaustive": { "type": "boolean" }
+      },
+      "description": "Variables bound by descendants are recorded separately from the container's collection->mode binding. The two are different facts."
+    },
+
+    "ownerConfirmationRecord": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["confirmationId", "confirmedBy", "confirmationDate", "method", "scopeType", "scopeRef"],
+      "properties": {
+        "confirmationId": { "type": "string", "pattern": "^OC-[0-9]+$" },
+        "confirmedBy": { "type": "string" },
+        "confirmationDate": { "type": "string", "pattern": "^\\d{4}-\\d{2}-\\d{2}$" },
+        "method": { "type": "string", "enum": ["written_confirmation", "verbal_confirmation_logged", "design_review_signoff", "other"] },
+        "scopeType": { "type": "string", "enum": ["correlated_axis_tuple", "component_set_coverage", "layout_representation", "contract_overall"] },
+        "scopeRef": { "type": "string" }
+      }
+    }
+  }
+}

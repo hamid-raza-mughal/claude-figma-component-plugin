@@ -1,0 +1,226 @@
+{
+  "experiment": "NAME-0001 Pill - adversarial non-Button validation of component-representation-contract v0.3.1-draft",
+  "pass": "R-2 live-evidence reconciliation",
+  "fileKey": "FILEKEY-0002",
+  "file": "NAME-0001-Components",
+  "pageId": "NODE-0538",
+  "pageName": "Pills",
+  "rootNodeId": "NODE-0539",
+  "generatedAt": "2026-08-16T08:55:00Z",
+  "figmaAuthority": "read-only; use_figma executed read-only scripts only. No create/edit/rename/move/publish/delete was performed.",
+  "geometryCrossCheck": {
+    "note": "Independent cross-check that the retained XML still matches the live tree.",
+    "buildHolderChildCount": 5
+  },
+  "artifacts": [
+    {
+      "path": "evidence/allocation-evidence-MA-1.json",
+      "sourceNodeId": "NODE-0133,NODE-0213",
+      "fileKey": "FILEKEY-0002",
+      "captureMethod": "derived",
+      "capturedAt": "2026-08-16T08:55:00Z",
+      "evidenceClassification": "computed",
+      "sha256": "c3c3ca469186a670b9d73bde02d870ddb1e23d371fd1608ba01256cb20103350",
+      "sizeBytes": 22977,
+      "limitations": "PROTOTYPE for proposed P-11/CV-12. Not part of v0.3.1. Lets a validator recompute the allocation instead of trusting it."
+    },
+    {
+      "path": "evidence/api-capture-component-sets.json",
+      "sourceNodeId": "NODE-0539",
+      "fileKey": "FILEKEY-0002",
+      "captureMethod": "mcp__plugin_figma_figma__use_figma",
+      "capturedAt": "2026-08-16T08:55:00Z",
+      "evidenceClassification": "observed",
+      "sha256": "fef66a30a2495a6d0cca9a69bc4c98b668fd800efa7e1ea4afd7ac968e2c04b5",
+      "sizeBytes": 18337,
+      "limitations": "Authoritative structural source: node types, visibility, keys, componentPropertyDefinitions, 216 children with API variantProperties, plus in-Figma completeness/duplicate checks."
+    },
+    {
+      "path": "evidence/api-capture-documentation-instances.json",
+      "sourceNodeId": "NODE-0001",
+      "fileKey": "FILEKEY-0002",
+      "captureMethod": "mcp__plugin_figma_figma__use_figma",
+      "capturedAt": "2026-08-16T08:55:00Z",
+      "evidenceClassification": "observed",
+      "sha256": "b174f5f72c90f9129fb5459c319319ec64c8ad73abfb8360b0f1bea5215a486e",
+      "sizeBytes": 44453,
+      "limitations": "All 94 documented Pill instances with real variantProperties, owning set, block, structural path and position. Nested icon instances excluded."
+    },
+    {
+      "path": "evidence/api-capture-pulse-animation.json",
+      "sourceNodeId": "NODE-0513",
+      "fileKey": "FILEKEY-0002",
+      "captureMethod": "mcp__plugin_figma_figma__use_figma",
+      "capturedAt": "2026-08-16T08:55:00Z",
+      "evidenceClassification": "observed",
+      "sha256": "c5389081889c50e31fd92727da705edee15d998c2be30c48a0ce459327c33130",
+      "sizeBytes": 4208,
+      "limitations": "Hidden set: visibility, 24 reactions with triggers and transitions, binding sample, zero documentation instances, content-property terminology."
+    },
+    {
+      "path": "evidence/api-capture-theme.json",
+      "sourceNodeId": "NODE-0005,NODE-0069",
+      "fileKey": "FILEKEY-0002",
+      "captureMethod": "mcp__plugin_figma_figma__use_figma",
+      "capturedAt": "2026-08-16T08:55:00Z",
+      "evidenceClassification": "observed",
+      "sha256": "516cca0af8740951b4894235c7839a0e3df12f69ef7f4e652f32cdde848b6437",
+      "sizeBytes": 7288,
+      "limitations": "Collection identity, mode ids/names, explicit vs inherited provenance, bound variable identities with per-mode values. Bindings sampled, not exhaustive."
+    },
+    {
+      "path": "evidence/api-vs-nameparse-diff.json",
+      "sourceNodeId": "NODE-0545",
+      "fileKey": "FILEKEY-0002",
+      "captureMethod": "derived",
+      "capturedAt": "2026-08-16T08:55:00Z",
+      "evidenceClassification": "computed",
+      "sha256": "ca2094117fc505c9e4b2aba5d78285740ba10f9a7eaa52f316d18dd0c13ca0b4",
+      "sizeBytes": 7198,
+      "limitations": "Diff of the R-1 name-parsed artifacts against R-2 API truth. Not a Figma read."
+    },
+    {
+      "path": "evidence/enumeration-787-14141.json",
+      "sourceNodeId": "NODE-0317",
+      "fileKey": "FILEKEY-0002",
+      "captureMethod": "figma_plugin_api__component_set_children_variantProperties (read-only use_figma script; COMPONENT_SET.children enumerated and each child's COMPONENT.variantProperties read directly from the Plugin API field)",
+      "capturedAt": "2026-08-16T08:55:00Z",
+      "evidenceClassification": "observed",
+      "sha256": "fe3349980b4d084c5f6d3c7a6d5b955c21be2044d36a417d9d06d29bab7ccf12",
+      "sizeBytes": 8209,
+      "limitations": "CV-11 artifact: 48 COMPONENT children of Pill – Highline, variantProperties read from the Plugin API field."
+    },
+    {
+      "path": "evidence/enumeration-787-14271.json",
+      "sourceNodeId": "NODE-0366",
+      "fileKey": "FILEKEY-0002",
+      "captureMethod": "figma_plugin_api__component_set_children_variantProperties (read-only use_figma script; COMPONENT_SET.children enumerated and each child's COMPONENT.variantProperties read directly from the Plugin API field)",
+      "capturedAt": "2026-08-16T08:55:00Z",
+      "evidenceClassification": "observed",
+      "sha256": "16a4014a6ac2cebbd6f846905be73564fbfab163a05f219f96728801def090b7",
+      "sizeBytes": 8209,
+      "limitations": "CV-11 artifact: 48 COMPONENT children of Pill – Highlighted, variantProperties read from the Plugin API field."
+    },
+    {
+      "path": "evidence/enumeration-787-14401.json",
+      "sourceNodeId": "NODE-0415",
+      "fileKey": "FILEKEY-0002",
+      "captureMethod": "figma_plugin_api__component_set_children_variantProperties (read-only use_figma script; COMPONENT_SET.children enumerated and each child's COMPONENT.variantProperties read directly from the Plugin API field)",
+      "capturedAt": "2026-08-16T08:55:00Z",
+      "evidenceClassification": "observed",
+      "sha256": "cfcfb4c68084b4b8c168d12512c43dcf604d4837bc42d5fb83b6c4c999f6f12c",
+      "sizeBytes": 8209,
+      "limitations": "CV-11 artifact: 48 COMPONENT children of Pill – Filled, variantProperties read from the Plugin API field."
+    },
+    {
+      "path": "evidence/enumeration-787-14531.json",
+      "sourceNodeId": "NODE-0464",
+      "fileKey": "FILEKEY-0002",
+      "captureMethod": "figma_plugin_api__component_set_children_variantProperties (read-only use_figma script; COMPONENT_SET.children enumerated and each child's COMPONENT.variantProperties read directly from the Plugin API field)",
+      "capturedAt": "2026-08-16T08:55:00Z",
+      "evidenceClassification": "observed",
+      "sha256": "9c483b8bb76f4fd55fb48929dfaeaba09c2461e7b887ae3844b7432273f9d694",
+      "sizeBytes": 8209,
+      "limitations": "CV-11 artifact: 48 COMPONENT children of Pill – Text, variantProperties read from the Plugin API field."
+    },
+    {
+      "path": "evidence/enumeration-787-14660.json",
+      "sourceNodeId": "NODE-0513",
+      "fileKey": "FILEKEY-0002",
+      "captureMethod": "figma_plugin_api__component_set_children_variantProperties (read-only use_figma script; COMPONENT_SET.children enumerated and each child's COMPONENT.variantProperties read directly from the Plugin API field)",
+      "capturedAt": "2026-08-16T08:55:00Z",
+      "evidenceClassification": "observed",
+      "sha256": "2fffc3b2d0c9039e75272a8490930ca7354856b8dec8416827e5bb6277189d8c",
+      "sizeBytes": 4921,
+      "limitations": "CV-11 artifact: 24 COMPONENT children of Pill – Pulse Animation, variantProperties read from the Plugin API field."
+    },
+    {
+      "path": "evidence/figma-metadata-787-4538.xml",
+      "sourceNodeId": "NODE-0539",
+      "fileKey": "FILEKEY-0002",
+      "captureMethod": "mcp__Figma__get_metadata",
+      "capturedAt": "2026-08-16T08:55:00Z",
+      "evidenceClassification": "observed",
+      "sha256": "0875c48b83a182d478a7702cb100470a4433ffd0b5498daf04fa79be107cb3af",
+      "sizeBytes": 57316,
+      "limitations": "Retained for child pixel geometry only. Superseded for all structural claims by the Plugin API captures."
+    },
+    {
+      "path": "evidence/screenshot-1025-712-documentation-area.png",
+      "sourceNodeId": "NODE-0001",
+      "fileKey": "FILEKEY-0002",
+      "captureMethod": "download_assets (png @2x)",
+      "capturedAt": "2026-08-16T08:55:00Z",
+      "evidenceClassification": "observed",
+      "sha256": "2fe0683ca2e78a40400f559c30698ea4d5bc28e7e96c71603fb897d61425376d",
+      "sizeBytes": 465241,
+      "limitations": "Visual evidence only. Backs no structural claim."
+    },
+    {
+      "path": "evidence/screenshot-787-4544-component-sets.png",
+      "sourceNodeId": "NODE-0545",
+      "fileKey": "FILEKEY-0002",
+      "captureMethod": "download_assets (png @2x)",
+      "capturedAt": "2026-08-16T08:55:00Z",
+      "evidenceClassification": "observed",
+      "sha256": "7e73ecbdc7046626acecd76feaf63e1ddc15660e81760c1cbaefd9b89790dc90",
+      "sizeBytes": 393854,
+      "limitations": "Visual evidence only. Shows FOUR sets; the hidden fifth is absent - the direct demonstration that visual completeness is not structural completeness."
+    },
+    {
+      "path": "evidence/variables-1025-716.json",
+      "sourceNodeId": "NODE-0005",
+      "fileKey": "FILEKEY-0002",
+      "captureMethod": "mcp__Figma__get_variable_defs",
+      "capturedAt": "2026-08-16T08:55:00Z",
+      "evidenceClassification": "observed",
+      "sha256": "c6bf21769b2b339ff1a35acf4303425d224291428516dff95be608827a55a447",
+      "sizeBytes": 1455,
+      "limitations": "R-1 name/value capture. Superseded by api-capture-theme.json, retained as the before-record for the SF-08 evidence upgrade."
+    },
+    {
+      "path": "evidence/variables-1025-780.json",
+      "sourceNodeId": "NODE-0069",
+      "fileKey": "FILEKEY-0002",
+      "captureMethod": "mcp__Figma__get_variable_defs",
+      "capturedAt": "2026-08-16T08:55:00Z",
+      "evidenceClassification": "observed",
+      "sha256": "d88bb9b2ed1f08d3730653a74e1d522afbf12aa9d37f989621f64381e2cbf9ee",
+      "sizeBytes": 1456,
+      "limitations": "R-1 name/value capture. Superseded by api-capture-theme.json, retained as the before-record for the SF-08 evidence upgrade."
+    },
+    {
+      "path": "evidence/variables-787-14141.json",
+      "sourceNodeId": "NODE-0317",
+      "fileKey": "FILEKEY-0002",
+      "captureMethod": "mcp__Figma__get_variable_defs",
+      "capturedAt": "2026-08-16T08:55:00Z",
+      "evidenceClassification": "observed",
+      "sha256": "488ec09e679173480f5be8e2af1c142765aa5ec57fc0dbd8d6bcf0445798487f",
+      "sizeBytes": 1107,
+      "limitations": "R-1 name/value capture. Superseded by api-capture-theme.json, retained as the before-record for the SF-08 evidence upgrade."
+    },
+    {
+      "path": "evidence/variables-787-14660.json",
+      "sourceNodeId": "NODE-0513",
+      "fileKey": "FILEKEY-0002",
+      "captureMethod": "mcp__Figma__get_variable_defs",
+      "capturedAt": "2026-08-16T08:55:00Z",
+      "evidenceClassification": "observed",
+      "sha256": "4cb16d906d4612c4871c984361a7a4fb88f5e9e3fc2529972429e58fa4c9a074",
+      "sizeBytes": 563,
+      "limitations": "R-1 name/value capture. Superseded by api-capture-theme.json, retained as the before-record for the SF-08 evidence upgrade."
+    },
+    {
+      "path": "probe-*.json (contract root)",
+      "sourceNodeId": null,
+      "fileKey": "FILEKEY-0002",
+      "captureMethod": "derived",
+      "capturedAt": "2026-08-16T08:55:00Z",
+      "evidenceClassification": "computed",
+      "sha256": null,
+      "sizeBytes": null,
+      "limitations": "Probes are NOT evidence and NOT deliverable contracts. probe-B deliberately contains a fabricated allocation, used only to isolate schema-expressiveness failures from data failures."
+    }
+  ]
+}

@@ -1,0 +1,4441 @@
+{
+  "contractId": "NAME-0001-pill-non-button-experimental-representation-contract",
+  "contractVersion": "0.4.0-draft",
+  "provenance": {
+    "file": "NAME-0001-Components",
+    "fileKey": "FILEKEY-0002",
+    "rootNodeId": "NODE-0539",
+    "rootNodeName": "component_box",
+    "analyzedComponent": "Pill",
+    "exportsUsed": [
+      {
+        "fileName": "evidence/api-capture-component-sets.json",
+        "capabilities": [
+          "node type",
+          "visibility",
+          "component set key",
+          "componentPropertyDefinitions (all four property types)",
+          "variantOptions",
+          "defaultValue",
+          "preferredValues",
+          "COMPONENT.variantProperties"
+        ],
+        "selfReportsValidation": true,
+        "sha256": "fef66a30a2495a6d0cca9a69bc4c98b668fd800efa7e1ea4afd7ac968e2c04b5",
+        "capturedAt": "2026-08-16T08:55:00Z"
+      },
+      {
+        "fileName": "evidence/api-capture-theme.json",
+        "capabilities": [
+          "variable collection id/key/name/remote",
+          "mode ids and names",
+          "defaultModeId",
+          "explicitVariableModes",
+          "resolvedVariableModes",
+          "variable id/key/name/valuesByMode",
+          "node.boundVariables"
+        ],
+        "selfReportsValidation": true,
+        "sha256": "516cca0af8740951b4894235c7839a0e3df12f69ef7f4e652f32cdde848b6437",
+        "capturedAt": "2026-08-16T08:55:00Z"
+      },
+      {
+        "fileName": "evidence/api-capture-documentation-instances.json",
+        "capabilities": [
+          "INSTANCE.variantProperties",
+          "owning COMPONENT_SET",
+          "absolute position",
+          "structural path"
+        ],
+        "selfReportsValidation": true,
+        "sha256": "b174f5f72c90f9129fb5459c319319ec64c8ad73abfb8360b0f1bea5215a486e",
+        "capturedAt": "2026-08-16T08:55:00Z"
+      },
+      {
+        "fileName": "evidence/api-capture-pulse-animation.json",
+        "capabilities": [
+          "visibility",
+          "reactions",
+          "trigger/action/transition",
+          "boundVariables"
+        ],
+        "selfReportsValidation": true,
+        "sha256": "c5389081889c50e31fd92727da705edee15d998c2be30c48a0ce459327c33130",
+        "capturedAt": "2026-08-16T08:55:00Z"
+      },
+      {
+        "fileName": "evidence/figma-metadata-787-4538.xml",
+        "capabilities": [
+          "child width/height geometry only"
+        ],
+        "selfReportsValidation": false,
+        "sha256": "0875c48b83a182d478a7702cb100470a4433ffd0b5498daf04fa79be107cb3af",
+        "capturedAt": "2026-08-16T08:55:00Z"
+      }
+    ],
+    "liveFigmaAccessLog": [
+      {
+        "nodeId": "NODE-0539",
+        "operation": "mcp__plugin_figma_figma__use_figma",
+        "result": "success: page/root/holder identity, 5 COMPONENT_SET nodes, componentPropertyDefinitions, 216 children with variantProperties",
+        "evidenceClassification": "observed",
+        "resultingEvidenceLevel": "component_children_enumerated",
+        "capturedAt": "2026-08-16T08:55:00Z",
+        "toolIdentity": "mcp__plugin_figma_figma__use_figma",
+        "toolVersionKnown": false,
+        "figmaFileVersionIdentity": null,
+        "artifactAvailable": true,
+        "artifactPath": "evidence/api-capture-component-sets.json",
+        "artifactSha256": "fef66a30a2495a6d0cca9a69bc4c98b668fd800efa7e1ea4afd7ac968e2c04b5",
+        "rawResponsePath": "evidence/api-capture-component-sets.json"
+      },
+      {
+        "nodeId": "NODE-0001",
+        "operation": "mcp__plugin_figma_figma__use_figma",
+        "result": "success: 94 Pill INSTANCEs with real variantProperties, owning sets, positions",
+        "evidenceClassification": "observed",
+        "resultingEvidenceLevel": "observed_instances",
+        "capturedAt": "2026-08-16T08:55:00Z",
+        "toolIdentity": "mcp__plugin_figma_figma__use_figma",
+        "toolVersionKnown": false,
+        "figmaFileVersionIdentity": null,
+        "artifactAvailable": true,
+        "artifactPath": "evidence/api-capture-documentation-instances.json",
+        "artifactSha256": "b174f5f72c90f9129fb5459c319319ec64c8ad73abfb8360b0f1bea5215a486e",
+        "rawResponsePath": "evidence/api-capture-documentation-instances.json"
+      },
+      {
+        "nodeId": "NODE-0005",
+        "operation": "mcp__plugin_figma_figma__use_figma",
+        "result": "success: variable collections, mode ids/names, explicit vs inherited provenance, bound variable identities",
+        "evidenceClassification": "observed",
+        "resultingEvidenceLevel": "observed_instances",
+        "capturedAt": "2026-08-16T08:55:00Z",
+        "toolIdentity": "mcp__plugin_figma_figma__use_figma",
+        "toolVersionKnown": false,
+        "figmaFileVersionIdentity": null,
+        "artifactAvailable": true,
+        "artifactPath": "evidence/api-capture-theme.json",
+        "artifactSha256": "516cca0af8740951b4894235c7839a0e3df12f69ef7f4e652f32cdde848b6437",
+        "rawResponsePath": "evidence/api-capture-theme.json"
+      },
+      {
+        "nodeId": "NODE-0513",
+        "operation": "mcp__plugin_figma_figma__use_figma",
+        "result": "success: visibility, 24 reactions, transitions, 12 children with bindings, 0 documentation instances",
+        "evidenceClassification": "observed",
+        "resultingEvidenceLevel": "component_children_enumerated",
+        "capturedAt": "2026-08-16T08:55:00Z",
+        "toolIdentity": "mcp__plugin_figma_figma__use_figma",
+        "toolVersionKnown": false,
+        "figmaFileVersionIdentity": null,
+        "artifactAvailable": true,
+        "artifactPath": "evidence/api-capture-pulse-animation.json",
+        "artifactSha256": "c5389081889c50e31fd92727da705edee15d998c2be30c48a0ce459327c33130",
+        "rawResponsePath": "evidence/api-capture-pulse-animation.json"
+      },
+      {
+        "nodeId": "NODE-0539",
+        "operation": "mcp__Figma__get_metadata",
+        "result": "success: descendant geometry",
+        "evidenceClassification": "observed",
+        "resultingEvidenceLevel": "component_children_enumerated",
+        "capturedAt": "2026-08-16T08:55:00Z",
+        "toolIdentity": "mcp__Figma__get_metadata",
+        "toolVersionKnown": false,
+        "figmaFileVersionIdentity": null,
+        "artifactAvailable": true,
+        "artifactPath": "evidence/figma-metadata-787-4538.xml",
+        "artifactSha256": "0875c48b83a182d478a7702cb100470a4433ffd0b5498daf04fa79be107cb3af",
+        "rawResponsePath": "evidence/figma-metadata-787-4538.xml"
+      },
+      {
+        "nodeId": "NODE-0001",
+        "operation": "mcp__plugin_figma_figma__download_assets",
+        "result": "success: PNG export persisted",
+        "evidenceClassification": "observed",
+        "resultingEvidenceLevel": "visual_matrix_verified",
+        "capturedAt": "2026-08-16T08:55:00Z",
+        "toolIdentity": "mcp__plugin_figma_figma__download_assets",
+        "toolVersionKnown": false,
+        "figmaFileVersionIdentity": null,
+        "artifactAvailable": true,
+        "artifactPath": "evidence/screenshot-1025-712-documentation-area.png",
+        "artifactSha256": "2fe0683ca2e78a40400f559c30698ea4d5bc28e7e96c71603fb897d61425376d",
+        "rawResponsePath": "evidence/screenshot-1025-712-documentation-area.png"
+      },
+      {
+        "nodeId": "NODE-0545",
+        "operation": "mcp__plugin_figma_figma__download_assets",
+        "result": "success: PNG export persisted; the hidden fifth set is absent from the render",
+        "evidenceClassification": "observed",
+        "resultingEvidenceLevel": "visual_matrix_verified",
+        "capturedAt": "2026-08-16T08:55:00Z",
+        "toolIdentity": "mcp__plugin_figma_figma__download_assets",
+        "toolVersionKnown": false,
+        "figmaFileVersionIdentity": null,
+        "artifactAvailable": true,
+        "artifactPath": "evidence/screenshot-787-4544-component-sets.png",
+        "artifactSha256": "7e73ecbdc7046626acecd76feaf63e1ddc15660e81760c1cbaefd9b89790dc90",
+        "rawResponsePath": "evidence/screenshot-787-4544-component-sets.png"
+      },
+      {
+        "nodeId": "NODE-0012",
+        "operation": "mcp__Figma__get_design_context",
+        "result": "not_pursued: returned a Code Connect setup prompt rather than design context",
+        "evidenceClassification": "unverified",
+        "resultingEvidenceLevel": null,
+        "capturedAt": "2026-08-16T08:55:00Z",
+        "toolIdentity": "mcp__Figma__get_design_context",
+        "toolVersionKnown": false,
+        "figmaFileVersionIdentity": null,
+        "artifactAvailable": false,
+        "artifactPath": null,
+        "artifactSha256": null,
+        "rawResponsePath": null
+      }
+    ]
+  },
+  "componentIdentity": {
+    "name": "Pill",
+    "description": "A compact status/label chip on page 'Pills' (NODE-0538). Documentation block NODE-0001 holds two theme cards; build holder NODE-0545 holds five real COMPONENT_SET nodes -- four visible static-presentation treatments sharing one property schema, and one hidden set ('Pill - Pulse Animation') with a different property schema, different content-property terminology, and prototype animation wiring. Whether that fifth set belongs to Pill is an unresolved owner decision.",
+    "evidence": {
+      "classification": "observed",
+      "sourceFile": "evidence/api-capture-component-sets.json",
+      "confidence": "high",
+      "nodeIds": [
+        "NODE-0539",
+        "NODE-0001",
+        "NODE-0545",
+        "NODE-0538"
+      ]
+    }
+  },
+  "semanticFamilies": [
+    {
+      "familyId": "PFAM-1",
+      "displayName": "Pill - Static Presentation",
+      "componentSetIds": [
+        "NODE-0317",
+        "NODE-0366",
+        "NODE-0415",
+        "NODE-0464"
+      ],
+      "evidence": {
+        "classification": "computed",
+        "sourceFile": "evidence/api-capture-component-sets.json",
+        "confidence": "high",
+        "nodeIds": [
+          "NODE-0317",
+          "NODE-0366",
+          "NODE-0415",
+          "NODE-0464"
+        ],
+        "note": "All four declare an identical five-property schema (Pill Value TEXT, Pill Symbol INSTANCE_SWAP, Accent/Size/Icon VARIANT) with identical option sets and identical defaults, confirmed from componentPropertyDefinitions."
+      }
+    },
+    {
+      "familyId": "PFAM-2",
+      "displayName": "Pill - Pulse Animation",
+      "componentSetIds": [
+        "NODE-0513"
+      ],
+      "evidence": {
+        "classification": "computed",
+        "sourceFile": "evidence/api-capture-component-sets.json",
+        "confidence": "high",
+        "nodeIds": [
+          "NODE-0513"
+        ],
+        "note": "Disjoint axis schema, different content-property names (Badge Value / Trend Symbol), and 24 prototype reactions absent from PFAM-1. Grouping is structural only; taxonomy is an owner decision."
+      }
+    }
+  ],
+  "componentSets": [
+    {
+      "id": "NODE-0317",
+      "buildFrameId": "NODE-0545",
+      "name": "Pill – Highline",
+      "familyId": "PFAM-1",
+      "schemaVariantId": "PSV-1",
+      "evidence": {
+        "classification": "observed",
+        "sourceFile": "evidence/api-capture-component-sets.json",
+        "confidence": "high",
+        "nodeIds": [
+          "NODE-0317"
+        ],
+        "note": "Plugin API: type=COMPONENT_SET, visible=True, key=KEY-0015, 48 COMPONENT children."
+      },
+      "treatment": {
+        "kind": "set_identity",
+        "label": "Highline"
+      },
+      "nonVariantPropertyCoverage": [
+        {
+          "propertyKey": "Pill Value#NODE-0301",
+          "role": "content_text",
+          "declaredDefault": "Label",
+          "overrideEvidenceStatus": "not_enumerated"
+        },
+        {
+          "propertyKey": "Pill Symbol#NODE-0295",
+          "role": "content_instance_swap",
+          "declaredDefault": "NODE-0315",
+          "overrideEvidenceStatus": "not_enumerated"
+        }
+      ]
+    },
+    {
+      "id": "NODE-0366",
+      "buildFrameId": "NODE-0545",
+      "name": "Pill – Highlighted",
+      "familyId": "PFAM-1",
+      "schemaVariantId": "PSV-1",
+      "evidence": {
+        "classification": "observed",
+        "sourceFile": "evidence/api-capture-component-sets.json",
+        "confidence": "high",
+        "nodeIds": [
+          "NODE-0366"
+        ],
+        "note": "Plugin API: type=COMPONENT_SET, visible=True, key=KEY-0017, 48 COMPONENT children."
+      },
+      "treatment": {
+        "kind": "set_identity",
+        "label": "Highlighted"
+      },
+      "nonVariantPropertyCoverage": [
+        {
+          "propertyKey": "Pill Value#NODE-0301",
+          "role": "content_text",
+          "declaredDefault": "Label",
+          "overrideEvidenceStatus": "not_enumerated"
+        },
+        {
+          "propertyKey": "Pill Symbol#NODE-0295",
+          "role": "content_instance_swap",
+          "declaredDefault": "NODE-0315",
+          "overrideEvidenceStatus": "not_enumerated"
+        }
+      ]
+    },
+    {
+      "id": "NODE-0415",
+      "buildFrameId": "NODE-0545",
+      "name": "Pill – Filled",
+      "familyId": "PFAM-1",
+      "schemaVariantId": "PSV-1",
+      "evidence": {
+        "classification": "observed",
+        "sourceFile": "evidence/api-capture-component-sets.json",
+        "confidence": "high",
+        "nodeIds": [
+          "NODE-0415"
+        ],
+        "note": "Plugin API: type=COMPONENT_SET, visible=True, key=KEY-0016, 48 COMPONENT children."
+      },
+      "treatment": {
+        "kind": "set_identity",
+        "label": "Filled"
+      },
+      "nonVariantPropertyCoverage": [
+        {
+          "propertyKey": "Pill Value#NODE-0301",
+          "role": "content_text",
+          "declaredDefault": "Label",
+          "overrideEvidenceStatus": "not_enumerated"
+        },
+        {
+          "propertyKey": "Pill Symbol#NODE-0295",
+          "role": "content_instance_swap",
+          "declaredDefault": "NODE-0315",
+          "overrideEvidenceStatus": "not_enumerated"
+        }
+      ]
+    },
+    {
+      "id": "NODE-0464",
+      "buildFrameId": "NODE-0545",
+      "name": "Pill – Text",
+      "familyId": "PFAM-1",
+      "schemaVariantId": "PSV-1",
+      "evidence": {
+        "classification": "observed",
+        "sourceFile": "evidence/api-capture-component-sets.json",
+        "confidence": "high",
+        "nodeIds": [
+          "NODE-0464"
+        ],
+        "note": "Plugin API: type=COMPONENT_SET, visible=True, key=KEY-0013, 48 COMPONENT children."
+      },
+      "treatment": {
+        "kind": "set_identity",
+        "label": "Text"
+      },
+      "nonVariantPropertyCoverage": [
+        {
+          "propertyKey": "Pill Value#NODE-0301",
+          "role": "content_text",
+          "declaredDefault": "Label",
+          "overrideEvidenceStatus": "not_enumerated"
+        },
+        {
+          "propertyKey": "Pill Symbol#NODE-0295",
+          "role": "content_instance_swap",
+          "declaredDefault": "NODE-0315",
+          "overrideEvidenceStatus": "not_enumerated"
+        }
+      ]
+    },
+    {
+      "id": "NODE-0513",
+      "buildFrameId": "NODE-0545",
+      "name": "Pill – Pulse Animation",
+      "familyId": "PFAM-2",
+      "schemaVariantId": "PSV-2",
+      "evidence": {
+        "classification": "observed",
+        "sourceFile": "evidence/api-capture-component-sets.json",
+        "confidence": "high",
+        "nodeIds": [
+          "NODE-0513"
+        ],
+        "note": "Plugin API: type=COMPONENT_SET, visible=False, key=KEY-0005, 24 COMPONENT children."
+      },
+      "treatment": {
+        "kind": "set_identity",
+        "label": "not_applicable (Style is an in-set VARIANT axis, not set identity)"
+      },
+      "nonVariantPropertyCoverage": [
+        {
+          "propertyKey": "Badge Value#NODE-0301",
+          "role": "content_text",
+          "declaredDefault": "-3.2%",
+          "overrideEvidenceStatus": "not_enumerated"
+        },
+        {
+          "propertyKey": "Trend Symbol#NODE-0294",
+          "role": "content_instance_swap",
+          "declaredDefault": "NODE-0316",
+          "overrideEvidenceStatus": "not_enumerated"
+        }
+      ]
+    }
+  ],
+  "propertySchemaVariants": [
+    {
+      "variantId": "PSV-1",
+      "appliesToComponentSetIds": [
+        "NODE-0317",
+        "NODE-0366",
+        "NODE-0415",
+        "NODE-0464"
+      ],
+      "properties": [
+        {
+          "propertyKey": "Pill Value#NODE-0301",
+          "type": "TEXT",
+          "evidenceLevel": "component_children_enumerated",
+          "defaultValue": "Label",
+          "role": "content_text"
+        },
+        {
+          "propertyKey": "Pill Symbol#NODE-0295",
+          "type": "INSTANCE_SWAP",
+          "evidenceLevel": "component_children_enumerated",
+          "defaultValue": "NODE-0315",
+          "preferredValues": [
+            {
+              "type": "COMPONENT",
+              "key": "KEY-0011"
+            }
+          ],
+          "role": "content_instance_swap"
+        },
+        {
+          "propertyKey": "Accent",
+          "type": "VARIANT",
+          "evidenceLevel": "component_children_enumerated",
+          "defaultValue": "Success",
+          "canonicalOptions": [
+            "Warning",
+            "Error",
+            "Success",
+            "Info"
+          ],
+          "role": "variant_axis"
+        },
+        {
+          "propertyKey": "Size",
+          "type": "VARIANT",
+          "evidenceLevel": "component_children_enumerated",
+          "defaultValue": "XXSmall",
+          "canonicalOptions": [
+            "Regular",
+            "Small",
+            "XSmall",
+            "XXSmall"
+          ],
+          "role": "variant_axis"
+        },
+        {
+          "propertyKey": "Icon",
+          "type": "VARIANT",
+          "evidenceLevel": "component_children_enumerated",
+          "defaultValue": "None",
+          "canonicalOptions": [
+            "Leading",
+            "None",
+            "Trailing"
+          ],
+          "role": "variant_axis"
+        }
+      ],
+      "evidence": {
+        "classification": "observed",
+        "sourceFile": "evidence/api-capture-component-sets.json",
+        "confidence": "high",
+        "nodeIds": [
+          "NODE-0317",
+          "NODE-0366",
+          "NODE-0415",
+          "NODE-0464"
+        ],
+        "note": "Read from COMPONENT_SET.componentPropertyDefinitions on NODE-0317 and confirmed byte-identical on NODE-0366, NODE-0415, NODE-0464. Includes the two non-VARIANT properties the v0.3.1 contract had no evidence for in R-1."
+      }
+    },
+    {
+      "variantId": "PSV-2",
+      "appliesToComponentSetIds": [
+        "NODE-0513"
+      ],
+      "properties": [
+        {
+          "propertyKey": "Badge Value#NODE-0301",
+          "type": "TEXT",
+          "evidenceLevel": "component_children_enumerated",
+          "defaultValue": "-3.2%",
+          "role": "content_text"
+        },
+        {
+          "propertyKey": "Trend Symbol#NODE-0294",
+          "type": "INSTANCE_SWAP",
+          "evidenceLevel": "component_children_enumerated",
+          "defaultValue": "NODE-0316",
+          "preferredValues": [
+            {
+              "type": "COMPONENT",
+              "key": "KEY-0001"
+            }
+          ],
+          "role": "content_instance_swap"
+        },
+        {
+          "propertyKey": "Type",
+          "type": "VARIANT",
+          "evidenceLevel": "component_children_enumerated",
+          "defaultValue": "Warning",
+          "canonicalOptions": [
+            "Warning",
+            "Error"
+          ],
+          "role": "variant_axis"
+        },
+        {
+          "propertyKey": "Style",
+          "type": "VARIANT",
+          "evidenceLevel": "component_children_enumerated",
+          "defaultValue": "Highline",
+          "canonicalOptions": [
+            "Highline",
+            "Filled"
+          ],
+          "role": "variant_axis"
+        },
+        {
+          "propertyKey": "Size",
+          "type": "VARIANT",
+          "evidenceLevel": "component_children_enumerated",
+          "defaultValue": "Small",
+          "canonicalOptions": [
+            "Large",
+            "Regular",
+            "Small"
+          ],
+          "role": "variant_axis"
+        },
+        {
+          "propertyKey": "Animation",
+          "type": "VARIANT",
+          "evidenceLevel": "component_children_enumerated",
+          "defaultValue": "S1",
+          "canonicalOptions": [
+            "S1",
+            "S2"
+          ],
+          "role": "variant_axis"
+        }
+      ],
+      "evidence": {
+        "classification": "observed",
+        "sourceFile": "evidence/api-capture-component-sets.json",
+        "confidence": "high",
+        "nodeIds": [
+          "NODE-0513"
+        ],
+        "note": "Read from COMPONENT_SET.componentPropertyDefinitions on NODE-0513. Axis key 'Type' carries PSV-1's 'Accent' semantics with a restricted {Warning, Error} domain; 'Size' has a different domain; content properties are renamed."
+      }
+    }
+  ],
+  "canonicalValueDisplayLabelMap": [
+    {
+      "axis": "Size",
+      "canonicalValue": "Regular",
+      "displayLabelSurfaces": {
+        "pill_doc_size_row_caption": "Regular (32px)"
+      },
+      "relationship": "editorial_mapping",
+      "evidence": {
+        "classification": "observed",
+        "sourceFile": "evidence/figma-metadata-787-4538.xml",
+        "confidence": "high",
+        "nodeIds": [
+          "NODE-0009",
+          "NODE-0073"
+        ],
+        "note": "Pixel annotations are Filled-scoped: all four size_row specimens are Pill - Filled instances (API-confirmed), and Pill - Text's Size=Regular child is 20px tall. No set/variant scoping field exists -- see PB-5."
+      }
+    },
+    {
+      "axis": "Size",
+      "canonicalValue": "Small",
+      "displayLabelSurfaces": {
+        "pill_doc_size_row_caption": "Small (24px)"
+      },
+      "relationship": "editorial_mapping",
+      "evidence": {
+        "classification": "observed",
+        "sourceFile": "evidence/figma-metadata-787-4538.xml",
+        "confidence": "high",
+        "nodeIds": [
+          "NODE-0009",
+          "NODE-0073"
+        ],
+        "note": "Pixel annotations are Filled-scoped: all four size_row specimens are Pill - Filled instances (API-confirmed), and Pill - Text's Size=Regular child is 20px tall. No set/variant scoping field exists -- see PB-5."
+      }
+    },
+    {
+      "axis": "Size",
+      "canonicalValue": "XSmall",
+      "displayLabelSurfaces": {
+        "pill_doc_size_row_caption": "XSmall (20px)"
+      },
+      "relationship": "editorial_mapping",
+      "evidence": {
+        "classification": "observed",
+        "sourceFile": "evidence/figma-metadata-787-4538.xml",
+        "confidence": "high",
+        "nodeIds": [
+          "NODE-0009",
+          "NODE-0073"
+        ],
+        "note": "Pixel annotations are Filled-scoped: all four size_row specimens are Pill - Filled instances (API-confirmed), and Pill - Text's Size=Regular child is 20px tall. No set/variant scoping field exists -- see PB-5."
+      }
+    },
+    {
+      "axis": "Size",
+      "canonicalValue": "XXSmall",
+      "displayLabelSurfaces": {
+        "pill_doc_size_row_caption": "XXSmall (16px)"
+      },
+      "relationship": "editorial_mapping",
+      "evidence": {
+        "classification": "observed",
+        "sourceFile": "evidence/figma-metadata-787-4538.xml",
+        "confidence": "high",
+        "nodeIds": [
+          "NODE-0009",
+          "NODE-0073"
+        ],
+        "note": "Pixel annotations are Filled-scoped: all four size_row specimens are Pill - Filled instances (API-confirmed), and Pill - Text's Size=Regular child is 20px tall. No set/variant scoping field exists -- see PB-5."
+      }
+    },
+    {
+      "axis": "Icon",
+      "canonicalValue": "None",
+      "displayLabelSurfaces": {
+        "pill_doc_icon_row_caption": "No Icon"
+      },
+      "relationship": "editorial_mapping",
+      "evidence": {
+        "classification": "observed",
+        "sourceFile": "evidence/api-capture-component-sets.json",
+        "confidence": "high",
+        "nodeIds": [
+          "NODE-0057",
+          "NODE-0121"
+        ],
+        "note": "Editorial phrasing, not a typo. API confirms canonical Icon options are exactly {Leading, None, Trailing}."
+      }
+    },
+    {
+      "axis": "Icon",
+      "canonicalValue": "Leading",
+      "displayLabelSurfaces": {
+        "pill_doc_icon_row_caption": "Leading Icon"
+      },
+      "relationship": "editorial_mapping",
+      "evidence": {
+        "classification": "observed",
+        "sourceFile": "evidence/api-capture-component-sets.json",
+        "confidence": "high",
+        "nodeIds": [
+          "NODE-0057",
+          "NODE-0121"
+        ],
+        "note": "Editorial phrasing, not a typo. API confirms canonical Icon options are exactly {Leading, None, Trailing}."
+      }
+    },
+    {
+      "axis": "Icon",
+      "canonicalValue": "Trailing",
+      "displayLabelSurfaces": {
+        "pill_doc_icon_row_caption": "Trailing Icon"
+      },
+      "relationship": "editorial_mapping",
+      "evidence": {
+        "classification": "observed",
+        "sourceFile": "evidence/api-capture-component-sets.json",
+        "confidence": "high",
+        "nodeIds": [
+          "NODE-0057",
+          "NODE-0121"
+        ],
+        "note": "Editorial phrasing, not a typo. API confirms canonical Icon options are exactly {Leading, None, Trailing}."
+      }
+    },
+    {
+      "axis": "Accent",
+      "canonicalValue": "Success",
+      "displayLabelSurfaces": {
+        "pill_doc_accent_row_caption": "Success",
+        "pill_doc_matrix_column_caption": "Success"
+      },
+      "relationship": "exact_match",
+      "evidence": {
+        "classification": "observed",
+        "sourceFile": "evidence/api-capture-documentation-instances.json",
+        "confidence": "high",
+        "nodeIds": [
+          "NODE-0041",
+          "NODE-0133"
+        ]
+      }
+    },
+    {
+      "axis": "Accent",
+      "canonicalValue": "Error",
+      "displayLabelSurfaces": {
+        "pill_doc_accent_row_caption": "Error",
+        "pill_doc_matrix_column_caption": "Error"
+      },
+      "relationship": "exact_match",
+      "evidence": {
+        "classification": "observed",
+        "sourceFile": "evidence/api-capture-documentation-instances.json",
+        "confidence": "high",
+        "nodeIds": [
+          "NODE-0041",
+          "NODE-0133"
+        ]
+      }
+    },
+    {
+      "axis": "Accent",
+      "canonicalValue": "Warning",
+      "displayLabelSurfaces": {
+        "pill_doc_accent_row_caption": "Warning",
+        "pill_doc_matrix_column_caption": "Warning"
+      },
+      "relationship": "exact_match",
+      "evidence": {
+        "classification": "observed",
+        "sourceFile": "evidence/api-capture-documentation-instances.json",
+        "confidence": "high",
+        "nodeIds": [
+          "NODE-0041",
+          "NODE-0133"
+        ]
+      }
+    },
+    {
+      "axis": "Accent",
+      "canonicalValue": "Info",
+      "displayLabelSurfaces": {
+        "pill_doc_accent_row_caption": "Info",
+        "pill_doc_matrix_column_caption": "Info"
+      },
+      "relationship": "exact_match",
+      "evidence": {
+        "classification": "observed",
+        "sourceFile": "evidence/api-capture-documentation-instances.json",
+        "confidence": "high",
+        "nodeIds": [
+          "NODE-0041",
+          "NODE-0133"
+        ]
+      }
+    },
+    {
+      "axis": "Style",
+      "canonicalValue": "Highline",
+      "displayLabelSurfaces": {
+        "pill_doc_style_row_caption": "Highline"
+      },
+      "relationship": "exact_match",
+      "evidence": {
+        "classification": "observed",
+        "sourceFile": "evidence/api-capture-component-sets.json",
+        "confidence": "high",
+        "nodeIds": [
+          "NODE-0025",
+          "NODE-0513"
+        ],
+        "note": "'Style' is a declared VARIANT axis only in PSV-2, whose API option set is exactly {Highline, Filled}. The documentation Style row shows four labels; Highlighted and Text are COMPONENT_SET identities with no axis value anywhere, so they are recorded as representativeExamples, not fabricated into this map."
+      }
+    },
+    {
+      "axis": "Style",
+      "canonicalValue": "Filled",
+      "displayLabelSurfaces": {
+        "pill_doc_style_row_caption": "Filled"
+      },
+      "relationship": "exact_match",
+      "evidence": {
+        "classification": "observed",
+        "sourceFile": "evidence/api-capture-component-sets.json",
+        "confidence": "high",
+        "nodeIds": [
+          "NODE-0025",
+          "NODE-0513"
+        ],
+        "note": "'Style' is a declared VARIANT axis only in PSV-2, whose API option set is exactly {Highline, Filled}. The documentation Style row shows four labels; Highlighted and Text are COMPONENT_SET identities with no axis value anywhere, so they are recorded as representativeExamples, not fabricated into this map."
+      }
+    }
+  ],
+  "correlatedAxisTuples": [
+    {
+      "tupleId": "CAT-1",
+      "axes": [
+        "Accent",
+        "Size",
+        "Icon"
+      ],
+      "appliesToSchemaVariantIds": [
+        "PSV-1"
+      ],
+      "observedCombinations": [
+        {
+          "Accent": "Error",
+          "Size": "Regular",
+          "Icon": "Leading"
+        },
+        {
+          "Accent": "Error",
+          "Size": "Small",
+          "Icon": "Leading"
+        },
+        {
+          "Accent": "Error",
+          "Size": "XSmall",
+          "Icon": "Leading"
+        },
+        {
+          "Accent": "Error",
+          "Size": "XXSmall",
+          "Icon": "Leading"
+        },
+        {
+          "Accent": "Error",
+          "Size": "Regular",
+          "Icon": "None"
+        },
+        {
+          "Accent": "Error",
+          "Size": "Small",
+          "Icon": "None"
+        },
+        {
+          "Accent": "Error",
+          "Size": "XSmall",
+          "Icon": "None"
+        },
+        {
+          "Accent": "Error",
+          "Size": "XXSmall",
+          "Icon": "None"
+        },
+        {
+          "Accent": "Error",
+          "Size": "Regular",
+          "Icon": "Trailing"
+        },
+        {
+          "Accent": "Error",
+          "Size": "Small",
+          "Icon": "Trailing"
+        },
+        {
+          "Accent": "Error",
+          "Size": "XSmall",
+          "Icon": "Trailing"
+        },
+        {
+          "Accent": "Error",
+          "Size": "XXSmall",
+          "Icon": "Trailing"
+        },
+        {
+          "Accent": "Info",
+          "Size": "Regular",
+          "Icon": "Leading"
+        },
+        {
+          "Accent": "Info",
+          "Size": "Small",
+          "Icon": "Leading"
+        },
+        {
+          "Accent": "Info",
+          "Size": "XSmall",
+          "Icon": "Leading"
+        },
+        {
+          "Accent": "Info",
+          "Size": "XXSmall",
+          "Icon": "Leading"
+        },
+        {
+          "Accent": "Info",
+          "Size": "Regular",
+          "Icon": "None"
+        },
+        {
+          "Accent": "Info",
+          "Size": "Small",
+          "Icon": "None"
+        },
+        {
+          "Accent": "Info",
+          "Size": "XSmall",
+          "Icon": "None"
+        },
+        {
+          "Accent": "Info",
+          "Size": "XXSmall",
+          "Icon": "None"
+        },
+        {
+          "Accent": "Info",
+          "Size": "Regular",
+          "Icon": "Trailing"
+        },
+        {
+          "Accent": "Info",
+          "Size": "Small",
+          "Icon": "Trailing"
+        },
+        {
+          "Accent": "Info",
+          "Size": "XSmall",
+          "Icon": "Trailing"
+        },
+        {
+          "Accent": "Info",
+          "Size": "XXSmall",
+          "Icon": "Trailing"
+        },
+        {
+          "Accent": "Success",
+          "Size": "Regular",
+          "Icon": "Leading"
+        },
+        {
+          "Accent": "Success",
+          "Size": "Small",
+          "Icon": "Leading"
+        },
+        {
+          "Accent": "Success",
+          "Size": "XSmall",
+          "Icon": "Leading"
+        },
+        {
+          "Accent": "Success",
+          "Size": "XXSmall",
+          "Icon": "Leading"
+        },
+        {
+          "Accent": "Success",
+          "Size": "Regular",
+          "Icon": "None"
+        },
+        {
+          "Accent": "Success",
+          "Size": "Small",
+          "Icon": "None"
+        },
+        {
+          "Accent": "Success",
+          "Size": "XSmall",
+          "Icon": "None"
+        },
+        {
+          "Accent": "Success",
+          "Size": "XXSmall",
+          "Icon": "None"
+        },
+        {
+          "Accent": "Success",
+          "Size": "Regular",
+          "Icon": "Trailing"
+        },
+        {
+          "Accent": "Success",
+          "Size": "Small",
+          "Icon": "Trailing"
+        },
+        {
+          "Accent": "Success",
+          "Size": "XSmall",
+          "Icon": "Trailing"
+        },
+        {
+          "Accent": "Success",
+          "Size": "XXSmall",
+          "Icon": "Trailing"
+        },
+        {
+          "Accent": "Warning",
+          "Size": "Regular",
+          "Icon": "Leading"
+        },
+        {
+          "Accent": "Warning",
+          "Size": "Small",
+          "Icon": "Leading"
+        },
+        {
+          "Accent": "Warning",
+          "Size": "XSmall",
+          "Icon": "Leading"
+        },
+        {
+          "Accent": "Warning",
+          "Size": "XXSmall",
+          "Icon": "Leading"
+        },
+        {
+          "Accent": "Warning",
+          "Size": "Regular",
+          "Icon": "None"
+        },
+        {
+          "Accent": "Warning",
+          "Size": "Small",
+          "Icon": "None"
+        },
+        {
+          "Accent": "Warning",
+          "Size": "XSmall",
+          "Icon": "None"
+        },
+        {
+          "Accent": "Warning",
+          "Size": "XXSmall",
+          "Icon": "None"
+        },
+        {
+          "Accent": "Warning",
+          "Size": "Regular",
+          "Icon": "Trailing"
+        },
+        {
+          "Accent": "Warning",
+          "Size": "Small",
+          "Icon": "Trailing"
+        },
+        {
+          "Accent": "Warning",
+          "Size": "XSmall",
+          "Icon": "Trailing"
+        },
+        {
+          "Accent": "Warning",
+          "Size": "XXSmall",
+          "Icon": "Trailing"
+        }
+      ],
+      "proposedValidCombinations": [
+        {
+          "Accent": "Error",
+          "Size": "Regular",
+          "Icon": "Leading"
+        },
+        {
+          "Accent": "Error",
+          "Size": "Small",
+          "Icon": "Leading"
+        },
+        {
+          "Accent": "Error",
+          "Size": "XSmall",
+          "Icon": "Leading"
+        },
+        {
+          "Accent": "Error",
+          "Size": "XXSmall",
+          "Icon": "Leading"
+        },
+        {
+          "Accent": "Error",
+          "Size": "Regular",
+          "Icon": "None"
+        },
+        {
+          "Accent": "Error",
+          "Size": "Small",
+          "Icon": "None"
+        },
+        {
+          "Accent": "Error",
+          "Size": "XSmall",
+          "Icon": "None"
+        },
+        {
+          "Accent": "Error",
+          "Size": "XXSmall",
+          "Icon": "None"
+        },
+        {
+          "Accent": "Error",
+          "Size": "Regular",
+          "Icon": "Trailing"
+        },
+        {
+          "Accent": "Error",
+          "Size": "Small",
+          "Icon": "Trailing"
+        },
+        {
+          "Accent": "Error",
+          "Size": "XSmall",
+          "Icon": "Trailing"
+        },
+        {
+          "Accent": "Error",
+          "Size": "XXSmall",
+          "Icon": "Trailing"
+        },
+        {
+          "Accent": "Info",
+          "Size": "Regular",
+          "Icon": "Leading"
+        },
+        {
+          "Accent": "Info",
+          "Size": "Small",
+          "Icon": "Leading"
+        },
+        {
+          "Accent": "Info",
+          "Size": "XSmall",
+          "Icon": "Leading"
+        },
+        {
+          "Accent": "Info",
+          "Size": "XXSmall",
+          "Icon": "Leading"
+        },
+        {
+          "Accent": "Info",
+          "Size": "Regular",
+          "Icon": "None"
+        },
+        {
+          "Accent": "Info",
+          "Size": "Small",
+          "Icon": "None"
+        },
+        {
+          "Accent": "Info",
+          "Size": "XSmall",
+          "Icon": "None"
+        },
+        {
+          "Accent": "Info",
+          "Size": "XXSmall",
+          "Icon": "None"
+        },
+        {
+          "Accent": "Info",
+          "Size": "Regular",
+          "Icon": "Trailing"
+        },
+        {
+          "Accent": "Info",
+          "Size": "Small",
+          "Icon": "Trailing"
+        },
+        {
+          "Accent": "Info",
+          "Size": "XSmall",
+          "Icon": "Trailing"
+        },
+        {
+          "Accent": "Info",
+          "Size": "XXSmall",
+          "Icon": "Trailing"
+        },
+        {
+          "Accent": "Success",
+          "Size": "Regular",
+          "Icon": "Leading"
+        },
+        {
+          "Accent": "Success",
+          "Size": "Small",
+          "Icon": "Leading"
+        },
+        {
+          "Accent": "Success",
+          "Size": "XSmall",
+          "Icon": "Leading"
+        },
+        {
+          "Accent": "Success",
+          "Size": "XXSmall",
+          "Icon": "Leading"
+        },
+        {
+          "Accent": "Success",
+          "Size": "Regular",
+          "Icon": "None"
+        },
+        {
+          "Accent": "Success",
+          "Size": "Small",
+          "Icon": "None"
+        },
+        {
+          "Accent": "Success",
+          "Size": "XSmall",
+          "Icon": "None"
+        },
+        {
+          "Accent": "Success",
+          "Size": "XXSmall",
+          "Icon": "None"
+        },
+        {
+          "Accent": "Success",
+          "Size": "Regular",
+          "Icon": "Trailing"
+        },
+        {
+          "Accent": "Success",
+          "Size": "Small",
+          "Icon": "Trailing"
+        },
+        {
+          "Accent": "Success",
+          "Size": "XSmall",
+          "Icon": "Trailing"
+        },
+        {
+          "Accent": "Success",
+          "Size": "XXSmall",
+          "Icon": "Trailing"
+        },
+        {
+          "Accent": "Warning",
+          "Size": "Regular",
+          "Icon": "Leading"
+        },
+        {
+          "Accent": "Warning",
+          "Size": "Small",
+          "Icon": "Leading"
+        },
+        {
+          "Accent": "Warning",
+          "Size": "XSmall",
+          "Icon": "Leading"
+        },
+        {
+          "Accent": "Warning",
+          "Size": "XXSmall",
+          "Icon": "Leading"
+        },
+        {
+          "Accent": "Warning",
+          "Size": "Regular",
+          "Icon": "None"
+        },
+        {
+          "Accent": "Warning",
+          "Size": "Small",
+          "Icon": "None"
+        },
+        {
+          "Accent": "Warning",
+          "Size": "XSmall",
+          "Icon": "None"
+        },
+        {
+          "Accent": "Warning",
+          "Size": "XXSmall",
+          "Icon": "None"
+        },
+        {
+          "Accent": "Warning",
+          "Size": "Regular",
+          "Icon": "Trailing"
+        },
+        {
+          "Accent": "Warning",
+          "Size": "Small",
+          "Icon": "Trailing"
+        },
+        {
+          "Accent": "Warning",
+          "Size": "XSmall",
+          "Icon": "Trailing"
+        },
+        {
+          "Accent": "Warning",
+          "Size": "XXSmall",
+          "Icon": "Trailing"
+        }
+      ],
+      "approvedCombinations": [],
+      "approvalBasis": "unresolved",
+      "ownerConfirmationRef": null,
+      "evidence": {
+        "classification": "computed",
+        "sourceFile": "evidence/api-capture-component-sets.json",
+        "confidence": "high",
+        "nodeIds": [
+          "NODE-0317",
+          "NODE-0366",
+          "NODE-0415",
+          "NODE-0464"
+        ],
+        "note": "NOT a correlation. The Plugin API reports 48 COMPONENT children per set, 48 distinct combinations, 0 duplicates, 0 missing, 0 extra against the declared 4x4x3 -- verified independently for all four sets. Axes are empirically INDEPENDENT for PSV-1. approvalBasis stays 'unresolved'; nothing is approved."
+      }
+    },
+    {
+      "tupleId": "CAT-2",
+      "axes": [
+        "Type",
+        "Style",
+        "Size",
+        "Animation"
+      ],
+      "appliesToSchemaVariantIds": [
+        "PSV-2"
+      ],
+      "observedCombinations": [
+        {
+          "Type": "Error",
+          "Style": "Filled",
+          "Size": "Large",
+          "Animation": "S1"
+        },
+        {
+          "Type": "Warning",
+          "Style": "Filled",
+          "Size": "Large",
+          "Animation": "S1"
+        },
+        {
+          "Type": "Error",
+          "Style": "Highline",
+          "Size": "Large",
+          "Animation": "S1"
+        },
+        {
+          "Type": "Warning",
+          "Style": "Highline",
+          "Size": "Large",
+          "Animation": "S1"
+        },
+        {
+          "Type": "Error",
+          "Style": "Filled",
+          "Size": "Regular",
+          "Animation": "S1"
+        },
+        {
+          "Type": "Warning",
+          "Style": "Filled",
+          "Size": "Regular",
+          "Animation": "S1"
+        },
+        {
+          "Type": "Error",
+          "Style": "Highline",
+          "Size": "Regular",
+          "Animation": "S1"
+        },
+        {
+          "Type": "Warning",
+          "Style": "Highline",
+          "Size": "Regular",
+          "Animation": "S1"
+        },
+        {
+          "Type": "Error",
+          "Style": "Filled",
+          "Size": "Small",
+          "Animation": "S1"
+        },
+        {
+          "Type": "Warning",
+          "Style": "Filled",
+          "Size": "Small",
+          "Animation": "S1"
+        },
+        {
+          "Type": "Error",
+          "Style": "Highline",
+          "Size": "Small",
+          "Animation": "S1"
+        },
+        {
+          "Type": "Warning",
+          "Style": "Highline",
+          "Size": "Small",
+          "Animation": "S1"
+        },
+        {
+          "Type": "Error",
+          "Style": "Filled",
+          "Size": "Large",
+          "Animation": "S2"
+        },
+        {
+          "Type": "Warning",
+          "Style": "Filled",
+          "Size": "Large",
+          "Animation": "S2"
+        },
+        {
+          "Type": "Error",
+          "Style": "Highline",
+          "Size": "Large",
+          "Animation": "S2"
+        },
+        {
+          "Type": "Warning",
+          "Style": "Highline",
+          "Size": "Large",
+          "Animation": "S2"
+        },
+        {
+          "Type": "Error",
+          "Style": "Filled",
+          "Size": "Regular",
+          "Animation": "S2"
+        },
+        {
+          "Type": "Warning",
+          "Style": "Filled",
+          "Size": "Regular",
+          "Animation": "S2"
+        },
+        {
+          "Type": "Error",
+          "Style": "Highline",
+          "Size": "Regular",
+          "Animation": "S2"
+        },
+        {
+          "Type": "Warning",
+          "Style": "Highline",
+          "Size": "Regular",
+          "Animation": "S2"
+        },
+        {
+          "Type": "Error",
+          "Style": "Filled",
+          "Size": "Small",
+          "Animation": "S2"
+        },
+        {
+          "Type": "Warning",
+          "Style": "Filled",
+          "Size": "Small",
+          "Animation": "S2"
+        },
+        {
+          "Type": "Error",
+          "Style": "Highline",
+          "Size": "Small",
+          "Animation": "S2"
+        },
+        {
+          "Type": "Warning",
+          "Style": "Highline",
+          "Size": "Small",
+          "Animation": "S2"
+        }
+      ],
+      "proposedValidCombinations": [
+        {
+          "Type": "Error",
+          "Style": "Filled",
+          "Size": "Large",
+          "Animation": "S1"
+        },
+        {
+          "Type": "Warning",
+          "Style": "Filled",
+          "Size": "Large",
+          "Animation": "S1"
+        },
+        {
+          "Type": "Error",
+          "Style": "Highline",
+          "Size": "Large",
+          "Animation": "S1"
+        },
+        {
+          "Type": "Warning",
+          "Style": "Highline",
+          "Size": "Large",
+          "Animation": "S1"
+        },
+        {
+          "Type": "Error",
+          "Style": "Filled",
+          "Size": "Regular",
+          "Animation": "S1"
+        },
+        {
+          "Type": "Warning",
+          "Style": "Filled",
+          "Size": "Regular",
+          "Animation": "S1"
+        },
+        {
+          "Type": "Error",
+          "Style": "Highline",
+          "Size": "Regular",
+          "Animation": "S1"
+        },
+        {
+          "Type": "Warning",
+          "Style": "Highline",
+          "Size": "Regular",
+          "Animation": "S1"
+        },
+        {
+          "Type": "Error",
+          "Style": "Filled",
+          "Size": "Small",
+          "Animation": "S1"
+        },
+        {
+          "Type": "Warning",
+          "Style": "Filled",
+          "Size": "Small",
+          "Animation": "S1"
+        },
+        {
+          "Type": "Error",
+          "Style": "Highline",
+          "Size": "Small",
+          "Animation": "S1"
+        },
+        {
+          "Type": "Warning",
+          "Style": "Highline",
+          "Size": "Small",
+          "Animation": "S1"
+        },
+        {
+          "Type": "Error",
+          "Style": "Filled",
+          "Size": "Large",
+          "Animation": "S2"
+        },
+        {
+          "Type": "Warning",
+          "Style": "Filled",
+          "Size": "Large",
+          "Animation": "S2"
+        },
+        {
+          "Type": "Error",
+          "Style": "Highline",
+          "Size": "Large",
+          "Animation": "S2"
+        },
+        {
+          "Type": "Warning",
+          "Style": "Highline",
+          "Size": "Large",
+          "Animation": "S2"
+        },
+        {
+          "Type": "Error",
+          "Style": "Filled",
+          "Size": "Regular",
+          "Animation": "S2"
+        },
+        {
+          "Type": "Warning",
+          "Style": "Filled",
+          "Size": "Regular",
+          "Animation": "S2"
+        },
+        {
+          "Type": "Error",
+          "Style": "Highline",
+          "Size": "Regular",
+          "Animation": "S2"
+        },
+        {
+          "Type": "Warning",
+          "Style": "Highline",
+          "Size": "Regular",
+          "Animation": "S2"
+        },
+        {
+          "Type": "Error",
+          "Style": "Filled",
+          "Size": "Small",
+          "Animation": "S2"
+        },
+        {
+          "Type": "Warning",
+          "Style": "Filled",
+          "Size": "Small",
+          "Animation": "S2"
+        },
+        {
+          "Type": "Error",
+          "Style": "Highline",
+          "Size": "Small",
+          "Animation": "S2"
+        },
+        {
+          "Type": "Warning",
+          "Style": "Highline",
+          "Size": "Small",
+          "Animation": "S2"
+        }
+      ],
+      "approvedCombinations": [],
+      "approvalBasis": "unresolved",
+      "ownerConfirmationRef": null,
+      "evidence": {
+        "classification": "computed",
+        "sourceFile": "evidence/api-capture-component-sets.json",
+        "confidence": "high",
+        "nodeIds": [
+          "NODE-0513"
+        ],
+        "note": "24 children, 24 distinct combinations, 0 duplicates/missing/extra against 2x2x3x2. Axes empirically independent."
+      }
+    }
+  ],
+  "ownerConfirmations": [],
+  "themeModel": {
+    "collections": [
+      {
+        "collectionId": "VC-0002",
+        "collectionKey": "KEY-0008",
+        "collectionName": "colors",
+        "remote": true,
+        "defaultModeId": "NODE-0299",
+        "variableCount": 105,
+        "themeVarying": true,
+        "modes": [
+          {
+            "modeId": "NODE-0299",
+            "modeName": "Dark",
+            "isDefault": true
+          },
+          {
+            "modeId": "NODE-0558",
+            "modeName": "Light",
+            "isDefault": false
+          }
+        ]
+      },
+      {
+        "collectionId": "VC-0001",
+        "collectionKey": "KEY-0002",
+        "collectionName": "layout-scale",
+        "remote": true,
+        "defaultModeId": "6:1",
+        "variableCount": 15,
+        "themeVarying": false,
+        "modes": [
+          {
+            "modeId": "6:1",
+            "modeName": "Default",
+            "isDefault": true
+          }
+        ]
+      }
+    ],
+    "containers": [
+      {
+        "containerNodeId": "NODE-0005",
+        "containerNodeName": "card",
+        "labelSourceNodeId": "NODE-0007",
+        "labelText": "Dark Mode",
+        "modeBindings": [
+          {
+            "collectionId": "VC-0002",
+            "resolvedModeId": "NODE-0299",
+            "resolvedModeName": "Dark",
+            "provenanceStatus": "verified",
+            "provenance": "inherited_default",
+            "provenanceEvidenceNodeIds": [
+              "NODE-0005",
+              "NODE-0004",
+              "NODE-0001",
+              "NODE-0539",
+              "NODE-0538"
+            ]
+          },
+          {
+            "collectionId": "VC-0001",
+            "resolvedModeId": "6:1",
+            "resolvedModeName": "Default",
+            "provenanceStatus": "verified",
+            "provenance": "inherited_default",
+            "provenanceEvidenceNodeIds": [
+              "NODE-0005"
+            ]
+          }
+        ],
+        "evidence": {
+          "classification": "observed",
+          "sourceFile": "evidence/api-capture-theme.json",
+          "confidence": "high",
+          "nodeIds": [
+            "NODE-0005",
+            "NODE-0007"
+          ],
+          "note": "explicitVariableModes is empty on this node AND on every ancestor up to and including PAGE NODE-0538. NODE-0299 is the colors collection defaultModeId, so the Dark resolution is a pure default-inheritance, not a declared choice."
+        }
+      },
+      {
+        "containerNodeId": "NODE-0069",
+        "containerNodeName": "card",
+        "labelSourceNodeId": "NODE-0071",
+        "labelText": "Light Mode",
+        "modeBindings": [
+          {
+            "collectionId": "VC-0002",
+            "resolvedModeId": "NODE-0558",
+            "resolvedModeName": "Light",
+            "provenanceStatus": "verified",
+            "provenance": "explicit",
+            "provenanceEvidenceNodeIds": [
+              "NODE-0069",
+              "NODE-0004",
+              "NODE-0001",
+              "NODE-0539",
+              "NODE-0538"
+            ]
+          },
+          {
+            "collectionId": "VC-0001",
+            "resolvedModeId": "6:1",
+            "resolvedModeName": "Default",
+            "provenanceStatus": "verified",
+            "provenance": "inherited_default",
+            "provenanceEvidenceNodeIds": [
+              "NODE-0069"
+            ]
+          }
+        ],
+        "evidence": {
+          "classification": "observed",
+          "sourceFile": "evidence/api-capture-theme.json",
+          "confidence": "high",
+          "nodeIds": [
+            "NODE-0069",
+            "NODE-0071"
+          ],
+          "note": "explicitVariableModes on this node declares the colors collection -> mode NODE-0558 (Light). No ancestor sets it."
+        }
+      }
+    ],
+    "variablesUsedByDescendants": [
+      {
+        "variableId": "VAR-0002",
+        "variableKey": "KEY-0006",
+        "variableName": "System/Expressions/success",
+        "resolvedType": "COLOR",
+        "collectionId": "VC-0002",
+        "valuesByMode": {
+          "NODE-0299": "#43DB70",
+          "NODE-0558": "#17CF60"
+        },
+        "sampledOnNodeIds": [
+          "NODE-0178",
+          "NODE-0258"
+        ],
+        "exhaustive": false
+      },
+      {
+        "variableId": "VAR-0001",
+        "variableKey": "KEY-0003",
+        "variableName": "System/Expressions/on_success",
+        "resolvedType": "COLOR",
+        "collectionId": "VC-0002",
+        "valuesByMode": {
+          "NODE-0299": "#01180D",
+          "NODE-0558": "#FFFFFF"
+        },
+        "sampledOnNodeIds": [
+          "NODE-0178",
+          "NODE-0258"
+        ],
+        "exhaustive": false
+      },
+      {
+        "variableId": "VAR-0004",
+        "variableKey": "KEY-0014",
+        "variableName": "4-scale/xs",
+        "resolvedType": "FLOAT",
+        "collectionId": "VC-0001",
+        "valuesByMode": {
+          "6:1": 12
+        },
+        "sampledOnNodeIds": [
+          "NODE-0178",
+          "NODE-0258"
+        ],
+        "exhaustive": false
+      },
+      {
+        "variableId": "VAR-0003",
+        "variableKey": "KEY-0010",
+        "variableName": "aux/xs",
+        "resolvedType": "FLOAT",
+        "collectionId": "VC-0001",
+        "valuesByMode": {
+          "6:1": 6
+        },
+        "sampledOnNodeIds": [
+          "NODE-0178",
+          "NODE-0258"
+        ],
+        "exhaustive": false
+      }
+    ],
+    "mechanismEvidence": {
+      "resolvedValuesDifferPerContainer": true,
+      "explicitPerFrameModeOverrideObserved": true,
+      "classification": "observed"
+    }
+  },
+  "representativeExamples": [
+    {
+      "sectionName": "Dark Mode card > size_row",
+      "axis": "Size",
+      "valuesShown": [
+        "Regular",
+        "Small",
+        "XSmall",
+        "XXSmall"
+      ],
+      "evidence": {
+        "classification": "observed",
+        "sourceFile": "evidence/api-capture-documentation-instances.json",
+        "confidence": "high",
+        "nodeIds": [
+          "NODE-0009"
+        ],
+        "note": "All four specimens are Pill - Filled, Accent=Success, Icon=None (API-confirmed)."
+      }
+    },
+    {
+      "sectionName": "Dark Mode card > style_row",
+      "axis": "Style (COMPONENT_SET identity, not a PSV-1 axis)",
+      "valuesShown": [
+        "Highline",
+        "Highlighted",
+        "Filled",
+        "Text"
+      ],
+      "evidence": {
+        "classification": "observed",
+        "sourceFile": "evidence/api-capture-documentation-instances.json",
+        "confidence": "high",
+        "nodeIds": [
+          "NODE-0025"
+        ],
+        "note": "One instance per treatment, all Accent=Success, Size=Regular, Icon=None. Only the owning set differs."
+      }
+    },
+    {
+      "sectionName": "Dark Mode card > accent_row",
+      "axis": "Accent",
+      "valuesShown": [
+        "Success",
+        "Error",
+        "Warning",
+        "Info"
+      ],
+      "evidence": {
+        "classification": "observed",
+        "sourceFile": "evidence/api-capture-documentation-instances.json",
+        "confidence": "high",
+        "nodeIds": [
+          "NODE-0041"
+        ],
+        "note": "All Pill - Filled, Size=Regular, Icon=None."
+      }
+    },
+    {
+      "sectionName": "Dark Mode card > icon_row",
+      "axis": "Icon",
+      "valuesShown": [
+        "None",
+        "Leading",
+        "Trailing"
+      ],
+      "evidence": {
+        "classification": "observed",
+        "sourceFile": "evidence/api-capture-documentation-instances.json",
+        "confidence": "high",
+        "nodeIds": [
+          "NODE-0057"
+        ],
+        "note": "All Pill - Filled, Accent=Success, Size=Regular."
+      }
+    },
+    {
+      "sectionName": "Dark Mode card > treatment x accent matrix",
+      "axis": "Style x Accent (bands: Size; Icon fixed at None)",
+      "valuesShown": [
+        "Highline",
+        "Highlighted",
+        "Filled",
+        "Text",
+        "Success",
+        "Error",
+        "Warning",
+        "Info",
+        "Regular",
+        "Small"
+      ],
+      "evidence": {
+        "classification": "computed",
+        "sourceFile": "evidence/allocation-evidence-MA-1.json",
+        "confidence": "high",
+        "nodeIds": [
+          "NODE-0133"
+        ],
+        "note": "32 instances per card: 4 set-identity rows x 4 Accent columns x 2 Size bands, Icon=None across all 64."
+      }
+    },
+    {
+      "sectionName": "Light Mode card > size_row",
+      "axis": "Size",
+      "valuesShown": [
+        "Regular",
+        "Small",
+        "XSmall",
+        "XXSmall"
+      ],
+      "evidence": {
+        "classification": "observed",
+        "sourceFile": "evidence/api-capture-documentation-instances.json",
+        "confidence": "high",
+        "nodeIds": [
+          "NODE-0073"
+        ],
+        "note": "All four specimens are Pill - Filled, Accent=Success, Icon=None (API-confirmed)."
+      }
+    },
+    {
+      "sectionName": "Light Mode card > style_row",
+      "axis": "Style (COMPONENT_SET identity, not a PSV-1 axis)",
+      "valuesShown": [
+        "Highline",
+        "Highlighted",
+        "Filled",
+        "Text"
+      ],
+      "evidence": {
+        "classification": "observed",
+        "sourceFile": "evidence/api-capture-documentation-instances.json",
+        "confidence": "high",
+        "nodeIds": [
+          "NODE-0089"
+        ],
+        "note": "One instance per treatment, all Accent=Success, Size=Regular, Icon=None. Only the owning set differs."
+      }
+    },
+    {
+      "sectionName": "Light Mode card > accent_row",
+      "axis": "Accent",
+      "valuesShown": [
+        "Success",
+        "Error",
+        "Warning",
+        "Info"
+      ],
+      "evidence": {
+        "classification": "observed",
+        "sourceFile": "evidence/api-capture-documentation-instances.json",
+        "confidence": "high",
+        "nodeIds": [
+          "NODE-0105"
+        ],
+        "note": "All Pill - Filled, Size=Regular, Icon=None."
+      }
+    },
+    {
+      "sectionName": "Light Mode card > icon_row",
+      "axis": "Icon",
+      "valuesShown": [
+        "None",
+        "Leading",
+        "Trailing"
+      ],
+      "evidence": {
+        "classification": "observed",
+        "sourceFile": "evidence/api-capture-documentation-instances.json",
+        "confidence": "high",
+        "nodeIds": [
+          "NODE-0121"
+        ],
+        "note": "All Pill - Filled, Accent=Success, Size=Regular."
+      }
+    },
+    {
+      "sectionName": "Light Mode card > treatment x accent matrix",
+      "axis": "Style x Accent (bands: Size; Icon fixed at None)",
+      "valuesShown": [
+        "Highline",
+        "Highlighted",
+        "Filled",
+        "Text",
+        "Success",
+        "Error",
+        "Warning",
+        "Info",
+        "Regular",
+        "Small"
+      ],
+      "evidence": {
+        "classification": "computed",
+        "sourceFile": "evidence/allocation-evidence-MA-1.json",
+        "confidence": "high",
+        "nodeIds": [
+          "NODE-0213"
+        ],
+        "note": "32 instances per card: 4 set-identity rows x 4 Accent columns x 2 Size bands, Icon=None across all 64."
+      }
+    }
+  ],
+  "coveragePolicy": {
+    "statement": "Physical completeness may only be asserted at component_children_enumerated or owner_confirmed. All five sets reached component_children_enumerated via the Figma Plugin API, which WOULD qualify; every physicalCompletenessClaimed is nonetheless left false because this experiment is not authorised to approve completeness. documentedPairingCount below records UNIQUE VARIANT COMBINATIONS documented per set. Two other, different coverage counts are equally real and equally unrecordable here: instance placements (Filled 40, Highline 18, Highlighted 18, Text 18, Pulse 0) and matrix cells (16 per theme). The schema provides one untyped integer and no way to say which metric it is -- see PB-8.",
+    "qualifyingEvidenceLevelsForPhysicalCompletenessClaim": [
+      "component_children_enumerated",
+      "owner_confirmed"
+    ],
+    "perComponentSetCoverage": [
+      {
+        "componentSetId": "NODE-0317",
+        "coverageMetrics": [
+          {
+            "kind": "classified",
+            "metric": "instance_placements",
+            "value": 18,
+            "evidenceNodeIds": [
+              "NODE-0001"
+            ]
+          },
+          {
+            "kind": "classified",
+            "metric": "unique_variant_combinations",
+            "value": 8,
+            "evidenceNodeIds": [
+              "NODE-0001"
+            ]
+          }
+        ],
+        "physicalCoverageEvidenceLevel": "component_children_enumerated",
+        "physicalCompletenessClaimed": false,
+        "ownerConfirmationRef": null,
+        "enumerationEvidence": {
+          "status": "enumerated",
+          "enumeratedAxes": [
+            "Accent",
+            "Size",
+            "Icon"
+          ],
+          "enumeratedAxisCombinations": [
+            {
+              "Accent": "Error",
+              "Size": "Regular",
+              "Icon": "Leading"
+            },
+            {
+              "Accent": "Error",
+              "Size": "Small",
+              "Icon": "Leading"
+            },
+            {
+              "Accent": "Error",
+              "Size": "XSmall",
+              "Icon": "Leading"
+            },
+            {
+              "Accent": "Error",
+              "Size": "XXSmall",
+              "Icon": "Leading"
+            },
+            {
+              "Accent": "Error",
+              "Size": "Regular",
+              "Icon": "None"
+            },
+            {
+              "Accent": "Error",
+              "Size": "Small",
+              "Icon": "None"
+            },
+            {
+              "Accent": "Error",
+              "Size": "XSmall",
+              "Icon": "None"
+            },
+            {
+              "Accent": "Error",
+              "Size": "XXSmall",
+              "Icon": "None"
+            },
+            {
+              "Accent": "Error",
+              "Size": "Regular",
+              "Icon": "Trailing"
+            },
+            {
+              "Accent": "Error",
+              "Size": "Small",
+              "Icon": "Trailing"
+            },
+            {
+              "Accent": "Error",
+              "Size": "XSmall",
+              "Icon": "Trailing"
+            },
+            {
+              "Accent": "Error",
+              "Size": "XXSmall",
+              "Icon": "Trailing"
+            },
+            {
+              "Accent": "Info",
+              "Size": "Regular",
+              "Icon": "Leading"
+            },
+            {
+              "Accent": "Info",
+              "Size": "Small",
+              "Icon": "Leading"
+            },
+            {
+              "Accent": "Info",
+              "Size": "XSmall",
+              "Icon": "Leading"
+            },
+            {
+              "Accent": "Info",
+              "Size": "XXSmall",
+              "Icon": "Leading"
+            },
+            {
+              "Accent": "Info",
+              "Size": "Regular",
+              "Icon": "None"
+            },
+            {
+              "Accent": "Info",
+              "Size": "Small",
+              "Icon": "None"
+            },
+            {
+              "Accent": "Info",
+              "Size": "XSmall",
+              "Icon": "None"
+            },
+            {
+              "Accent": "Info",
+              "Size": "XXSmall",
+              "Icon": "None"
+            },
+            {
+              "Accent": "Info",
+              "Size": "Regular",
+              "Icon": "Trailing"
+            },
+            {
+              "Accent": "Info",
+              "Size": "Small",
+              "Icon": "Trailing"
+            },
+            {
+              "Accent": "Info",
+              "Size": "XSmall",
+              "Icon": "Trailing"
+            },
+            {
+              "Accent": "Info",
+              "Size": "XXSmall",
+              "Icon": "Trailing"
+            },
+            {
+              "Accent": "Success",
+              "Size": "Regular",
+              "Icon": "Leading"
+            },
+            {
+              "Accent": "Success",
+              "Size": "Small",
+              "Icon": "Leading"
+            },
+            {
+              "Accent": "Success",
+              "Size": "XSmall",
+              "Icon": "Leading"
+            },
+            {
+              "Accent": "Success",
+              "Size": "XXSmall",
+              "Icon": "Leading"
+            },
+            {
+              "Accent": "Success",
+              "Size": "Regular",
+              "Icon": "None"
+            },
+            {
+              "Accent": "Success",
+              "Size": "Small",
+              "Icon": "None"
+            },
+            {
+              "Accent": "Success",
+              "Size": "XSmall",
+              "Icon": "None"
+            },
+            {
+              "Accent": "Success",
+              "Size": "XXSmall",
+              "Icon": "None"
+            },
+            {
+              "Accent": "Success",
+              "Size": "Regular",
+              "Icon": "Trailing"
+            },
+            {
+              "Accent": "Success",
+              "Size": "Small",
+              "Icon": "Trailing"
+            },
+            {
+              "Accent": "Success",
+              "Size": "XSmall",
+              "Icon": "Trailing"
+            },
+            {
+              "Accent": "Success",
+              "Size": "XXSmall",
+              "Icon": "Trailing"
+            },
+            {
+              "Accent": "Warning",
+              "Size": "Regular",
+              "Icon": "Leading"
+            },
+            {
+              "Accent": "Warning",
+              "Size": "Small",
+              "Icon": "Leading"
+            },
+            {
+              "Accent": "Warning",
+              "Size": "XSmall",
+              "Icon": "Leading"
+            },
+            {
+              "Accent": "Warning",
+              "Size": "XXSmall",
+              "Icon": "Leading"
+            },
+            {
+              "Accent": "Warning",
+              "Size": "Regular",
+              "Icon": "None"
+            },
+            {
+              "Accent": "Warning",
+              "Size": "Small",
+              "Icon": "None"
+            },
+            {
+              "Accent": "Warning",
+              "Size": "XSmall",
+              "Icon": "None"
+            },
+            {
+              "Accent": "Warning",
+              "Size": "XXSmall",
+              "Icon": "None"
+            },
+            {
+              "Accent": "Warning",
+              "Size": "Regular",
+              "Icon": "Trailing"
+            },
+            {
+              "Accent": "Warning",
+              "Size": "Small",
+              "Icon": "Trailing"
+            },
+            {
+              "Accent": "Warning",
+              "Size": "XSmall",
+              "Icon": "Trailing"
+            },
+            {
+              "Accent": "Warning",
+              "Size": "XXSmall",
+              "Icon": "Trailing"
+            }
+          ],
+          "artifactPath": "evidence/enumeration-787-14141.json",
+          "artifactSha256": "6931f12bbbb7178c3802bc1ccaf18c19d834fbb87c3619302da3e4770117818a",
+          "enumeratedCount": 48,
+          "method": {
+            "class": "plugin_api_variant_properties",
+            "toolIdentity": "mcp__plugin_figma_figma__use_figma",
+            "apiFieldsRead": [
+              "COMPONENT_SET.children",
+              "COMPONENT.variantProperties",
+              "COMPONENT_SET.componentPropertyDefinitions"
+            ],
+            "inferredFields": [],
+            "rawCaptureRef": {
+              "artifactPath": "evidence/api-capture-component-sets.json",
+              "artifactSha256": "fef66a30a2495a6d0cca9a69bc4c98b668fd800efa7e1ea4afd7ac968e2c04b5"
+            },
+            "normalizedArtifactRef": {
+              "artifactPath": "evidence/enumeration-787-14141.json",
+              "artifactSha256": "6931f12bbbb7178c3802bc1ccaf18c19d834fbb87c3619302da3e4770117818a"
+            }
+          }
+        }
+      },
+      {
+        "componentSetId": "NODE-0366",
+        "coverageMetrics": [
+          {
+            "kind": "classified",
+            "metric": "instance_placements",
+            "value": 18,
+            "evidenceNodeIds": [
+              "NODE-0001"
+            ]
+          },
+          {
+            "kind": "classified",
+            "metric": "unique_variant_combinations",
+            "value": 8,
+            "evidenceNodeIds": [
+              "NODE-0001"
+            ]
+          }
+        ],
+        "physicalCoverageEvidenceLevel": "component_children_enumerated",
+        "physicalCompletenessClaimed": false,
+        "ownerConfirmationRef": null,
+        "enumerationEvidence": {
+          "status": "enumerated",
+          "enumeratedAxes": [
+            "Accent",
+            "Size",
+            "Icon"
+          ],
+          "enumeratedAxisCombinations": [
+            {
+              "Accent": "Error",
+              "Size": "Regular",
+              "Icon": "Leading"
+            },
+            {
+              "Accent": "Error",
+              "Size": "Small",
+              "Icon": "Leading"
+            },
+            {
+              "Accent": "Error",
+              "Size": "XSmall",
+              "Icon": "Leading"
+            },
+            {
+              "Accent": "Error",
+              "Size": "XXSmall",
+              "Icon": "Leading"
+            },
+            {
+              "Accent": "Error",
+              "Size": "Regular",
+              "Icon": "None"
+            },
+            {
+              "Accent": "Error",
+              "Size": "Small",
+              "Icon": "None"
+            },
+            {
+              "Accent": "Error",
+              "Size": "XSmall",
+              "Icon": "None"
+            },
+            {
+              "Accent": "Error",
+              "Size": "XXSmall",
+              "Icon": "None"
+            },
+            {
+              "Accent": "Error",
+              "Size": "Regular",
+              "Icon": "Trailing"
+            },
+            {
+              "Accent": "Error",
+              "Size": "Small",
+              "Icon": "Trailing"
+            },
+            {
+              "Accent": "Error",
+              "Size": "XSmall",
+              "Icon": "Trailing"
+            },
+            {
+              "Accent": "Error",
+              "Size": "XXSmall",
+              "Icon": "Trailing"
+            },
+            {
+              "Accent": "Info",
+              "Size": "Regular",
+              "Icon": "Leading"
+            },
+            {
+              "Accent": "Info",
+              "Size": "Small",
+              "Icon": "Leading"
+            },
+            {
+              "Accent": "Info",
+              "Size": "XSmall",
+              "Icon": "Leading"
+            },
+            {
+              "Accent": "Info",
+              "Size": "XXSmall",
+              "Icon": "Leading"
+            },
+            {
+              "Accent": "Info",
+              "Size": "Regular",
+              "Icon": "None"
+            },
+            {
+              "Accent": "Info",
+              "Size": "Small",
+              "Icon": "None"
+            },
+            {
+              "Accent": "Info",
+              "Size": "XSmall",
+              "Icon": "None"
+            },
+            {
+              "Accent": "Info",
+              "Size": "XXSmall",
+              "Icon": "None"
+            },
+            {
+              "Accent": "Info",
+              "Size": "Regular",
+              "Icon": "Trailing"
+            },
+            {
+              "Accent": "Info",
+              "Size": "Small",
+              "Icon": "Trailing"
+            },
+            {
+              "Accent": "Info",
+              "Size": "XSmall",
+              "Icon": "Trailing"
+            },
+            {
+              "Accent": "Info",
+              "Size": "XXSmall",
+              "Icon": "Trailing"
+            },
+            {
+              "Accent": "Success",
+              "Size": "Regular",
+              "Icon": "Leading"
+            },
+            {
+              "Accent": "Success",
+              "Size": "Small",
+              "Icon": "Leading"
+            },
+            {
+              "Accent": "Success",
+              "Size": "XSmall",
+              "Icon": "Leading"
+            },
+            {
+              "Accent": "Success",
+              "Size": "XXSmall",
+              "Icon": "Leading"
+            },
+            {
+              "Accent": "Success",
+              "Size": "Regular",
+              "Icon": "None"
+            },
+            {
+              "Accent": "Success",
+              "Size": "Small",
+              "Icon": "None"
+            },
+            {
+              "Accent": "Success",
+              "Size": "XSmall",
+              "Icon": "None"
+            },
+            {
+              "Accent": "Success",
+              "Size": "XXSmall",
+              "Icon": "None"
+            },
+            {
+              "Accent": "Success",
+              "Size": "Regular",
+              "Icon": "Trailing"
+            },
+            {
+              "Accent": "Success",
+              "Size": "Small",
+              "Icon": "Trailing"
+            },
+            {
+              "Accent": "Success",
+              "Size": "XSmall",
+              "Icon": "Trailing"
+            },
+            {
+              "Accent": "Success",
+              "Size": "XXSmall",
+              "Icon": "Trailing"
+            },
+            {
+              "Accent": "Warning",
+              "Size": "Regular",
+              "Icon": "Leading"
+            },
+            {
+              "Accent": "Warning",
+              "Size": "Small",
+              "Icon": "Leading"
+            },
+            {
+              "Accent": "Warning",
+              "Size": "XSmall",
+              "Icon": "Leading"
+            },
+            {
+              "Accent": "Warning",
+              "Size": "XXSmall",
+              "Icon": "Leading"
+            },
+            {
+              "Accent": "Warning",
+              "Size": "Regular",
+              "Icon": "None"
+            },
+            {
+              "Accent": "Warning",
+              "Size": "Small",
+              "Icon": "None"
+            },
+            {
+              "Accent": "Warning",
+              "Size": "XSmall",
+              "Icon": "None"
+            },
+            {
+              "Accent": "Warning",
+              "Size": "XXSmall",
+              "Icon": "None"
+            },
+            {
+              "Accent": "Warning",
+              "Size": "Regular",
+              "Icon": "Trailing"
+            },
+            {
+              "Accent": "Warning",
+              "Size": "Small",
+              "Icon": "Trailing"
+            },
+            {
+              "Accent": "Warning",
+              "Size": "XSmall",
+              "Icon": "Trailing"
+            },
+            {
+              "Accent": "Warning",
+              "Size": "XXSmall",
+              "Icon": "Trailing"
+            }
+          ],
+          "artifactPath": "evidence/enumeration-787-14271.json",
+          "artifactSha256": "1fc02bbd89e5cb88724c1f5503cf8e7c320a540c85afb3a80bfcd0f40f494bda",
+          "enumeratedCount": 48,
+          "method": {
+            "class": "plugin_api_variant_properties",
+            "toolIdentity": "mcp__plugin_figma_figma__use_figma",
+            "apiFieldsRead": [
+              "COMPONENT_SET.children",
+              "COMPONENT.variantProperties",
+              "COMPONENT_SET.componentPropertyDefinitions"
+            ],
+            "inferredFields": [],
+            "rawCaptureRef": {
+              "artifactPath": "evidence/api-capture-component-sets.json",
+              "artifactSha256": "fef66a30a2495a6d0cca9a69bc4c98b668fd800efa7e1ea4afd7ac968e2c04b5"
+            },
+            "normalizedArtifactRef": {
+              "artifactPath": "evidence/enumeration-787-14271.json",
+              "artifactSha256": "1fc02bbd89e5cb88724c1f5503cf8e7c320a540c85afb3a80bfcd0f40f494bda"
+            }
+          }
+        }
+      },
+      {
+        "componentSetId": "NODE-0415",
+        "coverageMetrics": [
+          {
+            "kind": "classified",
+            "metric": "instance_placements",
+            "value": 40,
+            "evidenceNodeIds": [
+              "NODE-0001"
+            ]
+          },
+          {
+            "kind": "classified",
+            "metric": "unique_variant_combinations",
+            "value": 12,
+            "evidenceNodeIds": [
+              "NODE-0001"
+            ]
+          }
+        ],
+        "physicalCoverageEvidenceLevel": "component_children_enumerated",
+        "physicalCompletenessClaimed": false,
+        "ownerConfirmationRef": null,
+        "enumerationEvidence": {
+          "status": "enumerated",
+          "enumeratedAxes": [
+            "Accent",
+            "Size",
+            "Icon"
+          ],
+          "enumeratedAxisCombinations": [
+            {
+              "Accent": "Error",
+              "Size": "Regular",
+              "Icon": "Leading"
+            },
+            {
+              "Accent": "Error",
+              "Size": "Small",
+              "Icon": "Leading"
+            },
+            {
+              "Accent": "Error",
+              "Size": "XSmall",
+              "Icon": "Leading"
+            },
+            {
+              "Accent": "Error",
+              "Size": "XXSmall",
+              "Icon": "Leading"
+            },
+            {
+              "Accent": "Error",
+              "Size": "Regular",
+              "Icon": "None"
+            },
+            {
+              "Accent": "Error",
+              "Size": "Small",
+              "Icon": "None"
+            },
+            {
+              "Accent": "Error",
+              "Size": "XSmall",
+              "Icon": "None"
+            },
+            {
+              "Accent": "Error",
+              "Size": "XXSmall",
+              "Icon": "None"
+            },
+            {
+              "Accent": "Error",
+              "Size": "Regular",
+              "Icon": "Trailing"
+            },
+            {
+              "Accent": "Error",
+              "Size": "Small",
+              "Icon": "Trailing"
+            },
+            {
+              "Accent": "Error",
+              "Size": "XSmall",
+              "Icon": "Trailing"
+            },
+            {
+              "Accent": "Error",
+              "Size": "XXSmall",
+              "Icon": "Trailing"
+            },
+            {
+              "Accent": "Info",
+              "Size": "Regular",
+              "Icon": "Leading"
+            },
+            {
+              "Accent": "Info",
+              "Size": "Small",
+              "Icon": "Leading"
+            },
+            {
+              "Accent": "Info",
+              "Size": "XSmall",
+              "Icon": "Leading"
+            },
+            {
+              "Accent": "Info",
+              "Size": "XXSmall",
+              "Icon": "Leading"
+            },
+            {
+              "Accent": "Info",
+              "Size": "Regular",
+              "Icon": "None"
+            },
+            {
+              "Accent": "Info",
+              "Size": "Small",
+              "Icon": "None"
+            },
+            {
+              "Accent": "Info",
+              "Size": "XSmall",
+              "Icon": "None"
+            },
+            {
+              "Accent": "Info",
+              "Size": "XXSmall",
+              "Icon": "None"
+            },
+            {
+              "Accent": "Info",
+              "Size": "Regular",
+              "Icon": "Trailing"
+            },
+            {
+              "Accent": "Info",
+              "Size": "Small",
+              "Icon": "Trailing"
+            },
+            {
+              "Accent": "Info",
+              "Size": "XSmall",
+              "Icon": "Trailing"
+            },
+            {
+              "Accent": "Info",
+              "Size": "XXSmall",
+              "Icon": "Trailing"
+            },
+            {
+              "Accent": "Success",
+              "Size": "Regular",
+              "Icon": "Leading"
+            },
+            {
+              "Accent": "Success",
+              "Size": "Small",
+              "Icon": "Leading"
+            },
+            {
+              "Accent": "Success",
+              "Size": "XSmall",
+              "Icon": "Leading"
+            },
+            {
+              "Accent": "Success",
+              "Size": "XXSmall",
+              "Icon": "Leading"
+            },
+            {
+              "Accent": "Success",
+              "Size": "Regular",
+              "Icon": "None"
+            },
+            {
+              "Accent": "Success",
+              "Size": "Small",
+              "Icon": "None"
+            },
+            {
+              "Accent": "Success",
+              "Size": "XSmall",
+              "Icon": "None"
+            },
+            {
+              "Accent": "Success",
+              "Size": "XXSmall",
+              "Icon": "None"
+            },
+            {
+              "Accent": "Success",
+              "Size": "Regular",
+              "Icon": "Trailing"
+            },
+            {
+              "Accent": "Success",
+              "Size": "Small",
+              "Icon": "Trailing"
+            },
+            {
+              "Accent": "Success",
+              "Size": "XSmall",
+              "Icon": "Trailing"
+            },
+            {
+              "Accent": "Success",
+              "Size": "XXSmall",
+              "Icon": "Trailing"
+            },
+            {
+              "Accent": "Warning",
+              "Size": "Regular",
+              "Icon": "Leading"
+            },
+            {
+              "Accent": "Warning",
+              "Size": "Small",
+              "Icon": "Leading"
+            },
+            {
+              "Accent": "Warning",
+              "Size": "XSmall",
+              "Icon": "Leading"
+            },
+            {
+              "Accent": "Warning",
+              "Size": "XXSmall",
+              "Icon": "Leading"
+            },
+            {
+              "Accent": "Warning",
+              "Size": "Regular",
+              "Icon": "None"
+            },
+            {
+              "Accent": "Warning",
+              "Size": "Small",
+              "Icon": "None"
+            },
+            {
+              "Accent": "Warning",
+              "Size": "XSmall",
+              "Icon": "None"
+            },
+            {
+              "Accent": "Warning",
+              "Size": "XXSmall",
+              "Icon": "None"
+            },
+            {
+              "Accent": "Warning",
+              "Size": "Regular",
+              "Icon": "Trailing"
+            },
+            {
+              "Accent": "Warning",
+              "Size": "Small",
+              "Icon": "Trailing"
+            },
+            {
+              "Accent": "Warning",
+              "Size": "XSmall",
+              "Icon": "Trailing"
+            },
+            {
+              "Accent": "Warning",
+              "Size": "XXSmall",
+              "Icon": "Trailing"
+            }
+          ],
+          "artifactPath": "evidence/enumeration-787-14401.json",
+          "artifactSha256": "a5ea89641381007d4fda374b80cb92cd3c201a9141a7a55e1a192b20dbccc8eb",
+          "enumeratedCount": 48,
+          "method": {
+            "class": "plugin_api_variant_properties",
+            "toolIdentity": "mcp__plugin_figma_figma__use_figma",
+            "apiFieldsRead": [
+              "COMPONENT_SET.children",
+              "COMPONENT.variantProperties",
+              "COMPONENT_SET.componentPropertyDefinitions"
+            ],
+            "inferredFields": [],
+            "rawCaptureRef": {
+              "artifactPath": "evidence/api-capture-component-sets.json",
+              "artifactSha256": "fef66a30a2495a6d0cca9a69bc4c98b668fd800efa7e1ea4afd7ac968e2c04b5"
+            },
+            "normalizedArtifactRef": {
+              "artifactPath": "evidence/enumeration-787-14401.json",
+              "artifactSha256": "a5ea89641381007d4fda374b80cb92cd3c201a9141a7a55e1a192b20dbccc8eb"
+            }
+          }
+        }
+      },
+      {
+        "componentSetId": "NODE-0464",
+        "coverageMetrics": [
+          {
+            "kind": "classified",
+            "metric": "instance_placements",
+            "value": 18,
+            "evidenceNodeIds": [
+              "NODE-0001"
+            ]
+          },
+          {
+            "kind": "classified",
+            "metric": "unique_variant_combinations",
+            "value": 8,
+            "evidenceNodeIds": [
+              "NODE-0001"
+            ]
+          }
+        ],
+        "physicalCoverageEvidenceLevel": "component_children_enumerated",
+        "physicalCompletenessClaimed": false,
+        "ownerConfirmationRef": null,
+        "enumerationEvidence": {
+          "status": "enumerated",
+          "enumeratedAxes": [
+            "Accent",
+            "Size",
+            "Icon"
+          ],
+          "enumeratedAxisCombinations": [
+            {
+              "Accent": "Error",
+              "Size": "Regular",
+              "Icon": "Leading"
+            },
+            {
+              "Accent": "Error",
+              "Size": "Small",
+              "Icon": "Leading"
+            },
+            {
+              "Accent": "Error",
+              "Size": "XSmall",
+              "Icon": "Leading"
+            },
+            {
+              "Accent": "Error",
+              "Size": "XXSmall",
+              "Icon": "Leading"
+            },
+            {
+              "Accent": "Error",
+              "Size": "Regular",
+              "Icon": "None"
+            },
+            {
+              "Accent": "Error",
+              "Size": "Small",
+              "Icon": "None"
+            },
+            {
+              "Accent": "Error",
+              "Size": "XSmall",
+              "Icon": "None"
+            },
+            {
+              "Accent": "Error",
+              "Size": "XXSmall",
+              "Icon": "None"
+            },
+            {
+              "Accent": "Error",
+              "Size": "Regular",
+              "Icon": "Trailing"
+            },
+            {
+              "Accent": "Error",
+              "Size": "Small",
+              "Icon": "Trailing"
+            },
+            {
+              "Accent": "Error",
+              "Size": "XSmall",
+              "Icon": "Trailing"
+            },
+            {
+              "Accent": "Error",
+              "Size": "XXSmall",
+              "Icon": "Trailing"
+            },
+            {
+              "Accent": "Info",
+              "Size": "Regular",
+              "Icon": "Leading"
+            },
+            {
+              "Accent": "Info",
+              "Size": "Small",
+              "Icon": "Leading"
+            },
+            {
+              "Accent": "Info",
+              "Size": "XSmall",
+              "Icon": "Leading"
+            },
+            {
+              "Accent": "Info",
+              "Size": "XXSmall",
+              "Icon": "Leading"
+            },
+            {
+              "Accent": "Info",
+              "Size": "Regular",
+              "Icon": "None"
+            },
+            {
+              "Accent": "Info",
+              "Size": "Small",
+              "Icon": "None"
+            },
+            {
+              "Accent": "Info",
+              "Size": "XSmall",
+              "Icon": "None"
+            },
+            {
+              "Accent": "Info",
+              "Size": "XXSmall",
+              "Icon": "None"
+            },
+            {
+              "Accent": "Info",
+              "Size": "Regular",
+              "Icon": "Trailing"
+            },
+            {
+              "Accent": "Info",
+              "Size": "Small",
+              "Icon": "Trailing"
+            },
+            {
+              "Accent": "Info",
+              "Size": "XSmall",
+              "Icon": "Trailing"
+            },
+            {
+              "Accent": "Info",
+              "Size": "XXSmall",
+              "Icon": "Trailing"
+            },
+            {
+              "Accent": "Success",
+              "Size": "Regular",
+              "Icon": "Leading"
+            },
+            {
+              "Accent": "Success",
+              "Size": "Small",
+              "Icon": "Leading"
+            },
+            {
+              "Accent": "Success",
+              "Size": "XSmall",
+              "Icon": "Leading"
+            },
+            {
+              "Accent": "Success",
+              "Size": "XXSmall",
+              "Icon": "Leading"
+            },
+            {
+              "Accent": "Success",
+              "Size": "Regular",
+              "Icon": "None"
+            },
+            {
+              "Accent": "Success",
+              "Size": "Small",
+              "Icon": "None"
+            },
+            {
+              "Accent": "Success",
+              "Size": "XSmall",
+              "Icon": "None"
+            },
+            {
+              "Accent": "Success",
+              "Size": "XXSmall",
+              "Icon": "None"
+            },
+            {
+              "Accent": "Success",
+              "Size": "Regular",
+              "Icon": "Trailing"
+            },
+            {
+              "Accent": "Success",
+              "Size": "Small",
+              "Icon": "Trailing"
+            },
+            {
+              "Accent": "Success",
+              "Size": "XSmall",
+              "Icon": "Trailing"
+            },
+            {
+              "Accent": "Success",
+              "Size": "XXSmall",
+              "Icon": "Trailing"
+            },
+            {
+              "Accent": "Warning",
+              "Size": "Regular",
+              "Icon": "Leading"
+            },
+            {
+              "Accent": "Warning",
+              "Size": "Small",
+              "Icon": "Leading"
+            },
+            {
+              "Accent": "Warning",
+              "Size": "XSmall",
+              "Icon": "Leading"
+            },
+            {
+              "Accent": "Warning",
+              "Size": "XXSmall",
+              "Icon": "Leading"
+            },
+            {
+              "Accent": "Warning",
+              "Size": "Regular",
+              "Icon": "None"
+            },
+            {
+              "Accent": "Warning",
+              "Size": "Small",
+              "Icon": "None"
+            },
+            {
+              "Accent": "Warning",
+              "Size": "XSmall",
+              "Icon": "None"
+            },
+            {
+              "Accent": "Warning",
+              "Size": "XXSmall",
+              "Icon": "None"
+            },
+            {
+              "Accent": "Warning",
+              "Size": "Regular",
+              "Icon": "Trailing"
+            },
+            {
+              "Accent": "Warning",
+              "Size": "Small",
+              "Icon": "Trailing"
+            },
+            {
+              "Accent": "Warning",
+              "Size": "XSmall",
+              "Icon": "Trailing"
+            },
+            {
+              "Accent": "Warning",
+              "Size": "XXSmall",
+              "Icon": "Trailing"
+            }
+          ],
+          "artifactPath": "evidence/enumeration-787-14531.json",
+          "artifactSha256": "65eb35f5fb57f84f5762e10576189d45ac4d4ac3e74835b211d8eccb823d13f1",
+          "enumeratedCount": 48,
+          "method": {
+            "class": "plugin_api_variant_properties",
+            "toolIdentity": "mcp__plugin_figma_figma__use_figma",
+            "apiFieldsRead": [
+              "COMPONENT_SET.children",
+              "COMPONENT.variantProperties",
+              "COMPONENT_SET.componentPropertyDefinitions"
+            ],
+            "inferredFields": [],
+            "rawCaptureRef": {
+              "artifactPath": "evidence/api-capture-component-sets.json",
+              "artifactSha256": "fef66a30a2495a6d0cca9a69bc4c98b668fd800efa7e1ea4afd7ac968e2c04b5"
+            },
+            "normalizedArtifactRef": {
+              "artifactPath": "evidence/enumeration-787-14531.json",
+              "artifactSha256": "65eb35f5fb57f84f5762e10576189d45ac4d4ac3e74835b211d8eccb823d13f1"
+            }
+          }
+        }
+      },
+      {
+        "componentSetId": "NODE-0513",
+        "coverageMetrics": [
+          {
+            "kind": "classified",
+            "metric": "instance_placements",
+            "value": 0,
+            "evidenceNodeIds": [
+              "NODE-0001"
+            ]
+          },
+          {
+            "kind": "classified",
+            "metric": "unique_variant_combinations",
+            "value": 0,
+            "evidenceNodeIds": [
+              "NODE-0001"
+            ]
+          }
+        ],
+        "physicalCoverageEvidenceLevel": "component_children_enumerated",
+        "physicalCompletenessClaimed": false,
+        "ownerConfirmationRef": null,
+        "enumerationEvidence": {
+          "status": "enumerated",
+          "enumeratedAxes": [
+            "Type",
+            "Style",
+            "Size",
+            "Animation"
+          ],
+          "enumeratedAxisCombinations": [
+            {
+              "Type": "Error",
+              "Style": "Filled",
+              "Size": "Large",
+              "Animation": "S1"
+            },
+            {
+              "Type": "Warning",
+              "Style": "Filled",
+              "Size": "Large",
+              "Animation": "S1"
+            },
+            {
+              "Type": "Error",
+              "Style": "Highline",
+              "Size": "Large",
+              "Animation": "S1"
+            },
+            {
+              "Type": "Warning",
+              "Style": "Highline",
+              "Size": "Large",
+              "Animation": "S1"
+            },
+            {
+              "Type": "Error",
+              "Style": "Filled",
+              "Size": "Regular",
+              "Animation": "S1"
+            },
+            {
+              "Type": "Warning",
+              "Style": "Filled",
+              "Size": "Regular",
+              "Animation": "S1"
+            },
+            {
+              "Type": "Error",
+              "Style": "Highline",
+              "Size": "Regular",
+              "Animation": "S1"
+            },
+            {
+              "Type": "Warning",
+              "Style": "Highline",
+              "Size": "Regular",
+              "Animation": "S1"
+            },
+            {
+              "Type": "Error",
+              "Style": "Filled",
+              "Size": "Small",
+              "Animation": "S1"
+            },
+            {
+              "Type": "Warning",
+              "Style": "Filled",
+              "Size": "Small",
+              "Animation": "S1"
+            },
+            {
+              "Type": "Error",
+              "Style": "Highline",
+              "Size": "Small",
+              "Animation": "S1"
+            },
+            {
+              "Type": "Warning",
+              "Style": "Highline",
+              "Size": "Small",
+              "Animation": "S1"
+            },
+            {
+              "Type": "Error",
+              "Style": "Filled",
+              "Size": "Large",
+              "Animation": "S2"
+            },
+            {
+              "Type": "Warning",
+              "Style": "Filled",
+              "Size": "Large",
+              "Animation": "S2"
+            },
+            {
+              "Type": "Error",
+              "Style": "Highline",
+              "Size": "Large",
+              "Animation": "S2"
+            },
+            {
+              "Type": "Warning",
+              "Style": "Highline",
+              "Size": "Large",
+              "Animation": "S2"
+            },
+            {
+              "Type": "Error",
+              "Style": "Filled",
+              "Size": "Regular",
+              "Animation": "S2"
+            },
+            {
+              "Type": "Warning",
+              "Style": "Filled",
+              "Size": "Regular",
+              "Animation": "S2"
+            },
+            {
+              "Type": "Error",
+              "Style": "Highline",
+              "Size": "Regular",
+              "Animation": "S2"
+            },
+            {
+              "Type": "Warning",
+              "Style": "Highline",
+              "Size": "Regular",
+              "Animation": "S2"
+            },
+            {
+              "Type": "Error",
+              "Style": "Filled",
+              "Size": "Small",
+              "Animation": "S2"
+            },
+            {
+              "Type": "Warning",
+              "Style": "Filled",
+              "Size": "Small",
+              "Animation": "S2"
+            },
+            {
+              "Type": "Error",
+              "Style": "Highline",
+              "Size": "Small",
+              "Animation": "S2"
+            },
+            {
+              "Type": "Warning",
+              "Style": "Highline",
+              "Size": "Small",
+              "Animation": "S2"
+            }
+          ],
+          "artifactPath": "evidence/enumeration-787-14660.json",
+          "artifactSha256": "c7568e9d4972909641016b9bf48aa37c52b7a9c462aa804485e660dfcd688350",
+          "enumeratedCount": 24,
+          "method": {
+            "class": "plugin_api_variant_properties",
+            "toolIdentity": "mcp__plugin_figma_figma__use_figma",
+            "apiFieldsRead": [
+              "COMPONENT_SET.children",
+              "COMPONENT.variantProperties",
+              "COMPONENT_SET.componentPropertyDefinitions"
+            ],
+            "inferredFields": [],
+            "rawCaptureRef": {
+              "artifactPath": "evidence/api-capture-component-sets.json",
+              "artifactSha256": "fef66a30a2495a6d0cca9a69bc4c98b668fd800efa7e1ea4afd7ac968e2c04b5"
+            },
+            "normalizedArtifactRef": {
+              "artifactPath": "evidence/enumeration-787-14660.json",
+              "artifactSha256": "c7568e9d4972909641016b9bf48aa37c52b7a9c462aa804485e660dfcd688350"
+            }
+          }
+        }
+      }
+    ]
+  },
+  "structuralFindings": [
+    {
+      "findingId": "PF-01",
+      "description": "The Pill component contains five nodes of API type COMPONENT_SET under one build frame NODE-0545 on page 'Pills' (NODE-0538). Four share schema PSV-1; the fifth uses PSV-2. One component spans two incompatible property schemas.",
+      "evidence": {
+        "classification": "computed",
+        "sourceFile": "evidence/api-capture-component-sets.json",
+        "confidence": "high",
+        "nodeIds": [
+          "NODE-0317",
+          "NODE-0366",
+          "NODE-0415",
+          "NODE-0464",
+          "NODE-0513"
+        ],
+        "note": "generalizationScope forced to 'specific_node' and classification to 'unknown': the v0.3.1 enums offer no component-scoped value for a non-Button component, and widening would be an unauthorised promotion. Understatement is chosen deliberately. See PB-3."
+      },
+      "appliesToScopes": [
+        {
+          "scopeType": "contract",
+          "scopeRef": "NAME-0001-pill-non-button-experimental-representation-contract",
+          "migrationReviewRequired": true
+        }
+      ],
+      "corroboration": {
+        "level": "single_component_observed",
+        "corroboratingContracts": []
+      }
+    },
+    {
+      "findingId": "PF-02",
+      "description": "COMPONENT_SET NODE-0513 has visible=false while its parent has visible=true. It renders blank, contributes zero instances to the documentation holder, and was invisible to get_variable_defs -- yet the Plugin API enumerates all 24 COMPONENT children, a second property schema, 12 children carrying variable bindings, and 24 prototype reactions.",
+      "evidence": {
+        "classification": "observed",
+        "sourceFile": "evidence/api-capture-pulse-animation.json",
+        "confidence": "high",
+        "nodeIds": [
+          "NODE-0513"
+        ],
+        "note": "generalizationScope forced to 'specific_node' and classification to 'unknown': the v0.3.1 enums offer no component-scoped value for a non-Button component, and widening would be an unauthorised promotion. Understatement is chosen deliberately. See PB-3."
+      },
+      "appliesToScopes": [
+        {
+          "scopeType": "node",
+          "scopeRef": "NODE-0513"
+        }
+      ],
+      "corroboration": {
+        "level": "single_component_observed",
+        "corroboratingContracts": []
+      }
+    },
+    {
+      "findingId": "PF-03",
+      "description": "Each PSV-1 set: 48 children, 48 distinct combinations, 0 duplicates, 0 missing, 0 extra against the declared 4x4x3. Axes are independent, verified per set, not assumed.",
+      "evidence": {
+        "classification": "computed",
+        "sourceFile": "evidence/api-capture-component-sets.json",
+        "confidence": "high",
+        "nodeIds": [
+          "NODE-0317",
+          "NODE-0366",
+          "NODE-0415",
+          "NODE-0464"
+        ],
+        "note": "generalizationScope forced to 'specific_node' and classification to 'unknown': the v0.3.1 enums offer no component-scoped value for a non-Button component, and widening would be an unauthorised promotion. Understatement is chosen deliberately. See PB-3."
+      },
+      "appliesToScopes": [
+        {
+          "scopeType": "contract",
+          "scopeRef": "NAME-0001-pill-non-button-experimental-representation-contract",
+          "migrationReviewRequired": true
+        }
+      ],
+      "corroboration": {
+        "level": "single_component_observed",
+        "corroboratingContracts": []
+      }
+    },
+    {
+      "findingId": "PF-04",
+      "description": "PSV-2: 24 children, 24 distinct combinations, 0 duplicates/missing/extra against 2x2x3x2.",
+      "evidence": {
+        "classification": "computed",
+        "sourceFile": "evidence/api-capture-component-sets.json",
+        "confidence": "high",
+        "nodeIds": [
+          "NODE-0513"
+        ],
+        "note": "generalizationScope forced to 'specific_node' and classification to 'unknown': the v0.3.1 enums offer no component-scoped value for a non-Button component, and widening would be an unauthorised promotion. Understatement is chosen deliberately. See PB-3."
+      },
+      "appliesToScopes": [
+        {
+          "scopeType": "node",
+          "scopeRef": "NODE-0513"
+        }
+      ],
+      "corroboration": {
+        "level": "single_component_observed",
+        "corroboratingContracts": []
+      }
+    },
+    {
+      "findingId": "PF-05",
+      "description": "Treatment is modelled at two levels inside one component. In PFAM-1 it is COMPONENT_SET identity; in PFAM-2 it is an in-set VARIANT axis 'Style' with domain {Highline, Filled} and defaultValue 'Highline'.",
+      "evidence": {
+        "classification": "computed",
+        "sourceFile": "evidence/api-capture-component-sets.json",
+        "confidence": "high",
+        "nodeIds": [
+          "NODE-0317",
+          "NODE-0366",
+          "NODE-0415",
+          "NODE-0464",
+          "NODE-0513"
+        ],
+        "note": "generalizationScope forced to 'specific_node' and classification to 'unknown': the v0.3.1 enums offer no component-scoped value for a non-Button component, and widening would be an unauthorised promotion. Understatement is chosen deliberately. See PB-3."
+      },
+      "appliesToScopes": [
+        {
+          "scopeType": "contract",
+          "scopeRef": "NAME-0001-pill-non-button-experimental-representation-contract",
+          "migrationReviewRequired": true
+        }
+      ],
+      "corroboration": {
+        "level": "single_component_observed",
+        "corroboratingContracts": []
+      }
+    },
+    {
+      "findingId": "PF-06",
+      "description": "PSV-1 keys its accent axis 'Accent' (options Warning/Error/Success/Info, default Success); PSV-2 keys the same concept 'Type' (options Warning/Error, default Warning).",
+      "evidence": {
+        "classification": "computed",
+        "sourceFile": "evidence/api-capture-component-sets.json",
+        "confidence": "high",
+        "nodeIds": [
+          "NODE-0317",
+          "NODE-0366",
+          "NODE-0415",
+          "NODE-0464",
+          "NODE-0513"
+        ],
+        "note": "generalizationScope forced to 'specific_node' and classification to 'unknown': the v0.3.1 enums offer no component-scoped value for a non-Button component, and widening would be an unauthorised promotion. Understatement is chosen deliberately. See PB-3."
+      },
+      "appliesToScopes": [
+        {
+          "scopeType": "contract",
+          "scopeRef": "NAME-0001-pill-non-button-experimental-representation-contract",
+          "migrationReviewRequired": true
+        }
+      ],
+      "corroboration": {
+        "level": "single_component_observed",
+        "corroboratingContracts": []
+      }
+    },
+    {
+      "findingId": "PF-07",
+      "description": "Axis key 'Size' is shared with different domains and different defaults: PSV-1 {Regular, Small, XSmall, XXSmall} default XXSmall; PSV-2 {Large, Regular, Small} default Small. A single global canonical list for 'Size' would be wrong for one variant.",
+      "evidence": {
+        "classification": "computed",
+        "sourceFile": "evidence/api-capture-component-sets.json",
+        "confidence": "high",
+        "nodeIds": [
+          "NODE-0317",
+          "NODE-0366",
+          "NODE-0415",
+          "NODE-0464",
+          "NODE-0513"
+        ],
+        "note": "generalizationScope forced to 'specific_node' and classification to 'unknown': the v0.3.1 enums offer no component-scoped value for a non-Button component, and widening would be an unauthorised promotion. Understatement is chosen deliberately. See PB-3."
+      },
+      "appliesToScopes": [
+        {
+          "scopeType": "contract",
+          "scopeRef": "NAME-0001-pill-non-button-experimental-representation-contract",
+          "migrationReviewRequired": true
+        }
+      ],
+      "corroboration": {
+        "level": "single_component_observed",
+        "corroboratingContracts": []
+      }
+    },
+    {
+      "findingId": "PF-08",
+      "description": "Size does not denote a fixed pixel height. Highline/Highlighted/Filled Size=Regular children are 32px; Pill - Text Size=Regular children are 20px -- equal to Filled's XSmall. Any Size-to-pixel rule must be scoped by component set.",
+      "evidence": {
+        "classification": "computed",
+        "sourceFile": "evidence/figma-metadata-787-4538.xml",
+        "confidence": "high",
+        "nodeIds": [
+          "NODE-0464",
+          "NODE-0415"
+        ],
+        "note": "generalizationScope forced to 'specific_node' and classification to 'unknown': the v0.3.1 enums offer no component-scoped value for a non-Button component, and widening would be an unauthorised promotion. Understatement is chosen deliberately. See PB-3."
+      },
+      "appliesToScopes": [
+        {
+          "scopeType": "contract",
+          "scopeRef": "NAME-0001-pill-non-button-experimental-representation-contract",
+          "migrationReviewRequired": true
+        }
+      ],
+      "corroboration": {
+        "level": "single_component_observed",
+        "corroboratingContracts": []
+      }
+    },
+    {
+      "findingId": "PF-09",
+      "description": "One component uses two documentation layouts simultaneously. Block NODE-0008 is a per-axis list strip with 15 Pill instances; block NODE-0133 is a matrix with 32. Neither alone describes the documentation.",
+      "evidence": {
+        "classification": "observed",
+        "sourceFile": "evidence/api-capture-documentation-instances.json",
+        "confidence": "high",
+        "nodeIds": [
+          "NODE-0008",
+          "NODE-0133"
+        ],
+        "note": "generalizationScope forced to 'specific_node' and classification to 'unknown': the v0.3.1 enums offer no component-scoped value for a non-Button component, and widening would be an unauthorised promotion. Understatement is chosen deliberately. See PB-3."
+      },
+      "appliesToScopes": [
+        {
+          "scopeType": "contract",
+          "scopeRef": "NAME-0001-pill-non-button-experimental-representation-contract",
+          "migrationReviewRequired": true
+        }
+      ],
+      "corroboration": {
+        "level": "single_component_observed",
+        "corroboratingContracts": []
+      }
+    },
+    {
+      "findingId": "PF-10",
+      "description": "The documentation matrix's row axis is COMPONENT_SET identity, recomputed from instance ownership and absoluteY ordering: row_Highline, row_Highlighted, row_Filled, row_Text. Columns are Accent by absoluteX; bands are Size {Regular, Small}; Icon is fixed at None across all 64 matrix instances.",
+      "evidence": {
+        "classification": "computed",
+        "sourceFile": "evidence/allocation-evidence-MA-1.json",
+        "confidence": "high",
+        "nodeIds": [
+          "NODE-0133",
+          "NODE-0213"
+        ],
+        "note": "generalizationScope forced to 'specific_node' and classification to 'unknown': the v0.3.1 enums offer no component-scoped value for a non-Button component, and widening would be an unauthorised promotion. Understatement is chosen deliberately. See PB-3."
+      },
+      "appliesToScopes": [
+        {
+          "scopeType": "contract",
+          "scopeRef": "NAME-0001-pill-non-button-experimental-representation-contract",
+          "migrationReviewRequired": true
+        }
+      ],
+      "corroboration": {
+        "level": "single_component_observed",
+        "corroboratingContracts": []
+      }
+    },
+    {
+      "findingId": "PF-11",
+      "description": "Theme is variable-mode resolution in collection 'colors' (VC-0002, remote, 105 variables), modes Dark=NODE-0299 (default) and Light=NODE-0558. The SAME variable ids are bound under both cards; only the resolved mode differs.",
+      "evidence": {
+        "classification": "observed",
+        "sourceFile": "evidence/api-capture-theme.json",
+        "confidence": "high",
+        "nodeIds": [
+          "NODE-0005",
+          "NODE-0069"
+        ],
+        "note": "generalizationScope forced to 'specific_node' and classification to 'unknown': the v0.3.1 enums offer no component-scoped value for a non-Button component, and widening would be an unauthorised promotion. Understatement is chosen deliberately. See PB-3."
+      },
+      "appliesToScopes": [
+        {
+          "scopeType": "contract",
+          "scopeRef": "NAME-0001-pill-non-button-experimental-representation-contract",
+          "migrationReviewRequired": true
+        }
+      ],
+      "corroboration": {
+        "level": "single_component_observed",
+        "corroboratingContracts": []
+      }
+    },
+    {
+      "findingId": "PF-12",
+      "description": "Mode provenance differs between the two containers. The Dark card sets no explicit mode anywhere in its ancestry and resolves Dark purely as the collection default; the Light card carries an explicit explicitVariableModes entry selecting NODE-0558. Both containers are literally named 'card'; identity comes only from a child headline text node.",
+      "evidence": {
+        "classification": "observed",
+        "sourceFile": "evidence/api-capture-theme.json",
+        "confidence": "high",
+        "nodeIds": [
+          "NODE-0005",
+          "NODE-0069"
+        ],
+        "note": "generalizationScope forced to 'specific_node' and classification to 'unknown': the v0.3.1 enums offer no component-scoped value for a non-Button component, and widening would be an unauthorised promotion. Understatement is chosen deliberately. See PB-3."
+      },
+      "appliesToScopes": [
+        {
+          "scopeType": "contract",
+          "scopeRef": "NAME-0001-pill-non-button-experimental-representation-contract",
+          "migrationReviewRequired": true
+        }
+      ],
+      "corroboration": {
+        "level": "single_component_observed",
+        "corroboratingContracts": []
+      }
+    },
+    {
+      "findingId": "PF-13",
+      "description": "A second remote collection, 'layout-scale' (VC-0001, 15 variables, single mode Default=6:1), also resolves on both theme containers and supplies the pills' padding. It is not theme-varying. The contract's singular themeModel cannot record a second collection resolving on the same container.",
+      "evidence": {
+        "classification": "observed",
+        "sourceFile": "evidence/api-capture-theme.json",
+        "confidence": "high",
+        "nodeIds": [
+          "NODE-0005",
+          "NODE-0069"
+        ],
+        "note": "generalizationScope forced to 'specific_node' and classification to 'unknown': the v0.3.1 enums offer no component-scoped value for a non-Button component, and widening would be an unauthorised promotion. Understatement is chosen deliberately. See PB-3."
+      },
+      "appliesToScopes": [
+        {
+          "scopeType": "contract",
+          "scopeRef": "NAME-0001-pill-non-button-experimental-representation-contract",
+          "migrationReviewRequired": true
+        }
+      ],
+      "corroboration": {
+        "level": "single_component_observed",
+        "corroboratingContracts": []
+      }
+    },
+    {
+      "findingId": "PF-14",
+      "description": "Caption/canonical divergence is editorial, not erroneous: 'No Icon'/'Leading Icon'/'Trailing Icon' against API canonical None/Leading/Trailing. No typo-class divergence exists anywhere in Pill's documentation.",
+      "evidence": {
+        "classification": "observed",
+        "sourceFile": "evidence/api-capture-component-sets.json",
+        "confidence": "high",
+        "nodeIds": [
+          "NODE-0057",
+          "NODE-0121"
+        ],
+        "note": "generalizationScope forced to 'specific_node' and classification to 'unknown': the v0.3.1 enums offer no component-scoped value for a non-Button component, and widening would be an unauthorised promotion. Understatement is chosen deliberately. See PB-3."
+      },
+      "appliesToScopes": [
+        {
+          "scopeType": "contract",
+          "scopeRef": "NAME-0001-pill-non-button-experimental-representation-contract",
+          "migrationReviewRequired": true
+        }
+      ],
+      "corroboration": {
+        "level": "single_component_observed",
+        "corroboratingContracts": []
+      }
+    },
+    {
+      "findingId": "PF-15",
+      "description": "Neither schema declares a disabled, readonly, or interaction-state property of any type. There is no state axis to omit or restrict.",
+      "evidence": {
+        "classification": "observed",
+        "sourceFile": "evidence/api-capture-component-sets.json",
+        "confidence": "high",
+        "nodeIds": [
+          "NODE-0317",
+          "NODE-0366",
+          "NODE-0415",
+          "NODE-0464",
+          "NODE-0513"
+        ],
+        "note": "generalizationScope forced to 'specific_node' and classification to 'unknown': the v0.3.1 enums offer no component-scoped value for a non-Button component, and widening would be an unauthorised promotion. Understatement is chosen deliberately. See PB-3."
+      },
+      "appliesToScopes": [
+        {
+          "scopeType": "contract",
+          "scopeRef": "NAME-0001-pill-non-button-experimental-representation-contract",
+          "migrationReviewRequired": true
+        }
+      ],
+      "corroboration": {
+        "level": "single_component_observed",
+        "corroboratingContracts": []
+      }
+    },
+    {
+      "findingId": "PF-16",
+      "description": "Three different, equally real coverage counts exist per set. Instance placements: Filled 40, Highline 18, Highlighted 18, Text 18, Pulse 0. Unique variant combinations: Filled 12, Highline 8, Highlighted 8, Text 8, Pulse 0. Matrix cells: 16 per theme. Filled is over-represented because it is the sole specimen for the Size, Accent and Icon strips.",
+      "evidence": {
+        "classification": "computed",
+        "sourceFile": "evidence/api-capture-documentation-instances.json",
+        "confidence": "high",
+        "nodeIds": [
+          "NODE-0001"
+        ],
+        "note": "generalizationScope forced to 'specific_node' and classification to 'unknown': the v0.3.1 enums offer no component-scoped value for a non-Button component, and widening would be an unauthorised promotion. Understatement is chosen deliberately. See PB-3."
+      },
+      "appliesToScopes": [
+        {
+          "scopeType": "node",
+          "scopeRef": "NODE-0001"
+        }
+      ],
+      "corroboration": {
+        "level": "single_component_observed",
+        "corroboratingContracts": []
+      }
+    },
+    {
+      "findingId": "PF-17",
+      "description": "Both schemas declare non-VARIANT component properties that the R-1 pass could not see. PSV-1: 'Pill Value#NODE-0301' TEXT default 'Label'; 'Pill Symbol#NODE-0295' INSTANCE_SWAP default NODE-0315. PSV-2: 'Badge Value#NODE-0301' TEXT default '-3.2%'; 'Trend Symbol#NODE-0294' INSTANCE_SWAP default NODE-0316. The v0.3.1 propertyDefinition type enum admits these, but nothing else in the contract -- coverage, allocations, correlated tuples -- can reference a non-VARIANT property.",
+      "evidence": {
+        "classification": "observed",
+        "sourceFile": "evidence/api-capture-component-sets.json",
+        "confidence": "high",
+        "nodeIds": [
+          "NODE-0317",
+          "NODE-0366",
+          "NODE-0415",
+          "NODE-0464",
+          "NODE-0513"
+        ],
+        "note": "generalizationScope forced to 'specific_node' and classification to 'unknown': the v0.3.1 enums offer no component-scoped value for a non-Button component, and widening would be an unauthorised promotion. Understatement is chosen deliberately. See PB-3."
+      },
+      "appliesToScopes": [
+        {
+          "scopeType": "contract",
+          "scopeRef": "NAME-0001-pill-non-button-experimental-representation-contract",
+          "migrationReviewRequired": true
+        }
+      ],
+      "corroboration": {
+        "level": "single_component_observed",
+        "corroboratingContracts": []
+      }
+    },
+    {
+      "findingId": "PF-18",
+      "description": "The hidden set carries 24 prototype reactions: AFTER_TIMEOUT triggers (0.4s for Small and Regular, 0.8s for Large) driving CHANGE_TO actions between the S1 and S2 variants of each (Type, Style, Size) triple, with SMART_ANIMATE / EASE_OUT / 0.6s transitions. The pairing is bidirectional, forming 12 two-state loops. The contract has no representation for prototype-driven variant animation.",
+      "evidence": {
+        "classification": "observed",
+        "sourceFile": "evidence/api-capture-pulse-animation.json",
+        "confidence": "high",
+        "nodeIds": [
+          "NODE-0513"
+        ],
+        "note": "generalizationScope forced to 'specific_node' and classification to 'unknown': the v0.3.1 enums offer no component-scoped value for a non-Button component, and widening would be an unauthorised promotion. Understatement is chosen deliberately. See PB-3."
+      },
+      "appliesToScopes": [
+        {
+          "scopeType": "node",
+          "scopeRef": "NODE-0513"
+        }
+      ],
+      "corroboration": {
+        "level": "single_component_observed",
+        "corroboratingContracts": []
+      }
+    },
+    {
+      "findingId": "PF-19",
+      "description": "The hidden set names its content properties 'Badge Value' (default '-3.2%') and 'Trend Symbol', against 'Pill Value' (default 'Label') and 'Pill Symbol' in the four visible sets. This is evidence bearing on whether the set is Pill at all. It is recorded, not resolved: the taxonomy question is an OWNER DECISION.",
+      "evidence": {
+        "classification": "observed",
+        "sourceFile": "evidence/api-capture-pulse-animation.json",
+        "confidence": "high",
+        "nodeIds": [
+          "NODE-0513"
+        ],
+        "note": "generalizationScope forced to 'specific_node' and classification to 'unknown': the v0.3.1 enums offer no component-scoped value for a non-Button component, and widening would be an unauthorised promotion. Understatement is chosen deliberately. See PB-3."
+      },
+      "appliesToScopes": [
+        {
+          "scopeType": "node",
+          "scopeRef": "NODE-0513"
+        }
+      ],
+      "corroboration": {
+        "level": "single_component_observed",
+        "corroboratingContracts": []
+      }
+    },
+    {
+      "findingId": "PF-20",
+      "description": "The R-1 name-parsed variantProperties were value-identical to the API field for all 216 children, and option membership matched for every axis. Only the declared option ORDER differed, because name-parsing recovers first-seen traversal order rather than the authored variantOptions order. Name parsing happened to be correct for Pill, but could not be known to be correct without the API, and could not observe node type, visibility, component-set key, non-VARIANT properties, or any defaultValue.",
+      "evidence": {
+        "classification": "computed",
+        "sourceFile": "evidence/api-vs-nameparse-diff.json",
+        "confidence": "high",
+        "nodeIds": [
+          "NODE-0317",
+          "NODE-0366",
+          "NODE-0415",
+          "NODE-0464",
+          "NODE-0513"
+        ],
+        "note": "generalizationScope forced to 'specific_node' and classification to 'unknown': the v0.3.1 enums offer no component-scoped value for a non-Button component, and widening would be an unauthorised promotion. Understatement is chosen deliberately. See PB-3."
+      },
+      "appliesToScopes": [
+        {
+          "scopeType": "contract",
+          "scopeRef": "NAME-0001-pill-non-button-experimental-representation-contract",
+          "migrationReviewRequired": true
+        }
+      ],
+      "corroboration": {
+        "level": "single_component_observed",
+        "corroboratingContracts": []
+      }
+    }
+  ],
+  "validationRules": [
+    {
+      "ruleId": "VR-1",
+      "severity": "blocker",
+      "description": "Do not treat a Pill documentation matrix cell as proof that a backing COMPONENT child exists.",
+      "detectionCondition": "A build step reads LR-1 and emits a cell without checking the per-set enumeration evidence.",
+      "action": "Refuse to emit the cell as verified.",
+      "recoveryOrEscalation": "Consult evidence/enumeration-<setId>.json.",
+      "evidenceLevelRequired": "component_children_enumerated"
+    },
+    {
+      "ruleId": "VR-2",
+      "severity": "blocker",
+      "description": "Never apply a PSV-1 axis name, option set, or default to PSV-2, or vice versa.",
+      "detectionCondition": "A build step resolves 'Accent' against NODE-0513, or uses one global Size option list.",
+      "action": "Abort and report the schema-variant mismatch.",
+      "recoveryOrEscalation": "Resolve axes through componentSets[].schemaVariantId."
+    },
+    {
+      "ruleId": "VR-3",
+      "severity": "blocker",
+      "description": "Never derive a pixel height from a Size canonical value without the component set in hand.",
+      "detectionCondition": "A build step maps Size=Regular to 32px for Pill - Text.",
+      "action": "Abort; the mapping is set-scoped.",
+      "recoveryOrEscalation": "Use per-set child geometry."
+    },
+    {
+      "ruleId": "VR-4",
+      "severity": "error",
+      "description": "Never conclude Pill's component-set inventory from a rendered image.",
+      "detectionCondition": "A build step enumerates treatments from a screenshot of NODE-0545 or NODE-0001.",
+      "action": "Downgrade to visual_matrix_verified and refuse any completeness statement.",
+      "recoveryOrEscalation": "Descend structurally; NODE-0513 has visible=false and never renders.",
+      "evidenceLevelRequired": "component_children_enumerated"
+    },
+    {
+      "ruleId": "VR-5",
+      "severity": "warning",
+      "description": "Do not identify a Pill theme container by node name.",
+      "detectionCondition": "A build step selects a theme container by matching containerNodeName.",
+      "action": "Warn: both containers are named 'card'.",
+      "recoveryOrEscalation": "Use node ids, and read explicitVariableModes for mode provenance."
+    },
+    {
+      "ruleId": "VR-6",
+      "severity": "blocker",
+      "description": "Do not emit a Pill instance without supplying the non-VARIANT properties.",
+      "detectionCondition": "A build step sets only VARIANT properties and leaves Pill Value / Pill Symbol (or Badge Value / Trend Symbol) at defaults without saying so.",
+      "action": "Emit the defaults explicitly and record that they were defaulted.",
+      "recoveryOrEscalation": "Read defaults from propertySchemaVariants[].properties[].defaultValue."
+    }
+  ],
+  "contractIntegrityRules": [
+    {
+      "ruleId": "CV-1",
+      "description": "Weak evidence must not be paired with a physical-completeness claim.",
+      "severity": "blocker",
+      "detectionCondition": "physicalCompletenessClaimed==true while physicalCoverageEvidenceLevel is outside {component_children_enumerated, owner_confirmed}, or is absent from the declared qualifying set.",
+      "action": "Reject the document.",
+      "recoveryOrEscalation": "Downgrade the claim, or obtain the required evidence level.",
+      "enforcedBy": "schema_and_semantic_validator",
+      "evidenceLevelRequired": "component_children_enumerated"
+    },
+    {
+      "ruleId": "CV-2",
+      "description": "Duplicate identifiers within a namespace.",
+      "severity": "blocker",
+      "detectionCondition": "Two entries in the same array share an id. componentSets[].id must be unique; buildFrameId is a many-to-one REFERENCE and may repeat freely, but must never equal any componentSets id.",
+      "action": "Reject the document.",
+      "recoveryOrEscalation": "Assign a unique id; re-run the validator.",
+      "enforcedBy": "semantic_validator"
+    },
+    {
+      "ruleId": "CV-3",
+      "description": "Broken or inconsistent cross-references.",
+      "severity": "blocker",
+      "detectionCondition": "familyId / schemaVariantId / coverage references do not resolve, or bidirectional membership disagrees.",
+      "action": "Reject the document.",
+      "recoveryOrEscalation": "Fix the reference on both sides.",
+      "enforcedBy": "semantic_validator"
+    },
+    {
+      "ruleId": "CV-3b",
+      "description": "Layout-representation and typed-scope reference integrity, and explicit representation of undocumented schema variants.",
+      "severity": "blocker",
+      "detectionCondition": "A layoutRepresentations appliesTo / namingRuleRef, a typedScope scopeRef, a treatment propertyKey or a nonVariantPropertyCoverage key fails to resolve; OR a schema variant is covered by no representation and is not listed in undocumentedSchemaVariantIds.",
+      "action": "Reject the document.",
+      "recoveryOrEscalation": "Fix the reference, or declare the variant undocumented explicitly.",
+      "enforcedBy": "semantic_validator"
+    },
+    {
+      "ruleId": "CV-5",
+      "description": "Incomplete or duplicate correlated-axis tuple entry.",
+      "severity": "blocker",
+      "detectionCondition": "A combination's keys do not equal the tuple axes, a value is not canonical in every referenced variant, or two combinations are semantically duplicate.",
+      "action": "Reject the document.",
+      "recoveryOrEscalation": "Fix the combination or the tuple scope.",
+      "enforcedBy": "semantic_validator"
+    },
+    {
+      "ruleId": "CV-6",
+      "description": "Owner approval without a resolvable, bidirectionally-agreeing confirmation record.",
+      "severity": "blocker",
+      "detectionCondition": "Any owner-gated claim references a confirmation that does not resolve, or whose scopeType/scopeRef does not point back at the same object; or a confirmation is orphaned.",
+      "action": "Reject the document.",
+      "recoveryOrEscalation": "Add a real confirmation, or downgrade the claim.",
+      "enforcedBy": "semantic_validator"
+    },
+    {
+      "ruleId": "CV-7",
+      "description": "Allocation dimension referencing something that does not exist or is out of scope.",
+      "severity": "blocker",
+      "detectionCondition": "Dispatched on dimension kind: variant_property/fixed_filter must name a VARIANT property declared in EVERY referenced schema variant with canonical values; component_set_identity must reference real component sets inside the representation's appliesTo scope and real naming rules.",
+      "action": "Reject the document.",
+      "recoveryOrEscalation": "Correct the dimension or the representation scope.",
+      "enforcedBy": "semantic_validator"
+    },
+    {
+      "ruleId": "CV-8",
+      "description": "Unauthorized promotion into approvedCombinations.",
+      "severity": "blocker",
+      "detectionCondition": "Non-empty approvedCombinations without owner confirmation, or with approvalBasis='fully_enumerated' but not equal to the intersection of enumerated combinations across all in-scope sets.",
+      "action": "Reject the document.",
+      "recoveryOrEscalation": "Obtain confirmation, or set approvedCombinations to the true intersection.",
+      "enforcedBy": "semantic_validator"
+    },
+    {
+      "ruleId": "CV-10",
+      "description": "Version/readiness/approval promotion gate.",
+      "severity": "blocker",
+      "detectionCondition": "contractVersion, readinessStatus, approvalStatus.overall, blockers and the contract-level owner confirmation do not all agree.",
+      "action": "Reject the document.",
+      "recoveryOrEscalation": "Align all legs.",
+      "enforcedBy": "schema_and_semantic_validator"
+    },
+    {
+      "ruleId": "CV-11",
+      "description": "Enumeration evidence must be artifact-backed and internally consistent.",
+      "severity": "blocker",
+      "detectionCondition": "status='enumerated' without a contained, existing, hash-matching, shape-valid artifact whose componentSetId/fileKey/enumerationMethodClass agree, whose capturedAt parses, whose componentIds are unique, and whose derived combinations and count exactly match the declaration.",
+      "action": "Reject the document.",
+      "recoveryOrEscalation": "Produce a real artifact, or downgrade to not_enumerated.",
+      "enforcedBy": "schema_and_semantic_validator",
+      "evidenceLevelRequired": "component_children_enumerated"
+    },
+    {
+      "ruleId": "CV-12",
+      "description": "Matrix allocations must be RECOMPUTABLE from evidence, per source documentation block.",
+      "severity": "blocker",
+      "detectionCondition": "allocationEvidence.status='verified' without a contained, existing, hash-matching, shape-valid artifact; OR zero observations; OR observations referencing out-of-scope sets; OR rows/columns/bands/fixedFilters recomputed per source block that differ from the declared allocation; OR parallel source blocks that do not derive the same semantic allocation.",
+      "action": "Reject the document.",
+      "recoveryOrEscalation": "Recapture the allocation evidence, or correct the declared allocation to match it.",
+      "enforcedBy": "semantic_validator",
+      "evidenceLevelRequired": "observed_instances"
+    },
+    {
+      "ruleId": "CV-13",
+      "description": "Enumeration-provenance class rules.",
+      "severity": "blocker",
+      "detectionCondition": "class='node_name_parse' backing physicalCompletenessClaimed=true without a resolvable corroborating owner confirmation; or class='owner_supplied' without both a resolvable confirmation and a rawCaptureRef artifact.",
+      "action": "Reject the document.",
+      "recoveryOrEscalation": "Re-capture via an API class, or obtain the corroborating confirmation.",
+      "enforcedBy": "semantic_validator",
+      "evidenceLevelRequired": "component_children_enumerated"
+    },
+    {
+      "ruleId": "CV-14",
+      "description": "Competing display-label mappings within one effective scope.",
+      "severity": "blocker",
+      "detectionCondition": "Two canonicalValueDisplayLabelMap entries share an (axis, canonicalValue) pair AND the same relationship class with overlapping effective scopes (including the unscoped case); OR two entries for one (axis, canonicalValue) with overlapping scopes declare the same display surface with different labels. An editorial_mapping and a typo entry for the same value are complementary, not competing, and are preserved separately by design.",
+      "action": "Reject the document.",
+      "recoveryOrEscalation": "Scope the mappings disjointly, or reconcile the conflicting surface.",
+      "enforcedBy": "semantic_validator"
+    },
+    {
+      "ruleId": "CV-15",
+      "description": "Corroboration must resolve to hashed external contracts.",
+      "severity": "blocker",
+      "detectionCondition": "level='multi_component_corroborated' with no external contract; a corroborating entry naming the current contract; or an artifact that is missing, hash-mismatched, unparseable, or declares a different contractId.",
+      "action": "Reject the document.",
+      "recoveryOrEscalation": "Add a real, hashed external contract, or downgrade to single_component_observed.",
+      "enforcedBy": "semantic_validator"
+    },
+    {
+      "ruleId": "CV-16",
+      "description": "Coverage metrics must be discriminated and non-duplicated.",
+      "severity": "blocker",
+      "detectionCondition": "Two classified metrics of the same kind within one (component set, representation) scope, or a matrix_cells metric whose representationId does not resolve.",
+      "action": "Reject the document.",
+      "recoveryOrEscalation": "Merge or rescope the metrics.",
+      "enforcedBy": "semantic_validator"
+    },
+    {
+      "ruleId": "CV-17",
+      "description": "Migration provenance, legacy states and migration-review gate.",
+      "severity": "blocker",
+      "detectionCondition": "authoringMode='authored' with a migrationReportRef or any legacy_*/migrationReviewRequired state; OR authoringMode='migrated' without a resolvable hash-verified migration report (required even when zero legacy states remain); OR a report that fails to pin the source contract or the migration tool by hash; OR any mismatch in either direction between emitted unresolved states and reported ones; OR unresolved states coexisting with approvalStatus='approved', readinessStatus='ready_for_production', or a missing blocker of the matching blockerClass; OR a legacy state backing a completeness claim or an approved allocation.",
+      "action": "Reject the document.",
+      "recoveryOrEscalation": "Emit a complete migration report, or resolve the states.",
+      "enforcedBy": "schema_and_semantic_validator"
+    },
+    {
+      "ruleId": "CV-18",
+      "description": "Representation node bindings (the operational locator table).",
+      "severity": "blocker",
+      "detectionCondition": "A binding whose layoutRepresentationRef does not resolve; a duplicate containerNodeId; a rootNodeId equal to its own containerNodeId; or a verified matrix allocation with a source documentation block that no binding covers.",
+      "action": "Reject the document.",
+      "recoveryOrEscalation": "Add or correct the binding. evidenceNodeIds is provenance and must never be used as an operational locator.",
+      "enforcedBy": "semantic_validator"
+    }
+  ],
+  "readinessStatus": "not_ready",
+  "approvalStatus": {
+    "overall": "blocked",
+    "ownerConfirmationRef": null,
+    "blockers": [
+      {
+        "blockerId": "PB-1",
+        "description": "layoutRepresentations[].strategy is a single global enum, but Pill's documentation is genuinely hybrid (list strip NODE-0008 AND matrix NODE-0133, both present in both theme cards). Declaring 'matrix' is required to record LR-1 at all, yet it misdescribes half the documentation and forces CV-3 to demand an allocation for PSV-2, which has no documentation whatsoever.",
+        "mustBeResolvedBefore": "any cross-component generalisation of layoutRepresentations[].strategy",
+        "blockerClass": "owner_decision"
+      },
+      {
+        "blockerId": "PB-2",
+        "description": "CV-7 rejects LR-1 because rowsAxis 'Style' is COMPONENT_SET identity rather than a declared VARIANT property of PSV-1 - yet the schema's own componentSets[].treatment.label description calls treatment 'the axis of WHICH component set this is'. The row axis is now recomputed from instance ownership and geometry (evidence/allocation-evidence-LR-1.json), so the allocation is evidence-backed and still rejected.",
+        "mustBeResolvedBefore": "approval of any matrix allocation indexed by treatment",
+        "blockerClass": "owner_decision"
+      },
+      {
+        "blockerId": "PB-3",
+        "description": "appliesToScopes and structuralClassification enums are Button-hardcoded ('buttons', 'observed_button_invariant', 'button_specific_pattern'). All 20 Pill findings are forced to specific_node / unknown, understating evidence that is now API-grade. This blocks any second component, not just Pill.",
+        "mustBeResolvedBefore": "any further non-Button contract instance",
+        "blockerClass": "owner_decision"
+      },
+      {
+        "blockerId": "PB-4",
+        "description": "NARROWED (was: identifiers unobservable). Collection, mode and variable identifiers ARE observable - colors = VC-0002, modes Dark NODE-0299 / Light NODE-0558, and real variable ids are bound on descendants. The remaining defects are modelling defects: (a) containerBindings[].themeModel.containers[].modeBindings is singular and wrong - a theme container carries a collection->mode map, not one bound variable; (b) there is no field for explicit-vs-inherited mode provenance, so the Dark card (pure default inheritance) and the Light card (explicit override) are indistinguishable; (c) variables used by descendants are conflated with the container's mode binding; (d) only one collection can be recorded, but layout-scale also resolves on both containers.",
+        "mustBeResolvedBefore": "any automated consumption of themeModel",
+        "blockerClass": "owner_decision"
+      },
+      {
+        "blockerId": "PB-5",
+        "description": "canonicalValueDisplayLabelMap is keyed on (axis, canonicalValue) with no component-set or schema-variant scoping, so it cannot express that Size=Regular is 32px for three sets and 20px for Pill - Text, nor that 'Size' has two different domains and two different defaults across PSV-1 and PSV-2.",
+        "mustBeResolvedBefore": "Builder use of display labels for Pill",
+        "blockerClass": "owner_decision"
+      },
+      {
+        "blockerId": "PB-6",
+        "description": "componentSets[].treatment.label is a required non-nullable string, but Pill - Pulse Animation has no set-identity treatment - treatment is an in-set VARIANT axis there. A sentinel string is stored instead.",
+        "mustBeResolvedBefore": "approval of the componentSets shape",
+        "blockerClass": "owner_decision"
+      },
+      {
+        "blockerId": "PB-7",
+        "description": "NARROWED (was: all Pill enumeration is name-parse based). The Pill-specific evidence gap is CLOSED: all five sets are now enumerated from COMPONENT.variantProperties via the Plugin API, and evidence/api-vs-nameparse-diff.json records that the earlier name-parse was value-identical for all 216 children. The residual schema defect remains: evidenceLevel 'component_children_enumerated' still cannot distinguish extraction methods, so a future name-parsed contract would be indistinguishable from this API-grade one.",
+        "mustBeResolvedBefore": "accepting enumeration evidence from an unspecified extraction method",
+        "blockerClass": "owner_decision"
+      },
+      {
+        "blockerId": "PB-8",
+        "description": "NARROWED (was: instance combinations unobservable). Instance-level variantProperties ARE observable and three distinct coverage metrics are now computed: instance placements (40/18/18/18/0), unique variant combinations (12/8/8/8/0), and matrix cells (16 per theme). The residual defect is that coverageMetrics is a single untyped integer with no discriminator, so these three are not distinguishable - and the Buttons baseline's 100 is a fourth, different quantity.",
+        "mustBeResolvedBefore": "any cross-component coverage comparison",
+        "blockerClass": "owner_decision"
+      },
+      {
+        "blockerId": "PB-9",
+        "description": "NEW. Nothing in the contract can reference a non-VARIANT component property. Pill declares four (Pill Value TEXT, Pill Symbol INSTANCE_SWAP, Badge Value TEXT, Trend Symbol INSTANCE_SWAP) with real defaults, but coverage, matrix allocations, correlated tuples and the display-label map are all VARIANT-only. A Builder consuming this contract would emit pills with unstated default text and unstated default symbols.",
+        "mustBeResolvedBefore": "Builder emission of any Pill instance",
+        "blockerClass": "owner_decision"
+      },
+      {
+        "blockerId": "PB-10",
+        "description": "NEW. The hidden set's 24 prototype reactions (AFTER_TIMEOUT -> CHANGE_TO with SMART_ANIMATE) are real, load-bearing structure with no representation anywhere in the contract. A variant axis whose values are animation frames wired by prototype reactions is invisible to every existing field.",
+        "mustBeResolvedBefore": "any claim that the contract fully represents Pill",
+        "blockerClass": "owner_decision"
+      },
+      {
+        "blockerId": "MIG-2",
+        "blockerClass": "migration_review",
+        "description": "Migration could not mechanically infer some finding scopes and node bindings; those are flagged migrationReviewRequired and need human review before approval.",
+        "mustBeResolvedBefore": "approval or any production-readiness claim"
+      }
+    ]
+  },
+  "knownLimitations": [
+    "Structural evidence now comes from read-only Figma Plugin API scripts; node types, visibility, component-set keys, componentPropertyDefinitions and variantProperties are first-class API reads, not inferences.",
+    "Geometry (child pixel heights) still comes from the get_metadata capture, not the Plugin API.",
+    "Variable bindings were sampled on one representative instance per theme card plus its Label child, not exhaustively across all 94 documented instances.",
+    "The colors collection is remote; its 105 variables were not exhaustively enumerated - only the four bound on sampled nodes were resolved.",
+    "Only the 24 top-level COMPONENT children of the hidden set were swept for reactions and bindings; descendants were not.",
+    "What the S1 and S2 animation frames render differently was not captured, only the transition wiring between them.",
+    "TEXT and INSTANCE_SWAP overrides on the 94 documented instances were not captured; only their variantProperties.",
+    "Whether the hidden Pulse Animation set is production Pill, work-in-progress, legacy, or a separate Badge component is UNRESOLVED and is an owner decision. Its inclusion in this contract is structural containment under NODE-0545, not a taxonomy claim.",
+    "No owner confirmation of any kind was sought or obtained. ownerConfirmations is empty by design.",
+    "Screenshots establish visual evidence only and back no structural claim in this contract.",
+    "The owner-supplied screenshot at /Users/apple/Desktop/component_box_pills.png could not be read: the sandbox denies Desktop access (EPERM). Live renders captured directly from Figma were used instead.",
+    "Migrated from v0.3.1-draft by migrate_v031_to_v040.py. Unresolved migration states are recorded in the migration report and block approval; they were not resolved by the migration."
+  ],
+  "authoringMode": "migrated",
+  "migrationReportRef": {
+    "artifactPath": "migration-report-pill-0.4.0-draft.json",
+    "artifactSha256": "5841fe41d80adb8f6455f4ea55239a03edbf63ffcd61ed180fca41695036b524"
+  },
+  "layoutRepresentations": [
+    {
+      "representationId": "LR-1",
+      "strategy": "list",
+      "appliesTo": {
+        "schemaVariantIds": [
+          "PSV-1"
+        ],
+        "componentSetIds": [
+          "NODE-0317",
+          "NODE-0366",
+          "NODE-0415",
+          "NODE-0464"
+        ]
+      },
+      "evidenceNodeIds": [
+        "NODE-0008",
+        "NODE-0072"
+      ],
+      "namingRuleRefs": [
+        "NR-axis-strip-row",
+        "NR-specimen-group",
+        "NR-specimen-column",
+        "NR-rule-divider"
+      ],
+      "evidence": {
+        "classification": "observed",
+        "sourceFile": "evidence/api-capture-documentation-instances.json",
+        "confidence": "high",
+        "nodeIds": [
+          "NODE-0008",
+          "NODE-0072"
+        ],
+        "note": "Per-axis list strip: four rows, one axis each (Size, Style, Accent, Icon), 15 Pill instances per theme card. This block and the matrix block below coexist in every card -- the v0.3.1 scalar layoutStrategy could not say so."
+      }
+    }
+  ],
+  "representationNodeBindings": [
+    {
+      "layoutRepresentationRef": "LR-1",
+      "containerNodeId": "NODE-0008",
+      "rootNodeId": "NODE-0005",
+      "semanticRole": "documentation_block",
+      "observedLayerName": "content",
+      "expectedParentRef": "NODE-0005"
+    },
+    {
+      "layoutRepresentationRef": "LR-1",
+      "containerNodeId": "NODE-0072",
+      "rootNodeId": "NODE-0069",
+      "semanticRole": "documentation_block",
+      "observedLayerName": "content",
+      "expectedParentRef": "NODE-0069"
+    }
+  ],
+  "undocumentedSchemaVariantIds": [
+    "PSV-2"
+  ],
+  "namingRules": [
+    {
+      "namingRuleId": "NR-matrix-row",
+      "appliesToRole": "matrix_row_group",
+      "template": "row_{semanticValue}",
+      "enforcement": "required",
+      "uniquenessPolicy": "required_within_scope",
+      "scope": {
+        "scopeType": "contract",
+        "scopeRef": "NAME-0001-pill-non-button-experimental-representation-contract"
+      },
+      "note": "Semantic layer: the row name encodes the component-set identity the row documents. Unique within its parent content block (4 rows, 4 distinct names, verified)."
+    },
+    {
+      "namingRuleId": "NR-axis-strip-row",
+      "appliesToRole": "axis_strip_row",
+      "template": "{axisKey_lower}_row",
+      "enforcement": "required",
+      "uniquenessPolicy": "required_within_scope",
+      "scope": {
+        "scopeType": "contract",
+        "scopeRef": "NAME-0001-pill-non-button-experimental-representation-contract"
+      },
+      "note": "Semantic layer: size_row / style_row / accent_row / icon_row. Unique within its parent content block (verified)."
+    },
+    {
+      "namingRuleId": "NR-theme-card",
+      "appliesToRole": "theme_card",
+      "template": "card",
+      "enforcement": "recommended",
+      "uniquenessPolicy": "duplicates_allowed",
+      "scope": {
+        "scopeType": "contract",
+        "scopeRef": "NAME-0001-pill-non-button-experimental-representation-contract"
+      },
+      "note": "Structural wrapper. Both Pill theme containers are literally named 'card'; identity comes from containerNodeId, never the name."
+    },
+    {
+      "namingRuleId": "NR-doc-block",
+      "appliesToRole": "documentation_block",
+      "template": "content",
+      "enforcement": "recommended",
+      "uniquenessPolicy": "duplicates_allowed",
+      "scope": {
+        "scopeType": "contract",
+        "scopeRef": "NAME-0001-pill-non-button-experimental-representation-contract"
+      },
+      "note": "Structural wrapper. TWO content siblings exist per card (the list strip and the matrix). Parent-scoped uniqueness is demonstrably false for this role; the resolver disambiguates by layoutRepresentationRef + rootNodeId."
+    },
+    {
+      "namingRuleId": "NR-specimen-group",
+      "appliesToRole": "specimen_group",
+      "template": "pills",
+      "enforcement": "recommended",
+      "uniquenessPolicy": "duplicates_allowed",
+      "scope": {
+        "scopeType": "contract",
+        "scopeRef": "NAME-0001-pill-non-button-experimental-representation-contract"
+      },
+      "note": "Structural wrapper, 16 occurrences."
+    },
+    {
+      "namingRuleId": "NR-specimen-column",
+      "appliesToRole": "specimen_column",
+      "template": "col",
+      "enforcement": "recommended",
+      "uniquenessPolicy": "duplicates_allowed",
+      "scope": {
+        "scopeType": "contract",
+        "scopeRef": "NAME-0001-pill-non-button-experimental-representation-contract"
+      },
+      "note": "Structural wrapper, 62 occurrences."
+    },
+    {
+      "namingRuleId": "NR-block-headline",
+      "appliesToRole": "block_headline",
+      "template": "headline",
+      "enforcement": "recommended",
+      "uniquenessPolicy": "duplicates_allowed",
+      "scope": {
+        "scopeType": "contract",
+        "scopeRef": "NAME-0001-pill-non-button-experimental-representation-contract"
+      },
+      "note": "Structural wrapper, 3 occurrences at two depths."
+    },
+    {
+      "namingRuleId": "NR-doc-container",
+      "appliesToRole": "documentation_container",
+      "template": "container",
+      "enforcement": "recommended",
+      "uniquenessPolicy": "duplicates_allowed",
+      "scope": {
+        "scopeType": "contract",
+        "scopeRef": "NAME-0001-pill-non-button-experimental-representation-contract"
+      },
+      "note": "Structural wrapper."
+    },
+    {
+      "namingRuleId": "NR-doc-holder",
+      "appliesToRole": "documentation_holder",
+      "template": "components_holder",
+      "enforcement": "recommended",
+      "uniquenessPolicy": "duplicates_allowed",
+      "scope": {
+        "scopeType": "contract",
+        "scopeRef": "NAME-0001-pill-non-button-experimental-representation-contract"
+      },
+      "note": "Structural wrapper; also used for the build holder NODE-0545."
+    },
+    {
+      "namingRuleId": "NR-rule-divider",
+      "appliesToRole": "rule_divider",
+      "template": "hr",
+      "enforcement": "observed_only",
+      "uniquenessPolicy": "not_applicable",
+      "scope": {
+        "scopeType": "contract",
+        "scopeRef": "NAME-0001-pill-non-button-experimental-representation-contract"
+      },
+      "note": "Incidental layer, 12 occurrences, all siblings. Recorded, never enforced; the resolver performs no uniqueness enforcement for observed_only roles."
+    }
+  ]
+}

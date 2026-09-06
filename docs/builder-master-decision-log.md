@@ -258,3 +258,45 @@ both ordinary fixtures, and both are covered.
 **Revisit trigger.** A caller that legitimately validates structure without evidence available — at
 which point it asks for that explicitly, by naming the check it is declining, and the decline is
 recorded in the result rather than inferred from its absence.
+
+---
+
+## MB-11 · The promoted empirical corpus stays at `0.4.0-draft`, defects intact
+
+**Ruling.** `tests/representation/fixtures/empirical/` carries the research contracts, evidence
+artifacts and probes **unmigrated** — still `0.4.0-draft`, still carrying D-1, D-3, D-6 and D-11. The
+promotion sanitizes and nothing else. Four tests assert each defect is still present.
+
+**Why this is the smallest safe option.** The alternative — migrate the promoted contracts to
+`0.4.1-draft` while promoting them — destroys the only thing they are for. These fixtures exist so
+the production validator can be shown catching what the research tooling could not; a corrected
+corpus proves nothing, and the suite would stay green over an empty claim. It would also merge two
+independent operations, so a sanitization bug and a migration bug would be indistinguishable in the
+diff. Keeping the corpus frozen also mirrors BP-7's treatment of the research directory itself: the
+defects are corrected in the production promotion, which here means the schema, the registry and the
+resolvers — not in the evidence.
+
+**Revisit trigger.** A second research iteration producing a `0.4.1`-shaped corpus of its own, which
+would be a new promotion beside this one rather than an edit to it.
+
+---
+
+## MB-12 · Promotion excludes by budget and by prefix, and both are reported by name
+
+**Ruling.** The promotion tool leaves out screenshots and research tooling by extension, files above a
+256 KB budget, and directories named by `--exclude`. Every exclusion is reported: the over-budget
+files by their sanitized names, the prefix exclusions by count, and the whole set is written down in
+`docs/builder-phase1-research-provenance.md` with a reason each.
+
+**Why this is the smallest safe option.** Promoting the corpus whole was 15 MB, of which the two raw
+Figma exports were 12 — bulk source captures already recorded by SHA-256 in the contracts'
+`provenance.exportsUsed`, which nothing validates against. The rest of the excess was the research
+package's own synthetic fixture set and its lineage archives; production fixtures for every declared
+`REP-*` rule already exist, in both directions, so promoting a second set would add size without
+adding a check. What makes this safe rather than convenient is that the exclusions are **named**: a
+silent size filter is how a corpus quietly stops containing the thing a test claims to check, and
+"something large was dropped" is exactly the fact that stops being visible once it is only a number.
+
+**Revisit trigger.** A production check that needs an excluded artifact — at which point the artifact
+is promoted individually and the budget stays where it is, rather than the budget being raised until
+it stops excluding anything.

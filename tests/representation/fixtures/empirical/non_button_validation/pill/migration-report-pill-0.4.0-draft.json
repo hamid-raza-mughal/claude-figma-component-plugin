@@ -1,0 +1,131 @@
+{
+  "migration": "component-representation-contract 0.3.1-draft -> 0.4.0-draft",
+  "contractId": "NAME-0001-pill-non-button-experimental-representation-contract",
+  "sourceContract": {
+    "path": "versions/0.2.0-draft/non-button-experimental-contract.json",
+    "sha256": "f596f8ee67e312d9d243ad81effddb23c4fcd40e6948e910480ca95b7a2d4eb9"
+  },
+  "migrationTool": {
+    "path": "../../Builder_comp_rep_docs/migrate_v031_to_v040.py",
+    "sha256": "fc83bc0ccf76d8bc3cfe2f831df3cffcafcbd1be451b4540c2627e7137de2da6"
+  },
+  "unresolvedStates": [
+    {
+      "site": "structuralFindings['PF-01'].appliesToScopes[contract/NAME-0001-pill-non-button-experimental-representation-contract]",
+      "kind": "migration_review",
+      "detail": "v0.3.1 generalizationScope 'specific_node' with 5 cited node(s): intended scope not mechanically inferable",
+      "responsibleOwner": "NAME-0001 design-system owner"
+    },
+    {
+      "site": "structuralFindings['PF-03'].appliesToScopes[contract/NAME-0001-pill-non-button-experimental-representation-contract]",
+      "kind": "migration_review",
+      "detail": "v0.3.1 generalizationScope 'specific_node' with 4 cited node(s): intended scope not mechanically inferable",
+      "responsibleOwner": "NAME-0001 design-system owner"
+    },
+    {
+      "site": "structuralFindings['PF-05'].appliesToScopes[contract/NAME-0001-pill-non-button-experimental-representation-contract]",
+      "kind": "migration_review",
+      "detail": "v0.3.1 generalizationScope 'specific_node' with 5 cited node(s): intended scope not mechanically inferable",
+      "responsibleOwner": "NAME-0001 design-system owner"
+    },
+    {
+      "site": "structuralFindings['PF-06'].appliesToScopes[contract/NAME-0001-pill-non-button-experimental-representation-contract]",
+      "kind": "migration_review",
+      "detail": "v0.3.1 generalizationScope 'specific_node' with 5 cited node(s): intended scope not mechanically inferable",
+      "responsibleOwner": "NAME-0001 design-system owner"
+    },
+    {
+      "site": "structuralFindings['PF-07'].appliesToScopes[contract/NAME-0001-pill-non-button-experimental-representation-contract]",
+      "kind": "migration_review",
+      "detail": "v0.3.1 generalizationScope 'specific_node' with 5 cited node(s): intended scope not mechanically inferable",
+      "responsibleOwner": "NAME-0001 design-system owner"
+    },
+    {
+      "site": "structuralFindings['PF-08'].appliesToScopes[contract/NAME-0001-pill-non-button-experimental-representation-contract]",
+      "kind": "migration_review",
+      "detail": "v0.3.1 generalizationScope 'specific_node' with 2 cited node(s): intended scope not mechanically inferable",
+      "responsibleOwner": "NAME-0001 design-system owner"
+    },
+    {
+      "site": "structuralFindings['PF-09'].appliesToScopes[contract/NAME-0001-pill-non-button-experimental-representation-contract]",
+      "kind": "migration_review",
+      "detail": "v0.3.1 generalizationScope 'specific_node' with 2 cited node(s): intended scope not mechanically inferable",
+      "responsibleOwner": "NAME-0001 design-system owner"
+    },
+    {
+      "site": "structuralFindings['PF-10'].appliesToScopes[contract/NAME-0001-pill-non-button-experimental-representation-contract]",
+      "kind": "migration_review",
+      "detail": "v0.3.1 generalizationScope 'specific_node' with 2 cited node(s): intended scope not mechanically inferable",
+      "responsibleOwner": "NAME-0001 design-system owner"
+    },
+    {
+      "site": "structuralFindings['PF-11'].appliesToScopes[contract/NAME-0001-pill-non-button-experimental-representation-contract]",
+      "kind": "migration_review",
+      "detail": "v0.3.1 generalizationScope 'specific_node' with 2 cited node(s): intended scope not mechanically inferable",
+      "responsibleOwner": "NAME-0001 design-system owner"
+    },
+    {
+      "site": "structuralFindings['PF-12'].appliesToScopes[contract/NAME-0001-pill-non-button-experimental-representation-contract]",
+      "kind": "migration_review",
+      "detail": "v0.3.1 generalizationScope 'specific_node' with 2 cited node(s): intended scope not mechanically inferable",
+      "responsibleOwner": "NAME-0001 design-system owner"
+    },
+    {
+      "site": "structuralFindings['PF-13'].appliesToScopes[contract/NAME-0001-pill-non-button-experimental-representation-contract]",
+      "kind": "migration_review",
+      "detail": "v0.3.1 generalizationScope 'specific_node' with 2 cited node(s): intended scope not mechanically inferable",
+      "responsibleOwner": "NAME-0001 design-system owner"
+    },
+    {
+      "site": "structuralFindings['PF-14'].appliesToScopes[contract/NAME-0001-pill-non-button-experimental-representation-contract]",
+      "kind": "migration_review",
+      "detail": "v0.3.1 generalizationScope 'specific_node' with 2 cited node(s): intended scope not mechanically inferable",
+      "responsibleOwner": "NAME-0001 design-system owner"
+    },
+    {
+      "site": "structuralFindings['PF-15'].appliesToScopes[contract/NAME-0001-pill-non-button-experimental-representation-contract]",
+      "kind": "migration_review",
+      "detail": "v0.3.1 generalizationScope 'specific_node' with 5 cited node(s): intended scope not mechanically inferable",
+      "responsibleOwner": "NAME-0001 design-system owner"
+    },
+    {
+      "site": "structuralFindings['PF-17'].appliesToScopes[contract/NAME-0001-pill-non-button-experimental-representation-contract]",
+      "kind": "migration_review",
+      "detail": "v0.3.1 generalizationScope 'specific_node' with 5 cited node(s): intended scope not mechanically inferable",
+      "responsibleOwner": "NAME-0001 design-system owner"
+    },
+    {
+      "site": "structuralFindings['PF-20'].appliesToScopes[contract/NAME-0001-pill-non-button-experimental-representation-contract]",
+      "kind": "migration_review",
+      "detail": "v0.3.1 generalizationScope 'specific_node' with 5 cited node(s): intended scope not mechanically inferable",
+      "responsibleOwner": "NAME-0001 design-system owner"
+    }
+  ],
+  "unresolvedStateCount": 15,
+  "evidenceOverlayApplied": [
+    "coveragePolicy.perComponentSetCoverage",
+    "layoutRepresentations",
+    "namingRules",
+    "representationNodeBindings",
+    "themeModel",
+    "undocumentedSchemaVariantIds",
+    "resolved 10 unresolved state(s)"
+  ],
+  "textReferencesRemapped": [
+    "approvalStatus.blockers['PB-1'].description",
+    "approvalStatus.blockers['PB-1'].mustBeResolvedBefore",
+    "approvalStatus.blockers['PB-2'].description",
+    "approvalStatus.blockers['PB-3'].description",
+    "approvalStatus.blockers['PB-4'].description",
+    "approvalStatus.blockers['PB-6'].description",
+    "approvalStatus.blockers['PB-8'].description",
+    "validationRules['VR-1'].detectionCondition"
+  ],
+  "notes": [
+    "The migration performs no evidence or approval upgrades.",
+    "candidate_cross_component_invariant findings were migrated to single_component_observed: the source baseline contained no evidence from a second component (approved correction G-1).",
+    "evidenceRecord.generalizationScope was removed rather than translated; generalization now lives on structuralFindings[].appliesToScopes / corroboration.",
+    "Stale v0.3.1 field and allocation-id references inside Builder-facing rule, blocker and finding text were remapped mechanically (substitution only, no meaning altered) so a migrated contract never points a Builder at a field that no longer exists. Each remapped site is listed under textReferencesRemapped."
+  ],
+  "evidenceOverlayRef": "v040-evidence-overlay.json"
+}

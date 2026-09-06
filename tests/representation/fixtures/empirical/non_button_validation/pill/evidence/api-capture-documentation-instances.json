@@ -1,0 +1,1661 @@
+{
+  "captureMethod": "mcp__plugin_figma_figma__use_figma (Figma Plugin API, read-only script)",
+  "fileKey": "FILEKEY-0002",
+  "apiFieldsRead": [
+    "INSTANCE.variantProperties",
+    "INSTANCE.getMainComponentAsync()",
+    "COMPONENT.parent (owning COMPONENT_SET)",
+    "node.absoluteTransform"
+  ],
+  "capturedAt": "2026-08-16T08:55:00Z",
+  "blocks": [
+    {
+      "theme": "dark",
+      "kind": "list",
+      "blockId": "NODE-0008",
+      "pillInstanceCount": 15
+    },
+    {
+      "theme": "dark",
+      "kind": "matrix",
+      "blockId": "NODE-0133",
+      "pillInstanceCount": 32
+    },
+    {
+      "theme": "light",
+      "kind": "list",
+      "blockId": "NODE-0072",
+      "pillInstanceCount": 15
+    },
+    {
+      "theme": "light",
+      "kind": "matrix",
+      "blockId": "NODE-0213",
+      "pillInstanceCount": 32
+    }
+  ],
+  "totals": {
+    "pillInstancesPerTheme": {
+      "dark": 47,
+      "light": 47
+    },
+    "pillInstancesTotal": 94,
+    "instancePlacementsPerSet": {
+      "NODE-0415": 40,
+      "NODE-0317": 18,
+      "NODE-0366": 18,
+      "NODE-0464": 18
+    },
+    "uniqueVariantCombinationsPerSet": {
+      "NODE-0415": 12,
+      "NODE-0317": 8,
+      "NODE-0366": 8,
+      "NODE-0464": 8
+    }
+  },
+  "exclusions": "Nested icon INSTANCEs inside each pill were excluded: only instances whose main component's parent is a Pill COMPONENT_SET are counted.",
+  "instances": [
+    {
+      "instanceId": "NODE-0013",
+      "componentSetId": "NODE-0415",
+      "componentSetName": "Pill – Filled",
+      "theme": "dark",
+      "blockKind": "list",
+      "blockId": "NODE-0008",
+      "structuralPath": "size_row/pills/col",
+      "rowGroup": "size_row",
+      "variantProperties": {
+        "Accent": "Success",
+        "Icon": "None",
+        "Size": "Regular"
+      },
+      "absoluteX": -1469,
+      "absoluteY": 1430
+    },
+    {
+      "instanceId": "NODE-0016",
+      "componentSetId": "NODE-0415",
+      "componentSetName": "Pill – Filled",
+      "theme": "dark",
+      "blockKind": "list",
+      "blockId": "NODE-0008",
+      "structuralPath": "size_row/pills/col",
+      "rowGroup": "size_row",
+      "variantProperties": {
+        "Accent": "Success",
+        "Icon": "None",
+        "Size": "Small"
+      },
+      "absoluteX": -1367,
+      "absoluteY": 1430
+    },
+    {
+      "instanceId": "NODE-0019",
+      "componentSetId": "NODE-0415",
+      "componentSetName": "Pill – Filled",
+      "theme": "dark",
+      "blockKind": "list",
+      "blockId": "NODE-0008",
+      "structuralPath": "size_row/pills/col",
+      "rowGroup": "size_row",
+      "variantProperties": {
+        "Accent": "Success",
+        "Icon": "None",
+        "Size": "XSmall"
+      },
+      "absoluteX": -1268,
+      "absoluteY": 1430
+    },
+    {
+      "instanceId": "NODE-0022",
+      "componentSetId": "NODE-0415",
+      "componentSetName": "Pill – Filled",
+      "theme": "dark",
+      "blockKind": "list",
+      "blockId": "NODE-0008",
+      "structuralPath": "size_row/pills/col",
+      "rowGroup": "size_row",
+      "variantProperties": {
+        "Accent": "Success",
+        "Icon": "None",
+        "Size": "XXSmall"
+      },
+      "absoluteX": -1163,
+      "absoluteY": 1430
+    },
+    {
+      "instanceId": "NODE-0029",
+      "componentSetId": "NODE-0317",
+      "componentSetName": "Pill – Highline",
+      "theme": "dark",
+      "blockKind": "list",
+      "blockId": "NODE-0008",
+      "structuralPath": "style_row/pills/col",
+      "rowGroup": "style_row",
+      "variantProperties": {
+        "Accent": "Success",
+        "Icon": "None",
+        "Size": "Regular"
+      },
+      "absoluteX": -1484,
+      "absoluteY": 1621
+    },
+    {
+      "instanceId": "NODE-0032",
+      "componentSetId": "NODE-0366",
+      "componentSetName": "Pill – Highlighted",
+      "theme": "dark",
+      "blockKind": "list",
+      "blockId": "NODE-0008",
+      "structuralPath": "style_row/pills/col",
+      "rowGroup": "style_row",
+      "variantProperties": {
+        "Accent": "Success",
+        "Icon": "None",
+        "Size": "Regular"
+      },
+      "absoluteX": -1395,
+      "absoluteY": 1621
+    },
+    {
+      "instanceId": "NODE-0035",
+      "componentSetId": "NODE-0415",
+      "componentSetName": "Pill – Filled",
+      "theme": "dark",
+      "blockKind": "list",
+      "blockId": "NODE-0008",
+      "structuralPath": "style_row/pills/col",
+      "rowGroup": "style_row",
+      "variantProperties": {
+        "Accent": "Success",
+        "Icon": "None",
+        "Size": "Regular"
+      },
+      "absoluteX": -1307,
+      "absoluteY": 1621
+    },
+    {
+      "instanceId": "NODE-0038",
+      "componentSetId": "NODE-0464",
+      "componentSetName": "Pill – Text",
+      "theme": "dark",
+      "blockKind": "list",
+      "blockId": "NODE-0008",
+      "structuralPath": "style_row/pills/col",
+      "rowGroup": "style_row",
+      "variantProperties": {
+        "Accent": "Success",
+        "Icon": "None",
+        "Size": "Regular"
+      },
+      "absoluteX": -1223,
+      "absoluteY": 1621
+    },
+    {
+      "instanceId": "NODE-0045",
+      "componentSetId": "NODE-0415",
+      "componentSetName": "Pill – Filled",
+      "theme": "dark",
+      "blockKind": "list",
+      "blockId": "NODE-0008",
+      "structuralPath": "accent_row/pills/col",
+      "rowGroup": "accent_row",
+      "variantProperties": {
+        "Accent": "Success",
+        "Icon": "None",
+        "Size": "Regular"
+      },
+      "absoluteX": -1484,
+      "absoluteY": 1812
+    },
+    {
+      "instanceId": "NODE-0048",
+      "componentSetId": "NODE-0415",
+      "componentSetName": "Pill – Filled",
+      "theme": "dark",
+      "blockKind": "list",
+      "blockId": "NODE-0008",
+      "structuralPath": "accent_row/pills/col",
+      "rowGroup": "accent_row",
+      "variantProperties": {
+        "Accent": "Error",
+        "Icon": "None",
+        "Size": "Regular"
+      },
+      "absoluteX": -1400,
+      "absoluteY": 1812
+    },
+    {
+      "instanceId": "NODE-0051",
+      "componentSetId": "NODE-0415",
+      "componentSetName": "Pill – Filled",
+      "theme": "dark",
+      "blockKind": "list",
+      "blockId": "NODE-0008",
+      "structuralPath": "accent_row/pills/col",
+      "rowGroup": "accent_row",
+      "variantProperties": {
+        "Accent": "Warning",
+        "Icon": "None",
+        "Size": "Regular"
+      },
+      "absoluteX": -1316,
+      "absoluteY": 1812
+    },
+    {
+      "instanceId": "NODE-0054",
+      "componentSetId": "NODE-0415",
+      "componentSetName": "Pill – Filled",
+      "theme": "dark",
+      "blockKind": "list",
+      "blockId": "NODE-0008",
+      "structuralPath": "accent_row/pills/col",
+      "rowGroup": "accent_row",
+      "variantProperties": {
+        "Accent": "Info",
+        "Icon": "None",
+        "Size": "Regular"
+      },
+      "absoluteX": -1232,
+      "absoluteY": 1812
+    },
+    {
+      "instanceId": "NODE-0061",
+      "componentSetId": "NODE-0415",
+      "componentSetName": "Pill – Filled",
+      "theme": "dark",
+      "blockKind": "list",
+      "blockId": "NODE-0008",
+      "structuralPath": "icon_row/pills/col",
+      "rowGroup": "icon_row",
+      "variantProperties": {
+        "Accent": "Success",
+        "Icon": "None",
+        "Size": "Regular"
+      },
+      "absoluteX": -1484,
+      "absoluteY": 2003
+    },
+    {
+      "instanceId": "NODE-0064",
+      "componentSetId": "NODE-0415",
+      "componentSetName": "Pill – Filled",
+      "theme": "dark",
+      "blockKind": "list",
+      "blockId": "NODE-0008",
+      "structuralPath": "icon_row/pills/col",
+      "rowGroup": "icon_row",
+      "variantProperties": {
+        "Accent": "Success",
+        "Icon": "Leading",
+        "Size": "Regular"
+      },
+      "absoluteX": -1400,
+      "absoluteY": 2003
+    },
+    {
+      "instanceId": "NODE-0067",
+      "componentSetId": "NODE-0415",
+      "componentSetName": "Pill – Filled",
+      "theme": "dark",
+      "blockKind": "list",
+      "blockId": "NODE-0008",
+      "structuralPath": "icon_row/pills/col",
+      "rowGroup": "icon_row",
+      "variantProperties": {
+        "Accent": "Success",
+        "Icon": "Trailing",
+        "Size": "Regular"
+      },
+      "absoluteX": -1296,
+      "absoluteY": 2003
+    },
+    {
+      "instanceId": "NODE-0138",
+      "componentSetId": "NODE-0317",
+      "componentSetName": "Pill – Highline",
+      "theme": "dark",
+      "blockKind": "matrix",
+      "blockId": "NODE-0133",
+      "structuralPath": "row_Highline/pills/col",
+      "rowGroup": "row_Highline",
+      "variantProperties": {
+        "Accent": "Success",
+        "Icon": "None",
+        "Size": "Regular"
+      },
+      "absoluteX": -1484,
+      "absoluteY": 2117
+    },
+    {
+      "instanceId": "NODE-0139",
+      "componentSetId": "NODE-0317",
+      "componentSetName": "Pill – Highline",
+      "theme": "dark",
+      "blockKind": "matrix",
+      "blockId": "NODE-0133",
+      "structuralPath": "row_Highline/pills/col",
+      "rowGroup": "row_Highline",
+      "variantProperties": {
+        "Accent": "Success",
+        "Icon": "None",
+        "Size": "Small"
+      },
+      "absoluteX": -1479,
+      "absoluteY": 2155
+    },
+    {
+      "instanceId": "NODE-0142",
+      "componentSetId": "NODE-0317",
+      "componentSetName": "Pill – Highline",
+      "theme": "dark",
+      "blockKind": "matrix",
+      "blockId": "NODE-0133",
+      "structuralPath": "row_Highline/pills/col",
+      "rowGroup": "row_Highline",
+      "variantProperties": {
+        "Accent": "Error",
+        "Icon": "None",
+        "Size": "Regular"
+      },
+      "absoluteX": -1412,
+      "absoluteY": 2117
+    },
+    {
+      "instanceId": "NODE-0143",
+      "componentSetId": "NODE-0317",
+      "componentSetName": "Pill – Highline",
+      "theme": "dark",
+      "blockKind": "matrix",
+      "blockId": "NODE-0133",
+      "structuralPath": "row_Highline/pills/col",
+      "rowGroup": "row_Highline",
+      "variantProperties": {
+        "Accent": "Error",
+        "Icon": "None",
+        "Size": "Small"
+      },
+      "absoluteX": -1407,
+      "absoluteY": 2155
+    },
+    {
+      "instanceId": "NODE-0146",
+      "componentSetId": "NODE-0317",
+      "componentSetName": "Pill – Highline",
+      "theme": "dark",
+      "blockKind": "matrix",
+      "blockId": "NODE-0133",
+      "structuralPath": "row_Highline/pills/col",
+      "rowGroup": "row_Highline",
+      "variantProperties": {
+        "Accent": "Warning",
+        "Icon": "None",
+        "Size": "Regular"
+      },
+      "absoluteX": -1340,
+      "absoluteY": 2117
+    },
+    {
+      "instanceId": "NODE-0147",
+      "componentSetId": "NODE-0317",
+      "componentSetName": "Pill – Highline",
+      "theme": "dark",
+      "blockKind": "matrix",
+      "blockId": "NODE-0133",
+      "structuralPath": "row_Highline/pills/col",
+      "rowGroup": "row_Highline",
+      "variantProperties": {
+        "Accent": "Warning",
+        "Icon": "None",
+        "Size": "Small"
+      },
+      "absoluteX": -1335,
+      "absoluteY": 2155
+    },
+    {
+      "instanceId": "NODE-0150",
+      "componentSetId": "NODE-0317",
+      "componentSetName": "Pill – Highline",
+      "theme": "dark",
+      "blockKind": "matrix",
+      "blockId": "NODE-0133",
+      "structuralPath": "row_Highline/pills/col",
+      "rowGroup": "row_Highline",
+      "variantProperties": {
+        "Accent": "Info",
+        "Icon": "None",
+        "Size": "Regular"
+      },
+      "absoluteX": -1268,
+      "absoluteY": 2117
+    },
+    {
+      "instanceId": "NODE-0151",
+      "componentSetId": "NODE-0317",
+      "componentSetName": "Pill – Highline",
+      "theme": "dark",
+      "blockKind": "matrix",
+      "blockId": "NODE-0133",
+      "structuralPath": "row_Highline/pills/col",
+      "rowGroup": "row_Highline",
+      "variantProperties": {
+        "Accent": "Info",
+        "Icon": "None",
+        "Size": "Small"
+      },
+      "absoluteX": -1263,
+      "absoluteY": 2155
+    },
+    {
+      "instanceId": "NODE-0158",
+      "componentSetId": "NODE-0366",
+      "componentSetName": "Pill – Highlighted",
+      "theme": "dark",
+      "blockKind": "matrix",
+      "blockId": "NODE-0133",
+      "structuralPath": "row_Highlighted/pills/col",
+      "rowGroup": "row_Highlighted",
+      "variantProperties": {
+        "Accent": "Success",
+        "Icon": "None",
+        "Size": "Regular"
+      },
+      "absoluteX": -1484,
+      "absoluteY": 2291
+    },
+    {
+      "instanceId": "NODE-0159",
+      "componentSetId": "NODE-0366",
+      "componentSetName": "Pill – Highlighted",
+      "theme": "dark",
+      "blockKind": "matrix",
+      "blockId": "NODE-0133",
+      "structuralPath": "row_Highlighted/pills/col",
+      "rowGroup": "row_Highlighted",
+      "variantProperties": {
+        "Accent": "Success",
+        "Icon": "None",
+        "Size": "Small"
+      },
+      "absoluteX": -1479,
+      "absoluteY": 2329
+    },
+    {
+      "instanceId": "NODE-0162",
+      "componentSetId": "NODE-0366",
+      "componentSetName": "Pill – Highlighted",
+      "theme": "dark",
+      "blockKind": "matrix",
+      "blockId": "NODE-0133",
+      "structuralPath": "row_Highlighted/pills/col",
+      "rowGroup": "row_Highlighted",
+      "variantProperties": {
+        "Accent": "Error",
+        "Icon": "None",
+        "Size": "Regular"
+      },
+      "absoluteX": -1412,
+      "absoluteY": 2291
+    },
+    {
+      "instanceId": "NODE-0163",
+      "componentSetId": "NODE-0366",
+      "componentSetName": "Pill – Highlighted",
+      "theme": "dark",
+      "blockKind": "matrix",
+      "blockId": "NODE-0133",
+      "structuralPath": "row_Highlighted/pills/col",
+      "rowGroup": "row_Highlighted",
+      "variantProperties": {
+        "Accent": "Error",
+        "Icon": "None",
+        "Size": "Small"
+      },
+      "absoluteX": -1407,
+      "absoluteY": 2329
+    },
+    {
+      "instanceId": "NODE-0166",
+      "componentSetId": "NODE-0366",
+      "componentSetName": "Pill – Highlighted",
+      "theme": "dark",
+      "blockKind": "matrix",
+      "blockId": "NODE-0133",
+      "structuralPath": "row_Highlighted/pills/col",
+      "rowGroup": "row_Highlighted",
+      "variantProperties": {
+        "Accent": "Warning",
+        "Icon": "None",
+        "Size": "Regular"
+      },
+      "absoluteX": -1340,
+      "absoluteY": 2291
+    },
+    {
+      "instanceId": "NODE-0167",
+      "componentSetId": "NODE-0366",
+      "componentSetName": "Pill – Highlighted",
+      "theme": "dark",
+      "blockKind": "matrix",
+      "blockId": "NODE-0133",
+      "structuralPath": "row_Highlighted/pills/col",
+      "rowGroup": "row_Highlighted",
+      "variantProperties": {
+        "Accent": "Warning",
+        "Icon": "None",
+        "Size": "Small"
+      },
+      "absoluteX": -1335,
+      "absoluteY": 2329
+    },
+    {
+      "instanceId": "NODE-0170",
+      "componentSetId": "NODE-0366",
+      "componentSetName": "Pill – Highlighted",
+      "theme": "dark",
+      "blockKind": "matrix",
+      "blockId": "NODE-0133",
+      "structuralPath": "row_Highlighted/pills/col",
+      "rowGroup": "row_Highlighted",
+      "variantProperties": {
+        "Accent": "Info",
+        "Icon": "None",
+        "Size": "Regular"
+      },
+      "absoluteX": -1268,
+      "absoluteY": 2291
+    },
+    {
+      "instanceId": "NODE-0171",
+      "componentSetId": "NODE-0366",
+      "componentSetName": "Pill – Highlighted",
+      "theme": "dark",
+      "blockKind": "matrix",
+      "blockId": "NODE-0133",
+      "structuralPath": "row_Highlighted/pills/col",
+      "rowGroup": "row_Highlighted",
+      "variantProperties": {
+        "Accent": "Info",
+        "Icon": "None",
+        "Size": "Small"
+      },
+      "absoluteX": -1263,
+      "absoluteY": 2329
+    },
+    {
+      "instanceId": "NODE-0178",
+      "componentSetId": "NODE-0415",
+      "componentSetName": "Pill – Filled",
+      "theme": "dark",
+      "blockKind": "matrix",
+      "blockId": "NODE-0133",
+      "structuralPath": "row_Filled/pills/col",
+      "rowGroup": "row_Filled",
+      "variantProperties": {
+        "Accent": "Success",
+        "Icon": "None",
+        "Size": "Regular"
+      },
+      "absoluteX": -1484,
+      "absoluteY": 2465
+    },
+    {
+      "instanceId": "NODE-0179",
+      "componentSetId": "NODE-0415",
+      "componentSetName": "Pill – Filled",
+      "theme": "dark",
+      "blockKind": "matrix",
+      "blockId": "NODE-0133",
+      "structuralPath": "row_Filled/pills/col",
+      "rowGroup": "row_Filled",
+      "variantProperties": {
+        "Accent": "Success",
+        "Icon": "None",
+        "Size": "Small"
+      },
+      "absoluteX": -1479,
+      "absoluteY": 2503
+    },
+    {
+      "instanceId": "NODE-0182",
+      "componentSetId": "NODE-0415",
+      "componentSetName": "Pill – Filled",
+      "theme": "dark",
+      "blockKind": "matrix",
+      "blockId": "NODE-0133",
+      "structuralPath": "row_Filled/pills/col",
+      "rowGroup": "row_Filled",
+      "variantProperties": {
+        "Accent": "Error",
+        "Icon": "None",
+        "Size": "Regular"
+      },
+      "absoluteX": -1412,
+      "absoluteY": 2465
+    },
+    {
+      "instanceId": "NODE-0183",
+      "componentSetId": "NODE-0415",
+      "componentSetName": "Pill – Filled",
+      "theme": "dark",
+      "blockKind": "matrix",
+      "blockId": "NODE-0133",
+      "structuralPath": "row_Filled/pills/col",
+      "rowGroup": "row_Filled",
+      "variantProperties": {
+        "Accent": "Error",
+        "Icon": "None",
+        "Size": "Small"
+      },
+      "absoluteX": -1407,
+      "absoluteY": 2503
+    },
+    {
+      "instanceId": "NODE-0186",
+      "componentSetId": "NODE-0415",
+      "componentSetName": "Pill – Filled",
+      "theme": "dark",
+      "blockKind": "matrix",
+      "blockId": "NODE-0133",
+      "structuralPath": "row_Filled/pills/col",
+      "rowGroup": "row_Filled",
+      "variantProperties": {
+        "Accent": "Warning",
+        "Icon": "None",
+        "Size": "Regular"
+      },
+      "absoluteX": -1340,
+      "absoluteY": 2465
+    },
+    {
+      "instanceId": "NODE-0187",
+      "componentSetId": "NODE-0415",
+      "componentSetName": "Pill – Filled",
+      "theme": "dark",
+      "blockKind": "matrix",
+      "blockId": "NODE-0133",
+      "structuralPath": "row_Filled/pills/col",
+      "rowGroup": "row_Filled",
+      "variantProperties": {
+        "Accent": "Warning",
+        "Icon": "None",
+        "Size": "Small"
+      },
+      "absoluteX": -1335,
+      "absoluteY": 2503
+    },
+    {
+      "instanceId": "NODE-0190",
+      "componentSetId": "NODE-0415",
+      "componentSetName": "Pill – Filled",
+      "theme": "dark",
+      "blockKind": "matrix",
+      "blockId": "NODE-0133",
+      "structuralPath": "row_Filled/pills/col",
+      "rowGroup": "row_Filled",
+      "variantProperties": {
+        "Accent": "Info",
+        "Icon": "None",
+        "Size": "Regular"
+      },
+      "absoluteX": -1268,
+      "absoluteY": 2465
+    },
+    {
+      "instanceId": "NODE-0191",
+      "componentSetId": "NODE-0415",
+      "componentSetName": "Pill – Filled",
+      "theme": "dark",
+      "blockKind": "matrix",
+      "blockId": "NODE-0133",
+      "structuralPath": "row_Filled/pills/col",
+      "rowGroup": "row_Filled",
+      "variantProperties": {
+        "Accent": "Info",
+        "Icon": "None",
+        "Size": "Small"
+      },
+      "absoluteX": -1263,
+      "absoluteY": 2503
+    },
+    {
+      "instanceId": "NODE-0198",
+      "componentSetId": "NODE-0464",
+      "componentSetName": "Pill – Text",
+      "theme": "dark",
+      "blockKind": "matrix",
+      "blockId": "NODE-0133",
+      "structuralPath": "row_Text/pills/col",
+      "rowGroup": "row_Text",
+      "variantProperties": {
+        "Accent": "Success",
+        "Icon": "None",
+        "Size": "Regular"
+      },
+      "absoluteX": -1478,
+      "absoluteY": 2639
+    },
+    {
+      "instanceId": "NODE-0199",
+      "componentSetId": "NODE-0464",
+      "componentSetName": "Pill – Text",
+      "theme": "dark",
+      "blockKind": "matrix",
+      "blockId": "NODE-0133",
+      "structuralPath": "row_Text/pills/col",
+      "rowGroup": "row_Text",
+      "variantProperties": {
+        "Accent": "Success",
+        "Icon": "None",
+        "Size": "Small"
+      },
+      "absoluteX": -1476,
+      "absoluteY": 2665
+    },
+    {
+      "instanceId": "NODE-0202",
+      "componentSetId": "NODE-0464",
+      "componentSetName": "Pill – Text",
+      "theme": "dark",
+      "blockKind": "matrix",
+      "blockId": "NODE-0133",
+      "structuralPath": "row_Text/pills/col",
+      "rowGroup": "row_Text",
+      "variantProperties": {
+        "Accent": "Error",
+        "Icon": "None",
+        "Size": "Regular"
+      },
+      "absoluteX": -1425,
+      "absoluteY": 2639
+    },
+    {
+      "instanceId": "NODE-0203",
+      "componentSetId": "NODE-0464",
+      "componentSetName": "Pill – Text",
+      "theme": "dark",
+      "blockKind": "matrix",
+      "blockId": "NODE-0133",
+      "structuralPath": "row_Text/pills/col",
+      "rowGroup": "row_Text",
+      "variantProperties": {
+        "Accent": "Error",
+        "Icon": "None",
+        "Size": "Small"
+      },
+      "absoluteX": -1422,
+      "absoluteY": 2665
+    },
+    {
+      "instanceId": "NODE-0206",
+      "componentSetId": "NODE-0464",
+      "componentSetName": "Pill – Text",
+      "theme": "dark",
+      "blockKind": "matrix",
+      "blockId": "NODE-0133",
+      "structuralPath": "row_Text/pills/col",
+      "rowGroup": "row_Text",
+      "variantProperties": {
+        "Accent": "Warning",
+        "Icon": "None",
+        "Size": "Regular"
+      },
+      "absoluteX": -1371,
+      "absoluteY": 2639
+    },
+    {
+      "instanceId": "NODE-0207",
+      "componentSetId": "NODE-0464",
+      "componentSetName": "Pill – Text",
+      "theme": "dark",
+      "blockKind": "matrix",
+      "blockId": "NODE-0133",
+      "structuralPath": "row_Text/pills/col",
+      "rowGroup": "row_Text",
+      "variantProperties": {
+        "Accent": "Warning",
+        "Icon": "None",
+        "Size": "Small"
+      },
+      "absoluteX": -1369,
+      "absoluteY": 2665
+    },
+    {
+      "instanceId": "NODE-0210",
+      "componentSetId": "NODE-0464",
+      "componentSetName": "Pill – Text",
+      "theme": "dark",
+      "blockKind": "matrix",
+      "blockId": "NODE-0133",
+      "structuralPath": "row_Text/pills/col",
+      "rowGroup": "row_Text",
+      "variantProperties": {
+        "Accent": "Info",
+        "Icon": "None",
+        "Size": "Regular"
+      },
+      "absoluteX": -1318,
+      "absoluteY": 2639
+    },
+    {
+      "instanceId": "NODE-0211",
+      "componentSetId": "NODE-0464",
+      "componentSetName": "Pill – Text",
+      "theme": "dark",
+      "blockKind": "matrix",
+      "blockId": "NODE-0133",
+      "structuralPath": "row_Text/pills/col",
+      "rowGroup": "row_Text",
+      "variantProperties": {
+        "Accent": "Info",
+        "Icon": "None",
+        "Size": "Small"
+      },
+      "absoluteX": -1315,
+      "absoluteY": 2665
+    },
+    {
+      "instanceId": "NODE-0077",
+      "componentSetId": "NODE-0415",
+      "componentSetName": "Pill – Filled",
+      "theme": "light",
+      "blockKind": "list",
+      "blockId": "NODE-0072",
+      "structuralPath": "size_row/pills/col",
+      "rowGroup": "size_row",
+      "variantProperties": {
+        "Accent": "Success",
+        "Icon": "None",
+        "Size": "Regular"
+      },
+      "absoluteX": -232,
+      "absoluteY": 1430
+    },
+    {
+      "instanceId": "NODE-0080",
+      "componentSetId": "NODE-0415",
+      "componentSetName": "Pill – Filled",
+      "theme": "light",
+      "blockKind": "list",
+      "blockId": "NODE-0072",
+      "structuralPath": "size_row/pills/col",
+      "rowGroup": "size_row",
+      "variantProperties": {
+        "Accent": "Success",
+        "Icon": "None",
+        "Size": "Small"
+      },
+      "absoluteX": -130,
+      "absoluteY": 1430
+    },
+    {
+      "instanceId": "NODE-0083",
+      "componentSetId": "NODE-0415",
+      "componentSetName": "Pill – Filled",
+      "theme": "light",
+      "blockKind": "list",
+      "blockId": "NODE-0072",
+      "structuralPath": "size_row/pills/col",
+      "rowGroup": "size_row",
+      "variantProperties": {
+        "Accent": "Success",
+        "Icon": "None",
+        "Size": "XSmall"
+      },
+      "absoluteX": -31,
+      "absoluteY": 1430
+    },
+    {
+      "instanceId": "NODE-0086",
+      "componentSetId": "NODE-0415",
+      "componentSetName": "Pill – Filled",
+      "theme": "light",
+      "blockKind": "list",
+      "blockId": "NODE-0072",
+      "structuralPath": "size_row/pills/col",
+      "rowGroup": "size_row",
+      "variantProperties": {
+        "Accent": "Success",
+        "Icon": "None",
+        "Size": "XXSmall"
+      },
+      "absoluteX": 74,
+      "absoluteY": 1430
+    },
+    {
+      "instanceId": "NODE-0093",
+      "componentSetId": "NODE-0317",
+      "componentSetName": "Pill – Highline",
+      "theme": "light",
+      "blockKind": "list",
+      "blockId": "NODE-0072",
+      "structuralPath": "style_row/pills/col",
+      "rowGroup": "style_row",
+      "variantProperties": {
+        "Accent": "Success",
+        "Icon": "None",
+        "Size": "Regular"
+      },
+      "absoluteX": -247,
+      "absoluteY": 1621
+    },
+    {
+      "instanceId": "NODE-0096",
+      "componentSetId": "NODE-0366",
+      "componentSetName": "Pill – Highlighted",
+      "theme": "light",
+      "blockKind": "list",
+      "blockId": "NODE-0072",
+      "structuralPath": "style_row/pills/col",
+      "rowGroup": "style_row",
+      "variantProperties": {
+        "Accent": "Success",
+        "Icon": "None",
+        "Size": "Regular"
+      },
+      "absoluteX": -158,
+      "absoluteY": 1621
+    },
+    {
+      "instanceId": "NODE-0099",
+      "componentSetId": "NODE-0415",
+      "componentSetName": "Pill – Filled",
+      "theme": "light",
+      "blockKind": "list",
+      "blockId": "NODE-0072",
+      "structuralPath": "style_row/pills/col",
+      "rowGroup": "style_row",
+      "variantProperties": {
+        "Accent": "Success",
+        "Icon": "None",
+        "Size": "Regular"
+      },
+      "absoluteX": -70,
+      "absoluteY": 1621
+    },
+    {
+      "instanceId": "NODE-0102",
+      "componentSetId": "NODE-0464",
+      "componentSetName": "Pill – Text",
+      "theme": "light",
+      "blockKind": "list",
+      "blockId": "NODE-0072",
+      "structuralPath": "style_row/pills/col",
+      "rowGroup": "style_row",
+      "variantProperties": {
+        "Accent": "Success",
+        "Icon": "None",
+        "Size": "Regular"
+      },
+      "absoluteX": 14,
+      "absoluteY": 1621
+    },
+    {
+      "instanceId": "NODE-0109",
+      "componentSetId": "NODE-0415",
+      "componentSetName": "Pill – Filled",
+      "theme": "light",
+      "blockKind": "list",
+      "blockId": "NODE-0072",
+      "structuralPath": "accent_row/pills/col",
+      "rowGroup": "accent_row",
+      "variantProperties": {
+        "Accent": "Success",
+        "Icon": "None",
+        "Size": "Regular"
+      },
+      "absoluteX": -247,
+      "absoluteY": 1812
+    },
+    {
+      "instanceId": "NODE-0112",
+      "componentSetId": "NODE-0415",
+      "componentSetName": "Pill – Filled",
+      "theme": "light",
+      "blockKind": "list",
+      "blockId": "NODE-0072",
+      "structuralPath": "accent_row/pills/col",
+      "rowGroup": "accent_row",
+      "variantProperties": {
+        "Accent": "Error",
+        "Icon": "None",
+        "Size": "Regular"
+      },
+      "absoluteX": -163,
+      "absoluteY": 1812
+    },
+    {
+      "instanceId": "NODE-0115",
+      "componentSetId": "NODE-0415",
+      "componentSetName": "Pill – Filled",
+      "theme": "light",
+      "blockKind": "list",
+      "blockId": "NODE-0072",
+      "structuralPath": "accent_row/pills/col",
+      "rowGroup": "accent_row",
+      "variantProperties": {
+        "Accent": "Warning",
+        "Icon": "None",
+        "Size": "Regular"
+      },
+      "absoluteX": -79,
+      "absoluteY": 1812
+    },
+    {
+      "instanceId": "NODE-0118",
+      "componentSetId": "NODE-0415",
+      "componentSetName": "Pill – Filled",
+      "theme": "light",
+      "blockKind": "list",
+      "blockId": "NODE-0072",
+      "structuralPath": "accent_row/pills/col",
+      "rowGroup": "accent_row",
+      "variantProperties": {
+        "Accent": "Info",
+        "Icon": "None",
+        "Size": "Regular"
+      },
+      "absoluteX": 5,
+      "absoluteY": 1812
+    },
+    {
+      "instanceId": "NODE-0125",
+      "componentSetId": "NODE-0415",
+      "componentSetName": "Pill – Filled",
+      "theme": "light",
+      "blockKind": "list",
+      "blockId": "NODE-0072",
+      "structuralPath": "icon_row/pills/col",
+      "rowGroup": "icon_row",
+      "variantProperties": {
+        "Accent": "Success",
+        "Icon": "None",
+        "Size": "Regular"
+      },
+      "absoluteX": -247,
+      "absoluteY": 2003
+    },
+    {
+      "instanceId": "NODE-0128",
+      "componentSetId": "NODE-0415",
+      "componentSetName": "Pill – Filled",
+      "theme": "light",
+      "blockKind": "list",
+      "blockId": "NODE-0072",
+      "structuralPath": "icon_row/pills/col",
+      "rowGroup": "icon_row",
+      "variantProperties": {
+        "Accent": "Success",
+        "Icon": "Leading",
+        "Size": "Regular"
+      },
+      "absoluteX": -163,
+      "absoluteY": 2003
+    },
+    {
+      "instanceId": "NODE-0131",
+      "componentSetId": "NODE-0415",
+      "componentSetName": "Pill – Filled",
+      "theme": "light",
+      "blockKind": "list",
+      "blockId": "NODE-0072",
+      "structuralPath": "icon_row/pills/col",
+      "rowGroup": "icon_row",
+      "variantProperties": {
+        "Accent": "Success",
+        "Icon": "Trailing",
+        "Size": "Regular"
+      },
+      "absoluteX": -59,
+      "absoluteY": 2003
+    },
+    {
+      "instanceId": "NODE-0218",
+      "componentSetId": "NODE-0317",
+      "componentSetName": "Pill – Highline",
+      "theme": "light",
+      "blockKind": "matrix",
+      "blockId": "NODE-0213",
+      "structuralPath": "row_Highline/pills/col",
+      "rowGroup": "row_Highline",
+      "variantProperties": {
+        "Accent": "Success",
+        "Icon": "None",
+        "Size": "Regular"
+      },
+      "absoluteX": -247,
+      "absoluteY": 2117
+    },
+    {
+      "instanceId": "NODE-0219",
+      "componentSetId": "NODE-0317",
+      "componentSetName": "Pill – Highline",
+      "theme": "light",
+      "blockKind": "matrix",
+      "blockId": "NODE-0213",
+      "structuralPath": "row_Highline/pills/col",
+      "rowGroup": "row_Highline",
+      "variantProperties": {
+        "Accent": "Success",
+        "Icon": "None",
+        "Size": "Small"
+      },
+      "absoluteX": -242,
+      "absoluteY": 2155
+    },
+    {
+      "instanceId": "NODE-0222",
+      "componentSetId": "NODE-0317",
+      "componentSetName": "Pill – Highline",
+      "theme": "light",
+      "blockKind": "matrix",
+      "blockId": "NODE-0213",
+      "structuralPath": "row_Highline/pills/col",
+      "rowGroup": "row_Highline",
+      "variantProperties": {
+        "Accent": "Error",
+        "Icon": "None",
+        "Size": "Regular"
+      },
+      "absoluteX": -175,
+      "absoluteY": 2117
+    },
+    {
+      "instanceId": "NODE-0223",
+      "componentSetId": "NODE-0317",
+      "componentSetName": "Pill – Highline",
+      "theme": "light",
+      "blockKind": "matrix",
+      "blockId": "NODE-0213",
+      "structuralPath": "row_Highline/pills/col",
+      "rowGroup": "row_Highline",
+      "variantProperties": {
+        "Accent": "Error",
+        "Icon": "None",
+        "Size": "Small"
+      },
+      "absoluteX": -170,
+      "absoluteY": 2155
+    },
+    {
+      "instanceId": "NODE-0226",
+      "componentSetId": "NODE-0317",
+      "componentSetName": "Pill – Highline",
+      "theme": "light",
+      "blockKind": "matrix",
+      "blockId": "NODE-0213",
+      "structuralPath": "row_Highline/pills/col",
+      "rowGroup": "row_Highline",
+      "variantProperties": {
+        "Accent": "Warning",
+        "Icon": "None",
+        "Size": "Regular"
+      },
+      "absoluteX": -103,
+      "absoluteY": 2117
+    },
+    {
+      "instanceId": "NODE-0227",
+      "componentSetId": "NODE-0317",
+      "componentSetName": "Pill – Highline",
+      "theme": "light",
+      "blockKind": "matrix",
+      "blockId": "NODE-0213",
+      "structuralPath": "row_Highline/pills/col",
+      "rowGroup": "row_Highline",
+      "variantProperties": {
+        "Accent": "Warning",
+        "Icon": "None",
+        "Size": "Small"
+      },
+      "absoluteX": -98,
+      "absoluteY": 2155
+    },
+    {
+      "instanceId": "NODE-0230",
+      "componentSetId": "NODE-0317",
+      "componentSetName": "Pill – Highline",
+      "theme": "light",
+      "blockKind": "matrix",
+      "blockId": "NODE-0213",
+      "structuralPath": "row_Highline/pills/col",
+      "rowGroup": "row_Highline",
+      "variantProperties": {
+        "Accent": "Info",
+        "Icon": "None",
+        "Size": "Regular"
+      },
+      "absoluteX": -31,
+      "absoluteY": 2117
+    },
+    {
+      "instanceId": "NODE-0231",
+      "componentSetId": "NODE-0317",
+      "componentSetName": "Pill – Highline",
+      "theme": "light",
+      "blockKind": "matrix",
+      "blockId": "NODE-0213",
+      "structuralPath": "row_Highline/pills/col",
+      "rowGroup": "row_Highline",
+      "variantProperties": {
+        "Accent": "Info",
+        "Icon": "None",
+        "Size": "Small"
+      },
+      "absoluteX": -26,
+      "absoluteY": 2155
+    },
+    {
+      "instanceId": "NODE-0238",
+      "componentSetId": "NODE-0366",
+      "componentSetName": "Pill – Highlighted",
+      "theme": "light",
+      "blockKind": "matrix",
+      "blockId": "NODE-0213",
+      "structuralPath": "row_Highlighted/pills/col",
+      "rowGroup": "row_Highlighted",
+      "variantProperties": {
+        "Accent": "Success",
+        "Icon": "None",
+        "Size": "Regular"
+      },
+      "absoluteX": -247,
+      "absoluteY": 2291
+    },
+    {
+      "instanceId": "NODE-0239",
+      "componentSetId": "NODE-0366",
+      "componentSetName": "Pill – Highlighted",
+      "theme": "light",
+      "blockKind": "matrix",
+      "blockId": "NODE-0213",
+      "structuralPath": "row_Highlighted/pills/col",
+      "rowGroup": "row_Highlighted",
+      "variantProperties": {
+        "Accent": "Success",
+        "Icon": "None",
+        "Size": "Small"
+      },
+      "absoluteX": -242,
+      "absoluteY": 2329
+    },
+    {
+      "instanceId": "NODE-0242",
+      "componentSetId": "NODE-0366",
+      "componentSetName": "Pill – Highlighted",
+      "theme": "light",
+      "blockKind": "matrix",
+      "blockId": "NODE-0213",
+      "structuralPath": "row_Highlighted/pills/col",
+      "rowGroup": "row_Highlighted",
+      "variantProperties": {
+        "Accent": "Error",
+        "Icon": "None",
+        "Size": "Regular"
+      },
+      "absoluteX": -175,
+      "absoluteY": 2291
+    },
+    {
+      "instanceId": "NODE-0243",
+      "componentSetId": "NODE-0366",
+      "componentSetName": "Pill – Highlighted",
+      "theme": "light",
+      "blockKind": "matrix",
+      "blockId": "NODE-0213",
+      "structuralPath": "row_Highlighted/pills/col",
+      "rowGroup": "row_Highlighted",
+      "variantProperties": {
+        "Accent": "Error",
+        "Icon": "None",
+        "Size": "Small"
+      },
+      "absoluteX": -170,
+      "absoluteY": 2329
+    },
+    {
+      "instanceId": "NODE-0246",
+      "componentSetId": "NODE-0366",
+      "componentSetName": "Pill – Highlighted",
+      "theme": "light",
+      "blockKind": "matrix",
+      "blockId": "NODE-0213",
+      "structuralPath": "row_Highlighted/pills/col",
+      "rowGroup": "row_Highlighted",
+      "variantProperties": {
+        "Accent": "Warning",
+        "Icon": "None",
+        "Size": "Regular"
+      },
+      "absoluteX": -103,
+      "absoluteY": 2291
+    },
+    {
+      "instanceId": "NODE-0247",
+      "componentSetId": "NODE-0366",
+      "componentSetName": "Pill – Highlighted",
+      "theme": "light",
+      "blockKind": "matrix",
+      "blockId": "NODE-0213",
+      "structuralPath": "row_Highlighted/pills/col",
+      "rowGroup": "row_Highlighted",
+      "variantProperties": {
+        "Accent": "Warning",
+        "Icon": "None",
+        "Size": "Small"
+      },
+      "absoluteX": -98,
+      "absoluteY": 2329
+    },
+    {
+      "instanceId": "NODE-0250",
+      "componentSetId": "NODE-0366",
+      "componentSetName": "Pill – Highlighted",
+      "theme": "light",
+      "blockKind": "matrix",
+      "blockId": "NODE-0213",
+      "structuralPath": "row_Highlighted/pills/col",
+      "rowGroup": "row_Highlighted",
+      "variantProperties": {
+        "Accent": "Info",
+        "Icon": "None",
+        "Size": "Regular"
+      },
+      "absoluteX": -31,
+      "absoluteY": 2291
+    },
+    {
+      "instanceId": "NODE-0251",
+      "componentSetId": "NODE-0366",
+      "componentSetName": "Pill – Highlighted",
+      "theme": "light",
+      "blockKind": "matrix",
+      "blockId": "NODE-0213",
+      "structuralPath": "row_Highlighted/pills/col",
+      "rowGroup": "row_Highlighted",
+      "variantProperties": {
+        "Accent": "Info",
+        "Icon": "None",
+        "Size": "Small"
+      },
+      "absoluteX": -26,
+      "absoluteY": 2329
+    },
+    {
+      "instanceId": "NODE-0258",
+      "componentSetId": "NODE-0415",
+      "componentSetName": "Pill – Filled",
+      "theme": "light",
+      "blockKind": "matrix",
+      "blockId": "NODE-0213",
+      "structuralPath": "row_Filled/pills/col",
+      "rowGroup": "row_Filled",
+      "variantProperties": {
+        "Accent": "Success",
+        "Icon": "None",
+        "Size": "Regular"
+      },
+      "absoluteX": -247,
+      "absoluteY": 2465
+    },
+    {
+      "instanceId": "NODE-0259",
+      "componentSetId": "NODE-0415",
+      "componentSetName": "Pill – Filled",
+      "theme": "light",
+      "blockKind": "matrix",
+      "blockId": "NODE-0213",
+      "structuralPath": "row_Filled/pills/col",
+      "rowGroup": "row_Filled",
+      "variantProperties": {
+        "Accent": "Success",
+        "Icon": "None",
+        "Size": "Small"
+      },
+      "absoluteX": -242,
+      "absoluteY": 2503
+    },
+    {
+      "instanceId": "NODE-0262",
+      "componentSetId": "NODE-0415",
+      "componentSetName": "Pill – Filled",
+      "theme": "light",
+      "blockKind": "matrix",
+      "blockId": "NODE-0213",
+      "structuralPath": "row_Filled/pills/col",
+      "rowGroup": "row_Filled",
+      "variantProperties": {
+        "Accent": "Error",
+        "Icon": "None",
+        "Size": "Regular"
+      },
+      "absoluteX": -175,
+      "absoluteY": 2465
+    },
+    {
+      "instanceId": "NODE-0263",
+      "componentSetId": "NODE-0415",
+      "componentSetName": "Pill – Filled",
+      "theme": "light",
+      "blockKind": "matrix",
+      "blockId": "NODE-0213",
+      "structuralPath": "row_Filled/pills/col",
+      "rowGroup": "row_Filled",
+      "variantProperties": {
+        "Accent": "Error",
+        "Icon": "None",
+        "Size": "Small"
+      },
+      "absoluteX": -170,
+      "absoluteY": 2503
+    },
+    {
+      "instanceId": "NODE-0266",
+      "componentSetId": "NODE-0415",
+      "componentSetName": "Pill – Filled",
+      "theme": "light",
+      "blockKind": "matrix",
+      "blockId": "NODE-0213",
+      "structuralPath": "row_Filled/pills/col",
+      "rowGroup": "row_Filled",
+      "variantProperties": {
+        "Accent": "Warning",
+        "Icon": "None",
+        "Size": "Regular"
+      },
+      "absoluteX": -103,
+      "absoluteY": 2465
+    },
+    {
+      "instanceId": "NODE-0267",
+      "componentSetId": "NODE-0415",
+      "componentSetName": "Pill – Filled",
+      "theme": "light",
+      "blockKind": "matrix",
+      "blockId": "NODE-0213",
+      "structuralPath": "row_Filled/pills/col",
+      "rowGroup": "row_Filled",
+      "variantProperties": {
+        "Accent": "Warning",
+        "Icon": "None",
+        "Size": "Small"
+      },
+      "absoluteX": -98,
+      "absoluteY": 2503
+    },
+    {
+      "instanceId": "NODE-0270",
+      "componentSetId": "NODE-0415",
+      "componentSetName": "Pill – Filled",
+      "theme": "light",
+      "blockKind": "matrix",
+      "blockId": "NODE-0213",
+      "structuralPath": "row_Filled/pills/col",
+      "rowGroup": "row_Filled",
+      "variantProperties": {
+        "Accent": "Info",
+        "Icon": "None",
+        "Size": "Regular"
+      },
+      "absoluteX": -31,
+      "absoluteY": 2465
+    },
+    {
+      "instanceId": "NODE-0271",
+      "componentSetId": "NODE-0415",
+      "componentSetName": "Pill – Filled",
+      "theme": "light",
+      "blockKind": "matrix",
+      "blockId": "NODE-0213",
+      "structuralPath": "row_Filled/pills/col",
+      "rowGroup": "row_Filled",
+      "variantProperties": {
+        "Accent": "Info",
+        "Icon": "None",
+        "Size": "Small"
+      },
+      "absoluteX": -26,
+      "absoluteY": 2503
+    },
+    {
+      "instanceId": "NODE-0278",
+      "componentSetId": "NODE-0464",
+      "componentSetName": "Pill – Text",
+      "theme": "light",
+      "blockKind": "matrix",
+      "blockId": "NODE-0213",
+      "structuralPath": "row_Text/pills/col",
+      "rowGroup": "row_Text",
+      "variantProperties": {
+        "Accent": "Success",
+        "Icon": "None",
+        "Size": "Regular"
+      },
+      "absoluteX": -241,
+      "absoluteY": 2639
+    },
+    {
+      "instanceId": "NODE-0279",
+      "componentSetId": "NODE-0464",
+      "componentSetName": "Pill – Text",
+      "theme": "light",
+      "blockKind": "matrix",
+      "blockId": "NODE-0213",
+      "structuralPath": "row_Text/pills/col",
+      "rowGroup": "row_Text",
+      "variantProperties": {
+        "Accent": "Success",
+        "Icon": "None",
+        "Size": "Small"
+      },
+      "absoluteX": -239,
+      "absoluteY": 2665
+    },
+    {
+      "instanceId": "NODE-0282",
+      "componentSetId": "NODE-0464",
+      "componentSetName": "Pill – Text",
+      "theme": "light",
+      "blockKind": "matrix",
+      "blockId": "NODE-0213",
+      "structuralPath": "row_Text/pills/col",
+      "rowGroup": "row_Text",
+      "variantProperties": {
+        "Accent": "Error",
+        "Icon": "None",
+        "Size": "Regular"
+      },
+      "absoluteX": -188,
+      "absoluteY": 2639
+    },
+    {
+      "instanceId": "NODE-0283",
+      "componentSetId": "NODE-0464",
+      "componentSetName": "Pill – Text",
+      "theme": "light",
+      "blockKind": "matrix",
+      "blockId": "NODE-0213",
+      "structuralPath": "row_Text/pills/col",
+      "rowGroup": "row_Text",
+      "variantProperties": {
+        "Accent": "Error",
+        "Icon": "None",
+        "Size": "Small"
+      },
+      "absoluteX": -185,
+      "absoluteY": 2665
+    },
+    {
+      "instanceId": "NODE-0286",
+      "componentSetId": "NODE-0464",
+      "componentSetName": "Pill – Text",
+      "theme": "light",
+      "blockKind": "matrix",
+      "blockId": "NODE-0213",
+      "structuralPath": "row_Text/pills/col",
+      "rowGroup": "row_Text",
+      "variantProperties": {
+        "Accent": "Warning",
+        "Icon": "None",
+        "Size": "Regular"
+      },
+      "absoluteX": -134,
+      "absoluteY": 2639
+    },
+    {
+      "instanceId": "NODE-0287",
+      "componentSetId": "NODE-0464",
+      "componentSetName": "Pill – Text",
+      "theme": "light",
+      "blockKind": "matrix",
+      "blockId": "NODE-0213",
+      "structuralPath": "row_Text/pills/col",
+      "rowGroup": "row_Text",
+      "variantProperties": {
+        "Accent": "Warning",
+        "Icon": "None",
+        "Size": "Small"
+      },
+      "absoluteX": -132,
+      "absoluteY": 2665
+    },
+    {
+      "instanceId": "NODE-0290",
+      "componentSetId": "NODE-0464",
+      "componentSetName": "Pill – Text",
+      "theme": "light",
+      "blockKind": "matrix",
+      "blockId": "NODE-0213",
+      "structuralPath": "row_Text/pills/col",
+      "rowGroup": "row_Text",
+      "variantProperties": {
+        "Accent": "Info",
+        "Icon": "None",
+        "Size": "Regular"
+      },
+      "absoluteX": -81,
+      "absoluteY": 2639
+    },
+    {
+      "instanceId": "NODE-0291",
+      "componentSetId": "NODE-0464",
+      "componentSetName": "Pill – Text",
+      "theme": "light",
+      "blockKind": "matrix",
+      "blockId": "NODE-0213",
+      "structuralPath": "row_Text/pills/col",
+      "rowGroup": "row_Text",
+      "variantProperties": {
+        "Accent": "Info",
+        "Icon": "None",
+        "Size": "Small"
+      },
+      "absoluteX": -78,
+      "absoluteY": 2665
+    }
+  ],
+  "limitations": [
+    "Counts cover the documentation holder NODE-0001 only.",
+    "TEXT/INSTANCE_SWAP overrides on each instance were not captured in this sweep; only variantProperties."
+  ]
+}

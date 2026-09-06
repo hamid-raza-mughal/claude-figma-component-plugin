@@ -1,0 +1,959 @@
+{
+  "note": "PROTOTYPE for proposed change P-11 / CV-12. This artifact shape is NOT part of v0.3.1; it demonstrates the evidence a validator would need in order to RECOMPUTE an allocation instead of trusting an asserted one.",
+  "allocationId": "MA-1",
+  "fileKey": "FILEKEY-0002",
+  "capturedAt": "2026-08-16T08:55:00Z",
+  "sourceDocumentationNodeIds": [
+    "NODE-0133",
+    "NODE-0213"
+  ],
+  "documentedInstanceIds": [
+    "NODE-0138",
+    "NODE-0139",
+    "NODE-0142",
+    "NODE-0143",
+    "NODE-0146",
+    "NODE-0147",
+    "NODE-0150",
+    "NODE-0151",
+    "NODE-0158",
+    "NODE-0159",
+    "NODE-0162",
+    "NODE-0163",
+    "NODE-0166",
+    "NODE-0167",
+    "NODE-0170",
+    "NODE-0171",
+    "NODE-0178",
+    "NODE-0179",
+    "NODE-0182",
+    "NODE-0183",
+    "NODE-0186",
+    "NODE-0187",
+    "NODE-0190",
+    "NODE-0191",
+    "NODE-0198",
+    "NODE-0199",
+    "NODE-0202",
+    "NODE-0203",
+    "NODE-0206",
+    "NODE-0207",
+    "NODE-0210",
+    "NODE-0211",
+    "NODE-0218",
+    "NODE-0219",
+    "NODE-0222",
+    "NODE-0223",
+    "NODE-0226",
+    "NODE-0227",
+    "NODE-0230",
+    "NODE-0231",
+    "NODE-0238",
+    "NODE-0239",
+    "NODE-0242",
+    "NODE-0243",
+    "NODE-0246",
+    "NODE-0247",
+    "NODE-0250",
+    "NODE-0251",
+    "NODE-0258",
+    "NODE-0259",
+    "NODE-0262",
+    "NODE-0263",
+    "NODE-0266",
+    "NODE-0267",
+    "NODE-0270",
+    "NODE-0271",
+    "NODE-0278",
+    "NODE-0279",
+    "NODE-0282",
+    "NODE-0283",
+    "NODE-0286",
+    "NODE-0287",
+    "NODE-0290",
+    "NODE-0291"
+  ],
+  "documentedInstanceCount": 64,
+  "observations": [
+    {
+      "instanceId": "NODE-0138",
+      "componentSetId": "NODE-0317",
+      "rowGroupNodeName": "row_Highline",
+      "variantProperties": {
+        "Accent": "Success",
+        "Icon": "None",
+        "Size": "Regular"
+      },
+      "absoluteX": -1484,
+      "absoluteY": 2117,
+      "theme": "dark"
+    },
+    {
+      "instanceId": "NODE-0139",
+      "componentSetId": "NODE-0317",
+      "rowGroupNodeName": "row_Highline",
+      "variantProperties": {
+        "Accent": "Success",
+        "Icon": "None",
+        "Size": "Small"
+      },
+      "absoluteX": -1479,
+      "absoluteY": 2155,
+      "theme": "dark"
+    },
+    {
+      "instanceId": "NODE-0142",
+      "componentSetId": "NODE-0317",
+      "rowGroupNodeName": "row_Highline",
+      "variantProperties": {
+        "Accent": "Error",
+        "Icon": "None",
+        "Size": "Regular"
+      },
+      "absoluteX": -1412,
+      "absoluteY": 2117,
+      "theme": "dark"
+    },
+    {
+      "instanceId": "NODE-0143",
+      "componentSetId": "NODE-0317",
+      "rowGroupNodeName": "row_Highline",
+      "variantProperties": {
+        "Accent": "Error",
+        "Icon": "None",
+        "Size": "Small"
+      },
+      "absoluteX": -1407,
+      "absoluteY": 2155,
+      "theme": "dark"
+    },
+    {
+      "instanceId": "NODE-0146",
+      "componentSetId": "NODE-0317",
+      "rowGroupNodeName": "row_Highline",
+      "variantProperties": {
+        "Accent": "Warning",
+        "Icon": "None",
+        "Size": "Regular"
+      },
+      "absoluteX": -1340,
+      "absoluteY": 2117,
+      "theme": "dark"
+    },
+    {
+      "instanceId": "NODE-0147",
+      "componentSetId": "NODE-0317",
+      "rowGroupNodeName": "row_Highline",
+      "variantProperties": {
+        "Accent": "Warning",
+        "Icon": "None",
+        "Size": "Small"
+      },
+      "absoluteX": -1335,
+      "absoluteY": 2155,
+      "theme": "dark"
+    },
+    {
+      "instanceId": "NODE-0150",
+      "componentSetId": "NODE-0317",
+      "rowGroupNodeName": "row_Highline",
+      "variantProperties": {
+        "Accent": "Info",
+        "Icon": "None",
+        "Size": "Regular"
+      },
+      "absoluteX": -1268,
+      "absoluteY": 2117,
+      "theme": "dark"
+    },
+    {
+      "instanceId": "NODE-0151",
+      "componentSetId": "NODE-0317",
+      "rowGroupNodeName": "row_Highline",
+      "variantProperties": {
+        "Accent": "Info",
+        "Icon": "None",
+        "Size": "Small"
+      },
+      "absoluteX": -1263,
+      "absoluteY": 2155,
+      "theme": "dark"
+    },
+    {
+      "instanceId": "NODE-0158",
+      "componentSetId": "NODE-0366",
+      "rowGroupNodeName": "row_Highlighted",
+      "variantProperties": {
+        "Accent": "Success",
+        "Icon": "None",
+        "Size": "Regular"
+      },
+      "absoluteX": -1484,
+      "absoluteY": 2291,
+      "theme": "dark"
+    },
+    {
+      "instanceId": "NODE-0159",
+      "componentSetId": "NODE-0366",
+      "rowGroupNodeName": "row_Highlighted",
+      "variantProperties": {
+        "Accent": "Success",
+        "Icon": "None",
+        "Size": "Small"
+      },
+      "absoluteX": -1479,
+      "absoluteY": 2329,
+      "theme": "dark"
+    },
+    {
+      "instanceId": "NODE-0162",
+      "componentSetId": "NODE-0366",
+      "rowGroupNodeName": "row_Highlighted",
+      "variantProperties": {
+        "Accent": "Error",
+        "Icon": "None",
+        "Size": "Regular"
+      },
+      "absoluteX": -1412,
+      "absoluteY": 2291,
+      "theme": "dark"
+    },
+    {
+      "instanceId": "NODE-0163",
+      "componentSetId": "NODE-0366",
+      "rowGroupNodeName": "row_Highlighted",
+      "variantProperties": {
+        "Accent": "Error",
+        "Icon": "None",
+        "Size": "Small"
+      },
+      "absoluteX": -1407,
+      "absoluteY": 2329,
+      "theme": "dark"
+    },
+    {
+      "instanceId": "NODE-0166",
+      "componentSetId": "NODE-0366",
+      "rowGroupNodeName": "row_Highlighted",
+      "variantProperties": {
+        "Accent": "Warning",
+        "Icon": "None",
+        "Size": "Regular"
+      },
+      "absoluteX": -1340,
+      "absoluteY": 2291,
+      "theme": "dark"
+    },
+    {
+      "instanceId": "NODE-0167",
+      "componentSetId": "NODE-0366",
+      "rowGroupNodeName": "row_Highlighted",
+      "variantProperties": {
+        "Accent": "Warning",
+        "Icon": "None",
+        "Size": "Small"
+      },
+      "absoluteX": -1335,
+      "absoluteY": 2329,
+      "theme": "dark"
+    },
+    {
+      "instanceId": "NODE-0170",
+      "componentSetId": "NODE-0366",
+      "rowGroupNodeName": "row_Highlighted",
+      "variantProperties": {
+        "Accent": "Info",
+        "Icon": "None",
+        "Size": "Regular"
+      },
+      "absoluteX": -1268,
+      "absoluteY": 2291,
+      "theme": "dark"
+    },
+    {
+      "instanceId": "NODE-0171",
+      "componentSetId": "NODE-0366",
+      "rowGroupNodeName": "row_Highlighted",
+      "variantProperties": {
+        "Accent": "Info",
+        "Icon": "None",
+        "Size": "Small"
+      },
+      "absoluteX": -1263,
+      "absoluteY": 2329,
+      "theme": "dark"
+    },
+    {
+      "instanceId": "NODE-0178",
+      "componentSetId": "NODE-0415",
+      "rowGroupNodeName": "row_Filled",
+      "variantProperties": {
+        "Accent": "Success",
+        "Icon": "None",
+        "Size": "Regular"
+      },
+      "absoluteX": -1484,
+      "absoluteY": 2465,
+      "theme": "dark"
+    },
+    {
+      "instanceId": "NODE-0179",
+      "componentSetId": "NODE-0415",
+      "rowGroupNodeName": "row_Filled",
+      "variantProperties": {
+        "Accent": "Success",
+        "Icon": "None",
+        "Size": "Small"
+      },
+      "absoluteX": -1479,
+      "absoluteY": 2503,
+      "theme": "dark"
+    },
+    {
+      "instanceId": "NODE-0182",
+      "componentSetId": "NODE-0415",
+      "rowGroupNodeName": "row_Filled",
+      "variantProperties": {
+        "Accent": "Error",
+        "Icon": "None",
+        "Size": "Regular"
+      },
+      "absoluteX": -1412,
+      "absoluteY": 2465,
+      "theme": "dark"
+    },
+    {
+      "instanceId": "NODE-0183",
+      "componentSetId": "NODE-0415",
+      "rowGroupNodeName": "row_Filled",
+      "variantProperties": {
+        "Accent": "Error",
+        "Icon": "None",
+        "Size": "Small"
+      },
+      "absoluteX": -1407,
+      "absoluteY": 2503,
+      "theme": "dark"
+    },
+    {
+      "instanceId": "NODE-0186",
+      "componentSetId": "NODE-0415",
+      "rowGroupNodeName": "row_Filled",
+      "variantProperties": {
+        "Accent": "Warning",
+        "Icon": "None",
+        "Size": "Regular"
+      },
+      "absoluteX": -1340,
+      "absoluteY": 2465,
+      "theme": "dark"
+    },
+    {
+      "instanceId": "NODE-0187",
+      "componentSetId": "NODE-0415",
+      "rowGroupNodeName": "row_Filled",
+      "variantProperties": {
+        "Accent": "Warning",
+        "Icon": "None",
+        "Size": "Small"
+      },
+      "absoluteX": -1335,
+      "absoluteY": 2503,
+      "theme": "dark"
+    },
+    {
+      "instanceId": "NODE-0190",
+      "componentSetId": "NODE-0415",
+      "rowGroupNodeName": "row_Filled",
+      "variantProperties": {
+        "Accent": "Info",
+        "Icon": "None",
+        "Size": "Regular"
+      },
+      "absoluteX": -1268,
+      "absoluteY": 2465,
+      "theme": "dark"
+    },
+    {
+      "instanceId": "NODE-0191",
+      "componentSetId": "NODE-0415",
+      "rowGroupNodeName": "row_Filled",
+      "variantProperties": {
+        "Accent": "Info",
+        "Icon": "None",
+        "Size": "Small"
+      },
+      "absoluteX": -1263,
+      "absoluteY": 2503,
+      "theme": "dark"
+    },
+    {
+      "instanceId": "NODE-0198",
+      "componentSetId": "NODE-0464",
+      "rowGroupNodeName": "row_Text",
+      "variantProperties": {
+        "Accent": "Success",
+        "Icon": "None",
+        "Size": "Regular"
+      },
+      "absoluteX": -1478,
+      "absoluteY": 2639,
+      "theme": "dark"
+    },
+    {
+      "instanceId": "NODE-0199",
+      "componentSetId": "NODE-0464",
+      "rowGroupNodeName": "row_Text",
+      "variantProperties": {
+        "Accent": "Success",
+        "Icon": "None",
+        "Size": "Small"
+      },
+      "absoluteX": -1476,
+      "absoluteY": 2665,
+      "theme": "dark"
+    },
+    {
+      "instanceId": "NODE-0202",
+      "componentSetId": "NODE-0464",
+      "rowGroupNodeName": "row_Text",
+      "variantProperties": {
+        "Accent": "Error",
+        "Icon": "None",
+        "Size": "Regular"
+      },
+      "absoluteX": -1425,
+      "absoluteY": 2639,
+      "theme": "dark"
+    },
+    {
+      "instanceId": "NODE-0203",
+      "componentSetId": "NODE-0464",
+      "rowGroupNodeName": "row_Text",
+      "variantProperties": {
+        "Accent": "Error",
+        "Icon": "None",
+        "Size": "Small"
+      },
+      "absoluteX": -1422,
+      "absoluteY": 2665,
+      "theme": "dark"
+    },
+    {
+      "instanceId": "NODE-0206",
+      "componentSetId": "NODE-0464",
+      "rowGroupNodeName": "row_Text",
+      "variantProperties": {
+        "Accent": "Warning",
+        "Icon": "None",
+        "Size": "Regular"
+      },
+      "absoluteX": -1371,
+      "absoluteY": 2639,
+      "theme": "dark"
+    },
+    {
+      "instanceId": "NODE-0207",
+      "componentSetId": "NODE-0464",
+      "rowGroupNodeName": "row_Text",
+      "variantProperties": {
+        "Accent": "Warning",
+        "Icon": "None",
+        "Size": "Small"
+      },
+      "absoluteX": -1369,
+      "absoluteY": 2665,
+      "theme": "dark"
+    },
+    {
+      "instanceId": "NODE-0210",
+      "componentSetId": "NODE-0464",
+      "rowGroupNodeName": "row_Text",
+      "variantProperties": {
+        "Accent": "Info",
+        "Icon": "None",
+        "Size": "Regular"
+      },
+      "absoluteX": -1318,
+      "absoluteY": 2639,
+      "theme": "dark"
+    },
+    {
+      "instanceId": "NODE-0211",
+      "componentSetId": "NODE-0464",
+      "rowGroupNodeName": "row_Text",
+      "variantProperties": {
+        "Accent": "Info",
+        "Icon": "None",
+        "Size": "Small"
+      },
+      "absoluteX": -1315,
+      "absoluteY": 2665,
+      "theme": "dark"
+    },
+    {
+      "instanceId": "NODE-0218",
+      "componentSetId": "NODE-0317",
+      "rowGroupNodeName": "row_Highline",
+      "variantProperties": {
+        "Accent": "Success",
+        "Icon": "None",
+        "Size": "Regular"
+      },
+      "absoluteX": -247,
+      "absoluteY": 2117,
+      "theme": "light"
+    },
+    {
+      "instanceId": "NODE-0219",
+      "componentSetId": "NODE-0317",
+      "rowGroupNodeName": "row_Highline",
+      "variantProperties": {
+        "Accent": "Success",
+        "Icon": "None",
+        "Size": "Small"
+      },
+      "absoluteX": -242,
+      "absoluteY": 2155,
+      "theme": "light"
+    },
+    {
+      "instanceId": "NODE-0222",
+      "componentSetId": "NODE-0317",
+      "rowGroupNodeName": "row_Highline",
+      "variantProperties": {
+        "Accent": "Error",
+        "Icon": "None",
+        "Size": "Regular"
+      },
+      "absoluteX": -175,
+      "absoluteY": 2117,
+      "theme": "light"
+    },
+    {
+      "instanceId": "NODE-0223",
+      "componentSetId": "NODE-0317",
+      "rowGroupNodeName": "row_Highline",
+      "variantProperties": {
+        "Accent": "Error",
+        "Icon": "None",
+        "Size": "Small"
+      },
+      "absoluteX": -170,
+      "absoluteY": 2155,
+      "theme": "light"
+    },
+    {
+      "instanceId": "NODE-0226",
+      "componentSetId": "NODE-0317",
+      "rowGroupNodeName": "row_Highline",
+      "variantProperties": {
+        "Accent": "Warning",
+        "Icon": "None",
+        "Size": "Regular"
+      },
+      "absoluteX": -103,
+      "absoluteY": 2117,
+      "theme": "light"
+    },
+    {
+      "instanceId": "NODE-0227",
+      "componentSetId": "NODE-0317",
+      "rowGroupNodeName": "row_Highline",
+      "variantProperties": {
+        "Accent": "Warning",
+        "Icon": "None",
+        "Size": "Small"
+      },
+      "absoluteX": -98,
+      "absoluteY": 2155,
+      "theme": "light"
+    },
+    {
+      "instanceId": "NODE-0230",
+      "componentSetId": "NODE-0317",
+      "rowGroupNodeName": "row_Highline",
+      "variantProperties": {
+        "Accent": "Info",
+        "Icon": "None",
+        "Size": "Regular"
+      },
+      "absoluteX": -31,
+      "absoluteY": 2117,
+      "theme": "light"
+    },
+    {
+      "instanceId": "NODE-0231",
+      "componentSetId": "NODE-0317",
+      "rowGroupNodeName": "row_Highline",
+      "variantProperties": {
+        "Accent": "Info",
+        "Icon": "None",
+        "Size": "Small"
+      },
+      "absoluteX": -26,
+      "absoluteY": 2155,
+      "theme": "light"
+    },
+    {
+      "instanceId": "NODE-0238",
+      "componentSetId": "NODE-0366",
+      "rowGroupNodeName": "row_Highlighted",
+      "variantProperties": {
+        "Accent": "Success",
+        "Icon": "None",
+        "Size": "Regular"
+      },
+      "absoluteX": -247,
+      "absoluteY": 2291,
+      "theme": "light"
+    },
+    {
+      "instanceId": "NODE-0239",
+      "componentSetId": "NODE-0366",
+      "rowGroupNodeName": "row_Highlighted",
+      "variantProperties": {
+        "Accent": "Success",
+        "Icon": "None",
+        "Size": "Small"
+      },
+      "absoluteX": -242,
+      "absoluteY": 2329,
+      "theme": "light"
+    },
+    {
+      "instanceId": "NODE-0242",
+      "componentSetId": "NODE-0366",
+      "rowGroupNodeName": "row_Highlighted",
+      "variantProperties": {
+        "Accent": "Error",
+        "Icon": "None",
+        "Size": "Regular"
+      },
+      "absoluteX": -175,
+      "absoluteY": 2291,
+      "theme": "light"
+    },
+    {
+      "instanceId": "NODE-0243",
+      "componentSetId": "NODE-0366",
+      "rowGroupNodeName": "row_Highlighted",
+      "variantProperties": {
+        "Accent": "Error",
+        "Icon": "None",
+        "Size": "Small"
+      },
+      "absoluteX": -170,
+      "absoluteY": 2329,
+      "theme": "light"
+    },
+    {
+      "instanceId": "NODE-0246",
+      "componentSetId": "NODE-0366",
+      "rowGroupNodeName": "row_Highlighted",
+      "variantProperties": {
+        "Accent": "Warning",
+        "Icon": "None",
+        "Size": "Regular"
+      },
+      "absoluteX": -103,
+      "absoluteY": 2291,
+      "theme": "light"
+    },
+    {
+      "instanceId": "NODE-0247",
+      "componentSetId": "NODE-0366",
+      "rowGroupNodeName": "row_Highlighted",
+      "variantProperties": {
+        "Accent": "Warning",
+        "Icon": "None",
+        "Size": "Small"
+      },
+      "absoluteX": -98,
+      "absoluteY": 2329,
+      "theme": "light"
+    },
+    {
+      "instanceId": "NODE-0250",
+      "componentSetId": "NODE-0366",
+      "rowGroupNodeName": "row_Highlighted",
+      "variantProperties": {
+        "Accent": "Info",
+        "Icon": "None",
+        "Size": "Regular"
+      },
+      "absoluteX": -31,
+      "absoluteY": 2291,
+      "theme": "light"
+    },
+    {
+      "instanceId": "NODE-0251",
+      "componentSetId": "NODE-0366",
+      "rowGroupNodeName": "row_Highlighted",
+      "variantProperties": {
+        "Accent": "Info",
+        "Icon": "None",
+        "Size": "Small"
+      },
+      "absoluteX": -26,
+      "absoluteY": 2329,
+      "theme": "light"
+    },
+    {
+      "instanceId": "NODE-0258",
+      "componentSetId": "NODE-0415",
+      "rowGroupNodeName": "row_Filled",
+      "variantProperties": {
+        "Accent": "Success",
+        "Icon": "None",
+        "Size": "Regular"
+      },
+      "absoluteX": -247,
+      "absoluteY": 2465,
+      "theme": "light"
+    },
+    {
+      "instanceId": "NODE-0259",
+      "componentSetId": "NODE-0415",
+      "rowGroupNodeName": "row_Filled",
+      "variantProperties": {
+        "Accent": "Success",
+        "Icon": "None",
+        "Size": "Small"
+      },
+      "absoluteX": -242,
+      "absoluteY": 2503,
+      "theme": "light"
+    },
+    {
+      "instanceId": "NODE-0262",
+      "componentSetId": "NODE-0415",
+      "rowGroupNodeName": "row_Filled",
+      "variantProperties": {
+        "Accent": "Error",
+        "Icon": "None",
+        "Size": "Regular"
+      },
+      "absoluteX": -175,
+      "absoluteY": 2465,
+      "theme": "light"
+    },
+    {
+      "instanceId": "NODE-0263",
+      "componentSetId": "NODE-0415",
+      "rowGroupNodeName": "row_Filled",
+      "variantProperties": {
+        "Accent": "Error",
+        "Icon": "None",
+        "Size": "Small"
+      },
+      "absoluteX": -170,
+      "absoluteY": 2503,
+      "theme": "light"
+    },
+    {
+      "instanceId": "NODE-0266",
+      "componentSetId": "NODE-0415",
+      "rowGroupNodeName": "row_Filled",
+      "variantProperties": {
+        "Accent": "Warning",
+        "Icon": "None",
+        "Size": "Regular"
+      },
+      "absoluteX": -103,
+      "absoluteY": 2465,
+      "theme": "light"
+    },
+    {
+      "instanceId": "NODE-0267",
+      "componentSetId": "NODE-0415",
+      "rowGroupNodeName": "row_Filled",
+      "variantProperties": {
+        "Accent": "Warning",
+        "Icon": "None",
+        "Size": "Small"
+      },
+      "absoluteX": -98,
+      "absoluteY": 2503,
+      "theme": "light"
+    },
+    {
+      "instanceId": "NODE-0270",
+      "componentSetId": "NODE-0415",
+      "rowGroupNodeName": "row_Filled",
+      "variantProperties": {
+        "Accent": "Info",
+        "Icon": "None",
+        "Size": "Regular"
+      },
+      "absoluteX": -31,
+      "absoluteY": 2465,
+      "theme": "light"
+    },
+    {
+      "instanceId": "NODE-0271",
+      "componentSetId": "NODE-0415",
+      "rowGroupNodeName": "row_Filled",
+      "variantProperties": {
+        "Accent": "Info",
+        "Icon": "None",
+        "Size": "Small"
+      },
+      "absoluteX": -26,
+      "absoluteY": 2503,
+      "theme": "light"
+    },
+    {
+      "instanceId": "NODE-0278",
+      "componentSetId": "NODE-0464",
+      "rowGroupNodeName": "row_Text",
+      "variantProperties": {
+        "Accent": "Success",
+        "Icon": "None",
+        "Size": "Regular"
+      },
+      "absoluteX": -241,
+      "absoluteY": 2639,
+      "theme": "light"
+    },
+    {
+      "instanceId": "NODE-0279",
+      "componentSetId": "NODE-0464",
+      "rowGroupNodeName": "row_Text",
+      "variantProperties": {
+        "Accent": "Success",
+        "Icon": "None",
+        "Size": "Small"
+      },
+      "absoluteX": -239,
+      "absoluteY": 2665,
+      "theme": "light"
+    },
+    {
+      "instanceId": "NODE-0282",
+      "componentSetId": "NODE-0464",
+      "rowGroupNodeName": "row_Text",
+      "variantProperties": {
+        "Accent": "Error",
+        "Icon": "None",
+        "Size": "Regular"
+      },
+      "absoluteX": -188,
+      "absoluteY": 2639,
+      "theme": "light"
+    },
+    {
+      "instanceId": "NODE-0283",
+      "componentSetId": "NODE-0464",
+      "rowGroupNodeName": "row_Text",
+      "variantProperties": {
+        "Accent": "Error",
+        "Icon": "None",
+        "Size": "Small"
+      },
+      "absoluteX": -185,
+      "absoluteY": 2665,
+      "theme": "light"
+    },
+    {
+      "instanceId": "NODE-0286",
+      "componentSetId": "NODE-0464",
+      "rowGroupNodeName": "row_Text",
+      "variantProperties": {
+        "Accent": "Warning",
+        "Icon": "None",
+        "Size": "Regular"
+      },
+      "absoluteX": -134,
+      "absoluteY": 2639,
+      "theme": "light"
+    },
+    {
+      "instanceId": "NODE-0287",
+      "componentSetId": "NODE-0464",
+      "rowGroupNodeName": "row_Text",
+      "variantProperties": {
+        "Accent": "Warning",
+        "Icon": "None",
+        "Size": "Small"
+      },
+      "absoluteX": -132,
+      "absoluteY": 2665,
+      "theme": "light"
+    },
+    {
+      "instanceId": "NODE-0290",
+      "componentSetId": "NODE-0464",
+      "rowGroupNodeName": "row_Text",
+      "variantProperties": {
+        "Accent": "Info",
+        "Icon": "None",
+        "Size": "Regular"
+      },
+      "absoluteX": -81,
+      "absoluteY": 2639,
+      "theme": "light"
+    },
+    {
+      "instanceId": "NODE-0291",
+      "componentSetId": "NODE-0464",
+      "rowGroupNodeName": "row_Text",
+      "variantProperties": {
+        "Accent": "Info",
+        "Icon": "None",
+        "Size": "Small"
+      },
+      "absoluteX": -78,
+      "absoluteY": 2665,
+      "theme": "light"
+    }
+  ],
+  "derivedDimensions": {
+    "rows": {
+      "kind": "component_set_identity",
+      "orderedValues": [
+        "row_Highline",
+        "row_Highlighted",
+        "row_Filled",
+        "row_Text"
+      ],
+      "derivation": "distinct rowGroup node names ordered by ascending absoluteY"
+    },
+    "columns": {
+      "kind": "variant_property",
+      "propertyKey": "Accent",
+      "orderedValues": [
+        "Success",
+        "Error",
+        "Warning",
+        "Info"
+      ],
+      "derivation": "distinct Accent values ordered by ascending absoluteX within a row"
+    },
+    "bands": [
+      {
+        "kind": "variant_property",
+        "propertyKey": "Size",
+        "orderedValues": [
+          "Regular",
+          "Small"
+        ],
+        "derivation": "distinct Size values ordered by ascending absoluteY within a column"
+      }
+    ],
+    "fixedFilters": [
+      {
+        "kind": "fixed_filter",
+        "propertyKey": "Icon",
+        "value": "None"
+      }
+    ]
+  },
+  "recomputationCheck": {
+    "rowColumnCellsPerTheme": 16,
+    "rowColumnBandPositionsPerTheme": 32,
+    "observedInstancesPerTheme": 32,
+    "positionsMatchInstancesPerTheme": true,
+    "metricDiscriminationNote": "Three different integers describe the same block: 16 row-column cells, 32 row-column-band positions, 32 instance placements (per theme). v0.3.1 exposes one untyped documentedPairingCount and cannot say which is meant. See PB-8."
+  }
+}

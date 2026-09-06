@@ -1,0 +1,159 @@
+{
+  "migration": "component-representation-contract 0.3.1-draft -> 0.4.0-draft",
+  "contractId": "NAME-0001-buttons-component-representation-contract",
+  "sourceContract": {
+    "path": "versions/0.3.1-draft/component-representation-contract.json",
+    "sha256": "42078ee6a0ed4147e9d4cd035d18157024bd98261a0ea3de51f06958d2e7837d"
+  },
+  "migrationTool": {
+    "path": "migrate_v031_to_v040.py",
+    "sha256": "fc83bc0ccf76d8bc3cfe2f831df3cffcafcbd1be451b4540c2627e7137de2da6"
+  },
+  "unresolvedStates": [
+    {
+      "site": "layoutRepresentations['LR-1'].allocation.allocationEvidence",
+      "kind": "legacy_unverified_allocation",
+      "detail": "migrated from MA-1; no recomputable evidence exists",
+      "responsibleOwner": "NAME-0001 design-system owner"
+    },
+    {
+      "site": "representationNodeBindings['NODE-0313']",
+      "kind": "migration_review",
+      "detail": "binding derived from allocation evidence.nodeIds (provenance), not from a recorded operational locator",
+      "responsibleOwner": "NAME-0001 design-system owner"
+    },
+    {
+      "site": "layoutRepresentations['LR-2'].allocation.allocationEvidence",
+      "kind": "legacy_unverified_allocation",
+      "detail": "migrated from MA-2; no recomputable evidence exists",
+      "responsibleOwner": "NAME-0001 design-system owner"
+    },
+    {
+      "site": "representationNodeBindings['NODE-0561']",
+      "kind": "migration_review",
+      "detail": "binding derived from allocation evidence.nodeIds (provenance), not from a recorded operational locator",
+      "responsibleOwner": "NAME-0001 design-system owner"
+    },
+    {
+      "site": "coveragePolicy['NODE-0313'].coverageMetrics[0]",
+      "kind": "legacy_unclassified_metric",
+      "detail": "value 100 carried forward without an asserted metric kind",
+      "responsibleOwner": "NAME-0001 design-system owner"
+    },
+    {
+      "site": "coveragePolicy['NODE-0563'].coverageMetrics[0]",
+      "kind": "legacy_unclassified_metric",
+      "detail": "value 100 carried forward without an asserted metric kind",
+      "responsibleOwner": "NAME-0001 design-system owner"
+    },
+    {
+      "site": "coveragePolicy['NODE-0565'].coverageMetrics[0]",
+      "kind": "legacy_unclassified_metric",
+      "detail": "value 100 carried forward without an asserted metric kind",
+      "responsibleOwner": "NAME-0001 design-system owner"
+    },
+    {
+      "site": "coveragePolicy['NODE-0567'].coverageMetrics[0]",
+      "kind": "legacy_unclassified_metric",
+      "detail": "value 100 carried forward without an asserted metric kind",
+      "responsibleOwner": "NAME-0001 design-system owner"
+    },
+    {
+      "site": "coveragePolicy['NODE-0571'].coverageMetrics[0]",
+      "kind": "legacy_unclassified_metric",
+      "detail": "value 100 carried forward without an asserted metric kind",
+      "responsibleOwner": "NAME-0001 design-system owner"
+    },
+    {
+      "site": "coveragePolicy['NODE-0577'].coverageMetrics[0]",
+      "kind": "legacy_unclassified_metric",
+      "detail": "value 100 carried forward without an asserted metric kind",
+      "responsibleOwner": "NAME-0001 design-system owner"
+    },
+    {
+      "site": "coveragePolicy['NODE-0573'].coverageMetrics[0]",
+      "kind": "legacy_unclassified_metric",
+      "detail": "value 100 carried forward without an asserted metric kind",
+      "responsibleOwner": "NAME-0001 design-system owner"
+    },
+    {
+      "site": "coveragePolicy['NODE-0575'].coverageMetrics[0]",
+      "kind": "legacy_unclassified_metric",
+      "detail": "value 100 carried forward without an asserted metric kind",
+      "responsibleOwner": "NAME-0001 design-system owner"
+    },
+    {
+      "site": "coveragePolicy['NODE-0561'].coverageMetrics[0]",
+      "kind": "legacy_unclassified_metric",
+      "detail": "value 20 carried forward without an asserted metric kind",
+      "responsibleOwner": "NAME-0001 design-system owner"
+    },
+    {
+      "site": "coveragePolicy['NODE-0569'].coverageMetrics[0]",
+      "kind": "legacy_unclassified_metric",
+      "detail": "value 20 carried forward without an asserted metric kind",
+      "responsibleOwner": "NAME-0001 design-system owner"
+    },
+    {
+      "site": "themeModel.containers['unbound-container-0'].modeBindings[0]",
+      "kind": "legacy_unverified_theme_provenance",
+      "detail": "explicit-vs-inherited mode provenance was never captured",
+      "responsibleOwner": "NAME-0001 design-system owner"
+    },
+    {
+      "site": "themeModel.containers['unbound-container-1'].modeBindings[0]",
+      "kind": "legacy_unverified_theme_provenance",
+      "detail": "explicit-vs-inherited mode provenance was never captured",
+      "responsibleOwner": "NAME-0001 design-system owner"
+    },
+    {
+      "site": "structuralFindings['SF-09'].appliesToScopes[contract/NAME-0001-buttons-component-representation-contract]",
+      "kind": "migration_review",
+      "detail": "v0.3.1 generalizationScope 'specific_node' with 0 cited node(s): intended scope not mechanically inferable",
+      "responsibleOwner": "NAME-0001 design-system owner"
+    },
+    {
+      "site": "structuralFindings['SF-10'].appliesToScopes[contract/NAME-0001-buttons-component-representation-contract]",
+      "kind": "migration_review",
+      "detail": "v0.3.1 generalizationScope 'specific_node' with 0 cited node(s): intended scope not mechanically inferable",
+      "responsibleOwner": "NAME-0001 design-system owner"
+    },
+    {
+      "site": "structuralFindings['SF-13'].appliesToScopes[contract/NAME-0001-buttons-component-representation-contract]",
+      "kind": "migration_review",
+      "detail": "v0.3.1 generalizationScope 'specific_node' with 0 cited node(s): intended scope not mechanically inferable",
+      "responsibleOwner": "NAME-0001 design-system owner"
+    },
+    {
+      "site": "structuralFindings['SF-14'].appliesToScopes[contract/NAME-0001-buttons-component-representation-contract]",
+      "kind": "migration_review",
+      "detail": "v0.3.1 generalizationScope 'specific_node' with 0 cited node(s): intended scope not mechanically inferable",
+      "responsibleOwner": "NAME-0001 design-system owner"
+    },
+    {
+      "site": "structuralFindings['SF-15'].appliesToScopes[contract/NAME-0001-buttons-component-representation-contract]",
+      "kind": "migration_review",
+      "detail": "v0.3.1 generalizationScope 'specific_node' with 0 cited node(s): intended scope not mechanically inferable",
+      "responsibleOwner": "NAME-0001 design-system owner"
+    }
+  ],
+  "unresolvedStateCount": 21,
+  "evidenceOverlayApplied": [],
+  "textReferencesRemapped": [
+    "approvalStatus.blockers['BLK-2'].description",
+    "approvalStatus.blockers['BLK-6'].mustBeResolvedBefore",
+    "canonicalValueDisplayLabelMap[Outline - Gradient].axis",
+    "canonicalValueDisplayLabelMap[Text - Void].axis",
+    "canonicalValueDisplayLabelMap[TextOnly].axis",
+    "canonicalValueDisplayLabelMap[Tonal - Solid].axis",
+    "structuralFindings['SF-15'].description",
+    "validationRules['VR-6'].detectionCondition",
+    "validationRules['VR-9'].detectionCondition"
+  ],
+  "notes": [
+    "The migration performs no evidence or approval upgrades.",
+    "candidate_cross_component_invariant findings were migrated to single_component_observed: the source baseline contained no evidence from a second component (approved correction G-1).",
+    "evidenceRecord.generalizationScope was removed rather than translated; generalization now lives on structuralFindings[].appliesToScopes / corroboration.",
+    "Stale v0.3.1 field and allocation-id references inside Builder-facing rule, blocker and finding text were remapped mechanically (substitution only, no meaning altered) so a migrated contract never points a Builder at a field that no longer exists. Each remapped site is listed under textReferencesRemapped."
+  ]
+}

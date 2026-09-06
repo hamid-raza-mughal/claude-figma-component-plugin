@@ -1,0 +1,131 @@
+{
+  "captureMethod": "mcp__plugin_figma_figma__use_figma (Figma Plugin API, read-only script)",
+  "fileKey": "FILEKEY-0002",
+  "capturedAt": "2026-08-16T08:55:00Z",
+  "componentSetId": "NODE-0513",
+  "name": "Pill – Pulse Animation",
+  "type": "COMPONENT_SET",
+  "visible": false,
+  "parentVisible": true,
+  "childCount": 24,
+  "instancesInDocumentationHolder": 0,
+  "boundVariablesOnSetNode": {},
+  "childrenWithDirectVariableBindings": 12,
+  "bindingSample": [
+    {
+      "componentId": "NODE-0520",
+      "name": "Type=Warning, Style=Filled, Size=Small, Animation=S1",
+      "boundVariables": {
+        "fills": [
+          {
+            "type": "VARIABLE_ALIAS",
+            "id": "VAR-0005"
+          }
+        ]
+      }
+    },
+    {
+      "componentId": "NODE-0521",
+      "name": "Type=Warning, Style=Filled, Size=Small, Animation=S2",
+      "boundVariables": {
+        "fills": [
+          {
+            "type": "VARIABLE_ALIAS",
+            "id": "VAR-0005"
+          }
+        ]
+      }
+    }
+  ],
+  "reactionCount": 24,
+  "reactionPattern": {
+    "shape": "bidirectional S1 <-> S2 pair per (Type, Style, Size) triple; 12 triples x 2 directions = 24 reactions",
+    "trigger": "AFTER_TIMEOUT",
+    "timeoutSeconds": {
+      "Small": 0.4,
+      "Regular": 0.4,
+      "Large": 0.8
+    },
+    "actionType": "NODE",
+    "navigation": "CHANGE_TO",
+    "transition": {
+      "type": "SMART_ANIMATE",
+      "easing": "EASE_OUT",
+      "durationSeconds": 0.6
+    }
+  },
+  "reactionSample": [
+    {
+      "from": "NODE-0514",
+      "fromName": "Type=Warning, Style=Highline, Size=Small, Animation=S1",
+      "trigger": {
+        "type": "AFTER_TIMEOUT",
+        "timeout": 0.4
+      },
+      "actionType": "NODE",
+      "destinationId": "NODE-0515",
+      "destinationName": "Type=Warning, Style=Highline, Size=Small, Animation=S2",
+      "navigation": "CHANGE_TO",
+      "transition": {
+        "type": "SMART_ANIMATE",
+        "easing": {
+          "type": "EASE_OUT"
+        },
+        "duration": 0.6
+      }
+    },
+    {
+      "from": "NODE-0515",
+      "fromName": "Type=Warning, Style=Highline, Size=Small, Animation=S2",
+      "trigger": {
+        "type": "AFTER_TIMEOUT",
+        "timeout": 0.4
+      },
+      "actionType": "NODE",
+      "destinationId": "NODE-0514",
+      "destinationName": "Type=Warning, Style=Highline, Size=Small, Animation=S1",
+      "navigation": "CHANGE_TO",
+      "transition": {
+        "type": "SMART_ANIMATE",
+        "easing": {
+          "type": "EASE_OUT"
+        },
+        "duration": 0.6
+      }
+    },
+    {
+      "from": "NODE-0518",
+      "fromName": "Type=Warning, Style=Highline, Size=Large, Animation=S1",
+      "trigger": {
+        "type": "AFTER_TIMEOUT",
+        "timeout": 0.8
+      },
+      "actionType": "NODE",
+      "destinationId": "NODE-0519",
+      "destinationName": "Type=Warning, Style=Highline, Size=Large, Animation=S2",
+      "navigation": "CHANGE_TO",
+      "transition": {
+        "type": "SMART_ANIMATE",
+        "easing": {
+          "type": "EASE_OUT"
+        },
+        "duration": 0.6
+      }
+    }
+  ],
+  "terminologyEvidenceForTaxonomyQuestion": {
+    "textPropertyKey": "Badge Value#NODE-0301",
+    "textPropertyDefault": "-3.2%",
+    "instanceSwapPropertyKey": "Trend Symbol#NODE-0294",
+    "comparedToStaticSets": {
+      "textPropertyKey": "Pill Value#NODE-0301",
+      "textPropertyDefault": "Label",
+      "instanceSwapPropertyKey": "Pill Symbol#NODE-0295"
+    },
+    "note": "The hidden set names its content properties Badge Value / Trend Symbol with a percentage-delta default, whereas the four visible sets name theirs Pill Value / Pill Symbol with a generic 'Label' default. Recorded as evidence bearing on the taxonomy question. NOT resolved here: whether this set is production Pill, WIP, legacy, or a separate Badge component is an OWNER DECISION."
+  },
+  "limitations": [
+    "Only the 24 top-level COMPONENT children were inspected for reactions and bindings; descendant nodes were not swept exhaustively.",
+    "What S1 and S2 render differently was not captured; only the transition wiring between them."
+  ]
+}

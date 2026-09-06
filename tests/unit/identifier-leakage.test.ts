@@ -12,7 +12,14 @@
  */
 import { test, describe } from 'node:test';
 import assert from 'node:assert/strict';
-import { scanRepository, scanText, collectFiles, RULES, ALLOWLIST } from '../../tools/identifier-scan.ts';
+import {
+  scanRepository,
+  scanText,
+  scanPath,
+  collectFiles,
+  RULES,
+  ALLOWLIST,
+} from '../../tools/identifier-scan.ts';
 
 describe('no real-identifier shape reaches a committed file (BP-5)', () => {
   test('the whole repository is clean', () => {
@@ -30,6 +37,42 @@ describe('no real-identifier shape reaches a committed file (BP-5)', () => {
     for (const dir of ['docs/', 'skills/', 'commands/', 'src/', 'tests/', 'tools/']) {
       assert.ok(files.some((file) => file.includes(`/${dir}`)), `nothing under ${dir} was scanned`);
     }
+  });
+});
+
+describe('the scan reads paths, not only lines (AL-1 follow-up)', () => {
+  test('a node id in a tracked path is caught', () => {
+    // The `.gitignore` case: two rules naming raw Figma exports whose filenames
+    // embed a node id. Every content rule read straight past them, because a
+    // file name is not a line of any file — and a node id in a path is written
+    // with a hyphen, so the `node-id` rule could not have matched it either.
+    const path = `plugin/adalfi-components-${'8'.repeat(3)}-${'3'.repeat(4)}-terminal.json`;
+    const found = scanPath(path);
+    assert.equal(found.length, 1, `expected one finding, got ${JSON.stringify(found)}`);
+    assert.equal(found[0]?.rule, 'node-id-in-path');
+  });
+
+  test('the shapes it must NOT flag', () => {
+    // A path rule that fires on dates and versions is a path rule that gets
+    // switched off. The second field of a Figma node id is substantial; that is
+    // the whole discrimination.
+    for (const benign of [
+      'docs/notes-2026-09-06.md',
+      'schemas/representation/representation-contract.schema.json',
+      'tests/fixtures/active/outputs/index.json',
+      'docs/phase2-r1-verification.md',
+      'src/coordinator/compose-trusted-output.ts',
+      'versions/0.4.0-draft/contract.json',
+    ]) {
+      assert.deepEqual(scanPath(benign), [], `a benign path tripped the scan: ${benign}`);
+    }
+  });
+
+  test('the repository has no such path today', () => {
+    const offenders = scanRepository()
+      .filter((finding) => finding.rule === 'node-id-in-path')
+      .map((finding) => finding.file);
+    assert.deepEqual(offenders, []);
   });
 });
 

@@ -1,0 +1,107 @@
+{
+  "captureMethod": "mcp__plugin_figma_figma__use_figma (Figma Plugin API, read-only script)",
+  "fileKey": "FILEKEY-0002",
+  "apiFieldsRead": [
+    "figma.variables.getLocalVariableCollectionsAsync()",
+    "figma.variables.getVariableCollectionByIdAsync()",
+    "figma.variables.getVariableByIdAsync()",
+    "node.explicitVariableModes",
+    "node.resolvedVariableModes",
+    "node.boundVariables"
+  ],
+  "localCollections": [
+    { "id": "VariableCollectionId:NODE-0303", "key": "KEY-0009", "name": "icon_config", "defaultModeId": "NODE-0302", "modes": [{ "modeId": "NODE-0302", "name": "Mode 1" }], "variableCount": 2 }
+  ],
+  "localCollectionNote": "getLocalVariableCollectionsAsync() returns ONLY icon_config. The colors collection is REMOTE (library-published) and is therefore invisible to the local-collection API. It was resolved by id via getVariableCollectionByIdAsync.",
+  "resolvedCollections": [
+    {
+      "id": "VC-0002",
+      "key": "KEY-0008",
+      "name": "colors",
+      "remote": true,
+      "defaultModeId": "NODE-0299",
+      "modes": [
+        { "modeId": "NODE-0299", "name": "Dark" },
+        { "modeId": "NODE-0558", "name": "Light" }
+      ],
+      "variableCount": 105,
+      "themeVarying": true
+    },
+    {
+      "id": "VC-0001",
+      "key": "KEY-0002",
+      "name": "layout-scale",
+      "remote": true,
+      "defaultModeId": "6:1",
+      "modes": [{ "modeId": "6:1", "name": "Default" }],
+      "variableCount": 15,
+      "themeVarying": false,
+      "note": "Also resolves on both theme cards, to the same single mode. Not a theme axis. The v0.3.1 themeModel has no way to record a second, non-theme-varying collection resolving on the same container."
+    }
+  ],
+  "themeContainers": [
+    {
+      "nodeId": "NODE-0005",
+      "nodeName": "card",
+      "nodeType": "FRAME",
+      "headlineNodeId": "NODE-0007",
+      "headlineText": "Dark Mode",
+      "explicitVariableModes": {},
+      "resolvedVariableModes": {
+        "VC-0002": "NODE-0299",
+        "VC-0001": "6:1"
+      },
+      "colorsModeId": "NODE-0299",
+      "colorsModeName": "Dark",
+      "modeProvenance": "inherited",
+      "provenanceEvidence": "explicitVariableModes is empty on this node AND on every ancestor up to and including PAGE NODE-0538. NODE-0299 is the colors collection defaultModeId, so the Dark resolution is a pure default-inheritance, not a declared choice.",
+      "ancestryExplicitModes": [
+        { "id": "NODE-0005", "name": "card", "type": "FRAME", "explicitForColors": null },
+        { "id": "NODE-0004", "name": "container", "type": "FRAME", "explicitForColors": null },
+        { "id": "NODE-0001", "name": "components_holder", "type": "FRAME", "explicitForColors": null },
+        { "id": "NODE-0539", "name": "component_box", "type": "FRAME", "explicitForColors": null },
+        { "id": "NODE-0538", "name": "Pills", "type": "PAGE", "explicitForColors": null }
+      ]
+    },
+    {
+      "nodeId": "NODE-0069",
+      "nodeName": "card",
+      "nodeType": "FRAME",
+      "headlineNodeId": "NODE-0071",
+      "headlineText": "Light Mode",
+      "explicitVariableModes": {
+        "VC-0002": "NODE-0558"
+      },
+      "resolvedVariableModes": {
+        "VC-0002": "NODE-0558",
+        "VC-0001": "6:1"
+      },
+      "colorsModeId": "NODE-0558",
+      "colorsModeName": "Light",
+      "modeProvenance": "explicit",
+      "provenanceEvidence": "explicitVariableModes on this node declares the colors collection -> mode NODE-0558 (Light). No ancestor sets it.",
+      "ancestryExplicitModes": [
+        { "id": "NODE-0069", "name": "card", "type": "FRAME", "explicitForColors": "NODE-0558" },
+        { "id": "NODE-0004", "name": "container", "type": "FRAME", "explicitForColors": null },
+        { "id": "NODE-0001", "name": "components_holder", "type": "FRAME", "explicitForColors": null },
+        { "id": "NODE-0539", "name": "component_box", "type": "FRAME", "explicitForColors": null },
+        { "id": "NODE-0538", "name": "Pills", "type": "PAGE", "explicitForColors": null }
+      ]
+    }
+  ],
+  "variablesUsedByDescendants": {
+    "note": "The SAME variable ids are bound under both theme cards. Theme divergence comes from mode resolution on the container, NOT from different variables being used. Sampled on the Filled/Success/Regular matrix instance in each card: dark NODE-0178, light NODE-0258.",
+    "sampledInstances": { "dark": "NODE-0178", "light": "NODE-0258" },
+    "bindings": [
+      { "boundOn": "INSTANCE.fills", "variableId": "VAR-0002", "variableKey": "KEY-0006", "name": "System/Expressions/success", "resolvedType": "COLOR", "remote": true, "collectionId": "VC-0002", "valuesByMode": { "NODE-0299": { "r": 0.26274511218070984, "g": 0.8588235378265381, "b": 0.43921568989753723, "a": 1 }, "NODE-0558": { "r": 0.09019608050584793, "g": 0.8117647171020508, "b": 0.3764705955982208, "a": 1 } }, "hexByMode": { "NODE-0299": "#43DB70", "NODE-0558": "#17CF60" } },
+      { "boundOn": "TEXT 'Label'.fills", "variableId": "VAR-0001", "variableKey": "KEY-0003", "name": "System/Expressions/on_success", "resolvedType": "COLOR", "remote": true, "collectionId": "VC-0002", "valuesByMode": { "NODE-0299": { "r": 0.003921568859368563, "g": 0.0941176488995552, "b": 0.05098039284348488, "a": 1 }, "NODE-0558": { "r": 1, "g": 1, "b": 1, "a": 1 } }, "hexByMode": { "NODE-0299": "#01180D", "NODE-0558": "#FFFFFF" } },
+      { "boundOn": "INSTANCE.paddingLeft / paddingRight", "variableId": "VAR-0004", "variableKey": "KEY-0014", "name": "4-scale/xs", "resolvedType": "FLOAT", "remote": true, "collectionId": "VC-0001", "valuesByMode": { "6:1": 12 } },
+      { "boundOn": "INSTANCE.paddingTop / paddingBottom", "variableId": "VAR-0003", "variableKey": "KEY-0010", "name": "aux/xs", "resolvedType": "FLOAT", "remote": true, "collectionId": "VC-0001", "valuesByMode": { "6:1": 6 } }
+    ]
+  },
+  "limitations": [
+    "Variable bindings were sampled on one representative instance per theme card plus its Label text child, not exhaustively across all 94 documented instances.",
+    "The colors collection is remote; its 105 variables were not exhaustively enumerated, only the four bound on the sampled nodes.",
+    "No claim is made that the mode set {Dark, Light} is exhaustive for other components in this file."
+  ]
+}

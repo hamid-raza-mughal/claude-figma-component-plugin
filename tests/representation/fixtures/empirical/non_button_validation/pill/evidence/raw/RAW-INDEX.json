@@ -1,0 +1,18 @@
+{
+  "rawCaptures": [
+    {
+      "path": "evidence/raw/raw-capture-component-sets.json",
+      "sha256": "0162be2c76ab8cfa67cc0519160274664ced060c6989e2998c20f6b0c65d6035",
+      "sourceNodeIds": [
+        "NODE-0539",
+        "NODE-0545"
+      ],
+      "capturedAt": "2026-08-16T09:30:00Z"
+    }
+  ],
+  "crossVerification": {
+    "againstNormalizedArtifacts": true,
+    "problems": [],
+    "result": "PASS"
+  }
+}

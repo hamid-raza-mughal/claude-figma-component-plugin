@@ -1,0 +1,295 @@
+{
+  "comparison": "R-1 (COMPONENT node-name parse) vs R-2 (Plugin API COMPONENT.variantProperties)",
+  "r1Source": {
+    "directory": "evidence/r1-nameparse",
+    "immutable": true,
+    "hashVerified": true,
+    "provenance": "Deterministically reconstructed from the immutable evidence/figma-metadata-787-4538.xml capture using the R-1 method and R-1 timestamp, then hash-verified against the SHA-256 values recorded in the R-1 CHECKSUMS.sha256 manifest. All five match byte-for-byte, so this archive is a verified reconstruction, not a re-derivation.",
+    "sourceCapture": {
+      "path": "evidence/figma-metadata-787-4538.xml",
+      "sha256": "0875c48b83a182d478a7702cb100470a4433ffd0b5498daf04fa79be107cb3af"
+    }
+  },
+  "r2Source": {
+    "artifactPath": "evidence/api-capture-component-sets.json",
+    "artifactSha256": "fef66a30a2495a6d0cca9a69bc4c98b668fd800efa7e1ea4afd7ac968e2c04b5"
+  },
+  "perSet": [
+    {
+      "componentSetId": "NODE-0317",
+      "componentSetName": "Pill – Highline",
+      "r1ArtifactPath": "evidence/r1-nameparse/enumeration-787-14141.json",
+      "r1ArtifactSha256": "caaa9f4ce52d8271fe2efd4b1fb52e027ad5e48bd401ae57e8247aa3b9278ea3",
+      "r1EnumerationMethod": "node_name_parse",
+      "r2EnumerationMethod": "plugin_api_variant_properties",
+      "componentIdSetsIdentical": true,
+      "childCountR1": 48,
+      "childCountR2": 48,
+      "variantPropertyMismatches": [],
+      "variantPropertyMismatchCount": 0,
+      "optionMembershipIdentical": true,
+      "optionOrderDiff": {
+        "Accent": {
+          "r1FirstSeenOrder": [
+            "Success",
+            "Warning",
+            "Error",
+            "Info"
+          ],
+          "r2ApiDeclaredOrder": [
+            "Warning",
+            "Error",
+            "Success",
+            "Info"
+          ]
+        },
+        "Icon": {
+          "r1FirstSeenOrder": [
+            "Leading",
+            "Trailing",
+            "None"
+          ],
+          "r2ApiDeclaredOrder": [
+            "Leading",
+            "None",
+            "Trailing"
+          ]
+        }
+      },
+      "factsOnlyTheApiCouldSupply": {
+        "nodeType": "COMPONENT_SET",
+        "visible": true,
+        "componentSetKey": "KEY-0015",
+        "nonVariantProperties": [
+          "Pill Value#NODE-0301",
+          "Pill Symbol#NODE-0295"
+        ],
+        "variantDefaults": {
+          "Accent": "Success",
+          "Size": "XXSmall",
+          "Icon": "None"
+        }
+      }
+    },
+    {
+      "componentSetId": "NODE-0366",
+      "componentSetName": "Pill – Highlighted",
+      "r1ArtifactPath": "evidence/r1-nameparse/enumeration-787-14271.json",
+      "r1ArtifactSha256": "8140a2c4859db1be2d74e1d068e08a70b54a1baa0a187b590cd9942e3b5f8368",
+      "r1EnumerationMethod": "node_name_parse",
+      "r2EnumerationMethod": "plugin_api_variant_properties",
+      "componentIdSetsIdentical": true,
+      "childCountR1": 48,
+      "childCountR2": 48,
+      "variantPropertyMismatches": [],
+      "variantPropertyMismatchCount": 0,
+      "optionMembershipIdentical": true,
+      "optionOrderDiff": {
+        "Accent": {
+          "r1FirstSeenOrder": [
+            "Success",
+            "Warning",
+            "Error",
+            "Info"
+          ],
+          "r2ApiDeclaredOrder": [
+            "Warning",
+            "Error",
+            "Success",
+            "Info"
+          ]
+        },
+        "Icon": {
+          "r1FirstSeenOrder": [
+            "Leading",
+            "Trailing",
+            "None"
+          ],
+          "r2ApiDeclaredOrder": [
+            "Leading",
+            "None",
+            "Trailing"
+          ]
+        }
+      },
+      "factsOnlyTheApiCouldSupply": {
+        "nodeType": "COMPONENT_SET",
+        "visible": true,
+        "componentSetKey": "KEY-0017",
+        "nonVariantProperties": [
+          "Pill Value#NODE-0301",
+          "Pill Symbol#NODE-0295"
+        ],
+        "variantDefaults": {
+          "Accent": "Success",
+          "Size": "XXSmall",
+          "Icon": "None"
+        }
+      }
+    },
+    {
+      "componentSetId": "NODE-0415",
+      "componentSetName": "Pill – Filled",
+      "r1ArtifactPath": "evidence/r1-nameparse/enumeration-787-14401.json",
+      "r1ArtifactSha256": "e0cba84fb16dc6d1230b677ba408873557c431abf20ebde8c8dcf5cc5e79cbb1",
+      "r1EnumerationMethod": "node_name_parse",
+      "r2EnumerationMethod": "plugin_api_variant_properties",
+      "componentIdSetsIdentical": true,
+      "childCountR1": 48,
+      "childCountR2": 48,
+      "variantPropertyMismatches": [],
+      "variantPropertyMismatchCount": 0,
+      "optionMembershipIdentical": true,
+      "optionOrderDiff": {
+        "Accent": {
+          "r1FirstSeenOrder": [
+            "Success",
+            "Warning",
+            "Error",
+            "Info"
+          ],
+          "r2ApiDeclaredOrder": [
+            "Warning",
+            "Error",
+            "Success",
+            "Info"
+          ]
+        },
+        "Icon": {
+          "r1FirstSeenOrder": [
+            "Leading",
+            "Trailing",
+            "None"
+          ],
+          "r2ApiDeclaredOrder": [
+            "Leading",
+            "None",
+            "Trailing"
+          ]
+        }
+      },
+      "factsOnlyTheApiCouldSupply": {
+        "nodeType": "COMPONENT_SET",
+        "visible": true,
+        "componentSetKey": "KEY-0016",
+        "nonVariantProperties": [
+          "Pill Value#NODE-0301",
+          "Pill Symbol#NODE-0295"
+        ],
+        "variantDefaults": {
+          "Accent": "Success",
+          "Size": "XXSmall",
+          "Icon": "None"
+        }
+      }
+    },
+    {
+      "componentSetId": "NODE-0464",
+      "componentSetName": "Pill – Text",
+      "r1ArtifactPath": "evidence/r1-nameparse/enumeration-787-14531.json",
+      "r1ArtifactSha256": "387823a322e97384b8020bd80f8e25939dc66cf8c2bf2443598a5461fab4fb9e",
+      "r1EnumerationMethod": "node_name_parse",
+      "r2EnumerationMethod": "plugin_api_variant_properties",
+      "componentIdSetsIdentical": true,
+      "childCountR1": 48,
+      "childCountR2": 48,
+      "variantPropertyMismatches": [],
+      "variantPropertyMismatchCount": 0,
+      "optionMembershipIdentical": true,
+      "optionOrderDiff": {
+        "Accent": {
+          "r1FirstSeenOrder": [
+            "Success",
+            "Warning",
+            "Error",
+            "Info"
+          ],
+          "r2ApiDeclaredOrder": [
+            "Warning",
+            "Error",
+            "Success",
+            "Info"
+          ]
+        },
+        "Icon": {
+          "r1FirstSeenOrder": [
+            "Leading",
+            "Trailing",
+            "None"
+          ],
+          "r2ApiDeclaredOrder": [
+            "Leading",
+            "None",
+            "Trailing"
+          ]
+        }
+      },
+      "factsOnlyTheApiCouldSupply": {
+        "nodeType": "COMPONENT_SET",
+        "visible": true,
+        "componentSetKey": "KEY-0013",
+        "nonVariantProperties": [
+          "Pill Value#NODE-0301",
+          "Pill Symbol#NODE-0295"
+        ],
+        "variantDefaults": {
+          "Accent": "Success",
+          "Size": "XXSmall",
+          "Icon": "None"
+        }
+      }
+    },
+    {
+      "componentSetId": "NODE-0513",
+      "componentSetName": "Pill – Pulse Animation",
+      "r1ArtifactPath": "evidence/r1-nameparse/enumeration-787-14660.json",
+      "r1ArtifactSha256": "465ca76984e762c1af27ac5a1c2437e3d9bd7017d4e48f223cf8ae73d0649f80",
+      "r1EnumerationMethod": "node_name_parse",
+      "r2EnumerationMethod": "plugin_api_variant_properties",
+      "componentIdSetsIdentical": true,
+      "childCountR1": 24,
+      "childCountR2": 24,
+      "variantPropertyMismatches": [],
+      "variantPropertyMismatchCount": 0,
+      "optionMembershipIdentical": true,
+      "optionOrderDiff": {
+        "Size": {
+          "r1FirstSeenOrder": [
+            "Small",
+            "Regular",
+            "Large"
+          ],
+          "r2ApiDeclaredOrder": [
+            "Large",
+            "Regular",
+            "Small"
+          ]
+        }
+      },
+      "factsOnlyTheApiCouldSupply": {
+        "nodeType": "COMPONENT_SET",
+        "visible": false,
+        "componentSetKey": "KEY-0005",
+        "nonVariantProperties": [
+          "Badge Value#NODE-0301",
+          "Trend Symbol#NODE-0294"
+        ],
+        "variantDefaults": {
+          "Type": "Warning",
+          "Style": "Highline",
+          "Size": "Small",
+          "Animation": "S1"
+        }
+      }
+    }
+  ],
+  "summary": {
+    "setsCompared": 5,
+    "totalChildrenCompared": 216,
+    "totalVariantPropertyMismatches": 0,
+    "allComponentIdSetsIdentical": true,
+    "allOptionMembershipIdentical": true,
+    "axesWithOrderDifference": 9,
+    "verdict": "Name-parsed variantProperties were VALUE-IDENTICAL to the API field for every child, and option membership matched on every axis. Only the declared option ORDER differed, because name parsing recovers first-seen traversal order rather than the authored variantOptions order. The name-parse method happened to be correct for Pill, but could not be known to be correct without the API, and could not observe node type, visibility, component-set key, non-VARIANT properties, or any defaultValue. This is why v0.4.0-draft records enumeration provenance as a structured method.class rather than a free-text string."
+  }
+}
