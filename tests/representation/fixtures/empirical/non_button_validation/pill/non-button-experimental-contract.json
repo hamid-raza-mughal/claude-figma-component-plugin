@@ -3,8 +3,8 @@
   "contractVersion": "0.4.0-draft",
   "provenance": {
     "file": "NAME-0001-Components",
-    "fileKey": "FILEKEY-0002",
-    "rootNodeId": "NODE-0539",
+    "fileKey": "FILEKEY-0003",
+    "rootNodeId": "NODE-0040",
     "rootNodeName": "component_box",
     "analyzedComponent": "Pill",
     "exportsUsed": [
@@ -21,7 +21,7 @@
           "COMPONENT.variantProperties"
         ],
         "selfReportsValidation": true,
-        "sha256": "fef66a30a2495a6d0cca9a69bc4c98b668fd800efa7e1ea4afd7ac968e2c04b5",
+        "sha256": "4250a08b3ba35f6bfa83c576a0bc3763cbdf3de8bee50fabc30a7ef4aa0bc6f9",
         "capturedAt": "2026-08-16T08:55:00Z"
       },
       {
@@ -36,7 +36,7 @@
           "node.boundVariables"
         ],
         "selfReportsValidation": true,
-        "sha256": "516cca0af8740951b4894235c7839a0e3df12f69ef7f4e652f32cdde848b6437",
+        "sha256": "0023e647abd2bc315e87ef0166a6bec676bb44a2f449084116afb25bc8258595",
         "capturedAt": "2026-08-16T08:55:00Z"
       },
       {
@@ -48,7 +48,7 @@
           "structural path"
         ],
         "selfReportsValidation": true,
-        "sha256": "b174f5f72c90f9129fb5459c319319ec64c8ad73abfb8360b0f1bea5215a486e",
+        "sha256": "a4d71bd08bc06f2f716410375a90a2cca4b431a5b3db3262efc9a4a667c2f9d8",
         "capturedAt": "2026-08-16T08:55:00Z"
       },
       {
@@ -60,22 +60,22 @@
           "boundVariables"
         ],
         "selfReportsValidation": true,
-        "sha256": "c5389081889c50e31fd92727da705edee15d998c2be30c48a0ce459327c33130",
+        "sha256": "2bc477a36867b707a79e7eb549f43ae0096cb8aab2588a602327ae6f11ad18c4",
         "capturedAt": "2026-08-16T08:55:00Z"
       },
       {
-        "fileName": "evidence/figma-metadata-787-4538.xml",
+        "fileName": "evidence/figma-metadata-NODE-0040.xml",
         "capabilities": [
           "child width/height geometry only"
         ],
         "selfReportsValidation": false,
-        "sha256": "0875c48b83a182d478a7702cb100470a4433ffd0b5498daf04fa79be107cb3af",
+        "sha256": "2784acd479cd70618c3a2c969a44026dfee1c42a52d56c20dd181e696ca6cfb0",
         "capturedAt": "2026-08-16T08:55:00Z"
       }
     ],
     "liveFigmaAccessLog": [
       {
-        "nodeId": "NODE-0539",
+        "nodeId": "NODE-0040",
         "operation": "mcp__plugin_figma_figma__use_figma",
         "result": "success: page/root/holder identity, 5 COMPONENT_SET nodes, componentPropertyDefinitions, 216 children with variantProperties",
         "evidenceClassification": "observed",
@@ -86,11 +86,11 @@
         "figmaFileVersionIdentity": null,
         "artifactAvailable": true,
         "artifactPath": "evidence/api-capture-component-sets.json",
-        "artifactSha256": "fef66a30a2495a6d0cca9a69bc4c98b668fd800efa7e1ea4afd7ac968e2c04b5",
+        "artifactSha256": "4250a08b3ba35f6bfa83c576a0bc3763cbdf3de8bee50fabc30a7ef4aa0bc6f9",
         "rawResponsePath": "evidence/api-capture-component-sets.json"
       },
       {
-        "nodeId": "NODE-0001",
+        "nodeId": "NODE-0041",
         "operation": "mcp__plugin_figma_figma__use_figma",
         "result": "success: 94 Pill INSTANCEs with real variantProperties, owning sets, positions",
         "evidenceClassification": "observed",
@@ -101,11 +101,11 @@
         "figmaFileVersionIdentity": null,
         "artifactAvailable": true,
         "artifactPath": "evidence/api-capture-documentation-instances.json",
-        "artifactSha256": "b174f5f72c90f9129fb5459c319319ec64c8ad73abfb8360b0f1bea5215a486e",
+        "artifactSha256": "a4d71bd08bc06f2f716410375a90a2cca4b431a5b3db3262efc9a4a667c2f9d8",
         "rawResponsePath": "evidence/api-capture-documentation-instances.json"
       },
       {
-        "nodeId": "NODE-0005",
+        "nodeId": "NODE-0043",
         "operation": "mcp__plugin_figma_figma__use_figma",
         "result": "success: variable collections, mode ids/names, explicit vs inherited provenance, bound variable identities",
         "evidenceClassification": "observed",
@@ -116,11 +116,11 @@
         "figmaFileVersionIdentity": null,
         "artifactAvailable": true,
         "artifactPath": "evidence/api-capture-theme.json",
-        "artifactSha256": "516cca0af8740951b4894235c7839a0e3df12f69ef7f4e652f32cdde848b6437",
+        "artifactSha256": "0023e647abd2bc315e87ef0166a6bec676bb44a2f449084116afb25bc8258595",
         "rawResponsePath": "evidence/api-capture-theme.json"
       },
       {
-        "nodeId": "NODE-0513",
+        "nodeId": "NODE-0039",
         "operation": "mcp__plugin_figma_figma__use_figma",
         "result": "success: visibility, 24 reactions, transitions, 12 children with bindings, 0 documentation instances",
         "evidenceClassification": "observed",
@@ -131,11 +131,11 @@
         "figmaFileVersionIdentity": null,
         "artifactAvailable": true,
         "artifactPath": "evidence/api-capture-pulse-animation.json",
-        "artifactSha256": "c5389081889c50e31fd92727da705edee15d998c2be30c48a0ce459327c33130",
+        "artifactSha256": "2bc477a36867b707a79e7eb549f43ae0096cb8aab2588a602327ae6f11ad18c4",
         "rawResponsePath": "evidence/api-capture-pulse-animation.json"
       },
       {
-        "nodeId": "NODE-0539",
+        "nodeId": "NODE-0040",
         "operation": "mcp__Figma__get_metadata",
         "result": "success: descendant geometry",
         "evidenceClassification": "observed",
@@ -145,12 +145,12 @@
         "toolVersionKnown": false,
         "figmaFileVersionIdentity": null,
         "artifactAvailable": true,
-        "artifactPath": "evidence/figma-metadata-787-4538.xml",
-        "artifactSha256": "0875c48b83a182d478a7702cb100470a4433ffd0b5498daf04fa79be107cb3af",
-        "rawResponsePath": "evidence/figma-metadata-787-4538.xml"
+        "artifactPath": "evidence/figma-metadata-NODE-0040.xml",
+        "artifactSha256": "2784acd479cd70618c3a2c969a44026dfee1c42a52d56c20dd181e696ca6cfb0",
+        "rawResponsePath": "evidence/figma-metadata-NODE-0040.xml"
       },
       {
-        "nodeId": "NODE-0001",
+        "nodeId": "NODE-0041",
         "operation": "mcp__plugin_figma_figma__download_assets",
         "result": "success: PNG export persisted",
         "evidenceClassification": "observed",
@@ -160,12 +160,12 @@
         "toolVersionKnown": false,
         "figmaFileVersionIdentity": null,
         "artifactAvailable": true,
-        "artifactPath": "evidence/screenshot-1025-712-documentation-area.png",
-        "artifactSha256": "2fe0683ca2e78a40400f559c30698ea4d5bc28e7e96c71603fb897d61425376d",
-        "rawResponsePath": "evidence/screenshot-1025-712-documentation-area.png"
+        "artifactPath": "evidence/screenshot-NODE-0041-documentation-area.png",
+        "artifactSha256": "a4f8050720151ff9a245c2cb4a6f80e5350c273e7c8b1ed59f037ab6e6b7b249",
+        "rawResponsePath": "evidence/screenshot-NODE-0041-documentation-area.png"
       },
       {
-        "nodeId": "NODE-0545",
+        "nodeId": "NODE-0042",
         "operation": "mcp__plugin_figma_figma__download_assets",
         "result": "success: PNG export persisted; the hidden fifth set is absent from the render",
         "evidenceClassification": "observed",
@@ -175,12 +175,12 @@
         "toolVersionKnown": false,
         "figmaFileVersionIdentity": null,
         "artifactAvailable": true,
-        "artifactPath": "evidence/screenshot-787-4544-component-sets.png",
-        "artifactSha256": "7e73ecbdc7046626acecd76feaf63e1ddc15660e81760c1cbaefd9b89790dc90",
-        "rawResponsePath": "evidence/screenshot-787-4544-component-sets.png"
+        "artifactPath": "evidence/screenshot-NODE-0042-component-sets.png",
+        "artifactSha256": "7a985b84751fbf912aeae69613254f3fca9bb95b598908f54cd5eead1a490534",
+        "rawResponsePath": "evidence/screenshot-NODE-0042-component-sets.png"
       },
       {
-        "nodeId": "NODE-0012",
+        "nodeId": "NODE-0393",
         "operation": "mcp__Figma__get_design_context",
         "result": "not_pursued: returned a Code Connect setup prompt rather than design context",
         "evidenceClassification": "unverified",
@@ -198,16 +198,16 @@
   },
   "componentIdentity": {
     "name": "Pill",
-    "description": "A compact status/label chip on page 'Pills' (NODE-0538). Documentation block NODE-0001 holds two theme cards; build holder NODE-0545 holds five real COMPONENT_SET nodes -- four visible static-presentation treatments sharing one property schema, and one hidden set ('Pill - Pulse Animation') with a different property schema, different content-property terminology, and prototype animation wiring. Whether that fifth set belongs to Pill is an unresolved owner decision.",
+    "description": "A compact status/label chip on page 'Pills' (NODE-0045). Documentation block NODE-0041 holds two theme cards; build holder NODE-0042 holds five real COMPONENT_SET nodes -- four visible static-presentation treatments sharing one property schema, and one hidden set ('Pill - Pulse Animation') with a different property schema, different content-property terminology, and prototype animation wiring. Whether that fifth set belongs to Pill is an unresolved owner decision.",
     "evidence": {
       "classification": "observed",
       "sourceFile": "evidence/api-capture-component-sets.json",
       "confidence": "high",
       "nodeIds": [
-        "NODE-0539",
-        "NODE-0001",
-        "NODE-0545",
-        "NODE-0538"
+        "NODE-0040",
+        "NODE-0041",
+        "NODE-0042",
+        "NODE-0045"
       ]
     }
   },
@@ -216,20 +216,20 @@
       "familyId": "PFAM-1",
       "displayName": "Pill - Static Presentation",
       "componentSetIds": [
-        "NODE-0317",
-        "NODE-0366",
-        "NODE-0415",
-        "NODE-0464"
+        "NODE-0035",
+        "NODE-0036",
+        "NODE-0037",
+        "NODE-0038"
       ],
       "evidence": {
         "classification": "computed",
         "sourceFile": "evidence/api-capture-component-sets.json",
         "confidence": "high",
         "nodeIds": [
-          "NODE-0317",
-          "NODE-0366",
-          "NODE-0415",
-          "NODE-0464"
+          "NODE-0035",
+          "NODE-0036",
+          "NODE-0037",
+          "NODE-0038"
         ],
         "note": "All four declare an identical five-property schema (Pill Value TEXT, Pill Symbol INSTANCE_SWAP, Accent/Size/Icon VARIANT) with identical option sets and identical defaults, confirmed from componentPropertyDefinitions."
       }
@@ -238,14 +238,14 @@
       "familyId": "PFAM-2",
       "displayName": "Pill - Pulse Animation",
       "componentSetIds": [
-        "NODE-0513"
+        "NODE-0039"
       ],
       "evidence": {
         "classification": "computed",
         "sourceFile": "evidence/api-capture-component-sets.json",
         "confidence": "high",
         "nodeIds": [
-          "NODE-0513"
+          "NODE-0039"
         ],
         "note": "Disjoint axis schema, different content-property names (Badge Value / Trend Symbol), and 24 prototype reactions absent from PFAM-1. Grouping is structural only; taxonomy is an owner decision."
       }
@@ -253,8 +253,8 @@
   ],
   "componentSets": [
     {
-      "id": "NODE-0317",
-      "buildFrameId": "NODE-0545",
+      "id": "NODE-0035",
+      "buildFrameId": "NODE-0042",
       "name": "Pill – Highline",
       "familyId": "PFAM-1",
       "schemaVariantId": "PSV-1",
@@ -263,9 +263,9 @@
         "sourceFile": "evidence/api-capture-component-sets.json",
         "confidence": "high",
         "nodeIds": [
-          "NODE-0317"
+          "NODE-0035"
         ],
-        "note": "Plugin API: type=COMPONENT_SET, visible=True, key=KEY-0015, 48 COMPONENT children."
+        "note": "Plugin API: type=COMPONENT_SET, visible=True, key=KEY-0005, 48 COMPONENT children."
       },
       "treatment": {
         "kind": "set_identity",
@@ -273,22 +273,22 @@
       },
       "nonVariantPropertyCoverage": [
         {
-          "propertyKey": "Pill Value#NODE-0301",
+          "propertyKey": "Pill Value#NODE-0124",
           "role": "content_text",
           "declaredDefault": "Label",
           "overrideEvidenceStatus": "not_enumerated"
         },
         {
-          "propertyKey": "Pill Symbol#NODE-0295",
+          "propertyKey": "Pill Symbol#NODE-0125",
           "role": "content_instance_swap",
-          "declaredDefault": "NODE-0315",
+          "declaredDefault": "NODE-0126",
           "overrideEvidenceStatus": "not_enumerated"
         }
       ]
     },
     {
-      "id": "NODE-0366",
-      "buildFrameId": "NODE-0545",
+      "id": "NODE-0036",
+      "buildFrameId": "NODE-0042",
       "name": "Pill – Highlighted",
       "familyId": "PFAM-1",
       "schemaVariantId": "PSV-1",
@@ -297,9 +297,9 @@
         "sourceFile": "evidence/api-capture-component-sets.json",
         "confidence": "high",
         "nodeIds": [
-          "NODE-0366"
+          "NODE-0036"
         ],
-        "note": "Plugin API: type=COMPONENT_SET, visible=True, key=KEY-0017, 48 COMPONENT children."
+        "note": "Plugin API: type=COMPONENT_SET, visible=True, key=KEY-0007, 48 COMPONENT children."
       },
       "treatment": {
         "kind": "set_identity",
@@ -307,22 +307,22 @@
       },
       "nonVariantPropertyCoverage": [
         {
-          "propertyKey": "Pill Value#NODE-0301",
+          "propertyKey": "Pill Value#NODE-0124",
           "role": "content_text",
           "declaredDefault": "Label",
           "overrideEvidenceStatus": "not_enumerated"
         },
         {
-          "propertyKey": "Pill Symbol#NODE-0295",
+          "propertyKey": "Pill Symbol#NODE-0125",
           "role": "content_instance_swap",
-          "declaredDefault": "NODE-0315",
+          "declaredDefault": "NODE-0126",
           "overrideEvidenceStatus": "not_enumerated"
         }
       ]
     },
     {
-      "id": "NODE-0415",
-      "buildFrameId": "NODE-0545",
+      "id": "NODE-0037",
+      "buildFrameId": "NODE-0042",
       "name": "Pill – Filled",
       "familyId": "PFAM-1",
       "schemaVariantId": "PSV-1",
@@ -331,9 +331,9 @@
         "sourceFile": "evidence/api-capture-component-sets.json",
         "confidence": "high",
         "nodeIds": [
-          "NODE-0415"
+          "NODE-0037"
         ],
-        "note": "Plugin API: type=COMPONENT_SET, visible=True, key=KEY-0016, 48 COMPONENT children."
+        "note": "Plugin API: type=COMPONENT_SET, visible=True, key=KEY-0008, 48 COMPONENT children."
       },
       "treatment": {
         "kind": "set_identity",
@@ -341,22 +341,22 @@
       },
       "nonVariantPropertyCoverage": [
         {
-          "propertyKey": "Pill Value#NODE-0301",
+          "propertyKey": "Pill Value#NODE-0124",
           "role": "content_text",
           "declaredDefault": "Label",
           "overrideEvidenceStatus": "not_enumerated"
         },
         {
-          "propertyKey": "Pill Symbol#NODE-0295",
+          "propertyKey": "Pill Symbol#NODE-0125",
           "role": "content_instance_swap",
-          "declaredDefault": "NODE-0315",
+          "declaredDefault": "NODE-0126",
           "overrideEvidenceStatus": "not_enumerated"
         }
       ]
     },
     {
-      "id": "NODE-0464",
-      "buildFrameId": "NODE-0545",
+      "id": "NODE-0038",
+      "buildFrameId": "NODE-0042",
       "name": "Pill – Text",
       "familyId": "PFAM-1",
       "schemaVariantId": "PSV-1",
@@ -365,9 +365,9 @@
         "sourceFile": "evidence/api-capture-component-sets.json",
         "confidence": "high",
         "nodeIds": [
-          "NODE-0464"
+          "NODE-0038"
         ],
-        "note": "Plugin API: type=COMPONENT_SET, visible=True, key=KEY-0013, 48 COMPONENT children."
+        "note": "Plugin API: type=COMPONENT_SET, visible=True, key=KEY-0009, 48 COMPONENT children."
       },
       "treatment": {
         "kind": "set_identity",
@@ -375,22 +375,22 @@
       },
       "nonVariantPropertyCoverage": [
         {
-          "propertyKey": "Pill Value#NODE-0301",
+          "propertyKey": "Pill Value#NODE-0124",
           "role": "content_text",
           "declaredDefault": "Label",
           "overrideEvidenceStatus": "not_enumerated"
         },
         {
-          "propertyKey": "Pill Symbol#NODE-0295",
+          "propertyKey": "Pill Symbol#NODE-0125",
           "role": "content_instance_swap",
-          "declaredDefault": "NODE-0315",
+          "declaredDefault": "NODE-0126",
           "overrideEvidenceStatus": "not_enumerated"
         }
       ]
     },
     {
-      "id": "NODE-0513",
-      "buildFrameId": "NODE-0545",
+      "id": "NODE-0039",
+      "buildFrameId": "NODE-0042",
       "name": "Pill – Pulse Animation",
       "familyId": "PFAM-2",
       "schemaVariantId": "PSV-2",
@@ -399,9 +399,9 @@
         "sourceFile": "evidence/api-capture-component-sets.json",
         "confidence": "high",
         "nodeIds": [
-          "NODE-0513"
+          "NODE-0039"
         ],
-        "note": "Plugin API: type=COMPONENT_SET, visible=False, key=KEY-0005, 24 COMPONENT children."
+        "note": "Plugin API: type=COMPONENT_SET, visible=False, key=KEY-0010, 24 COMPONENT children."
       },
       "treatment": {
         "kind": "set_identity",
@@ -409,15 +409,15 @@
       },
       "nonVariantPropertyCoverage": [
         {
-          "propertyKey": "Badge Value#NODE-0301",
+          "propertyKey": "Badge Value#NODE-0124",
           "role": "content_text",
           "declaredDefault": "-3.2%",
           "overrideEvidenceStatus": "not_enumerated"
         },
         {
-          "propertyKey": "Trend Symbol#NODE-0294",
+          "propertyKey": "Trend Symbol#NODE-0319",
           "role": "content_instance_swap",
-          "declaredDefault": "NODE-0316",
+          "declaredDefault": "NODE-0320",
           "overrideEvidenceStatus": "not_enumerated"
         }
       ]
@@ -427,28 +427,28 @@
     {
       "variantId": "PSV-1",
       "appliesToComponentSetIds": [
-        "NODE-0317",
-        "NODE-0366",
-        "NODE-0415",
-        "NODE-0464"
+        "NODE-0035",
+        "NODE-0036",
+        "NODE-0037",
+        "NODE-0038"
       ],
       "properties": [
         {
-          "propertyKey": "Pill Value#NODE-0301",
+          "propertyKey": "Pill Value#NODE-0124",
           "type": "TEXT",
           "evidenceLevel": "component_children_enumerated",
           "defaultValue": "Label",
           "role": "content_text"
         },
         {
-          "propertyKey": "Pill Symbol#NODE-0295",
+          "propertyKey": "Pill Symbol#NODE-0125",
           "type": "INSTANCE_SWAP",
           "evidenceLevel": "component_children_enumerated",
-          "defaultValue": "NODE-0315",
+          "defaultValue": "NODE-0126",
           "preferredValues": [
             {
               "type": "COMPONENT",
-              "key": "KEY-0011"
+              "key": "KEY-0006"
             }
           ],
           "role": "content_instance_swap"
@@ -497,36 +497,36 @@
         "sourceFile": "evidence/api-capture-component-sets.json",
         "confidence": "high",
         "nodeIds": [
-          "NODE-0317",
-          "NODE-0366",
-          "NODE-0415",
-          "NODE-0464"
+          "NODE-0035",
+          "NODE-0036",
+          "NODE-0037",
+          "NODE-0038"
         ],
-        "note": "Read from COMPONENT_SET.componentPropertyDefinitions on NODE-0317 and confirmed byte-identical on NODE-0366, NODE-0415, NODE-0464. Includes the two non-VARIANT properties the v0.3.1 contract had no evidence for in R-1."
+        "note": "Read from COMPONENT_SET.componentPropertyDefinitions on NODE-0035 and confirmed byte-identical on NODE-0036, NODE-0037, NODE-0038. Includes the two non-VARIANT properties the v0.3.1 contract had no evidence for in R-1."
       }
     },
     {
       "variantId": "PSV-2",
       "appliesToComponentSetIds": [
-        "NODE-0513"
+        "NODE-0039"
       ],
       "properties": [
         {
-          "propertyKey": "Badge Value#NODE-0301",
+          "propertyKey": "Badge Value#NODE-0124",
           "type": "TEXT",
           "evidenceLevel": "component_children_enumerated",
           "defaultValue": "-3.2%",
           "role": "content_text"
         },
         {
-          "propertyKey": "Trend Symbol#NODE-0294",
+          "propertyKey": "Trend Symbol#NODE-0319",
           "type": "INSTANCE_SWAP",
           "evidenceLevel": "component_children_enumerated",
-          "defaultValue": "NODE-0316",
+          "defaultValue": "NODE-0320",
           "preferredValues": [
             {
               "type": "COMPONENT",
-              "key": "KEY-0001"
+              "key": "KEY-0011"
             }
           ],
           "role": "content_instance_swap"
@@ -582,9 +582,9 @@
         "sourceFile": "evidence/api-capture-component-sets.json",
         "confidence": "high",
         "nodeIds": [
-          "NODE-0513"
+          "NODE-0039"
         ],
-        "note": "Read from COMPONENT_SET.componentPropertyDefinitions on NODE-0513. Axis key 'Type' carries PSV-1's 'Accent' semantics with a restricted {Warning, Error} domain; 'Size' has a different domain; content properties are renamed."
+        "note": "Read from COMPONENT_SET.componentPropertyDefinitions on NODE-0039. Axis key 'Type' carries PSV-1's 'Accent' semantics with a restricted {Warning, Error} domain; 'Size' has a different domain; content properties are renamed."
       }
     }
   ],
@@ -598,11 +598,11 @@
       "relationship": "editorial_mapping",
       "evidence": {
         "classification": "observed",
-        "sourceFile": "evidence/figma-metadata-787-4538.xml",
+        "sourceFile": "evidence/figma-metadata-NODE-0040.xml",
         "confidence": "high",
         "nodeIds": [
-          "NODE-0009",
-          "NODE-0073"
+          "NODE-0390",
+          "NODE-0479"
         ],
         "note": "Pixel annotations are Filled-scoped: all four size_row specimens are Pill - Filled instances (API-confirmed), and Pill - Text's Size=Regular child is 20px tall. No set/variant scoping field exists -- see PB-5."
       }
@@ -616,11 +616,11 @@
       "relationship": "editorial_mapping",
       "evidence": {
         "classification": "observed",
-        "sourceFile": "evidence/figma-metadata-787-4538.xml",
+        "sourceFile": "evidence/figma-metadata-NODE-0040.xml",
         "confidence": "high",
         "nodeIds": [
-          "NODE-0009",
-          "NODE-0073"
+          "NODE-0390",
+          "NODE-0479"
         ],
         "note": "Pixel annotations are Filled-scoped: all four size_row specimens are Pill - Filled instances (API-confirmed), and Pill - Text's Size=Regular child is 20px tall. No set/variant scoping field exists -- see PB-5."
       }
@@ -634,11 +634,11 @@
       "relationship": "editorial_mapping",
       "evidence": {
         "classification": "observed",
-        "sourceFile": "evidence/figma-metadata-787-4538.xml",
+        "sourceFile": "evidence/figma-metadata-NODE-0040.xml",
         "confidence": "high",
         "nodeIds": [
-          "NODE-0009",
-          "NODE-0073"
+          "NODE-0390",
+          "NODE-0479"
         ],
         "note": "Pixel annotations are Filled-scoped: all four size_row specimens are Pill - Filled instances (API-confirmed), and Pill - Text's Size=Regular child is 20px tall. No set/variant scoping field exists -- see PB-5."
       }
@@ -652,11 +652,11 @@
       "relationship": "editorial_mapping",
       "evidence": {
         "classification": "observed",
-        "sourceFile": "evidence/figma-metadata-787-4538.xml",
+        "sourceFile": "evidence/figma-metadata-NODE-0040.xml",
         "confidence": "high",
         "nodeIds": [
-          "NODE-0009",
-          "NODE-0073"
+          "NODE-0390",
+          "NODE-0479"
         ],
         "note": "Pixel annotations are Filled-scoped: all four size_row specimens are Pill - Filled instances (API-confirmed), and Pill - Text's Size=Regular child is 20px tall. No set/variant scoping field exists -- see PB-5."
       }
@@ -673,8 +673,8 @@
         "sourceFile": "evidence/api-capture-component-sets.json",
         "confidence": "high",
         "nodeIds": [
-          "NODE-0057",
-          "NODE-0121"
+          "NODE-0426",
+          "NODE-0515"
         ],
         "note": "Editorial phrasing, not a typo. API confirms canonical Icon options are exactly {Leading, None, Trailing}."
       }
@@ -691,8 +691,8 @@
         "sourceFile": "evidence/api-capture-component-sets.json",
         "confidence": "high",
         "nodeIds": [
-          "NODE-0057",
-          "NODE-0121"
+          "NODE-0426",
+          "NODE-0515"
         ],
         "note": "Editorial phrasing, not a typo. API confirms canonical Icon options are exactly {Leading, None, Trailing}."
       }
@@ -709,8 +709,8 @@
         "sourceFile": "evidence/api-capture-component-sets.json",
         "confidence": "high",
         "nodeIds": [
-          "NODE-0057",
-          "NODE-0121"
+          "NODE-0426",
+          "NODE-0515"
         ],
         "note": "Editorial phrasing, not a typo. API confirms canonical Icon options are exactly {Leading, None, Trailing}."
       }
@@ -728,8 +728,8 @@
         "sourceFile": "evidence/api-capture-documentation-instances.json",
         "confidence": "high",
         "nodeIds": [
-          "NODE-0041",
-          "NODE-0133"
+          "NODE-0414",
+          "NODE-0047"
         ]
       }
     },
@@ -746,8 +746,8 @@
         "sourceFile": "evidence/api-capture-documentation-instances.json",
         "confidence": "high",
         "nodeIds": [
-          "NODE-0041",
-          "NODE-0133"
+          "NODE-0414",
+          "NODE-0047"
         ]
       }
     },
@@ -764,8 +764,8 @@
         "sourceFile": "evidence/api-capture-documentation-instances.json",
         "confidence": "high",
         "nodeIds": [
-          "NODE-0041",
-          "NODE-0133"
+          "NODE-0414",
+          "NODE-0047"
         ]
       }
     },
@@ -782,8 +782,8 @@
         "sourceFile": "evidence/api-capture-documentation-instances.json",
         "confidence": "high",
         "nodeIds": [
-          "NODE-0041",
-          "NODE-0133"
+          "NODE-0414",
+          "NODE-0047"
         ]
       }
     },
@@ -799,8 +799,8 @@
         "sourceFile": "evidence/api-capture-component-sets.json",
         "confidence": "high",
         "nodeIds": [
-          "NODE-0025",
-          "NODE-0513"
+          "NODE-0402",
+          "NODE-0039"
         ],
         "note": "'Style' is a declared VARIANT axis only in PSV-2, whose API option set is exactly {Highline, Filled}. The documentation Style row shows four labels; Highlighted and Text are COMPONENT_SET identities with no axis value anywhere, so they are recorded as representativeExamples, not fabricated into this map."
       }
@@ -817,8 +817,8 @@
         "sourceFile": "evidence/api-capture-component-sets.json",
         "confidence": "high",
         "nodeIds": [
-          "NODE-0025",
-          "NODE-0513"
+          "NODE-0402",
+          "NODE-0039"
         ],
         "note": "'Style' is a declared VARIANT axis only in PSV-2, whose API option set is exactly {Highline, Filled}. The documentation Style row shows four labels; Highlighted and Text are COMPONENT_SET identities with no axis value anywhere, so they are recorded as representativeExamples, not fabricated into this map."
       }
@@ -1327,10 +1327,10 @@
         "sourceFile": "evidence/api-capture-component-sets.json",
         "confidence": "high",
         "nodeIds": [
-          "NODE-0317",
-          "NODE-0366",
-          "NODE-0415",
-          "NODE-0464"
+          "NODE-0035",
+          "NODE-0036",
+          "NODE-0037",
+          "NODE-0038"
         ],
         "note": "NOT a correlation. The Plugin API reports 48 COMPONENT children per set, 48 distinct combinations, 0 duplicates, 0 missing, 0 extra against the declared 4x4x3 -- verified independently for all four sets. Axes are empirically INDEPENDENT for PSV-1. approvalBasis stays 'unresolved'; nothing is approved."
       }
@@ -1646,7 +1646,7 @@
         "sourceFile": "evidence/api-capture-component-sets.json",
         "confidence": "high",
         "nodeIds": [
-          "NODE-0513"
+          "NODE-0039"
         ],
         "note": "24 children, 24 distinct combinations, 0 duplicates/missing/extra against 2x2x3x2. Axes empirically independent."
       }
@@ -1656,37 +1656,37 @@
   "themeModel": {
     "collections": [
       {
-        "collectionId": "VC-0002",
-        "collectionKey": "KEY-0008",
+        "collectionId": "VC-0001",
+        "collectionKey": "KEY-0013",
         "collectionName": "colors",
         "remote": true,
-        "defaultModeId": "NODE-0299",
+        "defaultModeId": "NODE-0027",
         "variableCount": 105,
         "themeVarying": true,
         "modes": [
           {
-            "modeId": "NODE-0299",
+            "modeId": "NODE-0027",
             "modeName": "Dark",
             "isDefault": true
           },
           {
-            "modeId": "NODE-0558",
+            "modeId": "NODE-0028",
             "modeName": "Light",
             "isDefault": false
           }
         ]
       },
       {
-        "collectionId": "VC-0001",
-        "collectionKey": "KEY-0002",
+        "collectionId": "VC-0002",
+        "collectionKey": "KEY-0014",
         "collectionName": "layout-scale",
         "remote": true,
-        "defaultModeId": "6:1",
+        "defaultModeId": "NODE-0378",
         "variableCount": 15,
         "themeVarying": false,
         "modes": [
           {
-            "modeId": "6:1",
+            "modeId": "NODE-0378",
             "modeName": "Default",
             "isDefault": true
           }
@@ -1695,33 +1695,33 @@
     ],
     "containers": [
       {
-        "containerNodeId": "NODE-0005",
+        "containerNodeId": "NODE-0043",
         "containerNodeName": "card",
-        "labelSourceNodeId": "NODE-0007",
+        "labelSourceNodeId": "NODE-0379",
         "labelText": "Dark Mode",
         "modeBindings": [
           {
-            "collectionId": "VC-0002",
-            "resolvedModeId": "NODE-0299",
+            "collectionId": "VC-0001",
+            "resolvedModeId": "NODE-0027",
             "resolvedModeName": "Dark",
             "provenanceStatus": "verified",
             "provenance": "inherited_default",
             "provenanceEvidenceNodeIds": [
-              "NODE-0005",
-              "NODE-0004",
-              "NODE-0001",
-              "NODE-0539",
-              "NODE-0538"
+              "NODE-0043",
+              "NODE-0380",
+              "NODE-0041",
+              "NODE-0040",
+              "NODE-0045"
             ]
           },
           {
-            "collectionId": "VC-0001",
-            "resolvedModeId": "6:1",
+            "collectionId": "VC-0002",
+            "resolvedModeId": "NODE-0378",
             "resolvedModeName": "Default",
             "provenanceStatus": "verified",
             "provenance": "inherited_default",
             "provenanceEvidenceNodeIds": [
-              "NODE-0005"
+              "NODE-0043"
             ]
           }
         ],
@@ -1730,40 +1730,40 @@
           "sourceFile": "evidence/api-capture-theme.json",
           "confidence": "high",
           "nodeIds": [
-            "NODE-0005",
-            "NODE-0007"
+            "NODE-0043",
+            "NODE-0379"
           ],
-          "note": "explicitVariableModes is empty on this node AND on every ancestor up to and including PAGE NODE-0538. NODE-0299 is the colors collection defaultModeId, so the Dark resolution is a pure default-inheritance, not a declared choice."
+          "note": "explicitVariableModes is empty on this node AND on every ancestor up to and including PAGE NODE-0045. NODE-0027 is the colors collection defaultModeId, so the Dark resolution is a pure default-inheritance, not a declared choice."
         }
       },
       {
-        "containerNodeId": "NODE-0069",
+        "containerNodeId": "NODE-0044",
         "containerNodeName": "card",
-        "labelSourceNodeId": "NODE-0071",
+        "labelSourceNodeId": "NODE-0381",
         "labelText": "Light Mode",
         "modeBindings": [
           {
-            "collectionId": "VC-0002",
-            "resolvedModeId": "NODE-0558",
+            "collectionId": "VC-0001",
+            "resolvedModeId": "NODE-0028",
             "resolvedModeName": "Light",
             "provenanceStatus": "verified",
             "provenance": "explicit",
             "provenanceEvidenceNodeIds": [
-              "NODE-0069",
-              "NODE-0004",
-              "NODE-0001",
-              "NODE-0539",
-              "NODE-0538"
+              "NODE-0044",
+              "NODE-0380",
+              "NODE-0041",
+              "NODE-0040",
+              "NODE-0045"
             ]
           },
           {
-            "collectionId": "VC-0001",
-            "resolvedModeId": "6:1",
+            "collectionId": "VC-0002",
+            "resolvedModeId": "NODE-0378",
             "resolvedModeName": "Default",
             "provenanceStatus": "verified",
             "provenance": "inherited_default",
             "provenanceEvidenceNodeIds": [
-              "NODE-0069"
+              "NODE-0044"
             ]
           }
         ],
@@ -1772,73 +1772,73 @@
           "sourceFile": "evidence/api-capture-theme.json",
           "confidence": "high",
           "nodeIds": [
-            "NODE-0069",
-            "NODE-0071"
+            "NODE-0044",
+            "NODE-0381"
           ],
-          "note": "explicitVariableModes on this node declares the colors collection -> mode NODE-0558 (Light). No ancestor sets it."
+          "note": "explicitVariableModes on this node declares the colors collection -> mode NODE-0028 (Light). No ancestor sets it."
         }
       }
     ],
     "variablesUsedByDescendants": [
       {
-        "variableId": "VAR-0002",
-        "variableKey": "KEY-0006",
+        "variableId": "VAR-0003",
+        "variableKey": "KEY-0015",
         "variableName": "System/Expressions/success",
         "resolvedType": "COLOR",
-        "collectionId": "VC-0002",
+        "collectionId": "VC-0001",
         "valuesByMode": {
-          "NODE-0299": "#43DB70",
-          "NODE-0558": "#17CF60"
+          "NODE-0027": "#43DB70",
+          "NODE-0028": "#17CF60"
         },
         "sampledOnNodeIds": [
-          "NODE-0178",
-          "NODE-0258"
-        ],
-        "exhaustive": false
-      },
-      {
-        "variableId": "VAR-0001",
-        "variableKey": "KEY-0003",
-        "variableName": "System/Expressions/on_success",
-        "resolvedType": "COLOR",
-        "collectionId": "VC-0002",
-        "valuesByMode": {
-          "NODE-0299": "#01180D",
-          "NODE-0558": "#FFFFFF"
-        },
-        "sampledOnNodeIds": [
-          "NODE-0178",
-          "NODE-0258"
+          "NODE-0070",
+          "NODE-0106"
         ],
         "exhaustive": false
       },
       {
         "variableId": "VAR-0004",
-        "variableKey": "KEY-0014",
-        "variableName": "4-scale/xs",
-        "resolvedType": "FLOAT",
+        "variableKey": "KEY-0016",
+        "variableName": "System/Expressions/on_success",
+        "resolvedType": "COLOR",
         "collectionId": "VC-0001",
         "valuesByMode": {
-          "6:1": 12
+          "NODE-0027": "#01180D",
+          "NODE-0028": "#FFFFFF"
         },
         "sampledOnNodeIds": [
-          "NODE-0178",
-          "NODE-0258"
+          "NODE-0070",
+          "NODE-0106"
         ],
         "exhaustive": false
       },
       {
-        "variableId": "VAR-0003",
-        "variableKey": "KEY-0010",
-        "variableName": "aux/xs",
+        "variableId": "VAR-0005",
+        "variableKey": "KEY-0017",
+        "variableName": "4-scale/xs",
         "resolvedType": "FLOAT",
-        "collectionId": "VC-0001",
+        "collectionId": "VC-0002",
         "valuesByMode": {
-          "6:1": 6
+          "NODE-0378": 12
         },
         "sampledOnNodeIds": [
-          "NODE-0178",
-          "NODE-0258"
+          "NODE-0070",
+          "NODE-0106"
+        ],
+        "exhaustive": false
+      },
+      {
+        "variableId": "VAR-0006",
+        "variableKey": "KEY-0018",
+        "variableName": "aux/xs",
+        "resolvedType": "FLOAT",
+        "collectionId": "VC-0002",
+        "valuesByMode": {
+          "NODE-0378": 6
+        },
+        "sampledOnNodeIds": [
+          "NODE-0070",
+          "NODE-0106"
         ],
         "exhaustive": false
       }
@@ -1864,7 +1864,7 @@
         "sourceFile": "evidence/api-capture-documentation-instances.json",
         "confidence": "high",
         "nodeIds": [
-          "NODE-0009"
+          "NODE-0390"
         ],
         "note": "All four specimens are Pill - Filled, Accent=Success, Icon=None (API-confirmed)."
       }
@@ -1883,7 +1883,7 @@
         "sourceFile": "evidence/api-capture-documentation-instances.json",
         "confidence": "high",
         "nodeIds": [
-          "NODE-0025"
+          "NODE-0402"
         ],
         "note": "One instance per treatment, all Accent=Success, Size=Regular, Icon=None. Only the owning set differs."
       }
@@ -1902,7 +1902,7 @@
         "sourceFile": "evidence/api-capture-documentation-instances.json",
         "confidence": "high",
         "nodeIds": [
-          "NODE-0041"
+          "NODE-0414"
         ],
         "note": "All Pill - Filled, Size=Regular, Icon=None."
       }
@@ -1920,7 +1920,7 @@
         "sourceFile": "evidence/api-capture-documentation-instances.json",
         "confidence": "high",
         "nodeIds": [
-          "NODE-0057"
+          "NODE-0426"
         ],
         "note": "All Pill - Filled, Accent=Success, Size=Regular."
       }
@@ -1945,7 +1945,7 @@
         "sourceFile": "evidence/allocation-evidence-MA-1.json",
         "confidence": "high",
         "nodeIds": [
-          "NODE-0133"
+          "NODE-0047"
         ],
         "note": "32 instances per card: 4 set-identity rows x 4 Accent columns x 2 Size bands, Icon=None across all 64."
       }
@@ -1964,7 +1964,7 @@
         "sourceFile": "evidence/api-capture-documentation-instances.json",
         "confidence": "high",
         "nodeIds": [
-          "NODE-0073"
+          "NODE-0479"
         ],
         "note": "All four specimens are Pill - Filled, Accent=Success, Icon=None (API-confirmed)."
       }
@@ -1983,7 +1983,7 @@
         "sourceFile": "evidence/api-capture-documentation-instances.json",
         "confidence": "high",
         "nodeIds": [
-          "NODE-0089"
+          "NODE-0491"
         ],
         "note": "One instance per treatment, all Accent=Success, Size=Regular, Icon=None. Only the owning set differs."
       }
@@ -2002,7 +2002,7 @@
         "sourceFile": "evidence/api-capture-documentation-instances.json",
         "confidence": "high",
         "nodeIds": [
-          "NODE-0105"
+          "NODE-0503"
         ],
         "note": "All Pill - Filled, Size=Regular, Icon=None."
       }
@@ -2020,7 +2020,7 @@
         "sourceFile": "evidence/api-capture-documentation-instances.json",
         "confidence": "high",
         "nodeIds": [
-          "NODE-0121"
+          "NODE-0515"
         ],
         "note": "All Pill - Filled, Accent=Success, Size=Regular."
       }
@@ -2045,7 +2045,7 @@
         "sourceFile": "evidence/allocation-evidence-MA-1.json",
         "confidence": "high",
         "nodeIds": [
-          "NODE-0213"
+          "NODE-0051"
         ],
         "note": "32 instances per card: 4 set-identity rows x 4 Accent columns x 2 Size bands, Icon=None across all 64."
       }
@@ -2059,14 +2059,14 @@
     ],
     "perComponentSetCoverage": [
       {
-        "componentSetId": "NODE-0317",
+        "componentSetId": "NODE-0035",
         "coverageMetrics": [
           {
             "kind": "classified",
             "metric": "instance_placements",
             "value": 18,
             "evidenceNodeIds": [
-              "NODE-0001"
+              "NODE-0041"
             ]
           },
           {
@@ -2074,7 +2074,7 @@
             "metric": "unique_variant_combinations",
             "value": 8,
             "evidenceNodeIds": [
-              "NODE-0001"
+              "NODE-0041"
             ]
           },
           {
@@ -2336,8 +2336,8 @@
               "Icon": "Trailing"
             }
           ],
-          "artifactPath": "evidence/enumeration-787-14141.json",
-          "artifactSha256": "6931f12bbbb7178c3802bc1ccaf18c19d834fbb87c3619302da3e4770117818a",
+          "artifactPath": "evidence/enumeration-NODE-0035.json",
+          "artifactSha256": "0365e5ec3fcc3c6e9ab6573e9992b696a7053631a95cccbaa059944d08ec2baa",
           "enumeratedCount": 48,
           "method": {
             "class": "plugin_api_variant_properties",
@@ -2350,24 +2350,24 @@
             "inferredFields": [],
             "rawCaptureRef": {
               "artifactPath": "evidence/api-capture-component-sets.json",
-              "artifactSha256": "fef66a30a2495a6d0cca9a69bc4c98b668fd800efa7e1ea4afd7ac968e2c04b5"
+              "artifactSha256": "4250a08b3ba35f6bfa83c576a0bc3763cbdf3de8bee50fabc30a7ef4aa0bc6f9"
             },
             "normalizedArtifactRef": {
-              "artifactPath": "evidence/enumeration-787-14141.json",
-              "artifactSha256": "6931f12bbbb7178c3802bc1ccaf18c19d834fbb87c3619302da3e4770117818a"
+              "artifactPath": "evidence/enumeration-NODE-0035.json",
+              "artifactSha256": "0365e5ec3fcc3c6e9ab6573e9992b696a7053631a95cccbaa059944d08ec2baa"
             }
           }
         }
       },
       {
-        "componentSetId": "NODE-0366",
+        "componentSetId": "NODE-0036",
         "coverageMetrics": [
           {
             "kind": "classified",
             "metric": "instance_placements",
             "value": 18,
             "evidenceNodeIds": [
-              "NODE-0001"
+              "NODE-0041"
             ]
           },
           {
@@ -2375,7 +2375,7 @@
             "metric": "unique_variant_combinations",
             "value": 8,
             "evidenceNodeIds": [
-              "NODE-0001"
+              "NODE-0041"
             ]
           },
           {
@@ -2637,8 +2637,8 @@
               "Icon": "Trailing"
             }
           ],
-          "artifactPath": "evidence/enumeration-787-14271.json",
-          "artifactSha256": "1fc02bbd89e5cb88724c1f5503cf8e7c320a540c85afb3a80bfcd0f40f494bda",
+          "artifactPath": "evidence/enumeration-NODE-0036.json",
+          "artifactSha256": "afc937250d4f16b436f7eae85b0d3cbe04af5c4e1c2d0ce474372f7a18e8795a",
           "enumeratedCount": 48,
           "method": {
             "class": "plugin_api_variant_properties",
@@ -2651,24 +2651,24 @@
             "inferredFields": [],
             "rawCaptureRef": {
               "artifactPath": "evidence/api-capture-component-sets.json",
-              "artifactSha256": "fef66a30a2495a6d0cca9a69bc4c98b668fd800efa7e1ea4afd7ac968e2c04b5"
+              "artifactSha256": "4250a08b3ba35f6bfa83c576a0bc3763cbdf3de8bee50fabc30a7ef4aa0bc6f9"
             },
             "normalizedArtifactRef": {
-              "artifactPath": "evidence/enumeration-787-14271.json",
-              "artifactSha256": "1fc02bbd89e5cb88724c1f5503cf8e7c320a540c85afb3a80bfcd0f40f494bda"
+              "artifactPath": "evidence/enumeration-NODE-0036.json",
+              "artifactSha256": "afc937250d4f16b436f7eae85b0d3cbe04af5c4e1c2d0ce474372f7a18e8795a"
             }
           }
         }
       },
       {
-        "componentSetId": "NODE-0415",
+        "componentSetId": "NODE-0037",
         "coverageMetrics": [
           {
             "kind": "classified",
             "metric": "instance_placements",
             "value": 40,
             "evidenceNodeIds": [
-              "NODE-0001"
+              "NODE-0041"
             ]
           },
           {
@@ -2676,7 +2676,7 @@
             "metric": "unique_variant_combinations",
             "value": 12,
             "evidenceNodeIds": [
-              "NODE-0001"
+              "NODE-0041"
             ]
           },
           {
@@ -2938,8 +2938,8 @@
               "Icon": "Trailing"
             }
           ],
-          "artifactPath": "evidence/enumeration-787-14401.json",
-          "artifactSha256": "a5ea89641381007d4fda374b80cb92cd3c201a9141a7a55e1a192b20dbccc8eb",
+          "artifactPath": "evidence/enumeration-NODE-0037.json",
+          "artifactSha256": "770a581da4343d92e36b9aa5c5d1c980038313a8cf4327d589857a75a92ed1e5",
           "enumeratedCount": 48,
           "method": {
             "class": "plugin_api_variant_properties",
@@ -2952,24 +2952,24 @@
             "inferredFields": [],
             "rawCaptureRef": {
               "artifactPath": "evidence/api-capture-component-sets.json",
-              "artifactSha256": "fef66a30a2495a6d0cca9a69bc4c98b668fd800efa7e1ea4afd7ac968e2c04b5"
+              "artifactSha256": "4250a08b3ba35f6bfa83c576a0bc3763cbdf3de8bee50fabc30a7ef4aa0bc6f9"
             },
             "normalizedArtifactRef": {
-              "artifactPath": "evidence/enumeration-787-14401.json",
-              "artifactSha256": "a5ea89641381007d4fda374b80cb92cd3c201a9141a7a55e1a192b20dbccc8eb"
+              "artifactPath": "evidence/enumeration-NODE-0037.json",
+              "artifactSha256": "770a581da4343d92e36b9aa5c5d1c980038313a8cf4327d589857a75a92ed1e5"
             }
           }
         }
       },
       {
-        "componentSetId": "NODE-0464",
+        "componentSetId": "NODE-0038",
         "coverageMetrics": [
           {
             "kind": "classified",
             "metric": "instance_placements",
             "value": 18,
             "evidenceNodeIds": [
-              "NODE-0001"
+              "NODE-0041"
             ]
           },
           {
@@ -2977,7 +2977,7 @@
             "metric": "unique_variant_combinations",
             "value": 8,
             "evidenceNodeIds": [
-              "NODE-0001"
+              "NODE-0041"
             ]
           },
           {
@@ -3239,8 +3239,8 @@
               "Icon": "Trailing"
             }
           ],
-          "artifactPath": "evidence/enumeration-787-14531.json",
-          "artifactSha256": "65eb35f5fb57f84f5762e10576189d45ac4d4ac3e74835b211d8eccb823d13f1",
+          "artifactPath": "evidence/enumeration-NODE-0038.json",
+          "artifactSha256": "a5624c385aeac07f1aab43a200dfffd5416b878cacb8737530649a34b0365238",
           "enumeratedCount": 48,
           "method": {
             "class": "plugin_api_variant_properties",
@@ -3253,24 +3253,24 @@
             "inferredFields": [],
             "rawCaptureRef": {
               "artifactPath": "evidence/api-capture-component-sets.json",
-              "artifactSha256": "fef66a30a2495a6d0cca9a69bc4c98b668fd800efa7e1ea4afd7ac968e2c04b5"
+              "artifactSha256": "4250a08b3ba35f6bfa83c576a0bc3763cbdf3de8bee50fabc30a7ef4aa0bc6f9"
             },
             "normalizedArtifactRef": {
-              "artifactPath": "evidence/enumeration-787-14531.json",
-              "artifactSha256": "65eb35f5fb57f84f5762e10576189d45ac4d4ac3e74835b211d8eccb823d13f1"
+              "artifactPath": "evidence/enumeration-NODE-0038.json",
+              "artifactSha256": "a5624c385aeac07f1aab43a200dfffd5416b878cacb8737530649a34b0365238"
             }
           }
         }
       },
       {
-        "componentSetId": "NODE-0513",
+        "componentSetId": "NODE-0039",
         "coverageMetrics": [
           {
             "kind": "classified",
             "metric": "instance_placements",
             "value": 0,
             "evidenceNodeIds": [
-              "NODE-0001"
+              "NODE-0041"
             ]
           },
           {
@@ -3278,7 +3278,7 @@
             "metric": "unique_variant_combinations",
             "value": 0,
             "evidenceNodeIds": [
-              "NODE-0001"
+              "NODE-0041"
             ]
           }
         ],
@@ -3439,8 +3439,8 @@
               "Animation": "S2"
             }
           ],
-          "artifactPath": "evidence/enumeration-787-14660.json",
-          "artifactSha256": "c7568e9d4972909641016b9bf48aa37c52b7a9c462aa804485e660dfcd688350",
+          "artifactPath": "evidence/enumeration-NODE-0039.json",
+          "artifactSha256": "1042d5b8342c16e934f285a649e8121e8d08d62f3326ef3337a9c80bb853baf6",
           "enumeratedCount": 24,
           "method": {
             "class": "plugin_api_variant_properties",
@@ -3453,11 +3453,11 @@
             "inferredFields": [],
             "rawCaptureRef": {
               "artifactPath": "evidence/api-capture-component-sets.json",
-              "artifactSha256": "fef66a30a2495a6d0cca9a69bc4c98b668fd800efa7e1ea4afd7ac968e2c04b5"
+              "artifactSha256": "4250a08b3ba35f6bfa83c576a0bc3763cbdf3de8bee50fabc30a7ef4aa0bc6f9"
             },
             "normalizedArtifactRef": {
-              "artifactPath": "evidence/enumeration-787-14660.json",
-              "artifactSha256": "c7568e9d4972909641016b9bf48aa37c52b7a9c462aa804485e660dfcd688350"
+              "artifactPath": "evidence/enumeration-NODE-0039.json",
+              "artifactSha256": "1042d5b8342c16e934f285a649e8121e8d08d62f3326ef3337a9c80bb853baf6"
             }
           }
         }
@@ -3467,17 +3467,17 @@
   "structuralFindings": [
     {
       "findingId": "PF-01",
-      "description": "The Pill component contains five nodes of API type COMPONENT_SET under one build frame NODE-0545 on page 'Pills' (NODE-0538). Four share schema PSV-1; the fifth uses PSV-2. One component spans two incompatible property schemas.",
+      "description": "The Pill component contains five nodes of API type COMPONENT_SET under one build frame NODE-0042 on page 'Pills' (NODE-0045). Four share schema PSV-1; the fifth uses PSV-2. One component spans two incompatible property schemas.",
       "evidence": {
         "classification": "computed",
         "sourceFile": "evidence/api-capture-component-sets.json",
         "confidence": "high",
         "nodeIds": [
-          "NODE-0317",
-          "NODE-0366",
-          "NODE-0415",
-          "NODE-0464",
-          "NODE-0513"
+          "NODE-0035",
+          "NODE-0036",
+          "NODE-0037",
+          "NODE-0038",
+          "NODE-0039"
         ],
         "note": "generalizationScope forced to 'specific_node' and classification to 'unknown': the v0.3.1 enums offer no component-scoped value for a non-Button component, and widening would be an unauthorised promotion. Understatement is chosen deliberately. See PB-3."
       },
@@ -3495,20 +3495,20 @@
     },
     {
       "findingId": "PF-02",
-      "description": "COMPONENT_SET NODE-0513 has visible=false while its parent has visible=true. It renders blank, contributes zero instances to the documentation holder, and was invisible to get_variable_defs -- yet the Plugin API enumerates all 24 COMPONENT children, a second property schema, 12 children carrying variable bindings, and 24 prototype reactions.",
+      "description": "COMPONENT_SET NODE-0039 has visible=false while its parent has visible=true. It renders blank, contributes zero instances to the documentation holder, and was invisible to get_variable_defs -- yet the Plugin API enumerates all 24 COMPONENT children, a second property schema, 12 children carrying variable bindings, and 24 prototype reactions.",
       "evidence": {
         "classification": "observed",
         "sourceFile": "evidence/api-capture-pulse-animation.json",
         "confidence": "high",
         "nodeIds": [
-          "NODE-0513"
+          "NODE-0039"
         ],
         "note": "generalizationScope forced to 'specific_node' and classification to 'unknown': the v0.3.1 enums offer no component-scoped value for a non-Button component, and widening would be an unauthorised promotion. Understatement is chosen deliberately. See PB-3."
       },
       "appliesToScopes": [
         {
           "scopeType": "node",
-          "scopeRef": "NODE-0513"
+          "scopeRef": "NODE-0039"
         }
       ],
       "corroboration": {
@@ -3524,10 +3524,10 @@
         "sourceFile": "evidence/api-capture-component-sets.json",
         "confidence": "high",
         "nodeIds": [
-          "NODE-0317",
-          "NODE-0366",
-          "NODE-0415",
-          "NODE-0464"
+          "NODE-0035",
+          "NODE-0036",
+          "NODE-0037",
+          "NODE-0038"
         ],
         "note": "generalizationScope forced to 'specific_node' and classification to 'unknown': the v0.3.1 enums offer no component-scoped value for a non-Button component, and widening would be an unauthorised promotion. Understatement is chosen deliberately. See PB-3."
       },
@@ -3551,14 +3551,14 @@
         "sourceFile": "evidence/api-capture-component-sets.json",
         "confidence": "high",
         "nodeIds": [
-          "NODE-0513"
+          "NODE-0039"
         ],
         "note": "generalizationScope forced to 'specific_node' and classification to 'unknown': the v0.3.1 enums offer no component-scoped value for a non-Button component, and widening would be an unauthorised promotion. Understatement is chosen deliberately. See PB-3."
       },
       "appliesToScopes": [
         {
           "scopeType": "node",
-          "scopeRef": "NODE-0513"
+          "scopeRef": "NODE-0039"
         }
       ],
       "corroboration": {
@@ -3574,11 +3574,11 @@
         "sourceFile": "evidence/api-capture-component-sets.json",
         "confidence": "high",
         "nodeIds": [
-          "NODE-0317",
-          "NODE-0366",
-          "NODE-0415",
-          "NODE-0464",
-          "NODE-0513"
+          "NODE-0035",
+          "NODE-0036",
+          "NODE-0037",
+          "NODE-0038",
+          "NODE-0039"
         ],
         "note": "generalizationScope forced to 'specific_node' and classification to 'unknown': the v0.3.1 enums offer no component-scoped value for a non-Button component, and widening would be an unauthorised promotion. Understatement is chosen deliberately. See PB-3."
       },
@@ -3602,11 +3602,11 @@
         "sourceFile": "evidence/api-capture-component-sets.json",
         "confidence": "high",
         "nodeIds": [
-          "NODE-0317",
-          "NODE-0366",
-          "NODE-0415",
-          "NODE-0464",
-          "NODE-0513"
+          "NODE-0035",
+          "NODE-0036",
+          "NODE-0037",
+          "NODE-0038",
+          "NODE-0039"
         ],
         "note": "generalizationScope forced to 'specific_node' and classification to 'unknown': the v0.3.1 enums offer no component-scoped value for a non-Button component, and widening would be an unauthorised promotion. Understatement is chosen deliberately. See PB-3."
       },
@@ -3630,11 +3630,11 @@
         "sourceFile": "evidence/api-capture-component-sets.json",
         "confidence": "high",
         "nodeIds": [
-          "NODE-0317",
-          "NODE-0366",
-          "NODE-0415",
-          "NODE-0464",
-          "NODE-0513"
+          "NODE-0035",
+          "NODE-0036",
+          "NODE-0037",
+          "NODE-0038",
+          "NODE-0039"
         ],
         "note": "generalizationScope forced to 'specific_node' and classification to 'unknown': the v0.3.1 enums offer no component-scoped value for a non-Button component, and widening would be an unauthorised promotion. Understatement is chosen deliberately. See PB-3."
       },
@@ -3655,11 +3655,11 @@
       "description": "Size does not denote a fixed pixel height. Highline/Highlighted/Filled Size=Regular children are 32px; Pill - Text Size=Regular children are 20px -- equal to Filled's XSmall. Any Size-to-pixel rule must be scoped by component set.",
       "evidence": {
         "classification": "computed",
-        "sourceFile": "evidence/figma-metadata-787-4538.xml",
+        "sourceFile": "evidence/figma-metadata-NODE-0040.xml",
         "confidence": "high",
         "nodeIds": [
-          "NODE-0464",
-          "NODE-0415"
+          "NODE-0038",
+          "NODE-0037"
         ],
         "note": "generalizationScope forced to 'specific_node' and classification to 'unknown': the v0.3.1 enums offer no component-scoped value for a non-Button component, and widening would be an unauthorised promotion. Understatement is chosen deliberately. See PB-3."
       },
@@ -3677,14 +3677,14 @@
     },
     {
       "findingId": "PF-09",
-      "description": "One component uses two documentation layouts simultaneously. Block NODE-0008 is a per-axis list strip with 15 Pill instances; block NODE-0133 is a matrix with 32. Neither alone describes the documentation.",
+      "description": "One component uses two documentation layouts simultaneously. Block NODE-0046 is a per-axis list strip with 15 Pill instances; block NODE-0047 is a matrix with 32. Neither alone describes the documentation.",
       "evidence": {
         "classification": "observed",
         "sourceFile": "evidence/api-capture-documentation-instances.json",
         "confidence": "high",
         "nodeIds": [
-          "NODE-0008",
-          "NODE-0133"
+          "NODE-0046",
+          "NODE-0047"
         ],
         "note": "generalizationScope forced to 'specific_node' and classification to 'unknown': the v0.3.1 enums offer no component-scoped value for a non-Button component, and widening would be an unauthorised promotion. Understatement is chosen deliberately. See PB-3."
       },
@@ -3708,8 +3708,8 @@
         "sourceFile": "evidence/allocation-evidence-MA-1.json",
         "confidence": "high",
         "nodeIds": [
-          "NODE-0133",
-          "NODE-0213"
+          "NODE-0047",
+          "NODE-0051"
         ],
         "note": "generalizationScope forced to 'specific_node' and classification to 'unknown': the v0.3.1 enums offer no component-scoped value for a non-Button component, and widening would be an unauthorised promotion. Understatement is chosen deliberately. See PB-3."
       },
@@ -3727,14 +3727,14 @@
     },
     {
       "findingId": "PF-11",
-      "description": "Theme is variable-mode resolution in collection 'colors' (VC-0002, remote, 105 variables), modes Dark=NODE-0299 (default) and Light=NODE-0558. The SAME variable ids are bound under both cards; only the resolved mode differs.",
+      "description": "Theme is variable-mode resolution in collection 'colors' (VC-0001, remote, 105 variables), modes Dark=NODE-0027 (default) and Light=NODE-0028. The SAME variable ids are bound under both cards; only the resolved mode differs.",
       "evidence": {
         "classification": "observed",
         "sourceFile": "evidence/api-capture-theme.json",
         "confidence": "high",
         "nodeIds": [
-          "NODE-0005",
-          "NODE-0069"
+          "NODE-0043",
+          "NODE-0044"
         ],
         "note": "generalizationScope forced to 'specific_node' and classification to 'unknown': the v0.3.1 enums offer no component-scoped value for a non-Button component, and widening would be an unauthorised promotion. Understatement is chosen deliberately. See PB-3."
       },
@@ -3752,14 +3752,14 @@
     },
     {
       "findingId": "PF-12",
-      "description": "Mode provenance differs between the two containers. The Dark card sets no explicit mode anywhere in its ancestry and resolves Dark purely as the collection default; the Light card carries an explicit explicitVariableModes entry selecting NODE-0558. Both containers are literally named 'card'; identity comes only from a child headline text node.",
+      "description": "Mode provenance differs between the two containers. The Dark card sets no explicit mode anywhere in its ancestry and resolves Dark purely as the collection default; the Light card carries an explicit explicitVariableModes entry selecting NODE-0028. Both containers are literally named 'card'; identity comes only from a child headline text node.",
       "evidence": {
         "classification": "observed",
         "sourceFile": "evidence/api-capture-theme.json",
         "confidence": "high",
         "nodeIds": [
-          "NODE-0005",
-          "NODE-0069"
+          "NODE-0043",
+          "NODE-0044"
         ],
         "note": "generalizationScope forced to 'specific_node' and classification to 'unknown': the v0.3.1 enums offer no component-scoped value for a non-Button component, and widening would be an unauthorised promotion. Understatement is chosen deliberately. See PB-3."
       },
@@ -3777,14 +3777,14 @@
     },
     {
       "findingId": "PF-13",
-      "description": "A second remote collection, 'layout-scale' (VC-0001, 15 variables, single mode Default=6:1), also resolves on both theme containers and supplies the pills' padding. It is not theme-varying. The contract's singular themeModel cannot record a second collection resolving on the same container.",
+      "description": "A second remote collection, 'layout-scale' (VC-0002, 15 variables, single mode Default=NODE-0378), also resolves on both theme containers and supplies the pills' padding. It is not theme-varying. The contract's singular themeModel cannot record a second collection resolving on the same container.",
       "evidence": {
         "classification": "observed",
         "sourceFile": "evidence/api-capture-theme.json",
         "confidence": "high",
         "nodeIds": [
-          "NODE-0005",
-          "NODE-0069"
+          "NODE-0043",
+          "NODE-0044"
         ],
         "note": "generalizationScope forced to 'specific_node' and classification to 'unknown': the v0.3.1 enums offer no component-scoped value for a non-Button component, and widening would be an unauthorised promotion. Understatement is chosen deliberately. See PB-3."
       },
@@ -3808,8 +3808,8 @@
         "sourceFile": "evidence/api-capture-component-sets.json",
         "confidence": "high",
         "nodeIds": [
-          "NODE-0057",
-          "NODE-0121"
+          "NODE-0426",
+          "NODE-0515"
         ],
         "note": "generalizationScope forced to 'specific_node' and classification to 'unknown': the v0.3.1 enums offer no component-scoped value for a non-Button component, and widening would be an unauthorised promotion. Understatement is chosen deliberately. See PB-3."
       },
@@ -3833,11 +3833,11 @@
         "sourceFile": "evidence/api-capture-component-sets.json",
         "confidence": "high",
         "nodeIds": [
-          "NODE-0317",
-          "NODE-0366",
-          "NODE-0415",
-          "NODE-0464",
-          "NODE-0513"
+          "NODE-0035",
+          "NODE-0036",
+          "NODE-0037",
+          "NODE-0038",
+          "NODE-0039"
         ],
         "note": "generalizationScope forced to 'specific_node' and classification to 'unknown': the v0.3.1 enums offer no component-scoped value for a non-Button component, and widening would be an unauthorised promotion. Understatement is chosen deliberately. See PB-3."
       },
@@ -3861,14 +3861,14 @@
         "sourceFile": "evidence/api-capture-documentation-instances.json",
         "confidence": "high",
         "nodeIds": [
-          "NODE-0001"
+          "NODE-0041"
         ],
         "note": "generalizationScope forced to 'specific_node' and classification to 'unknown': the v0.3.1 enums offer no component-scoped value for a non-Button component, and widening would be an unauthorised promotion. Understatement is chosen deliberately. See PB-3."
       },
       "appliesToScopes": [
         {
           "scopeType": "node",
-          "scopeRef": "NODE-0001"
+          "scopeRef": "NODE-0041"
         }
       ],
       "corroboration": {
@@ -3878,17 +3878,17 @@
     },
     {
       "findingId": "PF-17",
-      "description": "Both schemas declare non-VARIANT component properties that the R-1 pass could not see. PSV-1: 'Pill Value#NODE-0301' TEXT default 'Label'; 'Pill Symbol#NODE-0295' INSTANCE_SWAP default NODE-0315. PSV-2: 'Badge Value#NODE-0301' TEXT default '-3.2%'; 'Trend Symbol#NODE-0294' INSTANCE_SWAP default NODE-0316. The v0.3.1 propertyDefinition type enum admits these, but nothing else in the contract -- coverage, allocations, correlated tuples -- can reference a non-VARIANT property.",
+      "description": "Both schemas declare non-VARIANT component properties that the R-1 pass could not see. PSV-1: 'Pill Value#NODE-0124' TEXT default 'Label'; 'Pill Symbol#NODE-0125' INSTANCE_SWAP default NODE-0126. PSV-2: 'Badge Value#NODE-0124' TEXT default '-3.2%'; 'Trend Symbol#NODE-0319' INSTANCE_SWAP default NODE-0320. The v0.3.1 propertyDefinition type enum admits these, but nothing else in the contract -- coverage, allocations, correlated tuples -- can reference a non-VARIANT property.",
       "evidence": {
         "classification": "observed",
         "sourceFile": "evidence/api-capture-component-sets.json",
         "confidence": "high",
         "nodeIds": [
-          "NODE-0317",
-          "NODE-0366",
-          "NODE-0415",
-          "NODE-0464",
-          "NODE-0513"
+          "NODE-0035",
+          "NODE-0036",
+          "NODE-0037",
+          "NODE-0038",
+          "NODE-0039"
         ],
         "note": "generalizationScope forced to 'specific_node' and classification to 'unknown': the v0.3.1 enums offer no component-scoped value for a non-Button component, and widening would be an unauthorised promotion. Understatement is chosen deliberately. See PB-3."
       },
@@ -3912,14 +3912,14 @@
         "sourceFile": "evidence/api-capture-pulse-animation.json",
         "confidence": "high",
         "nodeIds": [
-          "NODE-0513"
+          "NODE-0039"
         ],
         "note": "generalizationScope forced to 'specific_node' and classification to 'unknown': the v0.3.1 enums offer no component-scoped value for a non-Button component, and widening would be an unauthorised promotion. Understatement is chosen deliberately. See PB-3."
       },
       "appliesToScopes": [
         {
           "scopeType": "node",
-          "scopeRef": "NODE-0513"
+          "scopeRef": "NODE-0039"
         }
       ],
       "corroboration": {
@@ -3935,14 +3935,14 @@
         "sourceFile": "evidence/api-capture-pulse-animation.json",
         "confidence": "high",
         "nodeIds": [
-          "NODE-0513"
+          "NODE-0039"
         ],
         "note": "generalizationScope forced to 'specific_node' and classification to 'unknown': the v0.3.1 enums offer no component-scoped value for a non-Button component, and widening would be an unauthorised promotion. Understatement is chosen deliberately. See PB-3."
       },
       "appliesToScopes": [
         {
           "scopeType": "node",
-          "scopeRef": "NODE-0513"
+          "scopeRef": "NODE-0039"
         }
       ],
       "corroboration": {
@@ -3958,11 +3958,11 @@
         "sourceFile": "evidence/api-vs-nameparse-diff.json",
         "confidence": "high",
         "nodeIds": [
-          "NODE-0317",
-          "NODE-0366",
-          "NODE-0415",
-          "NODE-0464",
-          "NODE-0513"
+          "NODE-0035",
+          "NODE-0036",
+          "NODE-0037",
+          "NODE-0038",
+          "NODE-0039"
         ],
         "note": "generalizationScope forced to 'specific_node' and classification to 'unknown': the v0.3.1 enums offer no component-scoped value for a non-Button component, and widening would be an unauthorised promotion. Understatement is chosen deliberately. See PB-3."
       },
@@ -3993,7 +3993,7 @@
       "ruleId": "VR-2",
       "severity": "blocker",
       "description": "Never apply a PSV-1 axis name, option set, or default to PSV-2, or vice versa.",
-      "detectionCondition": "A build step resolves 'Accent' against NODE-0513, or uses one global Size option list.",
+      "detectionCondition": "A build step resolves 'Accent' against NODE-0039, or uses one global Size option list.",
       "action": "Abort and report the schema-variant mismatch.",
       "recoveryOrEscalation": "Resolve axes through componentSets[].schemaVariantId."
     },
@@ -4009,9 +4009,9 @@
       "ruleId": "VR-4",
       "severity": "error",
       "description": "Never conclude Pill's component-set inventory from a rendered image.",
-      "detectionCondition": "A build step enumerates treatments from a screenshot of NODE-0545 or NODE-0001.",
+      "detectionCondition": "A build step enumerates treatments from a screenshot of NODE-0042 or NODE-0041.",
       "action": "Downgrade to visual_matrix_verified and refuse any completeness statement.",
-      "recoveryOrEscalation": "Descend structurally; NODE-0513 has visible=false and never renders.",
+      "recoveryOrEscalation": "Descend structurally; NODE-0039 has visible=false and never renders.",
       "evidenceLevelRequired": "component_children_enumerated"
     },
     {
@@ -4197,7 +4197,7 @@
     "blockers": [
       {
         "blockerId": "PB-1",
-        "description": "layoutRepresentations[].strategy is a single global enum, but Pill's documentation is genuinely hybrid (list strip NODE-0008 AND matrix NODE-0133, both present in both theme cards). Declaring 'matrix' is required to record LR-1 at all, yet it misdescribes half the documentation and forces CV-3 to demand an allocation for PSV-2, which has no documentation whatsoever.",
+        "description": "layoutRepresentations[].strategy is a single global enum, but Pill's documentation is genuinely hybrid (list strip NODE-0046 AND matrix NODE-0047, both present in both theme cards). Declaring 'matrix' is required to record LR-1 at all, yet it misdescribes half the documentation and forces CV-3 to demand an allocation for PSV-2, which has no documentation whatsoever.",
         "mustBeResolvedBefore": "any cross-component generalisation of layoutRepresentations[].strategy",
         "blockerClass": "owner_decision"
       },
@@ -4215,7 +4215,7 @@
       },
       {
         "blockerId": "PB-4",
-        "description": "NARROWED (was: identifiers unobservable). Collection, mode and variable identifiers ARE observable - colors = VC-0002, modes Dark NODE-0299 / Light NODE-0558, and real variable ids are bound on descendants. The remaining defects are modelling defects: (a) containerBindings[].themeModel.containers[].modeBindings is singular and wrong - a theme container carries a collection->mode map, not one bound variable; (b) there is no field for explicit-vs-inherited mode provenance, so the Dark card (pure default inheritance) and the Light card (explicit override) are indistinguishable; (c) variables used by descendants are conflated with the container's mode binding; (d) only one collection can be recorded, but layout-scale also resolves on both containers.",
+        "description": "NARROWED (was: identifiers unobservable). Collection, mode and variable identifiers ARE observable - colors = VC-0001, modes Dark NODE-0027 / Light NODE-0028, and real variable ids are bound on descendants. The remaining defects are modelling defects: (a) containerBindings[].themeModel.containers[].modeBindings is singular and wrong - a theme container carries a collection->mode map, not one bound variable; (b) there is no field for explicit-vs-inherited mode provenance, so the Dark card (pure default inheritance) and the Light card (explicit override) are indistinguishable; (c) variables used by descendants are conflated with the container's mode binding; (d) only one collection can be recorded, but layout-scale also resolves on both containers.",
         "mustBeResolvedBefore": "any automated consumption of themeModel",
         "blockerClass": "owner_decision"
       },
@@ -4271,7 +4271,7 @@
     "Only the 24 top-level COMPONENT children of the hidden set were swept for reactions and bindings; descendants were not.",
     "What the S1 and S2 animation frames render differently was not captured, only the transition wiring between them.",
     "TEXT and INSTANCE_SWAP overrides on the 94 documented instances were not captured; only their variantProperties.",
-    "Whether the hidden Pulse Animation set is production Pill, work-in-progress, legacy, or a separate Badge component is UNRESOLVED and is an owner decision. Its inclusion in this contract is structural containment under NODE-0545, not a taxonomy claim.",
+    "Whether the hidden Pulse Animation set is production Pill, work-in-progress, legacy, or a separate Badge component is UNRESOLVED and is an owner decision. Its inclusion in this contract is structural containment under NODE-0042, not a taxonomy claim.",
     "No owner confirmation of any kind was sought or obtained. ownerConfirmations is empty by design.",
     "Screenshots establish visual evidence only and back no structural claim in this contract.",
     "The owner-supplied screenshot at /Users/apple/Desktop/component_box_pills.png could not be read: the sandbox denies Desktop access (EPERM). Live renders captured directly from Figma were used instead.",
@@ -4280,7 +4280,7 @@
   "authoringMode": "migrated",
   "migrationReportRef": {
     "artifactPath": "migration-report-pill-0.4.0-draft.json",
-    "artifactSha256": "5841fe41d80adb8f6455f4ea55239a03edbf63ffcd61ed180fca41695036b524"
+    "artifactSha256": "c63ef6e940c6ff83660c1f461613d7ad9bbf36b8ae094e42504a10832d4310fa"
   },
   "layoutRepresentations": [
     {
@@ -4291,15 +4291,15 @@
           "PSV-1"
         ],
         "componentSetIds": [
-          "NODE-0317",
-          "NODE-0366",
-          "NODE-0415",
-          "NODE-0464"
+          "NODE-0035",
+          "NODE-0036",
+          "NODE-0037",
+          "NODE-0038"
         ]
       },
       "evidenceNodeIds": [
-        "NODE-0008",
-        "NODE-0072"
+        "NODE-0046",
+        "NODE-0345"
       ],
       "namingRuleRefs": [
         "NR-axis-strip-row",
@@ -4312,8 +4312,8 @@
         "sourceFile": "evidence/api-capture-documentation-instances.json",
         "confidence": "high",
         "nodeIds": [
-          "NODE-0008",
-          "NODE-0072"
+          "NODE-0046",
+          "NODE-0345"
         ],
         "note": "Per-axis list strip: four rows, one axis each (Size, Style, Accent, Icon), 15 Pill instances per theme card. This block and the matrix block below coexist in every card -- the v0.3.1 scalar layoutStrategy could not say so."
       }
@@ -4326,15 +4326,15 @@
           "PSV-1"
         ],
         "componentSetIds": [
-          "NODE-0317",
-          "NODE-0366",
-          "NODE-0415",
-          "NODE-0464"
+          "NODE-0035",
+          "NODE-0036",
+          "NODE-0037",
+          "NODE-0038"
         ]
       },
       "evidenceNodeIds": [
-        "NODE-0133",
-        "NODE-0213"
+        "NODE-0047",
+        "NODE-0051"
       ],
       "namingRuleRefs": [
         "NR-matrix-row",
@@ -4347,28 +4347,28 @@
           "orderingRule": "ascending_absolute_y",
           "items": [
             {
-              "componentSetId": "NODE-0317",
+              "componentSetId": "NODE-0035",
               "semanticValue": "Highline",
               "observedLayerName": "row_Highline",
               "expectedLayerName": "row_Highline",
               "namingRuleRef": "NR-matrix-row"
             },
             {
-              "componentSetId": "NODE-0366",
+              "componentSetId": "NODE-0036",
               "semanticValue": "Highlighted",
               "observedLayerName": "row_Highlighted",
               "expectedLayerName": "row_Highlighted",
               "namingRuleRef": "NR-matrix-row"
             },
             {
-              "componentSetId": "NODE-0415",
+              "componentSetId": "NODE-0037",
               "semanticValue": "Filled",
               "observedLayerName": "row_Filled",
               "expectedLayerName": "row_Filled",
               "namingRuleRef": "NR-matrix-row"
             },
             {
-              "componentSetId": "NODE-0464",
+              "componentSetId": "NODE-0038",
               "semanticValue": "Text",
               "observedLayerName": "row_Text",
               "expectedLayerName": "row_Text",
@@ -4408,7 +4408,7 @@
         "allocationEvidence": {
           "status": "verified",
           "artifactPath": "evidence/allocation-evidence-LR-2.json",
-          "artifactSha256": "a83bedbb1ea879ca261313f372a832545f1b64e2b3a1985282151094a23396a3",
+          "artifactSha256": "0eab4a5f39ace4767a56370e3be3494f4acd5407fd804783e391296566957e62",
           "derivationMethod": "instance_variant_properties_and_geometry"
         },
         "approvalStatus": "draft",
@@ -4419,8 +4419,8 @@
         "sourceFile": "evidence/allocation-evidence-LR-2.json",
         "confidence": "high",
         "nodeIds": [
-          "NODE-0133",
-          "NODE-0213"
+          "NODE-0047",
+          "NODE-0051"
         ],
         "note": "Rows are COMPONENT_SET identity, recomputed from 64 instances' ownership and absoluteY ordering; columns are Accent by absoluteX; bands are Size {Regular, Small}; Icon is fixed at None across all 64. Dark and Light were derived independently and agree."
       }
@@ -4429,35 +4429,35 @@
   "representationNodeBindings": [
     {
       "layoutRepresentationRef": "LR-1",
-      "containerNodeId": "NODE-0008",
-      "rootNodeId": "NODE-0005",
+      "containerNodeId": "NODE-0046",
+      "rootNodeId": "NODE-0043",
       "semanticRole": "documentation_block",
       "observedLayerName": "content",
-      "expectedParentRef": "NODE-0005"
+      "expectedParentRef": "NODE-0043"
     },
     {
       "layoutRepresentationRef": "LR-1",
-      "containerNodeId": "NODE-0072",
-      "rootNodeId": "NODE-0069",
+      "containerNodeId": "NODE-0345",
+      "rootNodeId": "NODE-0044",
       "semanticRole": "documentation_block",
       "observedLayerName": "content",
-      "expectedParentRef": "NODE-0069"
+      "expectedParentRef": "NODE-0044"
     },
     {
       "layoutRepresentationRef": "LR-2",
-      "containerNodeId": "NODE-0133",
-      "rootNodeId": "NODE-0005",
+      "containerNodeId": "NODE-0047",
+      "rootNodeId": "NODE-0043",
       "semanticRole": "documentation_block",
       "observedLayerName": "content",
-      "expectedParentRef": "NODE-0005"
+      "expectedParentRef": "NODE-0043"
     },
     {
       "layoutRepresentationRef": "LR-2",
-      "containerNodeId": "NODE-0213",
-      "rootNodeId": "NODE-0069",
+      "containerNodeId": "NODE-0051",
+      "rootNodeId": "NODE-0044",
       "semanticRole": "documentation_block",
       "observedLayerName": "content",
-      "expectedParentRef": "NODE-0069"
+      "expectedParentRef": "NODE-0044"
     }
   ],
   "undocumentedSchemaVariantIds": [
@@ -4570,7 +4570,7 @@
         "scopeType": "contract",
         "scopeRef": "NAME-0001-pill-non-button-experimental-representation-contract"
       },
-      "note": "Structural wrapper; also used for the build holder NODE-0545."
+      "note": "Structural wrapper; also used for the build holder NODE-0042."
     },
     {
       "namingRuleId": "NR-rule-divider",

@@ -37,8 +37,23 @@ export type RepresentationInvariant = {
   readonly promoted_from: string | null;
   /** The verified research defect this exists to prevent, where there is one. */
   readonly prevents?: string | undefined;
-  /** Machine-readable code emitted on violation. */
-  readonly error_code: string;
+  /**
+   * Every machine-readable code a violation of this rule actually carries.
+   *
+   * Plural, and **observed rather than invented**. Audit cycle 2 found the
+   * singular version had become fiction for half the registry: ten rows declared
+   * a `REP_*` code that occurred exactly once in the repository — in its own
+   * declaration. Schema-owned rules are enforced by ajv, which emits the
+   * `SCHEMA_*` vocabulary in `src/validation/schema-validator.ts`, so that is
+   * what a violation of them looks like and that is what is recorded here. A
+   * `REP_*` name beside it would be a third account of one fact, which is the
+   * defect this registry exists to prevent.
+   *
+   * Reconciled in three directions by `invariant-registry.test.ts`: against the
+   * fixture index, against the literals in `src/representation/**`, and back
+   * again, so neither a dead code nor an unwitnessed one can survive.
+   */
+  readonly error_codes: readonly string[];
 };
 
 export const REPRESENTATION_INVARIANTS: readonly RepresentationInvariant[] = [
@@ -52,7 +67,7 @@ export const REPRESENTATION_INVARIANTS: readonly RepresentationInvariant[] = [
     prevents:
       'a version string encoding an approval claim the document does not support — the reason ' +
       'the promotion is 0.4.1-draft and not 1.0.0 (BP-3)',
-    error_code: 'REP_VERSION_CLAIMS_UNEARNED_APPROVAL',
+    error_codes: ['SCHEMA_ENUM_MISMATCH'],
   },
   {
     id: 'REP-02',
@@ -61,17 +76,18 @@ export const REPRESENTATION_INVARIANTS: readonly RepresentationInvariant[] = [
     owner: 'schema',
     promoted_from: 'CV-10',
     prevents: 'a draft declaring itself production-ready, which would make the suffix decorative',
-    error_code: 'REP_DRAFT_DECLARED_READY',
+    error_codes: ['SCHEMA_ENUM_MISMATCH'],
   },
   {
     id: 'REP-03',
     statement:
-      'An approved contract carries zero blockers and a non-empty ownerConfirmationRef.',
+      'An approved contract carries zero blockers AND a non-empty ownerConfirmationRef. Both ' +
+      'clauses, because approval with no resolvable confirmation is approval by assertion.',
     owner: 'schema',
     promoted_from: 'CV-4',
     prevents:
       'D-5: the research fixture set asserted CV-4 against a rule its contract never declared',
-    error_code: 'REP_APPROVED_WITH_OPEN_BLOCKERS',
+    error_codes: ['SCHEMA_CONSTRAINT_FAILED', 'SCHEMA_TYPE_MISMATCH'],
   },
   {
     id: 'REP-04',
@@ -81,7 +97,7 @@ export const REPRESENTATION_INVARIANTS: readonly RepresentationInvariant[] = [
     promoted_from: 'CV-9',
     prevents:
       'D-3: a matrix-cell rule whose target resolved to a list representation with no allocation',
-    error_code: 'REP_ALLOCATION_STRATEGY_MISMATCH',
+    error_codes: ['SCHEMA_CONSTRAINT_FAILED'],
   },
   {
     id: 'REP-05',
@@ -93,7 +109,7 @@ export const REPRESENTATION_INVARIANTS: readonly RepresentationInvariant[] = [
     prevents:
       'D-5: CV-19 was fixture-asserted and undeclared, so a rule nobody enforces could still ' +
       'claim uniqueness',
-    error_code: 'REP_NAMING_POLICY_DISAGREES_WITH_ENFORCEMENT',
+    error_codes: ['SCHEMA_ENUM_MISMATCH'],
   },
   {
     id: 'REP-06',
@@ -104,7 +120,7 @@ export const REPRESENTATION_INVARIANTS: readonly RepresentationInvariant[] = [
     prevents:
       'D-1, D-2 and D-7 — three load-bearing references that lived only inside sentences and ' +
       'survived a fully green suite because nothing resolved them',
-    error_code: 'REP_ROW_WITHOUT_STRUCTURED_TARGET',
+    error_codes: ['SCHEMA_MISSING_REQUIRED'],
   },
   {
     id: 'REP-07',
@@ -117,7 +133,7 @@ export const REPRESENTATION_INVARIANTS: readonly RepresentationInvariant[] = [
     prevents:
       'D-3: the rule and its subject were both present and simply did not match, which no ' +
       'existence check alone would have caught',
-    error_code: 'REP_TARGET_KIND_INCOMPATIBLE',
+    error_codes: ['SCHEMA_CONSTRAINT_FAILED', 'SCHEMA_ENUM_MISMATCH'],
   },
   {
     id: 'REP-08',
@@ -127,7 +143,7 @@ export const REPRESENTATION_INVARIANTS: readonly RepresentationInvariant[] = [
     prevents:
       'D-7: a blocker citing an allocation-evidence artifact that does not exist. A path alone ' +
       'can also resolve to different bytes than the claim was made over',
-    error_code: 'REP_ARTIFACT_TARGET_UNPINNED',
+    error_codes: ['SCHEMA_MISSING_REQUIRED'],
   },
   {
     id: 'REP-09',
@@ -139,7 +155,7 @@ export const REPRESENTATION_INVARIANTS: readonly RepresentationInvariant[] = [
     prevents:
       "D-1 and D-4: three retired vocabulary tokens inside a rule's sentence, invisible to a " +
       'checker doing whole-string equality on leaf values',
-    error_code: 'REP_REFERENCE_SMUGGLED_INTO_PROSE',
+    error_codes: ['SCHEMA_UNKNOWN_FIELD'],
   },
   {
     id: 'REP-10',
@@ -149,7 +165,7 @@ export const REPRESENTATION_INVARIANTS: readonly RepresentationInvariant[] = [
     promoted_from: 'CV-17',
     prevents:
       'legacy migration states being reachable in an authored contract without version-sniffing',
-    error_code: 'REP_MIGRATION_PROVENANCE_MISMATCH',
+    error_codes: ['SCHEMA_TYPE_MISMATCH'],
   },
   {
     id: 'REP-11',
@@ -161,7 +177,7 @@ export const REPRESENTATION_INVARIANTS: readonly RepresentationInvariant[] = [
     prevents:
       'D-1 and D-2 — references that existed only inside sentences, so nothing ever tried to ' +
       'resolve them',
-    error_code: 'REP_TARGET_UNRESOLVED',
+    error_codes: ['REP_TARGET_UNRESOLVED'],
   },
   {
     id: 'REP-12',
@@ -172,7 +188,7 @@ export const REPRESENTATION_INVARIANTS: readonly RepresentationInvariant[] = [
     promoted_from: 'CV-3b',
     prevents:
       'D-3 exactly. Existence alone passes it — LR-1 exists — and what was wrong was its kind',
-    error_code: 'REP_TARGET_STRATEGY_MISMATCH',
+    error_codes: ['REP_TARGET_STRATEGY_MISMATCH'],
   },
   {
     id: 'REP-13',
@@ -184,7 +200,11 @@ export const REPRESENTATION_INVARIANTS: readonly RepresentationInvariant[] = [
     prevents:
       'D-7: a blocker citing an allocation-evidence artifact absent from disk. A path with no ' +
       'reader is a violation, not a skip — an unchecked reference must not read as a passing one',
-    error_code: 'REP_ARTIFACT_TARGET_UNRESOLVABLE',
+    error_codes: [
+      'REP_ARTIFACT_TARGET_UNRESOLVABLE',
+      'REP_ARTIFACT_TARGET_MISSING',
+      'REP_ARTIFACT_TARGET_HASH_MISMATCH',
+    ],
   },
   {
     id: 'REP-14',
@@ -194,7 +214,7 @@ export const REPRESENTATION_INVARIANTS: readonly RepresentationInvariant[] = [
     prevents:
       'a pointer that runs off the end of an array, which resolves to undefined and would ' +
       'otherwise pass silently',
-    error_code: 'REP_CONTRACT_FIELD_POINTER_UNRESOLVED',
+    error_codes: ['REP_CONTRACT_FIELD_POINTER_UNRESOLVED'],
   },
   {
     id: 'REP-15',
@@ -205,7 +225,7 @@ export const REPRESENTATION_INVARIANTS: readonly RepresentationInvariant[] = [
     prevents:
       'C-3 regressing: scope was separated from corroboration precisely so a finding could say ' +
       'what it applies to, and an unresolvable scope says nothing',
-    error_code: 'REP_SCOPE_REF_UNRESOLVED',
+    error_codes: ['REP_SCOPE_REF_UNRESOLVED', 'REP_SCOPE_TYPE_UNKNOWN'],
   },
   {
     id: 'REP-16',
@@ -217,7 +237,7 @@ export const REPRESENTATION_INVARIANTS: readonly RepresentationInvariant[] = [
     prevents:
       'C-11: buildFrameId is a many-to-one reference, so a collision makes one string mean two ' +
       'things depending on which field read it',
-    error_code: 'REP_DUPLICATE_IDENTIFIER',
+    error_codes: ['REP_DUPLICATE_IDENTIFIER', 'REP_BUILD_FRAME_ID_COLLIDES_WITH_SET_ID'],
   },
   {
     id: 'REP-17',
@@ -229,7 +249,11 @@ export const REPRESENTATION_INVARIANTS: readonly RepresentationInvariant[] = [
     prevents:
       'silence reading the same as "we looked and found nothing" — the condition every one of ' +
       'D-1, D-2, D-7 and D-9 depends on to survive',
-    error_code: 'REP_UNCOVERED_VARIANT_NOT_DECLARED',
+    error_codes: [
+      'REP_UNCOVERED_VARIANT_NOT_DECLARED',
+      'REP_VARIANT_BOTH_COVERED_AND_UNDOCUMENTED',
+      'REP_UNDOCUMENTED_VARIANT_NOT_DECLARED',
+    ],
   },
   {
     id: 'REP-18',
@@ -240,7 +264,7 @@ export const REPRESENTATION_INVARIANTS: readonly RepresentationInvariant[] = [
     prevents:
       'D-4, and through it D-1: the research check is whole-string equality on a leaf value, so a ' +
       'retired token inside a sentence is never equal to the sentence and never matches',
-    error_code: 'REP_RETIRED_VOCABULARY_IN_USE',
+    error_codes: ['REP_RETIRED_VOCABULARY_IN_USE'],
   },
   {
     id: 'REP-19',
@@ -250,7 +274,7 @@ export const REPRESENTATION_INVARIANTS: readonly RepresentationInvariant[] = [
     prevents:
       'D-6: a probe byte-identical to the deliverable contract, so "the probe passes" restated ' +
       "the contract's own result while reading as corroboration",
-    error_code: 'REP_PROBE_IDENTICAL_TO_SUBJECT',
+    error_codes: ['REP_PROBE_IDENTICAL_TO_SUBJECT', 'REP_PROBES_IDENTICAL_TO_EACH_OTHER'],
   },
   {
     id: 'REP-20',
@@ -260,7 +284,7 @@ export const REPRESENTATION_INVARIANTS: readonly RepresentationInvariant[] = [
     prevents:
       'D-11: a change plan declaring "IMPLEMENTED and LOCKED" on line 1 and "PROPOSED. Not ' +
       'implemented." on line 8, with no check that read both',
-    error_code: 'REP_DOCUMENT_DECLARES_TWO_STATUSES',
+    error_codes: ['REP_DOCUMENT_DECLARES_TWO_STATUSES'],
   },
   {
     id: 'REP-21',
@@ -272,7 +296,20 @@ export const REPRESENTATION_INVARIANTS: readonly RepresentationInvariant[] = [
     prevents:
       'D-9: eleven blockers in the contract, ten in the companion table. Counting would not have ' +
       'found it — the document states no number, it just has one row too few',
-    error_code: 'REP_ENUMERATION_MISSES_MEMBER',
+    error_codes: ['REP_ENUMERATION_MISSES_MEMBER', 'REP_ENUMERATION_INVENTS_MEMBER'],
+  },
+  {
+    id: 'REP-22',
+    statement:
+      'Declaring readinessStatus ready_for_production requires a 1.0.0 contractVersion and an ' +
+      'approved approvalStatus — the converse of REP-01, and separately enforced.',
+    owner: 'schema',
+    promoted_from: 'CV-10',
+    prevents:
+      'a contract claiming production readiness from any version string it likes. Found in audit ' +
+      'cycle 2: the schema enforced this gate and no rule declared it, which is D-5 in the one ' +
+      'direction the registry checks were not looking — an enforced rule nothing accounts for',
+    error_codes: ['SCHEMA_CONSTRAINT_FAILED', 'SCHEMA_ENUM_MISMATCH'],
   },
 ];
 

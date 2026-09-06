@@ -36,7 +36,15 @@
  * identifying payload in the corpus.
  */
 import { createHash } from 'node:crypto';
-import { readdirSync, readFileSync, writeFileSync, mkdirSync, statSync, rmSync } from 'node:fs';
+import {
+  readdirSync,
+  readFileSync,
+  writeFileSync,
+  mkdirSync,
+  statSync,
+  rmSync,
+  realpathSync,
+} from 'node:fs';
 import { join, relative, resolve, dirname, extname, basename, sep } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -72,11 +80,28 @@ const LEGEND: Record<string, string> = {
   STYLE: 'a style key',
   KEY: 'a component or component-set key',
   SHA: 'a SHA-256 recorded in the corpus',
+  TRUNC: 'a hex identifier abbreviated with an ellipsis',
   NAME: 'a name with no recognisable shape, named for redaction by the operator',
 };
 
 /**
- * Assigns placeholders deterministically, in two phases.
+ * Assigns placeholders deterministically, in two phases, **numbered by order of
+ * first sight rather than by sorted value.**
+ *
+ * The sorted numbering was mine, chosen so the mapping would not depend on
+ * filesystem enumeration order, and audit cycle 2 showed what it costs. Sorted
+ * numbering makes the placeholder index a *rank*: given any two anchors whose
+ * real values are known, every placeholder numbered between them is bracketed
+ * to the numeric band between those values. With a handful of anchors that
+ * constrains hundreds of ids at once. Numbering by first sight over a
+ * deterministically sorted file walk keeps reproducibility — the same corpus
+ * yields the same mapping — while the index says only "seen earlier", which is
+ * document order and reveals nothing about the values.
+ *
+ * A hash-based scheme was considered and rejected outright: node ids are small
+ * integers, so `sha256(realValue)` is brute-forceable in seconds. Any
+ * pseudonym derived from a low-entropy identifier is reversible by whoever
+ * guesses the identifier, which is everyone.
  *
  * The phases are the whole point, and the first version of this had one phase
  * and was wrong. Numbering follows the sorted order of the real values — which
@@ -113,7 +138,8 @@ export function createAssigner(): Assigner {
     freeze() {
       const assigned = new Map<string, string>();
       for (const [kind, values] of [...seen].sort(([a], [b]) => (a < b ? -1 : a > b ? 1 : 0))) {
-        [...values].sort().forEach((real, index) => {
+        // Insertion order — a Set preserves it — over a sorted file walk.
+        [...values].forEach((real, index) => {
           assigned.set(key(kind, real), `${kind}-${String(index + 1).padStart(4, '0')}`);
         });
       }
@@ -139,20 +165,86 @@ export function createAssigner(): Assigner {
 }
 
 /**
+ * Text that must survive untouched, matched before anything else.
+ *
+ * An ISO timestamp is node-id-shaped twice over — `10:00:01` is two of them —
+ * and the node-id rule below had to be narrowed to `\d{2,6}` to avoid eating
+ * them. That narrowing is what let a real single-digit mode id through. Pulling
+ * timestamps out first lets the node rule be as wide as a real node id actually
+ * is.
+ */
+const PROTECTED: readonly RegExp[] = [
+  /\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d+)?(?:Z|[+-]\d{2}:\d{2})?/g,
+  /\b\d{2}:\d{2}:\d{2}\b/g,
+];
+
+/**
  * The identifier shapes, in the order they must be applied.
  *
  * Order is load-bearing. A variable collection id *contains* a node id, so the
  * compound forms go first; applying the bare node-id rule first would corrupt
  * the compound one into something the next rule no longer matches, and the
  * residue would look sanitized while still carrying half a real identifier.
+ *
+ * **Three of these were added in audit cycle 2, after the first promotion
+ * leaked.** Each is a form the corpus uses that the original list did not
+ * describe, and all three passed the sanitizer, both tracked test suites and
+ * the repository-wide identifier scan, which reported clean:
+ *
+ *   - `TRUNC` — a hex id abbreviated with an ellipsis. Prose does this
+ *     constantly, and an 8-hex prefix still resolves to exactly one real value.
+ *     It also produced *half-sanitized* compounds: a real key prefix followed
+ *     by an already-substituted node placeholder.
+ *   - `HYPHEN` — a node id written with a hyphen, which is how the corpus names
+ *     files. `sanitiseFileName` handled it for paths; every filename **quoted
+ *     inside a document** kept its real id, 203 occurrences of 11 distinct ids.
+ *     One document pairs the hyphen form with its own placeholder on adjacent
+ *     lines, which is a partial mapping, published.
+ *   - the widened `NODE` field lengths — a real mode id with a single-digit
+ *     first field slipped a `\d{2,6}` rule 36 times.
  */
-const SHAPES: readonly { readonly kind: string; readonly pattern: RegExp }[] = [
+type Shape = {
+  readonly kind: string;
+  readonly pattern: RegExp;
+  /**
+   * The canonical real value a match stands for.
+   *
+   * A node id written with a hyphen and the same id written with a colon are
+   * one identifier in two notations, and they must receive **one** placeholder.
+   * Two names for one node is a correspondence an attacker can use and a
+   * distinction a reader cannot.
+   */
+  readonly canonical?: ((match: string) => string) | undefined;
+};
+
+/*
+ * Every boundary below is a character-class lookaround, never `\b`.
+ *
+ * `\b` treats `_` as a word character, so it does not fire on a hyphenated id
+ * embedded between underscores — `comp_build_<id>_screenshot.png` is how the
+ * corpus names a screenshot, and that is not a hypothetical: it is where a real
+ * node id was still sitting after the hyphen rule was added. The
+ * boundary a sanitizer wants is "not more of the same kind of character".
+ *
+ * The trailing lookahead is `(?!\d)` and **not** `(?![\d.])`, which is the
+ * mistake one revision later: excluding a following dot rejects a node id at
+ * the end of a sentence, and `…modes Dark=… and Light=806:0.` is how the corpus
+ * writes them in prose. The leading lookbehind still excludes a dot, because
+ * there the dot means a decimal and `1.2:3` is not a node id.
+ */
+const SHAPES: readonly Shape[] = [
+  { kind: 'TRUNC', pattern: /(?<![0-9a-fA-F])[0-9a-f]{6,}\s*(?:…|\.\.\.)\s*[0-9a-f]*/g },
   { kind: 'VC', pattern: /VariableCollectionId:[0-9a-f]{40}\/\d+:\d+/g },
   { kind: 'VAR', pattern: /VariableID:[0-9a-f]{40}\/\d+:\d+/g },
-  { kind: 'STYLE', pattern: /\bS:[0-9a-f]{40}\b/g },
-  { kind: 'SHA', pattern: /\b[0-9a-f]{64}\b/g },
-  { kind: 'KEY', pattern: /\b[0-9a-f]{40}\b/g },
-  { kind: 'NODE', pattern: /\b\d{2,6}:\d{1,6}\b/g },
+  { kind: 'STYLE', pattern: /(?<![0-9A-Za-z])S:[0-9a-f]{40}(?![0-9a-f])/g },
+  { kind: 'SHA', pattern: /(?<![0-9a-fA-F])[0-9a-f]{64}(?![0-9a-fA-F])/g },
+  { kind: 'KEY', pattern: /(?<![0-9a-fA-F])[0-9a-f]{40}(?![0-9a-fA-F])/g },
+  { kind: 'NODE', pattern: /(?<![\d.])\d{1,7}:\d{1,7}(?!\d)/g },
+  {
+    kind: 'NODE',
+    pattern: /(?<![\d.])\d{1,7}-\d{3,7}(?!\d)/g,
+    canonical: (match) => match.replace('-', ':'),
+  },
 ];
 
 export type SanitiseOptions = {
@@ -170,41 +262,81 @@ function escapeForRegExp(value: string): string {
   return value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 }
 
+/**
+ * Replaces every protected run with an index-keyed sentinel, and returns the
+ * restore function.
+ *
+ * The sentinel carries no digits and no hex, so no shape rule can match inside
+ * it — which is the property that lets the node rule below be as wide as a real
+ * node id actually is instead of as narrow as a timestamp forces. Its delimiters
+ * are private-use code points rather than NUL, because a NUL in a regular
+ * expression is a lint error and, more to the point, a byte that can end a
+ * string in half the tools that might later read the output.
+ */
+function protectText(text: string): { readonly text: string; readonly restore: (out: string) => string } {
+  const kept: string[] = [];
+  let out = text;
+  for (const pattern of PROTECTED) {
+    out = out.replace(pattern, (match) => {
+      kept.push(match);
+      return `\uE000KEEP${'X'.repeat(kept.length)}\uE001`;
+    });
+  }
+  return {
+    text: out,
+    restore: (rendered) =>
+      rendered.replace(/\uE000KEEP(X+)\uE001/g, (_match, marks: string) => kept[marks.length - 1] as string),
+  };
+}
+
 /** Phase one over one document: every value it contains, recorded, nothing
  *  replaced. */
 export function collectFrom(text: string, options: SanitiseOptions): void {
+  let working = protectText(text).text;
   for (const shape of SHAPES) {
-    let working = text;
-    for (const literal of options.literals) {
-      if (literal.value.length === 0) continue;
-      working = working.replace(new RegExp(escapeForRegExp(literal.value), 'gi'), ' ');
-    }
     for (const match of working.matchAll(shape.pattern)) {
-      options.assigner.collect(shape.kind, match[0]);
+      options.assigner.collect(shape.kind, (shape.canonical ?? ((value) => value))(match[0]));
     }
     // A compound shape consumes its parts, so the parts must not be collected
     // separately from the same text — see the ordering note above.
     working = working.replace(shape.pattern, ' ');
-    text = working;
   }
 }
 
 export function sanitiseText(text: string, options: SanitiseOptions): string {
-  let out = text;
+  const protectedText = protectText(text);
+  let out = protectedText.text;
+  /*
+   * Shapes before literals, and audit cycle 2 is why.
+   *
+   * Literals used to go first, and every shape rule was `\b`-anchored. A
+   * placeholder ending in a digit destroys the word boundary the next rule
+   * needs, so a redacted name immediately followed by a node id produced
+   * `NAME-0001` glued to the digits — and the node id, now lacking a boundary,
+   * passed through intact with nothing raising. Substituting shapes first means
+   * no placeholder ever sits where a shape rule is about to look.
+   */
+  for (const shape of SHAPES) {
+    out = out.replace(shape.pattern, (match) =>
+      options.assigner.placeholderFor(shape.kind, (shape.canonical ?? ((value) => value))(match)),
+    );
+  }
   for (const literal of options.literals) {
     if (literal.value.length === 0) continue;
     const placeholder = options.assigner.placeholderFor(literal.kind, literal.value.toLowerCase());
     out = out.replace(new RegExp(escapeForRegExp(literal.value), 'gi'), placeholder);
   }
-  for (const shape of SHAPES) {
-    out = out.replace(shape.pattern, (match) => options.assigner.placeholderFor(shape.kind, match));
-  }
-  return out;
+  return protectedText.restore(out);
 }
 
 /** A file name can carry a node id all by itself. A tracked filename is as much
  *  a tracked identifier as a tracked field, which is why `.gitignore` had to
  *  lose two lines earlier in this phase. */
+/** The same node id, as a file name writes it. Declared once so the collect and
+ *  substitute passes cannot drift, and so it reads the same as the content
+ *  rule above. */
+const FILE_NAME_NODE_ID = /(?<![\d.])(\d{1,7})-(\d{3,7})(?!\d)/g;
+
 export function collectFromFileName(
   name: string,
   assigner: Assigner,
@@ -215,7 +347,7 @@ export function collectFromFileName(
     if (literal.value.length === 0) continue;
     working = working.replace(new RegExp(escapeForRegExp(literal.value), 'gi'), ' ');
   }
-  for (const match of working.matchAll(/\b(\d{2,6})-(\d{1,6})\b/g)) {
+  for (const match of working.matchAll(FILE_NAME_NODE_ID)) {
     assigner.collect('NODE', `${match[1]}:${match[2]}`);
   }
 }
@@ -233,7 +365,7 @@ export function sanitiseFileName(
       assigner.placeholderFor(literal.kind, literal.value.toLowerCase()),
     );
   }
-  return out.replace(/\b(\d{2,6})-(\d{1,6})\b/g, (_match, left: string, right: string) =>
+  return out.replace(FILE_NAME_NODE_ID, (_match, left: string, right: string) =>
     assigner.placeholderFor('NODE', `${left}:${right}`),
   );
 }
@@ -280,11 +412,53 @@ export type PromotionResult = {
   readonly aggregate_sha256: string;
 };
 
-/** Refuses a mapping directory inside the repository. Checked on the resolved
- *  path, because `../../repo/evidence` resolves back inside. */
+/**
+ * Refuses a mapping directory inside the repository.
+ *
+ * Three ways in, and audit cycle 2 found two of them open.
+ *
+ *   - `../../<repo>/evidence` — handled from the start, because the check is on
+ *     the *resolved* path rather than the string.
+ *   - **a symlink** into the repository. `resolve()` does not follow links, so
+ *     a link pointing at a directory in the tree was accepted and the mapping
+ *     landed in the working tree, one `git add -A` from full reversibility.
+ *     `realpathSync` closes it, applied to the nearest existing ancestor
+ *     because the target directory may not exist yet.
+ *   - **case**. The comparison was byte-exact against `REPO_ROOT`, and this
+ *     repository lives on a case-insensitive filesystem, so a case-varied but
+ *     identical path was accepted. Compared case-folded now.
+ *
+ * The guard is deliberately conservative in one direction: a path it cannot
+ * resolve at all is treated as outside, because refusing to write anywhere is
+ * not safer than writing outside the repository — and the caller has already
+ * been told, by the two other rules, where the mapping may not go.
+ */
+function nearestExistingReal(path: string): string {
+  let current = resolve(path);
+  for (;;) {
+    try {
+      return realpathSync(current);
+    } catch {
+      const parent = dirname(current);
+      if (parent === current) return current;
+      current = parent;
+    }
+  }
+}
+
 export function assertMappingOutsideRepository(mappingDir: string): void {
-  const resolved = resolve(mappingDir);
-  if (resolved === REPO_ROOT || resolved.startsWith(REPO_ROOT + sep)) {
+  const real = nearestExistingReal(mappingDir);
+  const requested = resolve(mappingDir);
+  // The requested path's own tail matters too: `realpathSync` of a
+  // not-yet-created directory returns its parent, so the parent is what was
+  // checked. Both are compared.
+  const root = realpathSync(REPO_ROOT).toLowerCase();
+  const inside = (candidate: string): boolean => {
+    const value = candidate.toLowerCase();
+    return value === root || value.startsWith(root + sep);
+  };
+  const resolved = requested;
+  if (inside(real) || inside(requested)) {
     throw new Error(
       `refusing to write the real-to-placeholder mapping to ${resolved}: it is inside the ` +
         'repository. BP-5 keeps the mapping with the secrets it describes, because a committed ' +

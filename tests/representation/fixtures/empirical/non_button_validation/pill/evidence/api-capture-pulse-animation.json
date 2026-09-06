@@ -1,8 +1,8 @@
 {
   "captureMethod": "mcp__plugin_figma_figma__use_figma (Figma Plugin API, read-only script)",
-  "fileKey": "FILEKEY-0002",
+  "fileKey": "FILEKEY-0003",
   "capturedAt": "2026-08-16T08:55:00Z",
-  "componentSetId": "NODE-0513",
+  "componentSetId": "NODE-0039",
   "name": "Pill – Pulse Animation",
   "type": "COMPONENT_SET",
   "visible": false,
@@ -13,25 +13,25 @@
   "childrenWithDirectVariableBindings": 12,
   "bindingSample": [
     {
-      "componentId": "NODE-0520",
+      "componentId": "NODE-0327",
       "name": "Type=Warning, Style=Filled, Size=Small, Animation=S1",
       "boundVariables": {
         "fills": [
           {
             "type": "VARIABLE_ALIAS",
-            "id": "VAR-0005"
+            "id": "VAR-0002"
           }
         ]
       }
     },
     {
-      "componentId": "NODE-0521",
+      "componentId": "NODE-0328",
       "name": "Type=Warning, Style=Filled, Size=Small, Animation=S2",
       "boundVariables": {
         "fills": [
           {
             "type": "VARIABLE_ALIAS",
-            "id": "VAR-0005"
+            "id": "VAR-0002"
           }
         ]
       }
@@ -56,14 +56,14 @@
   },
   "reactionSample": [
     {
-      "from": "NODE-0514",
+      "from": "NODE-0321",
       "fromName": "Type=Warning, Style=Highline, Size=Small, Animation=S1",
       "trigger": {
         "type": "AFTER_TIMEOUT",
         "timeout": 0.4
       },
       "actionType": "NODE",
-      "destinationId": "NODE-0515",
+      "destinationId": "NODE-0322",
       "destinationName": "Type=Warning, Style=Highline, Size=Small, Animation=S2",
       "navigation": "CHANGE_TO",
       "transition": {
@@ -75,14 +75,14 @@
       }
     },
     {
-      "from": "NODE-0515",
+      "from": "NODE-0322",
       "fromName": "Type=Warning, Style=Highline, Size=Small, Animation=S2",
       "trigger": {
         "type": "AFTER_TIMEOUT",
         "timeout": 0.4
       },
       "actionType": "NODE",
-      "destinationId": "NODE-0514",
+      "destinationId": "NODE-0321",
       "destinationName": "Type=Warning, Style=Highline, Size=Small, Animation=S1",
       "navigation": "CHANGE_TO",
       "transition": {
@@ -94,14 +94,14 @@
       }
     },
     {
-      "from": "NODE-0518",
+      "from": "NODE-0325",
       "fromName": "Type=Warning, Style=Highline, Size=Large, Animation=S1",
       "trigger": {
         "type": "AFTER_TIMEOUT",
         "timeout": 0.8
       },
       "actionType": "NODE",
-      "destinationId": "NODE-0519",
+      "destinationId": "NODE-0326",
       "destinationName": "Type=Warning, Style=Highline, Size=Large, Animation=S2",
       "navigation": "CHANGE_TO",
       "transition": {
@@ -114,13 +114,13 @@
     }
   ],
   "terminologyEvidenceForTaxonomyQuestion": {
-    "textPropertyKey": "Badge Value#NODE-0301",
+    "textPropertyKey": "Badge Value#NODE-0124",
     "textPropertyDefault": "-3.2%",
-    "instanceSwapPropertyKey": "Trend Symbol#NODE-0294",
+    "instanceSwapPropertyKey": "Trend Symbol#NODE-0319",
     "comparedToStaticSets": {
-      "textPropertyKey": "Pill Value#NODE-0301",
+      "textPropertyKey": "Pill Value#NODE-0124",
       "textPropertyDefault": "Label",
-      "instanceSwapPropertyKey": "Pill Symbol#NODE-0295"
+      "instanceSwapPropertyKey": "Pill Symbol#NODE-0125"
     },
     "note": "The hidden set names its content properties Badge Value / Trend Symbol with a percentage-delta default, whereas the four visible sets name theirs Pill Value / Pill Symbol with a generic 'Label' default. Recorded as evidence bearing on the taxonomy question. NOT resolved here: whether this set is production Pill, WIP, legacy, or a separate Badge component is an OWNER DECISION."
   },

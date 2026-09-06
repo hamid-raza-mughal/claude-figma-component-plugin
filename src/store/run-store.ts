@@ -70,6 +70,22 @@ export type ApprovalRow = {
 
 export type AppendResult = { readonly ok: true; readonly seq: number } | { readonly ok: false; readonly reason: 'cas-conflict' };
 
+/**
+ * A CAS conflict is a lost race for a `run_event` sequence number, and nothing
+ * else.
+ *
+ * AC-28: the previous test was `/UNIQUE|PRIMARY KEY/i` over the whole error
+ * message, inside transactions that write two tables. Any constraint in either
+ * one became "another writer took your seq — re-read and retry", which is
+ * actionable advice for exactly one of them and unfollowable for the rest.
+ * Naming the table is what makes the classification a claim rather than a guess,
+ * and it means a third write added to one of these transactions cannot silently
+ * inherit the label.
+ */
+function isRunEventCasConflict(message: string): boolean {
+  return /UNIQUE|PRIMARY KEY/i.test(message) && /run_event/.test(message);
+}
+
 type RunEventRowRaw = {
   run_id: string;
   seq: number;
@@ -278,9 +294,28 @@ export class RunStore {
       this.db
         .prepare('UPDATE artifact SET superseded_at = ? WHERE run_id = ? AND superseded_at IS NULL')
         .run(at, runId);
+      /*
+       * AC-28. `artifact`'s primary key is `(run_id, artifact_sha256)`, so a run
+       * that re-composes **byte-identical** output — a repair loop producing the
+       * same artifact, or a retry — used to trip that key, be classified as a
+       * CAS conflict by the catch below, and be told to re-read `getMaxSeq` and
+       * retry. The retry recomputes the same hash and fails identically. It is
+       * not a conflict and no retry can resolve it: it is the same artifact.
+       *
+       * `ON CONFLICT … DO UPDATE` says what is actually true. One row per
+       * (run, content); composing those bytes again makes that row current,
+       * and the `UPDATE` above has already voided whatever preceded it. History
+       * is unaffected — a *different* artifact still supersedes rather than
+       * replaces, which is what keeps a voided artifact readable enough to
+       * explain a void approval.
+       */
       this.db
         .prepare(
-          'INSERT INTO artifact (run_id, artifact_sha256, composed_at, superseded_at, canonical_json) VALUES (?, ?, ?, NULL, ?)',
+          'INSERT INTO artifact (run_id, artifact_sha256, composed_at, superseded_at, canonical_json) ' +
+            'VALUES (?, ?, ?, NULL, ?) ' +
+            'ON CONFLICT (run_id, artifact_sha256) DO UPDATE SET ' +
+            'composed_at = excluded.composed_at, superseded_at = NULL, ' +
+            'canonical_json = excluded.canonical_json',
         )
         .run(runId, artifactSha256, at, canonicalJson);
       this.db.exec('COMMIT');
@@ -292,7 +327,7 @@ export class RunStore {
         // Rollback outside a transaction throws; the original error matters.
       }
       const message = error instanceof Error ? error.message : String(error);
-      if (/UNIQUE|PRIMARY KEY/i.test(message)) return { ok: false, reason: 'cas-conflict' };
+      if (isRunEventCasConflict(message)) return { ok: false, reason: 'cas-conflict' };
       throw new StoreAppendError(`appendEventAndPutArtifact failed for run "${runId}" seq ${seq}: ${message}`);
     }
   }
@@ -417,7 +452,7 @@ export class RunStore {
         // Rollback outside a transaction throws; the original error matters.
       }
       const message = error instanceof Error ? error.message : String(error);
-      if (/UNIQUE|PRIMARY KEY/i.test(message)) return { ok: false, reason: 'cas-conflict' };
+      if (isRunEventCasConflict(message)) return { ok: false, reason: 'cas-conflict' };
       throw new StoreAppendError(`appendEventAndPutApproval failed for run "${runId}" seq ${seq}: ${message}`);
     }
   }
@@ -483,7 +518,7 @@ export class RunStore {
       return { ok: true, seq };
     } catch (error: unknown) {
       const message = error instanceof Error ? error.message : String(error);
-      if (/UNIQUE|PRIMARY KEY/i.test(message)) {
+      if (isRunEventCasConflict(message)) {
         return { ok: false, reason: 'cas-conflict' };
       }
       throw new StoreAppendError(`appendEvent failed for run "${runId}" seq ${seq}: ${message}`);

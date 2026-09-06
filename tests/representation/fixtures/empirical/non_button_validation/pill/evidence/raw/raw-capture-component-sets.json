@@ -2,12 +2,12 @@
   "capture": "Fresh re-capture verification digest for all five Pill COMPONENT_SETs",
   "why": "Repair #2. The original component-sets tool response was TRUNCATED mid-session. Rather than reconstruct provenance for a response that cannot be honestly reproduced, this read was RE-RUN FRESH against the live file. It is a verification digest: enough to independently re-verify every normalized artifact without re-transmitting all 216 rows.",
   "captureMethod": "mcp__plugin_figma_figma__use_figma (read-only script; no write operation was issued)",
-  "fileKey": "FILEKEY-0002",
-  "pageId": "NODE-0538",
+  "fileKey": "FILEKEY-0003",
+  "pageId": "NODE-0045",
   "pageName": "Pills",
   "sourceNodeIds": [
-    "NODE-0539",
-    "NODE-0545"
+    "NODE-0040",
+    "NODE-0042"
   ],
   "capturedAt": "2026-08-16T09:30:00Z",
   "apiFieldsRead": [
@@ -19,35 +19,35 @@
     "COMPONENT_SET.componentPropertyDefinitions",
     "COMPONENT.variantProperties"
   ],
-  "script": "const root = await figma.getNodeByIdAsync('NODE-0539');\nlet a = root, page = null;\nwhile (a) { if (a.type === 'PAGE') { page = a; break; } a = a.parent; }\nawait figma.setCurrentPageAsync(page);\nconst holder = await figma.getNodeByIdAsync('NODE-0545');\nfor (const cs of holder.children) {\n  const defs = cs.componentPropertyDefinitions;\n  const axes = Object.keys(defs).filter(k => defs[k].type === 'VARIANT');\n  const keys = cs.children.map(c => axes.map(x => c.variantProperties[x]).join('|')).sort();\n  /* id, name, type, visible, key, parentId, childCount, childTypes, axes,\n     propertyKeys, defaults, variantOptions, firstChildId, lastChildId,\n     distinctCombinations */\n}",
+  "script": "const root = await figma.getNodeByIdAsync('NODE-0040');\nlet a = root, page = null;\nwhile (a) { if (a.type === 'PAGE') { page = a; break; } a = a.parent; }\nawait figma.setCurrentPageAsync(page);\nconst holder = await figma.getNodeByIdAsync('NODE-0042');\nfor (const cs of holder.children) {\n  const defs = cs.componentPropertyDefinitions;\n  const axes = Object.keys(defs).filter(k => defs[k].type === 'VARIANT');\n  const keys = cs.children.map(c => axes.map(x => c.variantProperties[x]).join('|')).sort();\n  /* id, name, type, visible, key, parentId, childCount, childTypes, axes,\n     propertyKeys, defaults, variantOptions, firstChildId, lastChildId,\n     distinctCombinations */\n}",
   "derivationRelationship": {
     "normalizedArtifacts": [
       "evidence/api-capture-component-sets.json",
-      "evidence/enumeration-787-14141.json",
-      "evidence/enumeration-787-14271.json",
-      "evidence/enumeration-787-14401.json",
-      "evidence/enumeration-787-14531.json",
-      "evidence/enumeration-787-14660.json"
+      "evidence/enumeration-NODE-0035.json",
+      "evidence/enumeration-NODE-0036.json",
+      "evidence/enumeration-NODE-0037.json",
+      "evidence/enumeration-NODE-0038.json",
+      "evidence/enumeration-NODE-0039.json"
     ],
     "note": "The normalized artifacts are the authoritative per-child records; this digest cross-verifies them."
   },
   "limitations": [
     "A digest, not a full per-child dump. Per-child variantProperties live in the normalized enumeration artifacts.",
     "Figma file version identity is not exposed by the Plugin API and is therefore recorded nowhere.",
-    "The R-1 get_metadata capture (evidence/figma-metadata-787-4538.xml) is retained separately for child geometry only."
+    "The R-1 get_metadata capture (evidence/figma-metadata-NODE-0040.xml) is retained separately for child geometry only."
   ],
   "response": {
-    "capturedFrom": "NODE-0545",
+    "capturedFrom": "NODE-0042",
     "page": "Pills",
-    "pageId": "NODE-0538",
+    "pageId": "NODE-0045",
     "sets": [
       {
-        "id": "NODE-0317",
+        "id": "NODE-0035",
         "name": "Pill – Highline",
         "type": "COMPONENT_SET",
         "visible": true,
-        "key": "KEY-0015",
-        "parentId": "NODE-0545",
+        "key": "KEY-0005",
+        "parentId": "NODE-0042",
         "childCount": 48,
         "childTypes": [
           "COMPONENT"
@@ -58,15 +58,15 @@
           "Icon"
         ],
         "propertyKeys": [
-          "Pill Value#NODE-0301",
-          "Pill Symbol#NODE-0295",
+          "Pill Value#NODE-0124",
+          "Pill Symbol#NODE-0125",
           "Accent",
           "Size",
           "Icon"
         ],
         "defaults": {
-          "Pill Value#NODE-0301": "Label",
-          "Pill Symbol#NODE-0295": "NODE-0315",
+          "Pill Value#NODE-0124": "Label",
+          "Pill Symbol#NODE-0125": "NODE-0126",
           "Accent": "Success",
           "Size": "XXSmall",
           "Icon": "None"
@@ -90,17 +90,17 @@
             "Trailing"
           ]
         },
-        "firstChildId": "NODE-0318",
-        "lastChildId": "NODE-0365",
+        "firstChildId": "NODE-0127",
+        "lastChildId": "NODE-0174",
         "distinctCombinations": 48
       },
       {
-        "id": "NODE-0366",
+        "id": "NODE-0036",
         "name": "Pill – Highlighted",
         "type": "COMPONENT_SET",
         "visible": true,
-        "key": "KEY-0017",
-        "parentId": "NODE-0545",
+        "key": "KEY-0007",
+        "parentId": "NODE-0042",
         "childCount": 48,
         "childTypes": [
           "COMPONENT"
@@ -111,15 +111,15 @@
           "Icon"
         ],
         "propertyKeys": [
-          "Pill Value#NODE-0301",
-          "Pill Symbol#NODE-0295",
+          "Pill Value#NODE-0124",
+          "Pill Symbol#NODE-0125",
           "Accent",
           "Size",
           "Icon"
         ],
         "defaults": {
-          "Pill Value#NODE-0301": "Label",
-          "Pill Symbol#NODE-0295": "NODE-0315",
+          "Pill Value#NODE-0124": "Label",
+          "Pill Symbol#NODE-0125": "NODE-0126",
           "Accent": "Success",
           "Size": "XXSmall",
           "Icon": "None"
@@ -143,17 +143,17 @@
             "Trailing"
           ]
         },
-        "firstChildId": "NODE-0367",
-        "lastChildId": "NODE-0414",
+        "firstChildId": "NODE-0175",
+        "lastChildId": "NODE-0222",
         "distinctCombinations": 48
       },
       {
-        "id": "NODE-0415",
+        "id": "NODE-0037",
         "name": "Pill – Filled",
         "type": "COMPONENT_SET",
         "visible": true,
-        "key": "KEY-0016",
-        "parentId": "NODE-0545",
+        "key": "KEY-0008",
+        "parentId": "NODE-0042",
         "childCount": 48,
         "childTypes": [
           "COMPONENT"
@@ -164,15 +164,15 @@
           "Icon"
         ],
         "propertyKeys": [
-          "Pill Value#NODE-0301",
-          "Pill Symbol#NODE-0295",
+          "Pill Value#NODE-0124",
+          "Pill Symbol#NODE-0125",
           "Accent",
           "Size",
           "Icon"
         ],
         "defaults": {
-          "Pill Value#NODE-0301": "Label",
-          "Pill Symbol#NODE-0295": "NODE-0315",
+          "Pill Value#NODE-0124": "Label",
+          "Pill Symbol#NODE-0125": "NODE-0126",
           "Accent": "Success",
           "Size": "XXSmall",
           "Icon": "None"
@@ -196,17 +196,17 @@
             "Trailing"
           ]
         },
-        "firstChildId": "NODE-0416",
-        "lastChildId": "NODE-0463",
+        "firstChildId": "NODE-0223",
+        "lastChildId": "NODE-0270",
         "distinctCombinations": 48
       },
       {
-        "id": "NODE-0464",
+        "id": "NODE-0038",
         "name": "Pill – Text",
         "type": "COMPONENT_SET",
         "visible": true,
-        "key": "KEY-0013",
-        "parentId": "NODE-0545",
+        "key": "KEY-0009",
+        "parentId": "NODE-0042",
         "childCount": 48,
         "childTypes": [
           "COMPONENT"
@@ -217,15 +217,15 @@
           "Icon"
         ],
         "propertyKeys": [
-          "Pill Value#NODE-0301",
-          "Pill Symbol#NODE-0295",
+          "Pill Value#NODE-0124",
+          "Pill Symbol#NODE-0125",
           "Accent",
           "Size",
           "Icon"
         ],
         "defaults": {
-          "Pill Value#NODE-0301": "Label",
-          "Pill Symbol#NODE-0295": "NODE-0315",
+          "Pill Value#NODE-0124": "Label",
+          "Pill Symbol#NODE-0125": "NODE-0126",
           "Accent": "Success",
           "Size": "XXSmall",
           "Icon": "None"
@@ -249,17 +249,17 @@
             "Trailing"
           ]
         },
-        "firstChildId": "NODE-0465",
-        "lastChildId": "NODE-0512",
+        "firstChildId": "NODE-0271",
+        "lastChildId": "NODE-0318",
         "distinctCombinations": 48
       },
       {
-        "id": "NODE-0513",
+        "id": "NODE-0039",
         "name": "Pill – Pulse Animation",
         "type": "COMPONENT_SET",
         "visible": false,
-        "key": "KEY-0005",
-        "parentId": "NODE-0545",
+        "key": "KEY-0010",
+        "parentId": "NODE-0042",
         "childCount": 24,
         "childTypes": [
           "COMPONENT"
@@ -271,16 +271,16 @@
           "Animation"
         ],
         "propertyKeys": [
-          "Badge Value#NODE-0301",
-          "Trend Symbol#NODE-0294",
+          "Badge Value#NODE-0124",
+          "Trend Symbol#NODE-0319",
           "Type",
           "Style",
           "Size",
           "Animation"
         ],
         "defaults": {
-          "Badge Value#NODE-0301": "-3.2%",
-          "Trend Symbol#NODE-0294": "NODE-0316",
+          "Badge Value#NODE-0124": "-3.2%",
+          "Trend Symbol#NODE-0319": "NODE-0320",
           "Type": "Warning",
           "Style": "Highline",
           "Size": "Small",
@@ -305,8 +305,8 @@
             "S2"
           ]
         },
-        "firstChildId": "NODE-0514",
-        "lastChildId": "NODE-0537",
+        "firstChildId": "NODE-0321",
+        "lastChildId": "NODE-0344",
         "distinctCombinations": 24
       }
     ]

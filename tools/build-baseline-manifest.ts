@@ -49,7 +49,7 @@ const ANNOTATIONS: Readonly<Record<string, Annotation>> = {
     type: 'Coordinator output example (was canonical)',
     defect:
       'Resolution #6 "1px border" -> `stroke/base` at High confidence: that path does not exist. ' +
-      'Key 75ab1461… belongs to `stroke/thin` (value 1.0). Resolution #12 claims `body/sm/regular` ' +
+      'That key belongs to `stroke/thin` (value 1.0). Resolution #12 claims `body/sm/regular` ' +
       'is 14px; it is 12px, and the 14px answer is `body/reg/regular`. Also carries `sha256-pending`.',
     successor: 'tests/fixtures/active/ (Phase 1 rebuilt fixture, WP3)',
   },

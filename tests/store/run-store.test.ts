@@ -324,6 +324,72 @@ describe('§11.6.1 atomicity — the event and its dependent write commit togeth
     assert.equal(store.getCurrentArtifact(runId), undefined);
   });
 
+  /**
+   * AC-28, confirmed in audit cycle 2 and fixed here.
+   *
+   * The `artifact` table's primary key is `(run_id, artifact_sha256)`, and both
+   * inserts in this method are wrapped by one catch that classifies **any**
+   * `UNIQUE|PRIMARY KEY` failure as a CAS conflict. So a run that re-composes
+   * **byte-identical** output — a repair loop that produces the same artifact,
+   * or a retry after a transport failure — trips the artifact key, is told
+   * `cas-conflict`, and is instructed to "re-read `getMaxSeq` and retry". The
+   * retry recomputes the same hash and fails identically. That is not a
+   * conflict and retrying cannot resolve it: it is the same artifact.
+   *
+   * Two things are wrong and both are fixed. Re-composing identical content is
+   * now idempotent — the row is revived as current rather than colliding — and
+   * `cas-conflict` is now claimed only for a `run_event` constraint, so a future
+   * third insert in this transaction cannot silently inherit the label.
+   */
+  test('appendEventAndPutArtifact: re-composing byte-identical output is not a CAS conflict', () => {
+    const store = new RunStore(freshDbPath());
+    store.createRun(sampleRun());
+    const runId = sampleRun().run_id;
+    const sha = '9'.repeat(64);
+
+    const first = store.appendEventAndPutArtifact(
+      runId, 1, '2026-07-29T10:00:01Z', 'draft-submitted', 'drafting', 'validating', {}, sha, '{"status":"ready"}',
+    );
+    assert.equal(first.ok, true);
+
+    // The same run composes the same bytes again at the next seq. Before the
+    // fix this returned {ok:false, reason:'cas-conflict'} and the caller was
+    // told to retry something no retry could change.
+    const second = store.appendEventAndPutArtifact(
+      runId, 2, '2026-07-29T10:00:02Z', 'draft-submitted', 'validating', 'validating', {}, sha, '{"status":"ready"}',
+    );
+    assert.equal(
+      second.ok,
+      true,
+      'identical content is the same artifact, not a conflict — and no retry could ever resolve it',
+    );
+    assert.equal(store.getEvents(runId).length, 2);
+    assert.equal(store.getCurrentArtifact(runId)?.artifact_sha256, sha);
+    assert.equal(
+      store.getArtifactHistory(runId).length,
+      1,
+      'one row per (run, content) — the same bytes are one artifact however often they are composed',
+    );
+  });
+
+  test('appendEventAndPutArtifact: a genuinely new artifact still supersedes the old one', () => {
+    // The property the idempotent path must not break: different content is a
+    // new artifact, the previous one is voided, and history stays readable
+    // because a voided artifact has to explain a void approval.
+    const store = new RunStore(freshDbPath());
+    store.createRun(sampleRun());
+    const runId = sampleRun().run_id;
+
+    store.appendEventAndPutArtifact(
+      runId, 1, '2026-07-29T10:00:01Z', 'draft-submitted', 'drafting', 'validating', {}, '9'.repeat(64), '{"v":1}',
+    );
+    store.appendEventAndPutArtifact(
+      runId, 2, '2026-07-29T10:00:02Z', 'draft-submitted', 'validating', 'validating', {}, '8'.repeat(64), '{"v":2}',
+    );
+    assert.equal(store.getCurrentArtifact(runId)?.artifact_sha256, '8'.repeat(64));
+    assert.equal(store.getArtifactHistory(runId).length, 2, 'the voided artifact stays readable');
+  });
+
   test('appendEventAndPutArtifact: on success, both the event and the artifact are visible', () => {
     const store = new RunStore(freshDbPath());
     store.createRun(sampleRun());

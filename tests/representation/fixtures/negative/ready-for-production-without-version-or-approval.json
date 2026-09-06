@@ -1,6 +1,6 @@
 {
   "contractId": "CRC-SAMPLE-1",
-  "contractVersion": "0.4.1-draft",
+  "contractVersion": "0.4.1",
   "authoringMode": "authored",
   "migrationReportRef": null,
   "provenance": {
@@ -76,16 +76,7 @@
   ],
   "canonicalValueDisplayLabelMap": [],
   "correlatedAxisTuples": [],
-  "ownerConfirmations": [
-    {
-      "confirmationId": "OC-1",
-      "confirmedBy": "sample-owner",
-      "confirmationDate": "2026-01-01",
-      "method": "written_confirmation",
-      "confirmationScopeType": "contract_overall",
-      "confirmationScopeRef": "CRC-SAMPLE-1"
-    }
-  ],
+  "ownerConfirmations": [],
   "themeModel": {
     "collections": [],
     "containers": [],
@@ -200,11 +191,24 @@
       }
     }
   ],
-  "readinessStatus": "validation_ready",
+  "readinessStatus": "ready_for_production",
   "approvalStatus": {
-    "overall": "approved",
-    "ownerConfirmationRef": "OC-1",
-    "blockers": []
+    "overall": "blocked",
+    "ownerConfirmationRef": null,
+    "blockers": [
+      {
+        "blockerId": "BLK-1",
+        "blockerClass": "owner_decision",
+        "narrative": {
+          "description": "No owner confirmation exists for this synthetic contract.",
+          "mustBeResolvedBefore": "Any approval of this contract."
+        },
+        "target": {
+          "targetKind": "contract",
+          "targetRef": "self"
+        }
+      }
+    ]
   },
   "knownLimitations": [
     {

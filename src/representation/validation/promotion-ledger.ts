@@ -98,7 +98,7 @@ export const PROMOTION_LEDGER: readonly PromotionLedgerRow[] = [
   pending('CV-7', 'B3', 'An allocation dimension referencing something that does not exist or is out of scope.'),
   pending('CV-8', 'B3', 'Unauthorized promotion into approvedCombinations.'),
   promoted('CV-9', ['REP-04'], 'D-5 orphan: fixture-asserted, never declared. The schema conditional it names is the one D-3 walked past.'),
-  promoted('CV-10', ['REP-01', 'REP-02'], 'The version/readiness/approval promotion gate, split into the two directions it actually enforces.'),
+  promoted('CV-10', ['REP-01', 'REP-02', 'REP-22'], 'The version/readiness/approval promotion gate, split into the three directions it actually enforces; the third was found in audit cycle 2, enforced by the schema and declared by nothing.'),
   pending('CV-11', 'B3', 'Enumeration evidence must be artifact-backed and internally consistent.'),
   pending('CV-12', 'B3', 'Matrix allocations must be recomputable from evidence, per source documentation block.'),
   pending('CV-13', 'B3', 'Enumeration-provenance class rules.'),

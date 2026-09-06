@@ -3,11 +3,11 @@
   "contractId": "NAME-0001-pill-non-button-experimental-representation-contract",
   "sourceContract": {
     "path": "versions/0.2.0-draft/non-button-experimental-contract.json",
-    "sha256": "f596f8ee67e312d9d243ad81effddb23c4fcd40e6948e910480ca95b7a2d4eb9"
+    "sha256": "013b2aef739dce68966888c173ef5fc027664b3c68e8ef70e85b9741c2c4bf0f"
   },
   "migrationTool": {
     "path": "../../Builder_comp_rep_docs/migrate_v031_to_v040.py",
-    "sha256": "fc83bc0ccf76d8bc3cfe2f831df3cffcafcbd1be451b4540c2627e7137de2da6"
+    "sha256": "c4a277d02d594914ab73369d3ca6ac8d7234944c7aed7e5d49d760d56381062a"
   },
   "unresolvedStates": [
     {

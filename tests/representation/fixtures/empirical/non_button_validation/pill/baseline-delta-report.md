@@ -1,7 +1,7 @@
 # Baseline Delta Report — Pill vs `component-representation-contract v0.3.1-draft`
 
 **Pass:** R-2 live-evidence reconciliation · **Date:** 2026-08-16
-**Evidence component:** Pill (`NODE-0539`, page `Pills` `NODE-0538`, file `FILEKEY-0002`)
+**Evidence component:** Pill (`NODE-0040`, page `Pills` `NODE-0045`, file `FILEKEY-0003`)
 
 Nothing here has been applied to the baseline. The v0.3.1 package is byte-unchanged (`verify_checksums.py` → 93/93).
 
@@ -11,16 +11,16 @@ Nothing here has been applied to the baseline. The v0.3.1 package is byte-unchan
 
 | # | Assumption under test | Verdict | Evidence |
 |---|---|---|---|
-| 1 | One documentation scaffold fits every component | **contradicted** | Two scaffolds run simultaneously in each theme card: list strip (`NODE-0008`, 15 instances) and matrix (`NODE-0133`, 32). |
+| 1 | One documentation scaffold fits every component | **contradicted** | Two scaffolds run simultaneously in each theme card: list strip (`NODE-0046`, 15 instances) and matrix (`NODE-0047`, 32). |
 | 2 | Every component should use a matrix | **conditional** | A real matrix exists for PSV-1 only, alongside a list block. PSV-2 contributes **0** documentation instances. |
 | 3 | All declared axes form a Cartesian product | **corroborated** | Checked in Figma against each set's own `variantOptions`: 48/48/48/48/24 children, 0 duplicates, 0 missing, 0 extra. Corroborated *for Pill*, not promoted. |
 | 4 | All component sets within a component share one property schema | **contradicted** | PSV-1 {Pill Value TEXT, Pill Symbol INSTANCE_SWAP, Accent/Size/Icon} vs PSV-2 {Badge Value TEXT, Trend Symbol INSTANCE_SWAP, Type/Style/Size/Animation}. |
 | 5 | Rows, columns and bands can be allocated uniformly | **contradicted** | MA-1 covers PSV-1 only, is row-indexed by set identity, restricts bands to {Regular, Small} of four Size values, and fixes `Icon=None`. PSV-2 admits no allocation. |
 | 6 | Disabled/restricted states follow the Button omission pattern | **not_applicable** | Neither schema declares a disabled, readonly or interaction-state property of *any* type. Absence of the Button pattern is not a contract failure. |
-| 7 | Theme switching uses the same mechanism observed for Buttons | **corroborated (mechanism) / contradicted (convention)** | Same collection `colors` `…4c8f51ad…/NODE-0559`, same modes Dark `NODE-0299` / Light `NODE-0558` as the Buttons baseline. But Buttons used `dark_rep_container`/`light_rep_container`; Pill's containers are **both named `card`**, and their mode provenance differs (inherited vs explicit). |
+| 7 | Theme switching uses the same mechanism observed for Buttons | **corroborated (mechanism) / contradicted (convention)** | Same collection `colors` `…TRUNC-0005/NODE-0048`, same modes Dark `NODE-0027` / Light `NODE-0028` as the Buttons baseline. But Buttons used `dark_rep_container`/`light_rep_container`; Pill's containers are **both named `card`**, and their mode provenance differs (inherited vs explicit). |
 | 8 | Caption differences are necessarily errors | **contradicted** | `No Icon`/`Leading Icon`/`Trailing Icon` against API canonical `None`/`Leading`/`Trailing` is editorial. No typo-class divergence anywhere in Pill. |
-| 9 | Visual completeness implies structural completeness | **contradicted (decisively)** | `NODE-0513` has `visible:false`, renders blank, is absent from its parent's render, and contributes 0 documentation instances — yet the API reports a COMPONENT_SET with 24 children, a second schema, 12 children with variable bindings, and 24 prototype reactions. |
-| 10 | Button-specific findings can safely become Builder defaults | **contradicted** | CV-2 encodes Buttons' 1:1 set→build-frame topology and fires 4 false positives on Pill's 5:1; the scope enums are Button-hardcoded; `treatmentLabel` assumes treatment is always set identity. |
+| 9 | Visual completeness implies structural completeness | **contradicted (decisively)** | `NODE-0039` has `visible:false`, renders blank, is absent from its parent's render, and contributes 0 documentation instances — yet the API reports a COMPONENT_SET with 24 children, a second schema, 12 children with variable bindings, and 24 prototype reactions. |
+| 10 | Button-specific findings can safely become Builder defaults | **contradicted** | CV-2 encodes Buttons' NODE-0001 set→build-frame topology and fires 4 false positives on Pill's NODE-0049; the scope enums are Button-hardcoded; `treatmentLabel` assumes treatment is always set identity. |
 
 ### SF-05 — reclassified
 
@@ -40,9 +40,9 @@ Nothing here has been applied to the baseline. The v0.3.1 package is byte-unchan
 >
 > R-1 inferred the mechanism from variable *names* resolving to different hex values. R-2 observes it directly:
 >
-> - Collection `colors`, id `VC-0002`, key `4c8f51ad…`, `remote: true`, 105 variables, `defaultModeId: NODE-0299`.
-> - Modes **Dark `NODE-0299`**, **Light `NODE-0558`** — the same collection and mode IDs the Buttons baseline recorded, independently re-derived.
-> - The **same variable IDs** are bound under both cards (`…448294c4…/NODE-0579` = `System/Expressions/success`, with `valuesByMode` NODE-0299 → `#43DB70`, NODE-0558 → `#17CF60`). Theme divergence is mode resolution, not variable substitution.
+> - Collection `colors`, id `VC-0001`, key `TRUNC-0005`, `remote: true`, 105 variables, `defaultModeId: NODE-0027`.
+> - Modes **Dark `NODE-0027`**, **Light `NODE-0028`** — the same collection and mode IDs the Buttons baseline recorded, independently re-derived.
+> - The **same variable IDs** are bound under both cards (`…TRUNC-0006/NODE-0050` = `System/Expressions/success`, with `valuesByMode` NODE-0027 → `#43DB70`, NODE-0028 → `#17CF60`). Theme divergence is mode resolution, not variable substitution.
 >
 > `themeModel.mechanismEvidence.classification` moves `unverified` → **`observed`**, and `explicitPerFrameModeOverrideObserved` moves `false` → **`true`**.
 >
@@ -73,7 +73,7 @@ Nothing here has been applied to the baseline. The v0.3.1 package is byte-unchan
 | 10 sets in a Primary/Secondary/Disabled hierarchy | Not present — 5 sets, flat treatment list |
 | 100-cell documented pairing counts | Different quantity entirely; not comparable |
 | `dark_rep_container` / `light_rep_container` naming | Not present — both containers named `card` |
-| 1:1 set → build-frame topology | Contradicted — Pill is 5:1 |
+| NODE-0001 set → build-frame topology | Contradicted — Pill is NODE-0049 |
 | `visual_matrix_verified` as the practical ceiling | Exceeded — API enumeration throughout |
 
 ## Part 3 — Candidate invariants corroborated (still candidates; none promoted)
@@ -96,7 +96,7 @@ Nothing here has been applied to the baseline. The v0.3.1 package is byte-unchan
 | Treatment is always set identity (`treatmentLabel`) | **Contradicted** — PFAM-2 carries it as an in-set axis with default `Highline` |
 | One `layoutStrategy` per component | **Contradicted** |
 | A matrix axis must be a declared VARIANT property (CV-7) | **Contradicted** — Pill's real matrix rows are set identity, now *recomputed* from instance evidence |
-| Sets have distinct build frames (CV-2 pooling) | **Contradicted** — five sets share `NODE-0545` |
+| Sets have distinct build frames (CV-2 pooling) | **Contradicted** — five sets share `NODE-0042` |
 | A `Size` value denotes a stable physical size | **Contradicted** — `Regular` = 32px in three sets, 20px in `Pill – Text` |
 | VARIANT properties are the whole property surface | **Contradicted** — four real TEXT / INSTANCE_SWAP properties with defaults |
 
@@ -124,10 +124,10 @@ Reproduced in `experiment-validation-report.md`. Violation counts are **unchange
 ### False positive — CV-2 (×4)
 
 ```
-[CV-2] duplicate Figma node id 'NODE-0545' in the componentSets id/buildFrameId pool   ×4
+[CV-2] duplicate Figma node id 'NODE-0042' in the componentSets id/buildFrameId pool   ×4
 ```
 
-CV-2 pools `id` and `buildFrameId` into one uniqueness namespace. **`buildFrameId` is a many-to-one reference, not an identifier.** Five sets sharing one build frame is ordinary Figma authoring and is Pill's actual topology; the Buttons baseline is 1:1 across all ten sets, so the defect never surfaced. `probe-C` isolates it exactly.
+CV-2 pools `id` and `buildFrameId` into one uniqueness namespace. **`buildFrameId` is a many-to-one reference, not an identifier.** Five sets sharing one build frame is ordinary Figma authoring and is Pill's actual topology; the Buttons baseline is NODE-0001 across all ten sets, so the defect never surfaced. `probe-C` isolates it exactly.
 
 **Minimal fix:** uniqueness on `id` only; retain the useful cross-check that no `buildFrameId` equals any `id`.
 
@@ -193,7 +193,7 @@ A working prototype is shipped at [`evidence/allocation-evidence-MA-1.json`](evi
 | # | Requires the owner because |
 |---|---|
 | A-1 | Retiring `buttons` / `observed_button_invariant` / `button_specific_pattern` (P-4) invalidates the accepted baseline's own findings — a versioning decision. |
-| A-2 | **Whether `NODE-0513` is production Pill, WIP, legacy, or a separate Badge component.** The `Badge Value` / `Trend Symbol` naming, the disjoint schema, `visible:false`, and zero documentation coverage are evidence, not a verdict. This gates PFAM-2, PSV-2, CAT-2, PB-10 and P-13. |
+| A-2 | **Whether `NODE-0039` is production Pill, WIP, legacy, or a separate Badge component.** The `Badge Value` / `Trend Symbol` naming, the disjoint schema, `visible:false`, and zero documentation coverage are evidence, not a verdict. This gates PFAM-2, PSV-2, CAT-2, PB-10 and P-13. |
 | A-3 | Whether Pill's five sets and two schemas are one component or two. |
 | A-4 | Whether `Size` is intended as a relative scale (permitting `Regular` = 20px in `Pill – Text`). |
 | A-5 | Whether PSV-2's restriction to {Warning, Error} and {Highline, Filled} is deliberate. |
@@ -207,8 +207,8 @@ A working prototype is shipped at [`evidence/allocation-evidence-MA-1.json`](evi
 |---|---|---|---|---|
 | Q-1 | Are the five parents genuinely `COMPONENT_SET`, and do names match real `variantProperties`? | open | **resolved** | All five `type: COMPONENT_SET`, all children `COMPONENT`; 0 mismatches across 216 children (`api-vs-nameparse-diff.json`) |
 | Q-2 | Do the sets declare BOOLEAN / TEXT / INSTANCE_SWAP properties or defaults? | open | **resolved** | Four non-VARIANT properties with defaults; every VARIANT axis has a default. No BOOLEAN properties. |
-| Q-3 | What is the variable collection, and its mode names and IDs? | open | **resolved** | `colors`, `…4c8f51ad…/NODE-0559`, remote, 105 vars; Dark `NODE-0299` (default), Light `NODE-0558` |
-| Q-4 | Explicit per-frame mode override, or inherited? | open | **resolved** | Dark = inherited (empty `explicitVariableModes` through PAGE); Light = explicit `NODE-0558` |
+| Q-3 | What is the variable collection, and its mode names and IDs? | open | **resolved** | `colors`, `…TRUNC-0005/NODE-0048`, remote, 105 vars; Dark `NODE-0027` (default), Light `NODE-0028` |
+| Q-4 | Explicit per-frame mode override, or inherited? | open | **resolved** | Dark = inherited (empty `explicitVariableModes` through PAGE); Light = explicit `NODE-0028` |
 | Q-5 | Which axis combination does each documented instance represent? | open | **resolved** | All 94 captured with real `variantProperties` |
 | Q-6 | Does the hidden set have variable bindings? | open | **resolved** | Yes — 12 of 24 children; R-1's `{}` was a tool artifact |
 | Q-7 | What motion do `S1` / `S2` encode? | open | **partially resolved** | Wiring resolved: `AFTER_TIMEOUT` (0.4s / 0.8s Large) → `CHANGE_TO` + `SMART_ANIMATE` `EASE_OUT` 0.6s, bidirectional, 12 loops. **Still open:** what the two frames render differently. |

@@ -2,8 +2,12 @@
 
 What `tests/representation/fixtures/empirical/` is, where it came from, and what was deliberately
 left behind. Written under BP-5, which permits **relative source paths and aggregate hashes only**:
-no identifier values, no real-to-placeholder mapping, and no per-kind counts that could act as a
-fingerprint of the source design system.
+no identifier values and no real-to-placeholder mapping.
+
+**Revised after audit cycle 2, which found this document making three claims the artifact did not
+support.** Where a claim has changed, the old one is quoted and named as false rather than silently
+replaced — a provenance document that quietly corrects itself is worth less than one that says where
+it was wrong.
 
 ---
 
@@ -26,8 +30,13 @@ would fail rather than pass.
 
 ## How it was produced
 
-`tools/promote-representation-evidence.ts`, invoked with the corpus root as an **argument**. No
-tracked file names the research directory (BP-1, BP-2), which is why this document does not either.
+`tools/promote-representation-evidence.ts`, invoked with the corpus root as an **argument**. Nothing
+tracked *depends* on the research directory — no import, no filesystem read — which is what BP-1 and
+BP-2 require and what `tools/boundary-scan.ts` enforces. Twelve tracked files do **name** it: the
+`.gitignore` rule that keeps it untracked, the two scans that forbid it, the ledger header that says
+it is never opened, and the decision logs that record the ruling. An earlier revision of this
+document said "no tracked file names the research directory", which was false; naming it is how the
+rules about it are written down.
 
 ```
 node tools/promote-representation-evidence.ts \
@@ -40,7 +49,7 @@ node tools/promote-representation-evidence.ts \
   --exclude <the lineage archives, both packages>
 ```
 
-**Aggregate over the promoted bytes:** `b464e818cd03bed71e4b9877b63b1e1519ac16c94118b39541c94a52eeca4434`
+**Aggregate over the promoted bytes:** `b3bb366ed6aa8303b1bc62d066cec336d9c88415802b81df524d1828affc6382`
 
 That is the SHA-256 of the sorted list of `<relative path> <sha256 of file>` lines, one per promoted
 file, joined by newlines. Re-running the promotion over the same corpus reproduces it exactly; a
@@ -61,22 +70,46 @@ promotion that is not reproducible is not evidence of anything.
 Applied in this order, because a compound identifier contains a simple one and replacing the simple
 one first would leave a half-real value that looks sanitized:
 
-1. literals supplied by the operator, case-insensitively — a name is written more than one way, and
-   this corpus writes one of them three ways;
+0. ISO timestamps are set aside first and restored verbatim. A timestamp is node-id-shaped twice
+   over, and it was the reason the node rule had been narrowed to two digits — the narrowing that
+   let a real single-digit mode id through thirty-six times;
+1. hex abbreviated with an ellipsis — prose abbreviates constantly, and an eight-hex prefix still
+   resolves to exactly one real value;
 2. variable collection ids, then variable ids, then style keys;
 3. SHA-256 values;
 4. remaining 40-hex component and style keys;
-5. Figma node ids;
-6. **file and directory names**, by the same map — a tracked path carries its identifier as durably
+5. Figma node ids, in **both** notations: `<a>:<b>` and `<a>-<b>`, mapped to one placeholder,
+   because they are one identifier written two ways;
+6. literals supplied by the operator, case-insensitively — a name is written more than one way, and
+   this corpus writes one of them three ways. **After** the shapes, not before: every shape rule is
+   boundary-anchored, and a placeholder ending in a digit destroys the boundary the next rule needs;
+7. **file and directory names**, by the same map — a tracked path carries its identifier as durably
    as a tracked field.
+
+Every boundary is a character-class lookaround, never `\b`, because `\b` treats `_` as a word
+character and so does not fire on an id embedded between underscores — which is where a real node id
+was still sitting after the hyphen rule was added.
 
 Placeholders are assigned in **two phases**: everything is collected first, then frozen, then
 substituted. The one-phase version of this was wrong in a way worth recording, because it passed
-every test written for it: placeholder numbers follow sorted order, so every number shifts when a new
-value is discovered, and assigning during substitution wrote numbers that were correct at the time
-and stale a moment later. Three distinct hashes ended up sharing one placeholder. It is not a leak —
-it is a silent merge of identifiers the corpus distinguished, and a mapping that no longer describes
-the text beside it. What caught it was an assertion about the *output*, not about the mechanism.
+every test written for it: placeholder numbers shift when a new value is discovered, and assigning
+during substitution wrote numbers that were correct at the time and stale a moment later. Three
+distinct hashes ended up sharing one placeholder. It is not a leak — it is a silent merge of
+identifiers the corpus distinguished, and a mapping that no longer describes the text beside it.
+What caught it was an assertion about the *output*, not about the mechanism.
+
+Numbering follows **order of first sight**, not sorted order of the real values. Audit cycle 2 found
+that sorted numbering makes the index a *rank*: given two anchors whose real values are known, every
+placeholder numbered between them is bracketed to the numeric band between those values, and a
+handful of anchors constrains hundreds of ids at once. First-sight numbering over a sorted file walk
+keeps the promotion reproducible while the index says only "seen earlier", which is document order.
+
+**What this corpus does still disclose, stated rather than claimed away.** The highest placeholder
+index of each kind is the number of distinct values of that kind. That is inherent to publishing a
+pseudonymized corpus at all — the alternative is a scheme derived from the values themselves, and
+node ids are small integers, so any such scheme is brute-forceable by whoever guesses one. An earlier
+revision of this document claimed no per-kind counts were recorded; that was false, and the honest
+statement is this one.
 
 ## Hashes
 

@@ -96,9 +96,9 @@ Do not require any of the following as universal — the contract explicitly doe
 - Only the terminal export self-reports validation statistics; basic-tree counts were independently recomputed.
 - Reference-resolution validation is only possible from the terminal export.
 - `explicitVariableModes` occurs 0 times in the export — the theme-mode mechanism is unverified.
-- Physical coverage at `component_children_enumerated` exists for **0 of 10** component sets. `NODE-0313` reached only `visual_matrix_verified` — a real but categorically weaker kind of evidence than the prior draft assumed.
+- Physical coverage at `component_children_enumerated` exists for **0 of 10** component sets. `NODE-0002` reached only `visual_matrix_verified` — a real but categorically weaker kind of evidence than the prior draft assumed.
 - The 8 previously-unrecorded `buildFrameId`s were derived by script extraction, cross-checked by an independent review pass.
-- The screenshot artifact for `NODE-0313` was originally only in an ephemeral scratch path; it is now preserved at `evidence/comp_build_750-2443_screenshot.png`.
+- The screenshot artifact for `NODE-0002` was originally only in an ephemeral scratch path; it is now preserved at `evidence/comp_build_NODE-0002_screenshot.png`.
 - Corroboration is explicit: a finding is `single_component_observed` unless at least one hashed EXTERNAL contract corroborates it. The Buttons baseline has none, so every finding here is single-component.
 - `CAT-1` was derived by automatic pattern detection; it is not owner-confirmed and must not be treated as approved (VR-3/CV-6/CV-8).
 - Identical rule/finding id sets across documents are necessary but not sufficient for semantic consistency — the CV/VR tables here are generated verbatim from the contract specifically to close that gap; other prose was not mechanically diffed.
@@ -124,7 +124,7 @@ Enforcement is tiered. `required` roles carry a semantic value and are enforced.
 |---|---|---|---|
 | BLK-1 | owner_decision | correlatedAxisTuples CAT-1 (Layout x Symbol) has approvalBasis='unresolved'; it is neither owner-confirmed nor fully-enumerated. | Any Figma write that relies on restricting axis combinations for this or any other component. |
 | BLK-2 | owner_decision | Neither layoutRepresentations[].allocation entry (LR-1, LR-2) has approvalStatus='approved' with a resolvable ownerConfirmationRef. | Generating or writing any documentation matrix based on either allocation. |
-| BLK-3 | owner_decision | 0 of 10 component sets have reached component_children_enumerated coverage; 1 of 10 (NODE-0313) reached only visual_matrix_verified, which does not qualify. The other 9 remain schema_only. | Claiming physical completeness for any of the 10 sets, or using any of them as a coverage template for a new component. |
+| BLK-3 | owner_decision | 0 of 10 component sets have reached component_children_enumerated coverage; 1 of 10 (NODE-0002) reached only visual_matrix_verified, which does not qualify. The other 9 remain schema_only. | Claiming physical completeness for any of the 10 sets, or using any of them as a coverage template for a new component. |
 | BLK-4 | owner_decision | The theme-mode resolution mechanism (explicit per-frame override vs. inherited vs. other) is unverified; explicitVariableModes was not found anywhere in the export. | Generalizing the theme-binding mechanism to any other component or file. |
 | BLK-5 | owner_decision | No second, non-Button component has been analyzed; every candidate_cross_component_invariant classification in this contract remains an unverified hypothesis. | Treating any candidate_cross_component_invariant finding as a default Builder behavior. |
 | BLK-6 | owner_decision | ownerConfirmations is empty; no owner-confirmed record exists anywhere in this contract. | Any approval path (correlatedAxisTuples, layoutRepresentations[].allocation, coveragePolicy, or contract-overall) that depends on owner_confirmed evidence. |

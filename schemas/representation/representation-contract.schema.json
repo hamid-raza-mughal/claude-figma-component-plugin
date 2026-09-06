@@ -2177,16 +2177,10 @@
       ],
       "properties": {
         "representationId": {
-          "type": "string",
-          "pattern": "^LR-[0-9]+$"
+          "$ref": "#/$defs/layoutRepresentationId"
         },
         "strategy": {
-          "type": "string",
-          "enum": [
-            "matrix",
-            "list",
-            "scenario_gallery"
-          ]
+          "$ref": "#/$defs/layoutStrategy"
         },
         "appliesTo": {
           "type": "object",
@@ -2281,8 +2275,7 @@
       ],
       "properties": {
         "layoutRepresentationRef": {
-          "type": "string",
-          "pattern": "^LR-[0-9]+$"
+          "$ref": "#/$defs/layoutRepresentationId"
         },
         "containerNodeId": {
           "type": "string",
@@ -2983,8 +2976,8 @@
         "confirmedBy",
         "confirmationDate",
         "method",
-        "scopeType",
-        "scopeRef"
+        "confirmationScopeType",
+        "confirmationScopeRef"
       ],
       "properties": {
         "confirmationId": {
@@ -3007,16 +3000,17 @@
             "other"
           ]
         },
-        "scopeType": {
+        "confirmationScopeType": {
           "type": "string",
           "enum": [
             "correlated_axis_tuple",
             "component_set_coverage",
             "layout_representation",
             "contract_overall"
-          ]
+          ],
+          "description": "What an owner confirmation is about. Deliberately NOT `scopeType`: this document carried two fields of that name with four values in common only one of which was shared, so a resolver transcribing \"the scopeType vocabulary\" was transcribing one of two. Renamed so the two cannot be confused by a reader or by a future author."
         },
-        "scopeRef": {
+        "confirmationScopeRef": {
           "type": "string"
         }
       }
@@ -3059,12 +3053,7 @@
           "description": "The identifier, JSON Pointer or repository-relative path resolved against targetKind. Never a sentence."
         },
         "requiredStrategy": {
-          "type": "string",
-          "enum": [
-            "matrix",
-            "list",
-            "scenario_gallery"
-          ],
+          "$ref": "#/$defs/layoutStrategy",
           "description": "Kind-compatibility for a layout_representation target. D-3 is exactly this: a matrix-cell rule whose target resolved to a list representation with no allocation key. Permitted only when targetKind is layout_representation."
         },
         "requiredArtifactSha256": {
@@ -3089,11 +3078,9 @@
           "then": {
             "properties": {
               "targetRef": {
-                "pattern": "^LR-[0-9]+$",
-                "type": "string"
+                "$ref": "#/$defs/layoutRepresentationId"
               }
-            },
-            "type": "object"
+            }
           },
           "else": {
             "not": {
@@ -3184,6 +3171,20 @@
           }
         }
       ]
+    },
+    "layoutStrategy": {
+      "type": "string",
+      "enum": [
+        "matrix",
+        "list",
+        "scenario_gallery"
+      ],
+      "description": "The documentation shape a layout representation uses (C-1). Declared once and referenced: it was inline in two places, layoutRepresentation.strategy and ruleTarget.requiredStrategy, and a fourth strategy added to one of them would have made REP-12 unexpressible for it while every test stayed green."
+    },
+    "layoutRepresentationId": {
+      "type": "string",
+      "pattern": "^LR-[0-9]+$",
+      "description": "The id shape a layout representation and any target naming one must share."
     }
   }
 }

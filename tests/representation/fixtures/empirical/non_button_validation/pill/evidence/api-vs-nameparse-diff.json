@@ -4,22 +4,22 @@
     "directory": "evidence/r1-nameparse",
     "immutable": true,
     "hashVerified": true,
-    "provenance": "Deterministically reconstructed from the immutable evidence/figma-metadata-787-4538.xml capture using the R-1 method and R-1 timestamp, then hash-verified against the SHA-256 values recorded in the R-1 CHECKSUMS.sha256 manifest. All five match byte-for-byte, so this archive is a verified reconstruction, not a re-derivation.",
+    "provenance": "Deterministically reconstructed from the immutable evidence/figma-metadata-NODE-0040.xml capture using the R-1 method and R-1 timestamp, then hash-verified against the SHA-256 values recorded in the R-1 CHECKSUMS.sha256 manifest. All five match byte-for-byte, so this archive is a verified reconstruction, not a re-derivation.",
     "sourceCapture": {
-      "path": "evidence/figma-metadata-787-4538.xml",
-      "sha256": "0875c48b83a182d478a7702cb100470a4433ffd0b5498daf04fa79be107cb3af"
+      "path": "evidence/figma-metadata-NODE-0040.xml",
+      "sha256": "2784acd479cd70618c3a2c969a44026dfee1c42a52d56c20dd181e696ca6cfb0"
     }
   },
   "r2Source": {
     "artifactPath": "evidence/api-capture-component-sets.json",
-    "artifactSha256": "fef66a30a2495a6d0cca9a69bc4c98b668fd800efa7e1ea4afd7ac968e2c04b5"
+    "artifactSha256": "4250a08b3ba35f6bfa83c576a0bc3763cbdf3de8bee50fabc30a7ef4aa0bc6f9"
   },
   "perSet": [
     {
-      "componentSetId": "NODE-0317",
+      "componentSetId": "NODE-0035",
       "componentSetName": "Pill – Highline",
-      "r1ArtifactPath": "evidence/r1-nameparse/enumeration-787-14141.json",
-      "r1ArtifactSha256": "caaa9f4ce52d8271fe2efd4b1fb52e027ad5e48bd401ae57e8247aa3b9278ea3",
+      "r1ArtifactPath": "evidence/r1-nameparse/enumeration-NODE-0035.json",
+      "r1ArtifactSha256": "469ebb934f3704532628261b14565b66143186e44aa7d6e37f9bac63397192f4",
       "r1EnumerationMethod": "node_name_parse",
       "r2EnumerationMethod": "plugin_api_variant_properties",
       "componentIdSetsIdentical": true,
@@ -59,10 +59,10 @@
       "factsOnlyTheApiCouldSupply": {
         "nodeType": "COMPONENT_SET",
         "visible": true,
-        "componentSetKey": "KEY-0015",
+        "componentSetKey": "KEY-0005",
         "nonVariantProperties": [
-          "Pill Value#NODE-0301",
-          "Pill Symbol#NODE-0295"
+          "Pill Value#NODE-0124",
+          "Pill Symbol#NODE-0125"
         ],
         "variantDefaults": {
           "Accent": "Success",
@@ -72,10 +72,10 @@
       }
     },
     {
-      "componentSetId": "NODE-0366",
+      "componentSetId": "NODE-0036",
       "componentSetName": "Pill – Highlighted",
-      "r1ArtifactPath": "evidence/r1-nameparse/enumeration-787-14271.json",
-      "r1ArtifactSha256": "8140a2c4859db1be2d74e1d068e08a70b54a1baa0a187b590cd9942e3b5f8368",
+      "r1ArtifactPath": "evidence/r1-nameparse/enumeration-NODE-0036.json",
+      "r1ArtifactSha256": "e9ba882ec12acb221f7667dc4682560b3e4c67685a82143c1606c28e679ba14e",
       "r1EnumerationMethod": "node_name_parse",
       "r2EnumerationMethod": "plugin_api_variant_properties",
       "componentIdSetsIdentical": true,
@@ -115,10 +115,10 @@
       "factsOnlyTheApiCouldSupply": {
         "nodeType": "COMPONENT_SET",
         "visible": true,
-        "componentSetKey": "KEY-0017",
+        "componentSetKey": "KEY-0007",
         "nonVariantProperties": [
-          "Pill Value#NODE-0301",
-          "Pill Symbol#NODE-0295"
+          "Pill Value#NODE-0124",
+          "Pill Symbol#NODE-0125"
         ],
         "variantDefaults": {
           "Accent": "Success",
@@ -128,10 +128,10 @@
       }
     },
     {
-      "componentSetId": "NODE-0415",
+      "componentSetId": "NODE-0037",
       "componentSetName": "Pill – Filled",
-      "r1ArtifactPath": "evidence/r1-nameparse/enumeration-787-14401.json",
-      "r1ArtifactSha256": "e0cba84fb16dc6d1230b677ba408873557c431abf20ebde8c8dcf5cc5e79cbb1",
+      "r1ArtifactPath": "evidence/r1-nameparse/enumeration-NODE-0037.json",
+      "r1ArtifactSha256": "7349eaec6cf3caf294b71856572039f103550463a6d0e2c8629836f742c1cd35",
       "r1EnumerationMethod": "node_name_parse",
       "r2EnumerationMethod": "plugin_api_variant_properties",
       "componentIdSetsIdentical": true,
@@ -171,10 +171,10 @@
       "factsOnlyTheApiCouldSupply": {
         "nodeType": "COMPONENT_SET",
         "visible": true,
-        "componentSetKey": "KEY-0016",
+        "componentSetKey": "KEY-0008",
         "nonVariantProperties": [
-          "Pill Value#NODE-0301",
-          "Pill Symbol#NODE-0295"
+          "Pill Value#NODE-0124",
+          "Pill Symbol#NODE-0125"
         ],
         "variantDefaults": {
           "Accent": "Success",
@@ -184,10 +184,10 @@
       }
     },
     {
-      "componentSetId": "NODE-0464",
+      "componentSetId": "NODE-0038",
       "componentSetName": "Pill – Text",
-      "r1ArtifactPath": "evidence/r1-nameparse/enumeration-787-14531.json",
-      "r1ArtifactSha256": "387823a322e97384b8020bd80f8e25939dc66cf8c2bf2443598a5461fab4fb9e",
+      "r1ArtifactPath": "evidence/r1-nameparse/enumeration-NODE-0038.json",
+      "r1ArtifactSha256": "3c3d3efcbb36cfc89242ced03a960429e64e6f7315975cd45ce224494814c60c",
       "r1EnumerationMethod": "node_name_parse",
       "r2EnumerationMethod": "plugin_api_variant_properties",
       "componentIdSetsIdentical": true,
@@ -227,10 +227,10 @@
       "factsOnlyTheApiCouldSupply": {
         "nodeType": "COMPONENT_SET",
         "visible": true,
-        "componentSetKey": "KEY-0013",
+        "componentSetKey": "KEY-0009",
         "nonVariantProperties": [
-          "Pill Value#NODE-0301",
-          "Pill Symbol#NODE-0295"
+          "Pill Value#NODE-0124",
+          "Pill Symbol#NODE-0125"
         ],
         "variantDefaults": {
           "Accent": "Success",
@@ -240,10 +240,10 @@
       }
     },
     {
-      "componentSetId": "NODE-0513",
+      "componentSetId": "NODE-0039",
       "componentSetName": "Pill – Pulse Animation",
-      "r1ArtifactPath": "evidence/r1-nameparse/enumeration-787-14660.json",
-      "r1ArtifactSha256": "465ca76984e762c1af27ac5a1c2437e3d9bd7017d4e48f223cf8ae73d0649f80",
+      "r1ArtifactPath": "evidence/r1-nameparse/enumeration-NODE-0039.json",
+      "r1ArtifactSha256": "322587eedab99f555582d95790c7a70860243fee4947d216372786989ac34f71",
       "r1EnumerationMethod": "node_name_parse",
       "r2EnumerationMethod": "plugin_api_variant_properties",
       "componentIdSetsIdentical": true,
@@ -269,10 +269,10 @@
       "factsOnlyTheApiCouldSupply": {
         "nodeType": "COMPONENT_SET",
         "visible": false,
-        "componentSetKey": "KEY-0005",
+        "componentSetKey": "KEY-0010",
         "nonVariantProperties": [
-          "Badge Value#NODE-0301",
-          "Trend Symbol#NODE-0294"
+          "Badge Value#NODE-0124",
+          "Trend Symbol#NODE-0319"
         ],
         "variantDefaults": {
           "Type": "Warning",

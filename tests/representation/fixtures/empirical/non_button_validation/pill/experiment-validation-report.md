@@ -52,7 +52,7 @@ The validator is unaltered and behaving normally. Pill's failures are attributab
 | `enumerationMethod` | name-parse | `plugin_api_variant_properties` | none — CV-11 checks internal consistency, not method |
 | `propertySchemaVariants` | 3 VARIANT props per variant | 5 (PSV-1) / 6 (PSV-2), incl. TEXT + INSTANCE_SWAP + defaults | none — CV-7 only inspects VARIANT properties |
 | `documentedPairingCount` | 18 / 18 / 40 / 18 / 0 (placements) | 8 / 8 / 12 / 8 / 0 (unique combinations) | none — untyped integer, unchecked |
-| `themeModel` identifiers | five `"unverified"` strings | real collection id, mode ids `NODE-0299` / `NODE-0558` | none — no rule inspects them |
+| `themeModel` identifiers | five `"unverified"` strings | real collection id, mode ids `NODE-0027` / `NODE-0028` | none — no rule inspects them |
 | `mechanismEvidence.classification` | `computed` | `observed` | none |
 | `explicitPerFrameModeOverrideObserved` | `false` | `true` | none |
 | `structuralFindings` | 17 | 20 | none |
@@ -65,10 +65,10 @@ Every one of those is a genuine evidence improvement, and the v0.3.1 validator i
 
 ```
 FAIL: 6 violation(s)
- - [CV-2] duplicate Figma node id 'NODE-0545' in the componentSets id/buildFrameId pool
- - [CV-2] duplicate Figma node id 'NODE-0545' in the componentSets id/buildFrameId pool
- - [CV-2] duplicate Figma node id 'NODE-0545' in the componentSets id/buildFrameId pool
- - [CV-2] duplicate Figma node id 'NODE-0545' in the componentSets id/buildFrameId pool
+ - [CV-2] duplicate Figma node id 'NODE-0042' in the componentSets id/buildFrameId pool
+ - [CV-2] duplicate Figma node id 'NODE-0042' in the componentSets id/buildFrameId pool
+ - [CV-2] duplicate Figma node id 'NODE-0042' in the componentSets id/buildFrameId pool
+ - [CV-2] duplicate Figma node id 'NODE-0042' in the componentSets id/buildFrameId pool
  - [CV-3] schema variant 'PSV-2' is not covered by any matrixAllocations entry
  - [CV-7] matrixAllocations['MA-1'].rowsAxis references axis 'Style' which is not
           declared as VARIANT in variant(s): ['PSV-1']
@@ -78,13 +78,13 @@ FAIL: 6 violation(s)
 
 | Violation | Classification | Cause |
 |---|---|---|
-| CV-2 ×4 | **Validator false positive** | Five COMPONENT_SETs legitimately share build frame `NODE-0545` (API-confirmed `parentId` on all five). CV-2 pools `buildFrameId` into a uniqueness namespace, but it is a many-to-one reference. |
+| CV-2 ×4 | **Validator false positive** | Five COMPONENT_SETs legitimately share build frame `NODE-0042` (API-confirmed `parentId` on all five). CV-2 pools `buildFrameId` into a uniqueness namespace, but it is a many-to-one reference. |
 | CV-3 ×1 | **True positive against schema expressiveness** | Correct given `layoutStrategy: "matrix"`, but "PSV-2 has no documentation at all" is unsayable. Symptom of CF-1. |
 | CV-7 ×1 | **Validator false positive** | The matrix **is** row-indexed by component-set identity — now recomputed from 64 instances, not asserted. |
 
 ## 5. Isolation probes
 
-**Probe C** (`buildFrameId: null` only) → `FAIL: 2` — CV-3 and CV-7 remain, **all four CV-2 vanish**. Proves CV-2 is caused solely by the shared build frame. Suppressing `buildFrameId` would silence it at the cost of deleting true provenance, which is why the deliverable keeps `NODE-0545`.
+**Probe C** (`buildFrameId: null` only) → `FAIL: 2` — CV-3 and CV-7 remain, **all four CV-2 vanish**. Proves CV-2 is caused solely by the shared build frame. Suppressing `buildFrameId` would silence it at the cost of deleting true provenance, which is why the deliverable keeps `NODE-0042`.
 
 **Probe A** (`layoutStrategy: "list"`, no allocations) → `FAIL: 4` — only CV-2 remains. Proves CV-3 and CV-7 are caused entirely by recording the real matrix. Declaring `list` validates more cleanly while representing less of the truth.
 
@@ -172,7 +172,7 @@ The core machinery held up again and in places did better: `propertySchemaVarian
 The change is required by defects that better analysis cannot fix:
 
 1. **The scope vocabulary is Button-hardcoded.** All 20 Pill findings — now API-grade — are forced to `specific_node` / `unknown`. No second component is representable. *(CF-7, PB-3, C-3)*
-2. **CV-2 encodes Buttons' 1:1 build-frame topology** and fires 4 false positives on Pill's 5:1. *(C-11)*
+2. **CV-2 encodes Buttons' NODE-0001 build-frame topology** and fires 4 false positives on Pill's NODE-0049. *(C-11)*
 3. **`layoutStrategy` cannot express a hybrid documentation shape**, and CV-3 then demands an allocation for an undocumented variant. *(CF-1, PB-1, C-1)*
 4. **CV-7 forbids indexing a matrix by treatment** while the schema elsewhere calls treatment an axis — now rejecting a *recomputed* allocation. *(CF-1, PB-2, C-2)*
 5. **The validator cannot distinguish evidenced allocations from evidence-free assertions.** *(C-4 / CV-12)*
@@ -201,7 +201,7 @@ python3 ../../Builder_comp_rep_docs/semantic_validator.py \
 
 | v0.3.1 violation | v0.4 resolution |
 |---|---|
-| CV-2 ×4 (five sets sharing build frame `NODE-0545`) | `buildFrameId` is a many-to-one reference; uniqueness applies to `id` only (C-11) |
+| CV-2 ×4 (five sets sharing build frame `NODE-0042`) | `buildFrameId` is a many-to-one reference; uniqueness applies to `id` only (C-11) |
 | CV-3 (PSV-2 uncovered by any allocation) | `undocumentedSchemaVariantIds: ["PSV-2"]` — silence made explicit (C-1) |
 | CV-7 (rows indexed by treatment) | `component_set_identity` is a first-class dimension kind (C-2) |
 
@@ -212,7 +212,7 @@ Two representations coexist, which v0.3.1's scalar `layoutStrategy` could not ex
 - **LR-1** `list` — the per-axis strip, 15 Pill instances per theme card
 - **LR-2** `matrix` — rows = component-set identity, columns = `Accent`, bands = `Size`, `Icon` fixed at `None`
 
-LR-2's allocation is **`verified`**: `evidence/allocation-evidence-LR-2.json` carries all 64 matrix observations, and CV-12 re-derives rows/columns/bands/fixedFilters **independently per source documentation block** (NODE-0133, NODE-0213) and confirms both derive the same semantic allocation. Coordinates are never aggregated across theme blocks.
+LR-2's allocation is **`verified`**: `evidence/allocation-evidence-LR-2.json` carries all 64 matrix observations, and CV-12 re-derives rows/columns/bands/fixedFilters **independently per source documentation block** (NODE-0047, NODE-0051) and confirms both derive the same semantic allocation. Coordinates are never aggregated across theme blocks.
 
 ## Naming rules and the two `content` siblings
 
@@ -234,7 +234,7 @@ All three were real all along; v0.3.1 had one untyped integer and no way to say 
 
 ## Theme, with real provenance
 
-`colors` (`VC-0002`, remote, 105 variables), modes Dark `NODE-0299` / Light `NODE-0558`. Both containers `provenanceStatus: verified` — the Dark card `inherited_default`, the Light card `explicit`. The second collection `layout-scale` is recorded with `themeVarying: false`, which v0.3.1's singular themeModel could not hold.
+`colors` (`VC-0001`, remote, 105 variables), modes Dark `NODE-0027` / Light `NODE-0028`. Both containers `provenanceStatus: verified` — the Dark card `inherited_default`, the Light card `explicit`. The second collection `layout-scale` is recorded with `themeVarying: false`, which v0.3.1's singular themeModel could not hold.
 
 ## Migration provenance
 
@@ -252,7 +252,7 @@ Probe B's two rejections:
 
 ```
 CV-12 LR-2: declared rows dimension is not a function of the observed row grouping --
-      row group 'NODE-0134' contains 4 distinct rows values ['Error','Info','Success','Warning']
+      row group 'NODE-0053' contains 4 distinct rows values ['Error','Info','Success','Warning']
 CV-12 LR-3: allocation evidence contains zero observations --
       an allocation describing nothing cannot be verified
 ```
@@ -261,4 +261,4 @@ The first is the sharper of the two. `Accent × Size` is a *genuine* re-projecti
 
 ## Owner blockers — unchanged
 
-All 10 Pill blockers (PB-1 … PB-10) carry over, joined by MIG-2. Nothing was resolved: not the `NODE-0513` taxonomy, not the `Size` relative-scale question, not any promotion to a multi-component invariant. Every finding remains `single_component_observed`.
+All 10 Pill blockers (PB-1 … PB-10) carry over, joined by MIG-2. Nothing was resolved: not the `NODE-0039` taxonomy, not the `Size` relative-scale question, not any promotion to a multi-component invariant. Every finding remains `single_component_observed`.

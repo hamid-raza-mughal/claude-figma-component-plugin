@@ -108,7 +108,7 @@
           "scopeType": "contract",
           "scopeRef": "NAME-0001-pill-non-button-experimental-representation-contract"
         },
-        "note": "Structural wrapper; also used for the build holder NODE-0545."
+        "note": "Structural wrapper; also used for the build holder NODE-0042."
       },
       {
         "namingRuleId": "NR-rule-divider",
@@ -132,15 +132,15 @@
             "PSV-1"
           ],
           "componentSetIds": [
-            "NODE-0317",
-            "NODE-0366",
-            "NODE-0415",
-            "NODE-0464"
+            "NODE-0035",
+            "NODE-0036",
+            "NODE-0037",
+            "NODE-0038"
           ]
         },
         "evidenceNodeIds": [
-          "NODE-0008",
-          "NODE-0072"
+          "NODE-0046",
+          "NODE-0345"
         ],
         "namingRuleRefs": [
           "NR-axis-strip-row",
@@ -153,8 +153,8 @@
           "sourceFile": "evidence/api-capture-documentation-instances.json",
           "confidence": "high",
           "nodeIds": [
-            "NODE-0008",
-            "NODE-0072"
+            "NODE-0046",
+            "NODE-0345"
           ],
           "note": "Per-axis list strip: four rows, one axis each (Size, Style, Accent, Icon), 15 Pill instances per theme card. This block and the matrix block below coexist in every card -- the v0.3.1 scalar layoutStrategy could not say so."
         }
@@ -167,15 +167,15 @@
             "PSV-1"
           ],
           "componentSetIds": [
-            "NODE-0317",
-            "NODE-0366",
-            "NODE-0415",
-            "NODE-0464"
+            "NODE-0035",
+            "NODE-0036",
+            "NODE-0037",
+            "NODE-0038"
           ]
         },
         "evidenceNodeIds": [
-          "NODE-0133",
-          "NODE-0213"
+          "NODE-0047",
+          "NODE-0051"
         ],
         "namingRuleRefs": [
           "NR-matrix-row",
@@ -188,28 +188,28 @@
             "orderingRule": "ascending_absolute_y",
             "items": [
               {
-                "componentSetId": "NODE-0317",
+                "componentSetId": "NODE-0035",
                 "semanticValue": "Highline",
                 "observedLayerName": "row_Highline",
                 "expectedLayerName": "row_Highline",
                 "namingRuleRef": "NR-matrix-row"
               },
               {
-                "componentSetId": "NODE-0366",
+                "componentSetId": "NODE-0036",
                 "semanticValue": "Highlighted",
                 "observedLayerName": "row_Highlighted",
                 "expectedLayerName": "row_Highlighted",
                 "namingRuleRef": "NR-matrix-row"
               },
               {
-                "componentSetId": "NODE-0415",
+                "componentSetId": "NODE-0037",
                 "semanticValue": "Filled",
                 "observedLayerName": "row_Filled",
                 "expectedLayerName": "row_Filled",
                 "namingRuleRef": "NR-matrix-row"
               },
               {
-                "componentSetId": "NODE-0464",
+                "componentSetId": "NODE-0038",
                 "semanticValue": "Text",
                 "observedLayerName": "row_Text",
                 "expectedLayerName": "row_Text",
@@ -249,7 +249,7 @@
           "allocationEvidence": {
             "status": "verified",
             "artifactPath": "evidence/allocation-evidence-LR-2.json",
-            "artifactSha256": "a83bedbb1ea879ca261313f372a832545f1b64e2b3a1985282151094a23396a3",
+            "artifactSha256": "0eab4a5f39ace4767a56370e3be3494f4acd5407fd804783e391296566957e62",
             "derivationMethod": "instance_variant_properties_and_geometry"
           },
           "approvalStatus": "draft",
@@ -260,8 +260,8 @@
           "sourceFile": "evidence/allocation-evidence-LR-2.json",
           "confidence": "high",
           "nodeIds": [
-            "NODE-0133",
-            "NODE-0213"
+            "NODE-0047",
+            "NODE-0051"
           ],
           "note": "Rows are COMPONENT_SET identity, recomputed from 64 instances' ownership and absoluteY ordering; columns are Accent by absoluteX; bands are Size {Regular, Small}; Icon is fixed at None across all 64. Dark and Light were derived independently and agree."
         }
@@ -270,35 +270,35 @@
     "representationNodeBindings": [
       {
         "layoutRepresentationRef": "LR-1",
-        "containerNodeId": "NODE-0008",
-        "rootNodeId": "NODE-0005",
+        "containerNodeId": "NODE-0046",
+        "rootNodeId": "NODE-0043",
         "semanticRole": "documentation_block",
         "observedLayerName": "content",
-        "expectedParentRef": "NODE-0005"
+        "expectedParentRef": "NODE-0043"
       },
       {
         "layoutRepresentationRef": "LR-1",
-        "containerNodeId": "NODE-0072",
-        "rootNodeId": "NODE-0069",
+        "containerNodeId": "NODE-0345",
+        "rootNodeId": "NODE-0044",
         "semanticRole": "documentation_block",
         "observedLayerName": "content",
-        "expectedParentRef": "NODE-0069"
+        "expectedParentRef": "NODE-0044"
       },
       {
         "layoutRepresentationRef": "LR-2",
-        "containerNodeId": "NODE-0133",
-        "rootNodeId": "NODE-0005",
+        "containerNodeId": "NODE-0047",
+        "rootNodeId": "NODE-0043",
         "semanticRole": "documentation_block",
         "observedLayerName": "content",
-        "expectedParentRef": "NODE-0005"
+        "expectedParentRef": "NODE-0043"
       },
       {
         "layoutRepresentationRef": "LR-2",
-        "containerNodeId": "NODE-0213",
-        "rootNodeId": "NODE-0069",
+        "containerNodeId": "NODE-0051",
+        "rootNodeId": "NODE-0044",
         "semanticRole": "documentation_block",
         "observedLayerName": "content",
-        "expectedParentRef": "NODE-0069"
+        "expectedParentRef": "NODE-0044"
       }
     ],
     "undocumentedSchemaVariantIds": [
@@ -307,37 +307,37 @@
     "themeModel": {
       "collections": [
         {
-          "collectionId": "VC-0002",
-          "collectionKey": "KEY-0008",
+          "collectionId": "VC-0001",
+          "collectionKey": "KEY-0013",
           "collectionName": "colors",
           "remote": true,
-          "defaultModeId": "NODE-0299",
+          "defaultModeId": "NODE-0027",
           "variableCount": 105,
           "themeVarying": true,
           "modes": [
             {
-              "modeId": "NODE-0299",
+              "modeId": "NODE-0027",
               "modeName": "Dark",
               "isDefault": true
             },
             {
-              "modeId": "NODE-0558",
+              "modeId": "NODE-0028",
               "modeName": "Light",
               "isDefault": false
             }
           ]
         },
         {
-          "collectionId": "VC-0001",
-          "collectionKey": "KEY-0002",
+          "collectionId": "VC-0002",
+          "collectionKey": "KEY-0014",
           "collectionName": "layout-scale",
           "remote": true,
-          "defaultModeId": "6:1",
+          "defaultModeId": "NODE-0378",
           "variableCount": 15,
           "themeVarying": false,
           "modes": [
             {
-              "modeId": "6:1",
+              "modeId": "NODE-0378",
               "modeName": "Default",
               "isDefault": true
             }
@@ -346,33 +346,33 @@
       ],
       "containers": [
         {
-          "containerNodeId": "NODE-0005",
+          "containerNodeId": "NODE-0043",
           "containerNodeName": "card",
-          "labelSourceNodeId": "NODE-0007",
+          "labelSourceNodeId": "NODE-0379",
           "labelText": "Dark Mode",
           "modeBindings": [
             {
-              "collectionId": "VC-0002",
-              "resolvedModeId": "NODE-0299",
+              "collectionId": "VC-0001",
+              "resolvedModeId": "NODE-0027",
               "resolvedModeName": "Dark",
               "provenanceStatus": "verified",
               "provenance": "inherited_default",
               "provenanceEvidenceNodeIds": [
-                "NODE-0005",
-                "NODE-0004",
-                "NODE-0001",
-                "NODE-0539",
-                "NODE-0538"
+                "NODE-0043",
+                "NODE-0380",
+                "NODE-0041",
+                "NODE-0040",
+                "NODE-0045"
               ]
             },
             {
-              "collectionId": "VC-0001",
-              "resolvedModeId": "6:1",
+              "collectionId": "VC-0002",
+              "resolvedModeId": "NODE-0378",
               "resolvedModeName": "Default",
               "provenanceStatus": "verified",
               "provenance": "inherited_default",
               "provenanceEvidenceNodeIds": [
-                "NODE-0005"
+                "NODE-0043"
               ]
             }
           ],
@@ -381,40 +381,40 @@
             "sourceFile": "evidence/api-capture-theme.json",
             "confidence": "high",
             "nodeIds": [
-              "NODE-0005",
-              "NODE-0007"
+              "NODE-0043",
+              "NODE-0379"
             ],
-            "note": "explicitVariableModes is empty on this node AND on every ancestor up to and including PAGE NODE-0538. NODE-0299 is the colors collection defaultModeId, so the Dark resolution is a pure default-inheritance, not a declared choice."
+            "note": "explicitVariableModes is empty on this node AND on every ancestor up to and including PAGE NODE-0045. NODE-0027 is the colors collection defaultModeId, so the Dark resolution is a pure default-inheritance, not a declared choice."
           }
         },
         {
-          "containerNodeId": "NODE-0069",
+          "containerNodeId": "NODE-0044",
           "containerNodeName": "card",
-          "labelSourceNodeId": "NODE-0071",
+          "labelSourceNodeId": "NODE-0381",
           "labelText": "Light Mode",
           "modeBindings": [
             {
-              "collectionId": "VC-0002",
-              "resolvedModeId": "NODE-0558",
+              "collectionId": "VC-0001",
+              "resolvedModeId": "NODE-0028",
               "resolvedModeName": "Light",
               "provenanceStatus": "verified",
               "provenance": "explicit",
               "provenanceEvidenceNodeIds": [
-                "NODE-0069",
-                "NODE-0004",
-                "NODE-0001",
-                "NODE-0539",
-                "NODE-0538"
+                "NODE-0044",
+                "NODE-0380",
+                "NODE-0041",
+                "NODE-0040",
+                "NODE-0045"
               ]
             },
             {
-              "collectionId": "VC-0001",
-              "resolvedModeId": "6:1",
+              "collectionId": "VC-0002",
+              "resolvedModeId": "NODE-0378",
               "resolvedModeName": "Default",
               "provenanceStatus": "verified",
               "provenance": "inherited_default",
               "provenanceEvidenceNodeIds": [
-                "NODE-0069"
+                "NODE-0044"
               ]
             }
           ],
@@ -423,73 +423,73 @@
             "sourceFile": "evidence/api-capture-theme.json",
             "confidence": "high",
             "nodeIds": [
-              "NODE-0069",
-              "NODE-0071"
+              "NODE-0044",
+              "NODE-0381"
             ],
-            "note": "explicitVariableModes on this node declares the colors collection -> mode NODE-0558 (Light). No ancestor sets it."
+            "note": "explicitVariableModes on this node declares the colors collection -> mode NODE-0028 (Light). No ancestor sets it."
           }
         }
       ],
       "variablesUsedByDescendants": [
         {
-          "variableId": "VAR-0002",
-          "variableKey": "KEY-0006",
+          "variableId": "VAR-0003",
+          "variableKey": "KEY-0015",
           "variableName": "System/Expressions/success",
           "resolvedType": "COLOR",
-          "collectionId": "VC-0002",
+          "collectionId": "VC-0001",
           "valuesByMode": {
-            "NODE-0299": "#43DB70",
-            "NODE-0558": "#17CF60"
+            "NODE-0027": "#43DB70",
+            "NODE-0028": "#17CF60"
           },
           "sampledOnNodeIds": [
-            "NODE-0178",
-            "NODE-0258"
-          ],
-          "exhaustive": false
-        },
-        {
-          "variableId": "VAR-0001",
-          "variableKey": "KEY-0003",
-          "variableName": "System/Expressions/on_success",
-          "resolvedType": "COLOR",
-          "collectionId": "VC-0002",
-          "valuesByMode": {
-            "NODE-0299": "#01180D",
-            "NODE-0558": "#FFFFFF"
-          },
-          "sampledOnNodeIds": [
-            "NODE-0178",
-            "NODE-0258"
+            "NODE-0070",
+            "NODE-0106"
           ],
           "exhaustive": false
         },
         {
           "variableId": "VAR-0004",
-          "variableKey": "KEY-0014",
-          "variableName": "4-scale/xs",
-          "resolvedType": "FLOAT",
+          "variableKey": "KEY-0016",
+          "variableName": "System/Expressions/on_success",
+          "resolvedType": "COLOR",
           "collectionId": "VC-0001",
           "valuesByMode": {
-            "6:1": 12
+            "NODE-0027": "#01180D",
+            "NODE-0028": "#FFFFFF"
           },
           "sampledOnNodeIds": [
-            "NODE-0178",
-            "NODE-0258"
+            "NODE-0070",
+            "NODE-0106"
           ],
           "exhaustive": false
         },
         {
-          "variableId": "VAR-0003",
-          "variableKey": "KEY-0010",
-          "variableName": "aux/xs",
+          "variableId": "VAR-0005",
+          "variableKey": "KEY-0017",
+          "variableName": "4-scale/xs",
           "resolvedType": "FLOAT",
-          "collectionId": "VC-0001",
+          "collectionId": "VC-0002",
           "valuesByMode": {
-            "6:1": 6
+            "NODE-0378": 12
           },
           "sampledOnNodeIds": [
-            "NODE-0178",
-            "NODE-0258"
+            "NODE-0070",
+            "NODE-0106"
+          ],
+          "exhaustive": false
+        },
+        {
+          "variableId": "VAR-0006",
+          "variableKey": "KEY-0018",
+          "variableName": "aux/xs",
+          "resolvedType": "FLOAT",
+          "collectionId": "VC-0002",
+          "valuesByMode": {
+            "NODE-0378": 6
+          },
+          "sampledOnNodeIds": [
+            "NODE-0070",
+            "NODE-0106"
           ],
           "exhaustive": false
         }
@@ -502,14 +502,14 @@
     },
     "coveragePolicy.perComponentSetCoverage": [
       {
-        "componentSetId": "NODE-0317",
+        "componentSetId": "NODE-0035",
         "coverageMetrics": [
           {
             "kind": "classified",
             "metric": "instance_placements",
             "value": 18,
             "evidenceNodeIds": [
-              "NODE-0001"
+              "NODE-0041"
             ]
           },
           {
@@ -517,7 +517,7 @@
             "metric": "unique_variant_combinations",
             "value": 8,
             "evidenceNodeIds": [
-              "NODE-0001"
+              "NODE-0041"
             ]
           },
           {
@@ -779,8 +779,8 @@
               "Icon": "Trailing"
             }
           ],
-          "artifactPath": "evidence/enumeration-787-14141.json",
-          "artifactSha256": "6931f12bbbb7178c3802bc1ccaf18c19d834fbb87c3619302da3e4770117818a",
+          "artifactPath": "evidence/enumeration-NODE-0035.json",
+          "artifactSha256": "0365e5ec3fcc3c6e9ab6573e9992b696a7053631a95cccbaa059944d08ec2baa",
           "enumeratedCount": 48,
           "method": {
             "class": "plugin_api_variant_properties",
@@ -793,24 +793,24 @@
             "inferredFields": [],
             "rawCaptureRef": {
               "artifactPath": "evidence/api-capture-component-sets.json",
-              "artifactSha256": "fef66a30a2495a6d0cca9a69bc4c98b668fd800efa7e1ea4afd7ac968e2c04b5"
+              "artifactSha256": "4250a08b3ba35f6bfa83c576a0bc3763cbdf3de8bee50fabc30a7ef4aa0bc6f9"
             },
             "normalizedArtifactRef": {
-              "artifactPath": "evidence/enumeration-787-14141.json",
-              "artifactSha256": "6931f12bbbb7178c3802bc1ccaf18c19d834fbb87c3619302da3e4770117818a"
+              "artifactPath": "evidence/enumeration-NODE-0035.json",
+              "artifactSha256": "0365e5ec3fcc3c6e9ab6573e9992b696a7053631a95cccbaa059944d08ec2baa"
             }
           }
         }
       },
       {
-        "componentSetId": "NODE-0366",
+        "componentSetId": "NODE-0036",
         "coverageMetrics": [
           {
             "kind": "classified",
             "metric": "instance_placements",
             "value": 18,
             "evidenceNodeIds": [
-              "NODE-0001"
+              "NODE-0041"
             ]
           },
           {
@@ -818,7 +818,7 @@
             "metric": "unique_variant_combinations",
             "value": 8,
             "evidenceNodeIds": [
-              "NODE-0001"
+              "NODE-0041"
             ]
           },
           {
@@ -1080,8 +1080,8 @@
               "Icon": "Trailing"
             }
           ],
-          "artifactPath": "evidence/enumeration-787-14271.json",
-          "artifactSha256": "1fc02bbd89e5cb88724c1f5503cf8e7c320a540c85afb3a80bfcd0f40f494bda",
+          "artifactPath": "evidence/enumeration-NODE-0036.json",
+          "artifactSha256": "afc937250d4f16b436f7eae85b0d3cbe04af5c4e1c2d0ce474372f7a18e8795a",
           "enumeratedCount": 48,
           "method": {
             "class": "plugin_api_variant_properties",
@@ -1094,24 +1094,24 @@
             "inferredFields": [],
             "rawCaptureRef": {
               "artifactPath": "evidence/api-capture-component-sets.json",
-              "artifactSha256": "fef66a30a2495a6d0cca9a69bc4c98b668fd800efa7e1ea4afd7ac968e2c04b5"
+              "artifactSha256": "4250a08b3ba35f6bfa83c576a0bc3763cbdf3de8bee50fabc30a7ef4aa0bc6f9"
             },
             "normalizedArtifactRef": {
-              "artifactPath": "evidence/enumeration-787-14271.json",
-              "artifactSha256": "1fc02bbd89e5cb88724c1f5503cf8e7c320a540c85afb3a80bfcd0f40f494bda"
+              "artifactPath": "evidence/enumeration-NODE-0036.json",
+              "artifactSha256": "afc937250d4f16b436f7eae85b0d3cbe04af5c4e1c2d0ce474372f7a18e8795a"
             }
           }
         }
       },
       {
-        "componentSetId": "NODE-0415",
+        "componentSetId": "NODE-0037",
         "coverageMetrics": [
           {
             "kind": "classified",
             "metric": "instance_placements",
             "value": 40,
             "evidenceNodeIds": [
-              "NODE-0001"
+              "NODE-0041"
             ]
           },
           {
@@ -1119,7 +1119,7 @@
             "metric": "unique_variant_combinations",
             "value": 12,
             "evidenceNodeIds": [
-              "NODE-0001"
+              "NODE-0041"
             ]
           },
           {
@@ -1381,8 +1381,8 @@
               "Icon": "Trailing"
             }
           ],
-          "artifactPath": "evidence/enumeration-787-14401.json",
-          "artifactSha256": "a5ea89641381007d4fda374b80cb92cd3c201a9141a7a55e1a192b20dbccc8eb",
+          "artifactPath": "evidence/enumeration-NODE-0037.json",
+          "artifactSha256": "770a581da4343d92e36b9aa5c5d1c980038313a8cf4327d589857a75a92ed1e5",
           "enumeratedCount": 48,
           "method": {
             "class": "plugin_api_variant_properties",
@@ -1395,24 +1395,24 @@
             "inferredFields": [],
             "rawCaptureRef": {
               "artifactPath": "evidence/api-capture-component-sets.json",
-              "artifactSha256": "fef66a30a2495a6d0cca9a69bc4c98b668fd800efa7e1ea4afd7ac968e2c04b5"
+              "artifactSha256": "4250a08b3ba35f6bfa83c576a0bc3763cbdf3de8bee50fabc30a7ef4aa0bc6f9"
             },
             "normalizedArtifactRef": {
-              "artifactPath": "evidence/enumeration-787-14401.json",
-              "artifactSha256": "a5ea89641381007d4fda374b80cb92cd3c201a9141a7a55e1a192b20dbccc8eb"
+              "artifactPath": "evidence/enumeration-NODE-0037.json",
+              "artifactSha256": "770a581da4343d92e36b9aa5c5d1c980038313a8cf4327d589857a75a92ed1e5"
             }
           }
         }
       },
       {
-        "componentSetId": "NODE-0464",
+        "componentSetId": "NODE-0038",
         "coverageMetrics": [
           {
             "kind": "classified",
             "metric": "instance_placements",
             "value": 18,
             "evidenceNodeIds": [
-              "NODE-0001"
+              "NODE-0041"
             ]
           },
           {
@@ -1420,7 +1420,7 @@
             "metric": "unique_variant_combinations",
             "value": 8,
             "evidenceNodeIds": [
-              "NODE-0001"
+              "NODE-0041"
             ]
           },
           {
@@ -1682,8 +1682,8 @@
               "Icon": "Trailing"
             }
           ],
-          "artifactPath": "evidence/enumeration-787-14531.json",
-          "artifactSha256": "65eb35f5fb57f84f5762e10576189d45ac4d4ac3e74835b211d8eccb823d13f1",
+          "artifactPath": "evidence/enumeration-NODE-0038.json",
+          "artifactSha256": "a5624c385aeac07f1aab43a200dfffd5416b878cacb8737530649a34b0365238",
           "enumeratedCount": 48,
           "method": {
             "class": "plugin_api_variant_properties",
@@ -1696,24 +1696,24 @@
             "inferredFields": [],
             "rawCaptureRef": {
               "artifactPath": "evidence/api-capture-component-sets.json",
-              "artifactSha256": "fef66a30a2495a6d0cca9a69bc4c98b668fd800efa7e1ea4afd7ac968e2c04b5"
+              "artifactSha256": "4250a08b3ba35f6bfa83c576a0bc3763cbdf3de8bee50fabc30a7ef4aa0bc6f9"
             },
             "normalizedArtifactRef": {
-              "artifactPath": "evidence/enumeration-787-14531.json",
-              "artifactSha256": "65eb35f5fb57f84f5762e10576189d45ac4d4ac3e74835b211d8eccb823d13f1"
+              "artifactPath": "evidence/enumeration-NODE-0038.json",
+              "artifactSha256": "a5624c385aeac07f1aab43a200dfffd5416b878cacb8737530649a34b0365238"
             }
           }
         }
       },
       {
-        "componentSetId": "NODE-0513",
+        "componentSetId": "NODE-0039",
         "coverageMetrics": [
           {
             "kind": "classified",
             "metric": "instance_placements",
             "value": 0,
             "evidenceNodeIds": [
-              "NODE-0001"
+              "NODE-0041"
             ]
           },
           {
@@ -1721,7 +1721,7 @@
             "metric": "unique_variant_combinations",
             "value": 0,
             "evidenceNodeIds": [
-              "NODE-0001"
+              "NODE-0041"
             ]
           }
         ],
@@ -1882,8 +1882,8 @@
               "Animation": "S2"
             }
           ],
-          "artifactPath": "evidence/enumeration-787-14660.json",
-          "artifactSha256": "c7568e9d4972909641016b9bf48aa37c52b7a9c462aa804485e660dfcd688350",
+          "artifactPath": "evidence/enumeration-NODE-0039.json",
+          "artifactSha256": "1042d5b8342c16e934f285a649e8121e8d08d62f3326ef3337a9c80bb853baf6",
           "enumeratedCount": 24,
           "method": {
             "class": "plugin_api_variant_properties",
@@ -1896,11 +1896,11 @@
             "inferredFields": [],
             "rawCaptureRef": {
               "artifactPath": "evidence/api-capture-component-sets.json",
-              "artifactSha256": "fef66a30a2495a6d0cca9a69bc4c98b668fd800efa7e1ea4afd7ac968e2c04b5"
+              "artifactSha256": "4250a08b3ba35f6bfa83c576a0bc3763cbdf3de8bee50fabc30a7ef4aa0bc6f9"
             },
             "normalizedArtifactRef": {
-              "artifactPath": "evidence/enumeration-787-14660.json",
-              "artifactSha256": "c7568e9d4972909641016b9bf48aa37c52b7a9c462aa804485e660dfcd688350"
+              "artifactPath": "evidence/enumeration-NODE-0039.json",
+              "artifactSha256": "1042d5b8342c16e934f285a649e8121e8d08d62f3326ef3337a9c80bb853baf6"
             }
           }
         }

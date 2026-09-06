@@ -136,7 +136,7 @@ path-scoped exemption), and the prototype's recall contained two ties resolved b
 ## 10. Corrected resolver ground truth
 
 `tests/fixtures/active/resolver-ground-truth.json` — 12 cases, both v1 defects corrected:
-resolution #6's fabricated border-width path → `stroke/thin` (value 1.0, key `75ab1461…`),
+resolution #6's fabricated border-width path → `stroke/thin` (value 1.0, the key for that path),
 and resolution #12 confirmed as `body/reg/regular` (14px), not `body/sm/regular` (12px).
 
 Each case carries `allowed_rank` **and a written basis**. Windows were assigned before the

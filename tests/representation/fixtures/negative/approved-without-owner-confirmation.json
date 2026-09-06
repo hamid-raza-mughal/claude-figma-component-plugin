@@ -76,16 +76,7 @@
   ],
   "canonicalValueDisplayLabelMap": [],
   "correlatedAxisTuples": [],
-  "ownerConfirmations": [
-    {
-      "confirmationId": "OC-1",
-      "confirmedBy": "sample-owner",
-      "confirmationDate": "2026-01-01",
-      "method": "written_confirmation",
-      "confirmationScopeType": "contract_overall",
-      "confirmationScopeRef": "CRC-SAMPLE-1"
-    }
-  ],
+  "ownerConfirmations": [],
   "themeModel": {
     "collections": [],
     "containers": [],
@@ -203,7 +194,7 @@
   "readinessStatus": "validation_ready",
   "approvalStatus": {
     "overall": "approved",
-    "ownerConfirmationRef": "OC-1",
+    "ownerConfirmationRef": null,
     "blockers": []
   },
   "knownLimitations": [

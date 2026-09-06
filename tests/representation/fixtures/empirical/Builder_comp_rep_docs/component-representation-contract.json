@@ -3,13 +3,13 @@
   "contractVersion": "0.4.0-draft",
   "provenance": {
     "file": "NAME-0001 Components",
-    "fileKey": "FILEKEY-0002",
-    "rootNodeId": "NODE-0578",
+    "fileKey": "FILEKEY-0003",
+    "rootNodeId": "NODE-0005",
     "rootNodeName": "component_box",
     "analyzedComponent": "Buttons",
     "exportsUsed": [
       {
-        "fileName": "NAME-0001-components-848-3342-basic-tree.json",
+        "fileName": "NAME-0001-components-NODE-0005-basic-tree.json",
         "capabilities": [
           "name",
           "type",
@@ -17,11 +17,11 @@
           "children"
         ],
         "selfReportsValidation": false,
-        "sha256": "defa3dcd2b9179e5c84949a4092adc46af1fe8e401a3cfb265b32c9a0dffea81",
+        "sha256": "fe3349980b4d084c5f6d3c7a6d5b955c21be2044d36a417d9d06d29bab7ccf12",
         "capturedAt": null
       },
       {
-        "fileName": "NAME-0001-components-848-3342-terminal.json",
+        "fileName": "NAME-0001-components-NODE-0005-terminal.json",
         "capabilities": [
           "name",
           "type",
@@ -37,13 +37,13 @@
           "validation"
         ],
         "selfReportsValidation": true,
-        "sha256": "34a68c62eae06c1a6a5aa8eb3087d97ae02766e59a9778772ceea32acea73bde",
-        "capturedAt": "2026-08-11T09:NODE-0300.312Z"
+        "sha256": "fc83bc0ccf76d8bc3cfe2f831df3cffcafcbd1be451b4540c2627e7137de2da6",
+        "capturedAt": "2026-08-11T09:31:57.312Z"
       }
     ],
     "liveFigmaAccessLog": [
       {
-        "nodeId": "NODE-0578",
+        "nodeId": "NODE-0005",
         "operation": "get_metadata",
         "result": "Confirmed root node name='component_box', type=SECTION, matching both exports.",
         "evidenceClassification": "observed",
@@ -58,9 +58,9 @@
         "rawResponsePath": null
       },
       {
-        "nodeId": "NODE-0557",
+        "nodeId": "NODE-0006",
         "operation": "get_screenshot(maxDimension=2000)",
-        "result": "Revealed true visual top-to-bottom order of the four comp_build_variant_section bands under 'comp_build' (Central-Optional topmost, no children-array x/y data existed to determine this from JSON alone). Also showed the Button - Primary - Filled - Gradient COMPONENT_SET (NODE-0313) rendered as a 4-band x 5-row x 5-column grid with no visible empty cells, for this one component set only. This is a visual render, not a structural enumeration of the set's real children -- it establishes visual_matrix_verified, not component_children_enumerated.",
+        "result": "Revealed true visual top-to-bottom order of the four comp_build_variant_section bands under 'comp_build' (Central-Optional topmost, no children-array x/y data existed to determine this from JSON alone). Also showed the Button - Primary - Filled - Gradient COMPONENT_SET (NODE-0002) rendered as a 4-band x 5-row x 5-column grid with no visible empty cells, for this one component set only. This is a visual render, not a structural enumeration of the set's real children -- it establishes visual_matrix_verified, not component_children_enumerated.",
         "evidenceClassification": "observed",
         "resultingEvidenceLevel": "visual_matrix_verified",
         "capturedAt": null,
@@ -68,8 +68,8 @@
         "toolVersionKnown": false,
         "figmaFileVersionIdentity": null,
         "artifactAvailable": true,
-        "artifactPath": "evidence/comp_build_750-2443_screenshot.png",
-        "artifactSha256": "f6c241bc125f96f0ce01db847a81f2494b26f13ba47f130d653e355a05bab171",
+        "artifactPath": "evidence/comp_build_NODE-0002_screenshot.png",
+        "artifactSha256": "12bf8204c048a21e354285a69bfeb128a2db5da7642cb14d263ff54e67f13d54",
         "rawResponsePath": null
       }
     ]
@@ -79,9 +79,9 @@
     "description": "Buttons are the digital triggers that let you interact with the application. Common functions include: Submitting data, Navigation, and Confirmation.",
     "evidence": {
       "classification": "observed",
-      "sourceFile": "NAME-0001-components-848-3342-terminal.json",
+      "sourceFile": "NAME-0001-components-NODE-0005-terminal.json",
       "nodeIds": [
-        "NODE-0312"
+        "NODE-0008"
       ],
       "confidence": "high"
     }
@@ -91,14 +91,14 @@
       "familyId": "primary_buttons",
       "displayName": "Primary Buttons",
       "componentSetIds": [
-        "NODE-0313",
-        "NODE-0563",
-        "NODE-0565",
-        "NODE-0567"
+        "NODE-0002",
+        "NODE-0009",
+        "NODE-0011",
+        "NODE-0013"
       ],
       "evidence": {
         "classification": "observed",
-        "sourceFile": "NAME-0001-components-848-3342-terminal.json",
+        "sourceFile": "NAME-0001-components-NODE-0005-terminal.json",
         "confidence": "high"
       }
     },
@@ -106,14 +106,14 @@
       "familyId": "secondary_buttons",
       "displayName": "Secondary Buttons",
       "componentSetIds": [
-        "NODE-0571",
-        "NODE-0577",
-        "NODE-0573",
-        "NODE-0575"
+        "NODE-0015",
+        "NODE-0017",
+        "NODE-0019",
+        "NODE-0021"
       ],
       "evidence": {
         "classification": "observed",
-        "sourceFile": "NAME-0001-components-848-3342-terminal.json",
+        "sourceFile": "NAME-0001-components-NODE-0005-terminal.json",
         "confidence": "high"
       }
     },
@@ -121,29 +121,29 @@
       "familyId": "disabled_buttons_variants",
       "displayName": "Disabled Buttons Variants",
       "componentSetIds": [
-        "NODE-0561",
-        "NODE-0569"
+        "NODE-0023",
+        "NODE-0024"
       ],
       "evidence": {
         "classification": "observed",
-        "sourceFile": "NAME-0001-components-848-3342-terminal.json",
+        "sourceFile": "NAME-0001-components-NODE-0005-terminal.json",
         "confidence": "high"
       }
     }
   ],
   "componentSets": [
     {
-      "id": "NODE-0313",
-      "buildFrameId": "NODE-0557",
+      "id": "NODE-0002",
+      "buildFrameId": "NODE-0006",
       "name": "Button - Primary - Filled - Gradient",
       "familyId": "primary_buttons",
       "schemaVariantId": "schema_a_full_state",
       "evidence": {
         "classification": "observed",
-        "sourceFile": "NAME-0001-components-848-3342-terminal.json",
+        "sourceFile": "NAME-0001-components-NODE-0005-terminal.json",
         "nodeIds": [
-          "NODE-0313",
-          "NODE-0557"
+          "NODE-0002",
+          "NODE-0006"
         ],
         "confidence": "high"
       },
@@ -153,31 +153,31 @@
       },
       "nonVariantPropertyCoverage": [
         {
-          "propertyKey": "Leading#NODE-0304",
+          "propertyKey": "Leading#NODE-0025",
           "role": "boolean_toggle",
           "declaredDefault": false,
           "overrideEvidenceStatus": "not_enumerated"
         },
         {
-          "propertyKey": "Trailing#NODE-0306",
+          "propertyKey": "Trailing#NODE-0029",
           "role": "boolean_toggle",
           "declaredDefault": false,
           "overrideEvidenceStatus": "not_enumerated"
         },
         {
-          "propertyKey": "Main Icon#NODE-0307",
+          "propertyKey": "Main Icon#NODE-0030",
           "role": "content_instance_swap",
-          "declaredDefault": "NODE-0309",
+          "declaredDefault": "NODE-0031",
           "overrideEvidenceStatus": "not_enumerated"
         },
         {
-          "propertyKey": "Trail Icon#NODE-0308",
+          "propertyKey": "Trail Icon#NODE-0032",
           "role": "content_instance_swap",
-          "declaredDefault": "NODE-0310",
+          "declaredDefault": "NODE-0033",
           "overrideEvidenceStatus": "not_enumerated"
         },
         {
-          "propertyKey": "Label#NODE-0305",
+          "propertyKey": "Label#NODE-0034",
           "role": "content_text",
           "declaredDefault": "Label",
           "overrideEvidenceStatus": "not_enumerated"
@@ -185,17 +185,17 @@
       ]
     },
     {
-      "id": "NODE-0563",
-      "buildFrameId": "NODE-0562",
+      "id": "NODE-0009",
+      "buildFrameId": "NODE-0010",
       "name": "Button - Primary - Tonal - Solid",
       "familyId": "primary_buttons",
       "schemaVariantId": "schema_a_full_state",
       "evidence": {
         "classification": "observed",
-        "sourceFile": "NAME-0001-components-848-3342-terminal.json",
+        "sourceFile": "NAME-0001-components-NODE-0005-terminal.json",
         "nodeIds": [
-          "NODE-0563",
-          "NODE-0562"
+          "NODE-0009",
+          "NODE-0010"
         ],
         "confidence": "high"
       },
@@ -205,31 +205,31 @@
       },
       "nonVariantPropertyCoverage": [
         {
-          "propertyKey": "Leading#NODE-0304",
+          "propertyKey": "Leading#NODE-0025",
           "role": "boolean_toggle",
           "declaredDefault": false,
           "overrideEvidenceStatus": "not_enumerated"
         },
         {
-          "propertyKey": "Trailing#NODE-0306",
+          "propertyKey": "Trailing#NODE-0029",
           "role": "boolean_toggle",
           "declaredDefault": false,
           "overrideEvidenceStatus": "not_enumerated"
         },
         {
-          "propertyKey": "Main Icon#NODE-0307",
+          "propertyKey": "Main Icon#NODE-0030",
           "role": "content_instance_swap",
-          "declaredDefault": "NODE-0309",
+          "declaredDefault": "NODE-0031",
           "overrideEvidenceStatus": "not_enumerated"
         },
         {
-          "propertyKey": "Trail Icon#NODE-0308",
+          "propertyKey": "Trail Icon#NODE-0032",
           "role": "content_instance_swap",
-          "declaredDefault": "NODE-0310",
+          "declaredDefault": "NODE-0033",
           "overrideEvidenceStatus": "not_enumerated"
         },
         {
-          "propertyKey": "Label#NODE-0305",
+          "propertyKey": "Label#NODE-0034",
           "role": "content_text",
           "declaredDefault": "Label",
           "overrideEvidenceStatus": "not_enumerated"
@@ -237,17 +237,17 @@
       ]
     },
     {
-      "id": "NODE-0565",
-      "buildFrameId": "NODE-0564",
+      "id": "NODE-0011",
+      "buildFrameId": "NODE-0012",
       "name": "Button - Primary - Outline - Gradient",
       "familyId": "primary_buttons",
       "schemaVariantId": "schema_a_full_state",
       "evidence": {
         "classification": "observed",
-        "sourceFile": "NAME-0001-components-848-3342-terminal.json",
+        "sourceFile": "NAME-0001-components-NODE-0005-terminal.json",
         "nodeIds": [
-          "NODE-0565",
-          "NODE-0564"
+          "NODE-0011",
+          "NODE-0012"
         ],
         "confidence": "high"
       },
@@ -257,31 +257,31 @@
       },
       "nonVariantPropertyCoverage": [
         {
-          "propertyKey": "Leading#NODE-0304",
+          "propertyKey": "Leading#NODE-0025",
           "role": "boolean_toggle",
           "declaredDefault": false,
           "overrideEvidenceStatus": "not_enumerated"
         },
         {
-          "propertyKey": "Trailing#NODE-0306",
+          "propertyKey": "Trailing#NODE-0029",
           "role": "boolean_toggle",
           "declaredDefault": false,
           "overrideEvidenceStatus": "not_enumerated"
         },
         {
-          "propertyKey": "Main Icon#NODE-0307",
+          "propertyKey": "Main Icon#NODE-0030",
           "role": "content_instance_swap",
-          "declaredDefault": "NODE-0309",
+          "declaredDefault": "NODE-0031",
           "overrideEvidenceStatus": "not_enumerated"
         },
         {
-          "propertyKey": "Trail Icon#NODE-0308",
+          "propertyKey": "Trail Icon#NODE-0032",
           "role": "content_instance_swap",
-          "declaredDefault": "NODE-0310",
+          "declaredDefault": "NODE-0033",
           "overrideEvidenceStatus": "not_enumerated"
         },
         {
-          "propertyKey": "Label#NODE-0305",
+          "propertyKey": "Label#NODE-0034",
           "role": "content_text",
           "declaredDefault": "Label",
           "overrideEvidenceStatus": "not_enumerated"
@@ -289,17 +289,17 @@
       ]
     },
     {
-      "id": "NODE-0567",
-      "buildFrameId": "NODE-0566",
+      "id": "NODE-0013",
+      "buildFrameId": "NODE-0014",
       "name": "Button - Primary - Text - Void",
       "familyId": "primary_buttons",
       "schemaVariantId": "schema_a_full_state",
       "evidence": {
         "classification": "observed",
-        "sourceFile": "NAME-0001-components-848-3342-terminal.json",
+        "sourceFile": "NAME-0001-components-NODE-0005-terminal.json",
         "nodeIds": [
-          "NODE-0567",
-          "NODE-0566"
+          "NODE-0013",
+          "NODE-0014"
         ],
         "confidence": "high"
       },
@@ -309,31 +309,31 @@
       },
       "nonVariantPropertyCoverage": [
         {
-          "propertyKey": "Leading#NODE-0304",
+          "propertyKey": "Leading#NODE-0025",
           "role": "boolean_toggle",
           "declaredDefault": false,
           "overrideEvidenceStatus": "not_enumerated"
         },
         {
-          "propertyKey": "Trailing#NODE-0306",
+          "propertyKey": "Trailing#NODE-0029",
           "role": "boolean_toggle",
           "declaredDefault": false,
           "overrideEvidenceStatus": "not_enumerated"
         },
         {
-          "propertyKey": "Main Icon#NODE-0307",
+          "propertyKey": "Main Icon#NODE-0030",
           "role": "content_instance_swap",
-          "declaredDefault": "NODE-0309",
+          "declaredDefault": "NODE-0031",
           "overrideEvidenceStatus": "not_enumerated"
         },
         {
-          "propertyKey": "Trail Icon#NODE-0308",
+          "propertyKey": "Trail Icon#NODE-0032",
           "role": "content_instance_swap",
-          "declaredDefault": "NODE-0310",
+          "declaredDefault": "NODE-0033",
           "overrideEvidenceStatus": "not_enumerated"
         },
         {
-          "propertyKey": "Label#NODE-0305",
+          "propertyKey": "Label#NODE-0034",
           "role": "content_text",
           "declaredDefault": "Label",
           "overrideEvidenceStatus": "not_enumerated"
@@ -341,17 +341,17 @@
       ]
     },
     {
-      "id": "NODE-0571",
-      "buildFrameId": "NODE-0570",
+      "id": "NODE-0015",
+      "buildFrameId": "NODE-0016",
       "name": "Button - Secondary - Filled - Solid",
       "familyId": "secondary_buttons",
       "schemaVariantId": "schema_a_full_state",
       "evidence": {
         "classification": "observed",
-        "sourceFile": "NAME-0001-components-848-3342-terminal.json",
+        "sourceFile": "NAME-0001-components-NODE-0005-terminal.json",
         "nodeIds": [
-          "NODE-0571",
-          "NODE-0570"
+          "NODE-0015",
+          "NODE-0016"
         ],
         "confidence": "high"
       },
@@ -361,31 +361,31 @@
       },
       "nonVariantPropertyCoverage": [
         {
-          "propertyKey": "Leading#NODE-0304",
+          "propertyKey": "Leading#NODE-0025",
           "role": "boolean_toggle",
           "declaredDefault": false,
           "overrideEvidenceStatus": "not_enumerated"
         },
         {
-          "propertyKey": "Trailing#NODE-0306",
+          "propertyKey": "Trailing#NODE-0029",
           "role": "boolean_toggle",
           "declaredDefault": false,
           "overrideEvidenceStatus": "not_enumerated"
         },
         {
-          "propertyKey": "Main Icon#NODE-0307",
+          "propertyKey": "Main Icon#NODE-0030",
           "role": "content_instance_swap",
-          "declaredDefault": "NODE-0309",
+          "declaredDefault": "NODE-0031",
           "overrideEvidenceStatus": "not_enumerated"
         },
         {
-          "propertyKey": "Trail Icon#NODE-0308",
+          "propertyKey": "Trail Icon#NODE-0032",
           "role": "content_instance_swap",
-          "declaredDefault": "NODE-0310",
+          "declaredDefault": "NODE-0033",
           "overrideEvidenceStatus": "not_enumerated"
         },
         {
-          "propertyKey": "Label#NODE-0305",
+          "propertyKey": "Label#NODE-0034",
           "role": "content_text",
           "declaredDefault": "Label",
           "overrideEvidenceStatus": "not_enumerated"
@@ -393,17 +393,17 @@
       ]
     },
     {
-      "id": "NODE-0577",
-      "buildFrameId": "NODE-0576",
+      "id": "NODE-0017",
+      "buildFrameId": "NODE-0018",
       "name": "Button - Secondary - Tonal - Solid",
       "familyId": "secondary_buttons",
       "schemaVariantId": "schema_a_full_state",
       "evidence": {
         "classification": "observed",
-        "sourceFile": "NAME-0001-components-848-3342-terminal.json",
+        "sourceFile": "NAME-0001-components-NODE-0005-terminal.json",
         "nodeIds": [
-          "NODE-0577",
-          "NODE-0576"
+          "NODE-0017",
+          "NODE-0018"
         ],
         "confidence": "high"
       },
@@ -413,31 +413,31 @@
       },
       "nonVariantPropertyCoverage": [
         {
-          "propertyKey": "Leading#NODE-0304",
+          "propertyKey": "Leading#NODE-0025",
           "role": "boolean_toggle",
           "declaredDefault": false,
           "overrideEvidenceStatus": "not_enumerated"
         },
         {
-          "propertyKey": "Trailing#NODE-0306",
+          "propertyKey": "Trailing#NODE-0029",
           "role": "boolean_toggle",
           "declaredDefault": false,
           "overrideEvidenceStatus": "not_enumerated"
         },
         {
-          "propertyKey": "Main Icon#NODE-0307",
+          "propertyKey": "Main Icon#NODE-0030",
           "role": "content_instance_swap",
-          "declaredDefault": "NODE-0309",
+          "declaredDefault": "NODE-0031",
           "overrideEvidenceStatus": "not_enumerated"
         },
         {
-          "propertyKey": "Trail Icon#NODE-0308",
+          "propertyKey": "Trail Icon#NODE-0032",
           "role": "content_instance_swap",
-          "declaredDefault": "NODE-0310",
+          "declaredDefault": "NODE-0033",
           "overrideEvidenceStatus": "not_enumerated"
         },
         {
-          "propertyKey": "Label#NODE-0305",
+          "propertyKey": "Label#NODE-0034",
           "role": "content_text",
           "declaredDefault": "Label",
           "overrideEvidenceStatus": "not_enumerated"
@@ -445,17 +445,17 @@
       ]
     },
     {
-      "id": "NODE-0573",
-      "buildFrameId": "NODE-0572",
+      "id": "NODE-0019",
+      "buildFrameId": "NODE-0020",
       "name": "Button - Secondary - Outline - Solid",
       "familyId": "secondary_buttons",
       "schemaVariantId": "schema_a_full_state",
       "evidence": {
         "classification": "observed",
-        "sourceFile": "NAME-0001-components-848-3342-terminal.json",
+        "sourceFile": "NAME-0001-components-NODE-0005-terminal.json",
         "nodeIds": [
-          "NODE-0573",
-          "NODE-0572"
+          "NODE-0019",
+          "NODE-0020"
         ],
         "confidence": "high"
       },
@@ -465,31 +465,31 @@
       },
       "nonVariantPropertyCoverage": [
         {
-          "propertyKey": "Leading#NODE-0304",
+          "propertyKey": "Leading#NODE-0025",
           "role": "boolean_toggle",
           "declaredDefault": false,
           "overrideEvidenceStatus": "not_enumerated"
         },
         {
-          "propertyKey": "Trailing#NODE-0306",
+          "propertyKey": "Trailing#NODE-0029",
           "role": "boolean_toggle",
           "declaredDefault": false,
           "overrideEvidenceStatus": "not_enumerated"
         },
         {
-          "propertyKey": "Main Icon#NODE-0307",
+          "propertyKey": "Main Icon#NODE-0030",
           "role": "content_instance_swap",
-          "declaredDefault": "NODE-0309",
+          "declaredDefault": "NODE-0031",
           "overrideEvidenceStatus": "not_enumerated"
         },
         {
-          "propertyKey": "Trail Icon#NODE-0308",
+          "propertyKey": "Trail Icon#NODE-0032",
           "role": "content_instance_swap",
-          "declaredDefault": "NODE-0310",
+          "declaredDefault": "NODE-0033",
           "overrideEvidenceStatus": "not_enumerated"
         },
         {
-          "propertyKey": "Label#NODE-0305",
+          "propertyKey": "Label#NODE-0034",
           "role": "content_text",
           "declaredDefault": "Label",
           "overrideEvidenceStatus": "not_enumerated"
@@ -497,17 +497,17 @@
       ]
     },
     {
-      "id": "NODE-0575",
-      "buildFrameId": "NODE-0574",
+      "id": "NODE-0021",
+      "buildFrameId": "NODE-0022",
       "name": "Button - Secondary - Text - Void",
       "familyId": "secondary_buttons",
       "schemaVariantId": "schema_a_full_state",
       "evidence": {
         "classification": "observed",
-        "sourceFile": "NAME-0001-components-848-3342-terminal.json",
+        "sourceFile": "NAME-0001-components-NODE-0005-terminal.json",
         "nodeIds": [
-          "NODE-0575",
-          "NODE-0574"
+          "NODE-0021",
+          "NODE-0022"
         ],
         "confidence": "high"
       },
@@ -517,31 +517,31 @@
       },
       "nonVariantPropertyCoverage": [
         {
-          "propertyKey": "Leading#NODE-0304",
+          "propertyKey": "Leading#NODE-0025",
           "role": "boolean_toggle",
           "declaredDefault": false,
           "overrideEvidenceStatus": "not_enumerated"
         },
         {
-          "propertyKey": "Trailing#NODE-0306",
+          "propertyKey": "Trailing#NODE-0029",
           "role": "boolean_toggle",
           "declaredDefault": false,
           "overrideEvidenceStatus": "not_enumerated"
         },
         {
-          "propertyKey": "Main Icon#NODE-0307",
+          "propertyKey": "Main Icon#NODE-0030",
           "role": "content_instance_swap",
-          "declaredDefault": "NODE-0309",
+          "declaredDefault": "NODE-0031",
           "overrideEvidenceStatus": "not_enumerated"
         },
         {
-          "propertyKey": "Trail Icon#NODE-0308",
+          "propertyKey": "Trail Icon#NODE-0032",
           "role": "content_instance_swap",
-          "declaredDefault": "NODE-0310",
+          "declaredDefault": "NODE-0033",
           "overrideEvidenceStatus": "not_enumerated"
         },
         {
-          "propertyKey": "Label#NODE-0305",
+          "propertyKey": "Label#NODE-0034",
           "role": "content_text",
           "declaredDefault": "Label",
           "overrideEvidenceStatus": "not_enumerated"
@@ -549,17 +549,17 @@
       ]
     },
     {
-      "id": "NODE-0561",
-      "buildFrameId": "NODE-0560",
+      "id": "NODE-0023",
+      "buildFrameId": "NODE-0003",
       "name": "Button - Disabled - Outlined",
       "familyId": "disabled_buttons_variants",
       "schemaVariantId": "schema_b_disabled_state",
       "evidence": {
         "classification": "observed",
-        "sourceFile": "NAME-0001-components-848-3342-terminal.json",
+        "sourceFile": "NAME-0001-components-NODE-0005-terminal.json",
         "nodeIds": [
-          "NODE-0561",
-          "NODE-0560"
+          "NODE-0023",
+          "NODE-0003"
         ],
         "confidence": "high",
         "note": "buildFrameId corrected per direct user correction, independently re-verified against the raw export in this revision."
@@ -570,31 +570,31 @@
       },
       "nonVariantPropertyCoverage": [
         {
-          "propertyKey": "Leading#NODE-0304",
+          "propertyKey": "Leading#NODE-0025",
           "role": "boolean_toggle",
           "declaredDefault": false,
           "overrideEvidenceStatus": "not_enumerated"
         },
         {
-          "propertyKey": "Trailing#NODE-0306",
+          "propertyKey": "Trailing#NODE-0029",
           "role": "boolean_toggle",
           "declaredDefault": false,
           "overrideEvidenceStatus": "not_enumerated"
         },
         {
-          "propertyKey": "Main Icon#NODE-0307",
+          "propertyKey": "Main Icon#NODE-0030",
           "role": "content_instance_swap",
-          "declaredDefault": "NODE-0309",
+          "declaredDefault": "NODE-0031",
           "overrideEvidenceStatus": "not_enumerated"
         },
         {
-          "propertyKey": "Trail Icon#NODE-0308",
+          "propertyKey": "Trail Icon#NODE-0032",
           "role": "content_instance_swap",
-          "declaredDefault": "NODE-0310",
+          "declaredDefault": "NODE-0033",
           "overrideEvidenceStatus": "not_enumerated"
         },
         {
-          "propertyKey": "Label#NODE-0305",
+          "propertyKey": "Label#NODE-0034",
           "role": "content_text",
           "declaredDefault": "Label",
           "overrideEvidenceStatus": "not_enumerated"
@@ -602,17 +602,17 @@
       ]
     },
     {
-      "id": "NODE-0569",
-      "buildFrameId": "NODE-0568",
+      "id": "NODE-0024",
+      "buildFrameId": "NODE-0004",
       "name": "Button - Disabled - TextOnly",
       "familyId": "disabled_buttons_variants",
       "schemaVariantId": "schema_b_disabled_state",
       "evidence": {
         "classification": "observed",
-        "sourceFile": "NAME-0001-components-848-3342-terminal.json",
+        "sourceFile": "NAME-0001-components-NODE-0005-terminal.json",
         "nodeIds": [
-          "NODE-0569",
-          "NODE-0568"
+          "NODE-0024",
+          "NODE-0004"
         ],
         "confidence": "high",
         "note": "buildFrameId corrected per direct user correction, independently re-verified against the raw export in this revision."
@@ -623,31 +623,31 @@
       },
       "nonVariantPropertyCoverage": [
         {
-          "propertyKey": "Leading#NODE-0304",
+          "propertyKey": "Leading#NODE-0025",
           "role": "boolean_toggle",
           "declaredDefault": false,
           "overrideEvidenceStatus": "not_enumerated"
         },
         {
-          "propertyKey": "Trailing#NODE-0306",
+          "propertyKey": "Trailing#NODE-0029",
           "role": "boolean_toggle",
           "declaredDefault": false,
           "overrideEvidenceStatus": "not_enumerated"
         },
         {
-          "propertyKey": "Main Icon#NODE-0307",
+          "propertyKey": "Main Icon#NODE-0030",
           "role": "content_instance_swap",
-          "declaredDefault": "NODE-0309",
+          "declaredDefault": "NODE-0031",
           "overrideEvidenceStatus": "not_enumerated"
         },
         {
-          "propertyKey": "Trail Icon#NODE-0308",
+          "propertyKey": "Trail Icon#NODE-0032",
           "role": "content_instance_swap",
-          "declaredDefault": "NODE-0310",
+          "declaredDefault": "NODE-0033",
           "overrideEvidenceStatus": "not_enumerated"
         },
         {
-          "propertyKey": "Label#NODE-0305",
+          "propertyKey": "Label#NODE-0034",
           "role": "content_text",
           "declaredDefault": "Label",
           "overrideEvidenceStatus": "not_enumerated"
@@ -659,14 +659,14 @@
     {
       "variantId": "schema_a_full_state",
       "appliesToComponentSetIds": [
-        "NODE-0313",
-        "NODE-0563",
-        "NODE-0565",
-        "NODE-0567",
-        "NODE-0571",
-        "NODE-0577",
-        "NODE-0573",
-        "NODE-0575"
+        "NODE-0002",
+        "NODE-0009",
+        "NODE-0011",
+        "NODE-0013",
+        "NODE-0015",
+        "NODE-0017",
+        "NODE-0019",
+        "NODE-0021"
       ],
       "properties": [
         {
@@ -722,71 +722,71 @@
           "role": "variant_axis"
         },
         {
-          "propertyKey": "Leading#NODE-0304",
+          "propertyKey": "Leading#NODE-0025",
           "type": "BOOLEAN",
           "defaultValue": false,
           "evidenceLevel": "observed_instances",
           "role": "boolean_toggle"
         },
         {
-          "propertyKey": "Trailing#NODE-0306",
+          "propertyKey": "Trailing#NODE-0029",
           "type": "BOOLEAN",
           "defaultValue": false,
           "evidenceLevel": "observed_instances",
           "role": "boolean_toggle"
         },
         {
-          "propertyKey": "Main Icon#NODE-0307",
+          "propertyKey": "Main Icon#NODE-0030",
           "type": "INSTANCE_SWAP",
-          "defaultValue": "NODE-0309",
+          "defaultValue": "NODE-0031",
           "preferredValues": [
             {
               "type": "COMPONENT",
-              "key": "KEY-0007"
+              "key": "KEY-0001"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "KEY-0002"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "KEY-0003"
             },
             {
               "type": "COMPONENT",
               "key": "KEY-0004"
-            },
-            {
-              "type": "COMPONENT",
-              "key": "KEY-0012"
-            },
-            {
-              "type": "COMPONENT",
-              "key": "KEY-0018"
             }
           ],
           "evidenceLevel": "observed_instances",
           "role": "content_instance_swap"
         },
         {
-          "propertyKey": "Trail Icon#NODE-0308",
+          "propertyKey": "Trail Icon#NODE-0032",
           "type": "INSTANCE_SWAP",
-          "defaultValue": "NODE-0310",
+          "defaultValue": "NODE-0033",
           "preferredValues": [
             {
               "type": "COMPONENT",
-              "key": "KEY-0007"
+              "key": "KEY-0001"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "KEY-0002"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "KEY-0003"
             },
             {
               "type": "COMPONENT",
               "key": "KEY-0004"
-            },
-            {
-              "type": "COMPONENT",
-              "key": "KEY-0012"
-            },
-            {
-              "type": "COMPONENT",
-              "key": "KEY-0018"
             }
           ],
           "evidenceLevel": "observed_instances",
           "role": "content_instance_swap"
         },
         {
-          "propertyKey": "Label#NODE-0305",
+          "propertyKey": "Label#NODE-0034",
           "type": "TEXT",
           "defaultValue": "Label",
           "evidenceLevel": "schema_only",
@@ -795,19 +795,19 @@
       ],
       "evidence": {
         "classification": "observed",
-        "sourceFile": "NAME-0001-components-848-3342-terminal.json",
+        "sourceFile": "NAME-0001-components-NODE-0005-terminal.json",
         "nodeIds": [
-          "NODE-0313"
+          "NODE-0002"
         ],
         "confidence": "high",
-        "note": "Property IDs (e.g. Leading#NODE-0304) are byte-identical across all 8 sets in this variant, suggesting shared lineage; not directly provable as design intent from the export."
+        "note": "Property IDs (e.g. Leading#NODE-0025) are byte-identical across all 8 sets in this variant, suggesting shared lineage; not directly provable as design intent from the export."
       }
     },
     {
       "variantId": "schema_b_disabled_state",
       "appliesToComponentSetIds": [
-        "NODE-0561",
-        "NODE-0569"
+        "NODE-0023",
+        "NODE-0024"
       ],
       "properties": [
         {
@@ -859,71 +859,71 @@
           "role": "variant_axis"
         },
         {
-          "propertyKey": "Leading#NODE-0304",
+          "propertyKey": "Leading#NODE-0025",
           "type": "BOOLEAN",
           "defaultValue": false,
           "evidenceLevel": "observed_instances",
           "role": "boolean_toggle"
         },
         {
-          "propertyKey": "Trailing#NODE-0306",
+          "propertyKey": "Trailing#NODE-0029",
           "type": "BOOLEAN",
           "defaultValue": false,
           "evidenceLevel": "observed_instances",
           "role": "boolean_toggle"
         },
         {
-          "propertyKey": "Main Icon#NODE-0307",
+          "propertyKey": "Main Icon#NODE-0030",
           "type": "INSTANCE_SWAP",
-          "defaultValue": "NODE-0309",
+          "defaultValue": "NODE-0031",
           "preferredValues": [
             {
               "type": "COMPONENT",
-              "key": "KEY-0007"
+              "key": "KEY-0001"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "KEY-0002"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "KEY-0003"
             },
             {
               "type": "COMPONENT",
               "key": "KEY-0004"
-            },
-            {
-              "type": "COMPONENT",
-              "key": "KEY-0012"
-            },
-            {
-              "type": "COMPONENT",
-              "key": "KEY-0018"
             }
           ],
           "evidenceLevel": "observed_instances",
           "role": "content_instance_swap"
         },
         {
-          "propertyKey": "Trail Icon#NODE-0308",
+          "propertyKey": "Trail Icon#NODE-0032",
           "type": "INSTANCE_SWAP",
-          "defaultValue": "NODE-0310",
+          "defaultValue": "NODE-0033",
           "preferredValues": [
             {
               "type": "COMPONENT",
-              "key": "KEY-0007"
+              "key": "KEY-0001"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "KEY-0002"
+            },
+            {
+              "type": "COMPONENT",
+              "key": "KEY-0003"
             },
             {
               "type": "COMPONENT",
               "key": "KEY-0004"
-            },
-            {
-              "type": "COMPONENT",
-              "key": "KEY-0012"
-            },
-            {
-              "type": "COMPONENT",
-              "key": "KEY-0018"
             }
           ],
           "evidenceLevel": "observed_instances",
           "role": "content_instance_swap"
         },
         {
-          "propertyKey": "Label#NODE-0305",
+          "propertyKey": "Label#NODE-0034",
           "type": "TEXT",
           "defaultValue": "Label",
           "evidenceLevel": "schema_only",
@@ -932,10 +932,10 @@
       ],
       "evidence": {
         "classification": "observed",
-        "sourceFile": "NAME-0001-components-848-3342-terminal.json",
+        "sourceFile": "NAME-0001-components-NODE-0005-terminal.json",
         "nodeIds": [
-          "NODE-0561",
-          "NODE-0569"
+          "NODE-0023",
+          "NODE-0024"
         ],
         "confidence": "high",
         "note": "Differs from schema_a_full_state only in State.canonicalOptions (restricted to ['Disabled']). All other properties, including property IDs, are identical."
@@ -953,7 +953,7 @@
       "relationship": "editorial_mapping",
       "evidence": {
         "classification": "observed",
-        "sourceFile": "NAME-0001-components-848-3342-terminal.json",
+        "sourceFile": "NAME-0001-components-NODE-0005-terminal.json",
         "confidence": "high"
       }
     },
@@ -966,7 +966,7 @@
       "relationship": "typo",
       "evidence": {
         "classification": "observed",
-        "sourceFile": "NAME-0001-components-848-3342-terminal.json",
+        "sourceFile": "NAME-0001-components-NODE-0005-terminal.json",
         "confidence": "high",
         "note": "Capital-I mid-word typo, observed in both the dark and light 'Layout' representation panels; ships to end users as-is."
       }
@@ -981,7 +981,7 @@
       "relationship": "editorial_mapping",
       "evidence": {
         "classification": "observed",
-        "sourceFile": "NAME-0001-components-848-3342-terminal.json",
+        "sourceFile": "NAME-0001-components-NODE-0005-terminal.json",
         "confidence": "high"
       }
     },
@@ -995,7 +995,7 @@
       "relationship": "editorial_mapping",
       "evidence": {
         "classification": "observed",
-        "sourceFile": "NAME-0001-components-848-3342-terminal.json",
+        "sourceFile": "NAME-0001-components-NODE-0005-terminal.json",
         "confidence": "high"
       }
     },
@@ -1009,7 +1009,7 @@
       "relationship": "editorial_mapping",
       "evidence": {
         "classification": "observed",
-        "sourceFile": "NAME-0001-components-848-3342-terminal.json",
+        "sourceFile": "NAME-0001-components-NODE-0005-terminal.json",
         "confidence": "high"
       }
     },
@@ -1023,7 +1023,7 @@
       "relationship": "editorial_mapping",
       "evidence": {
         "classification": "observed",
-        "sourceFile": "NAME-0001-components-848-3342-terminal.json",
+        "sourceFile": "NAME-0001-components-NODE-0005-terminal.json",
         "confidence": "high"
       }
     },
@@ -1036,7 +1036,7 @@
       "relationship": "editorial_mapping",
       "evidence": {
         "classification": "observed",
-        "sourceFile": "NAME-0001-components-848-3342-terminal.json",
+        "sourceFile": "NAME-0001-components-NODE-0005-terminal.json",
         "confidence": "high"
       }
     }
@@ -1093,7 +1093,7 @@
       "ownerConfirmationRef": null,
       "evidence": {
         "classification": "computed",
-        "sourceFile": "NAME-0001-components-848-3342-terminal.json",
+        "sourceFile": "NAME-0001-components-NODE-0005-terminal.json",
         "confidence": "high",
         "note": "Derived by cross-referencing every comp_build_variant_section annotation pair (40/40 bands, 10/10 component sets) against every INSTANCE's variantProperties (196/196 instances, all located in components_representations). No annotation band or instance ever pairs Center - Fill with a Symbol other than Optional, or pairs Left - Hug with Symbol=Optional. proposedValidCombinations currently equals observedCombinations exactly -- nothing beyond what was directly observed has been hypothesized. This is pattern-detection over the file's own data (approvalBasis=unresolved), not an owner confirmation and not a structural enumeration; per CV-6/CV-8 it must not be promoted to approvedCombinations without one or the other."
       }
@@ -1103,21 +1103,21 @@
   "themeModel": {
     "collections": [
       {
-        "collectionId": "VC-0002",
+        "collectionId": "VC-0001",
         "collectionKey": null,
         "collectionName": "colors",
         "remote": true,
-        "defaultModeId": "NODE-0299",
+        "defaultModeId": "NODE-0027",
         "variableCount": null,
         "themeVarying": true,
         "modes": [
           {
-            "modeId": "NODE-0299",
+            "modeId": "NODE-0027",
             "modeName": "Dark",
             "isDefault": true
           },
           {
-            "modeId": "NODE-0558",
+            "modeId": "NODE-0028",
             "modeName": "Light",
             "isDefault": false
           }
@@ -1132,8 +1132,8 @@
         "labelText": null,
         "modeBindings": [
           {
-            "collectionId": "VC-0002",
-            "resolvedModeId": "NODE-0299",
+            "collectionId": "VC-0001",
+            "resolvedModeId": "NODE-0027",
             "resolvedModeName": "Dark",
             "provenanceStatus": "legacy_unverified",
             "legacyState": {
@@ -1146,7 +1146,7 @@
         ],
         "evidence": {
           "classification": "observed",
-          "sourceFile": "NAME-0001-components-848-3342-terminal.json",
+          "sourceFile": "NAME-0001-components-NODE-0005-terminal.json",
           "confidence": "high"
         }
       },
@@ -1157,8 +1157,8 @@
         "labelText": null,
         "modeBindings": [
           {
-            "collectionId": "VC-0002",
-            "resolvedModeId": "NODE-0558",
+            "collectionId": "VC-0001",
+            "resolvedModeId": "NODE-0028",
             "resolvedModeName": "Light",
             "provenanceStatus": "legacy_unverified",
             "legacyState": {
@@ -1171,18 +1171,18 @@
         ],
         "evidence": {
           "classification": "observed",
-          "sourceFile": "NAME-0001-components-848-3342-terminal.json",
+          "sourceFile": "NAME-0001-components-NODE-0005-terminal.json",
           "confidence": "high"
         }
       }
     ],
     "variablesUsedByDescendants": [
       {
-        "variableId": "VAR-0006",
+        "variableId": "VAR-0001",
         "variableKey": null,
         "variableName": "unknown (v0.3.1 recorded only the id)",
         "resolvedType": null,
-        "collectionId": "VC-0002",
+        "collectionId": "VC-0001",
         "valuesByMode": {},
         "sampledOnNodeIds": [
           "unbound-container-0"
@@ -1209,7 +1209,7 @@
       ],
       "evidence": {
         "classification": "observed",
-        "sourceFile": "NAME-0001-components-848-3342-terminal.json",
+        "sourceFile": "NAME-0001-components-NODE-0005-terminal.json",
         "confidence": "high"
       }
     },
@@ -1224,7 +1224,7 @@
       ],
       "evidence": {
         "classification": "observed",
-        "sourceFile": "NAME-0001-components-848-3342-terminal.json",
+        "sourceFile": "NAME-0001-components-NODE-0005-terminal.json",
         "confidence": "high"
       }
     },
@@ -1237,7 +1237,7 @@
       ],
       "evidence": {
         "classification": "observed",
-        "sourceFile": "NAME-0001-components-848-3342-terminal.json",
+        "sourceFile": "NAME-0001-components-NODE-0005-terminal.json",
         "confidence": "high",
         "note": "Column captions shown verbatim, including the 'Center - Filled' editorial spelling (distinct from canonical 'Center - Fill')."
       }
@@ -1251,7 +1251,7 @@
       ],
       "evidence": {
         "classification": "observed",
-        "sourceFile": "NAME-0001-components-848-3342-terminal.json",
+        "sourceFile": "NAME-0001-components-NODE-0005-terminal.json",
         "confidence": "medium",
         "note": "Panel title names the Symbol concept but its columns are captioned by Layout value; the semantic intent behind this pairing was not independently re-verified."
       }
@@ -1265,7 +1265,7 @@
       ],
       "evidence": {
         "classification": "observed",
-        "sourceFile": "NAME-0001-components-848-3342-terminal.json",
+        "sourceFile": "NAME-0001-components-NODE-0005-terminal.json",
         "confidence": "medium"
       }
     },
@@ -1278,7 +1278,7 @@
       ],
       "evidence": {
         "classification": "observed",
-        "sourceFile": "NAME-0001-components-848-3342-terminal.json",
+        "sourceFile": "NAME-0001-components-NODE-0005-terminal.json",
         "confidence": "medium"
       }
     },
@@ -1291,7 +1291,7 @@
       ],
       "evidence": {
         "classification": "observed",
-        "sourceFile": "NAME-0001-components-848-3342-terminal.json",
+        "sourceFile": "NAME-0001-components-NODE-0005-terminal.json",
         "confidence": "medium"
       }
     }
@@ -1300,7 +1300,7 @@
     "statement": "Physical completeness -- the claim that every documented (row,column,band) cell has a real backing COMPONENT child -- may only be asserted when evidence reaches component_children_enumerated or owner_confirmed. A visual/screenshot check (visual_matrix_verified) does NOT establish structural child completeness -- it is a different kind of check, not a weaker version of enumeration. A documented pairing count derived from annotation-band text or from INSTANCE.variantProperties is evidence of the intended design space, not proof that every cell is physically realized inside the COMPONENT_SET.",
     "perComponentSetCoverage": [
       {
-        "componentSetId": "NODE-0313",
+        "componentSetId": "NODE-0002",
         "physicalCoverageEvidenceLevel": "visual_matrix_verified",
         "physicalCompletenessClaimed": false,
         "ownerConfirmationRef": null,
@@ -1327,7 +1327,7 @@
         ]
       },
       {
-        "componentSetId": "NODE-0563",
+        "componentSetId": "NODE-0009",
         "physicalCoverageEvidenceLevel": "schema_only",
         "physicalCompletenessClaimed": false,
         "ownerConfirmationRef": null,
@@ -1354,7 +1354,7 @@
         ]
       },
       {
-        "componentSetId": "NODE-0565",
+        "componentSetId": "NODE-0011",
         "physicalCoverageEvidenceLevel": "schema_only",
         "physicalCompletenessClaimed": false,
         "ownerConfirmationRef": null,
@@ -1381,7 +1381,7 @@
         ]
       },
       {
-        "componentSetId": "NODE-0567",
+        "componentSetId": "NODE-0013",
         "physicalCoverageEvidenceLevel": "schema_only",
         "physicalCompletenessClaimed": false,
         "ownerConfirmationRef": null,
@@ -1408,7 +1408,7 @@
         ]
       },
       {
-        "componentSetId": "NODE-0571",
+        "componentSetId": "NODE-0015",
         "physicalCoverageEvidenceLevel": "schema_only",
         "physicalCompletenessClaimed": false,
         "ownerConfirmationRef": null,
@@ -1435,7 +1435,7 @@
         ]
       },
       {
-        "componentSetId": "NODE-0577",
+        "componentSetId": "NODE-0017",
         "physicalCoverageEvidenceLevel": "schema_only",
         "physicalCompletenessClaimed": false,
         "ownerConfirmationRef": null,
@@ -1462,7 +1462,7 @@
         ]
       },
       {
-        "componentSetId": "NODE-0573",
+        "componentSetId": "NODE-0019",
         "physicalCoverageEvidenceLevel": "schema_only",
         "physicalCompletenessClaimed": false,
         "ownerConfirmationRef": null,
@@ -1489,7 +1489,7 @@
         ]
       },
       {
-        "componentSetId": "NODE-0575",
+        "componentSetId": "NODE-0021",
         "physicalCoverageEvidenceLevel": "schema_only",
         "physicalCompletenessClaimed": false,
         "ownerConfirmationRef": null,
@@ -1516,7 +1516,7 @@
         ]
       },
       {
-        "componentSetId": "NODE-0561",
+        "componentSetId": "NODE-0023",
         "physicalCoverageEvidenceLevel": "schema_only",
         "physicalCompletenessClaimed": false,
         "ownerConfirmationRef": null,
@@ -1543,7 +1543,7 @@
         ]
       },
       {
-        "componentSetId": "NODE-0569",
+        "componentSetId": "NODE-0024",
         "physicalCoverageEvidenceLevel": "schema_only",
         "physicalCompletenessClaimed": false,
         "ownerConfirmationRef": null,
@@ -1581,7 +1581,7 @@
       "description": "comp_build internal shape (variant-band annotations -> COMPONENT_SET -> y-axis legends -> build_description) held identically across all 10 comp_build instances.",
       "evidence": {
         "classification": "observed",
-        "sourceFile": "NAME-0001-components-848-3342-terminal.json",
+        "sourceFile": "NAME-0001-components-NODE-0005-terminal.json",
         "confidence": "high"
       },
       "appliesToScopes": [
@@ -1600,7 +1600,7 @@
       "description": "comp_build_var_description grammar '{key} - {value}' repeated, joined by a dot-separator glyph, held identically across all 40 annotation bands.",
       "evidence": {
         "classification": "observed",
-        "sourceFile": "NAME-0001-components-848-3342-terminal.json",
+        "sourceFile": "NAME-0001-components-NODE-0005-terminal.json",
         "confidence": "high"
       },
       "appliesToScopes": [
@@ -1619,7 +1619,7 @@
       "description": "en_dash text nodes contain a literal hyphen (U+002D), never a typographic en dash (U+2013), across all 80 occurrences.",
       "evidence": {
         "classification": "observed",
-        "sourceFile": "NAME-0001-components-848-3342-terminal.json",
+        "sourceFile": "NAME-0001-components-NODE-0005-terminal.json",
         "confidence": "high"
       },
       "appliesToScopes": [
@@ -1638,7 +1638,7 @@
       "description": "The specific pairing {Center - Fill <-> Optional, Left - Hug <-> Leading/Trailing/Both} is the exact Layout/Symbol correlation observed in every one of the 10 Button component sets.",
       "evidence": {
         "classification": "observed",
-        "sourceFile": "NAME-0001-components-848-3342-terminal.json",
+        "sourceFile": "NAME-0001-components-NODE-0005-terminal.json",
         "confidence": "high"
       },
       "appliesToScopes": [
@@ -1657,7 +1657,7 @@
       "description": "The general principle that declared VARIANT axes on a COMPONENT_SET may be correlated rather than independently combinable, and that naive Cartesian expansion can overstate the real design space, is a Figma-level phenomenon (not a Button API detail) but is only evidenced here via Buttons.",
       "evidence": {
         "classification": "inferred",
-        "sourceFile": "NAME-0001-components-848-3342-terminal.json",
+        "sourceFile": "NAME-0001-components-NODE-0005-terminal.json",
         "confidence": "medium",
         "note": "Not verified against any non-Button component in this file or elsewhere."
       },
@@ -1677,7 +1677,7 @@
       "description": "Disabled-restricted component sets (State limited to one value) omit the x-axis legend row but retain build_description (headline + divider), for both of the 2 observed disabled sets.",
       "evidence": {
         "classification": "observed",
-        "sourceFile": "NAME-0001-components-848-3342-terminal.json",
+        "sourceFile": "NAME-0001-components-NODE-0005-terminal.json",
         "confidence": "high"
       },
       "appliesToScopes": [
@@ -1696,7 +1696,7 @@
       "description": "Theme is implemented by binding the same variable to different container frames, which resolve to different mode-specific literal values, for both of the 2 observed theme containers in this file.",
       "evidence": {
         "classification": "observed",
-        "sourceFile": "NAME-0001-components-848-3342-terminal.json",
+        "sourceFile": "NAME-0001-components-NODE-0005-terminal.json",
         "confidence": "high"
       },
       "appliesToScopes": [
@@ -1715,7 +1715,7 @@
       "description": "The general principle that Figma variable modes (rather than duplicate named styles) can implement theme switching is a file/Figma-level mechanism, not Button-specific, but is only evidenced here via the Buttons page's two theme containers.",
       "evidence": {
         "classification": "inferred",
-        "sourceFile": "NAME-0001-components-848-3342-terminal.json",
+        "sourceFile": "NAME-0001-components-NODE-0005-terminal.json",
         "confidence": "medium"
       },
       "appliesToScopes": [
@@ -1734,7 +1734,7 @@
       "description": "The top-level page order (intro -> divider -> representation -> divider -> builds) occurs exactly once in this file (one component_box); it has not been observed to repeat, even within Buttons.",
       "evidence": {
         "classification": "observed",
-        "sourceFile": "NAME-0001-components-848-3342-terminal.json",
+        "sourceFile": "NAME-0001-components-NODE-0005-terminal.json",
         "confidence": "high",
         "note": "Classified 'unknown' for generalizability specifically because n=1 within this file; the shape itself is observed, its recurrence is not."
       },
@@ -1755,7 +1755,7 @@
       "description": "The partition into exactly 3 semantic families (Primary/Secondary/Disabled) with hr dividers between them is specific to this one component_builds_section; the comp_build_section internal shape (headline + builds_container) does repeat 3/3 times.",
       "evidence": {
         "classification": "observed",
-        "sourceFile": "NAME-0001-components-848-3342-terminal.json",
+        "sourceFile": "NAME-0001-components-NODE-0005-terminal.json",
         "confidence": "high"
       },
       "appliesToScopes": [
@@ -1775,7 +1775,7 @@
       "description": "Naming-convention violations exist and are not schema/lint-enforced: 4/38 var_col-title-role nodes are named 'Label' instead of 'var_col_title'; 4 comp_pan-role wrapper frames are named 'container'; the light-mode theme heading is named 'Subheading' vs. the dark-mode 'rep_title'; a capital-I typo ('Center - FIlled') ships in both theme panels.",
       "evidence": {
         "classification": "observed",
-        "sourceFile": "NAME-0001-components-848-3342-terminal.json",
+        "sourceFile": "NAME-0001-components-NODE-0005-terminal.json",
         "confidence": "high",
         "note": "Classification 'unknown' used deliberately: this finding describes an absence of enforcement, not a structural invariant, and the enum has no dedicated 'confirmed_inconsistency' value."
       },
@@ -1795,7 +1795,7 @@
       "description": "All 196 exported INSTANCE nodes are located inside components_representations; 0 are located inside any comp_build. INSTANCE.variantProperties data therefore proves specific axis combinations exist as real components, but only for the combinations shown in the representation gallery, not for the matrix cells inside each COMPONENT_SET.",
       "evidence": {
         "classification": "observed",
-        "sourceFile": "NAME-0001-components-848-3342-terminal.json",
+        "sourceFile": "NAME-0001-components-NODE-0005-terminal.json",
         "confidence": "high",
         "note": "196/196 instances confirmed under components_representations; 0/196 elsewhere. Re-verified directly for this correction."
       },
@@ -1815,7 +1815,7 @@
       "description": "The mechanism by which dark_rep_container and light_rep_container resolve an identical bound variable to different literal values (explicit per-frame mode override vs. inherited vs. some other Figma mechanism) is not observable from either export; explicitVariableModes occurs 0 times anywhere in the terminal export.",
       "evidence": {
         "classification": "unverified",
-        "sourceFile": "NAME-0001-components-848-3342-terminal.json",
+        "sourceFile": "NAME-0001-components-NODE-0005-terminal.json",
         "confidence": "low"
       },
       "appliesToScopes": [
@@ -1832,10 +1832,10 @@
     },
     {
       "findingId": "SF-14",
-      "description": "The v0.2.0-draft contract treated the get_screenshot(NODE-0557) result as component_children_verified-level evidence and claimed physical completeness for NODE-0313. That evidence level has been split (visual_matrix_verified vs. component_children_enumerated) and the screenshot correctly reclassified as visual_matrix_verified only, which does not meet the completeness bar. Net effect: 0 of 10 component sets now meet the bar (previously reported as 1 of 10). This finding exists purely for cross-version traceability.",
+      "description": "The v0.2.0-draft contract treated the get_screenshot(NODE-0006) result as component_children_verified-level evidence and claimed physical completeness for NODE-0002. That evidence level has been split (visual_matrix_verified vs. component_children_enumerated) and the screenshot correctly reclassified as visual_matrix_verified only, which does not meet the completeness bar. Net effect: 0 of 10 component sets now meet the bar (previously reported as 1 of 10). This finding exists purely for cross-version traceability.",
       "evidence": {
         "classification": "computed",
-        "sourceFile": "NAME-0001-components-848-3342-terminal.json",
+        "sourceFile": "NAME-0001-components-NODE-0005-terminal.json",
         "confidence": "high",
         "note": "See CHANGELOG.md for the full 0.2.0-draft -> 0.3.0-draft diff."
       },
@@ -1856,7 +1856,7 @@
       "description": "The v0.3.0-draft contract and validator claimed 5/5 enforceability but had five real enforcement gaps: fully_enumerated was label-based (an artifact could be fabricated/reused across sets); ownerConfirmations resolution was one-directional (an orphan confirmation record passed silently); layoutRepresentations[].allocation coverage only checked for zero coverage, not exactly-one, and its axis check unioned declared axes across referenced variants instead of requiring every one; the qualifying-evidence-levels policy field was unconstrained; and generate_tables.py had no drift-detection mode. All five are closed in v0.3.1-draft (CV-11 added; CV-3/CV-6/CV-7 corrected; CV-1 gained a schema-enforced floor restriction; generate_tables.py --check added). This finding exists purely for cross-version traceability.",
       "evidence": {
         "classification": "computed",
-        "sourceFile": "NAME-0001-components-848-3342-terminal.json",
+        "sourceFile": "NAME-0001-components-NODE-0005-terminal.json",
         "confidence": "high",
         "note": "See CHANGELOG.md for the full 0.3.0-draft -> 0.3.1-draft diff. Every gap was independently verified empirically (a synthetic document exercising it) before being fixed, and re-verified as rejected after."
       },
@@ -2134,7 +2134,7 @@
       },
       {
         "blockerId": "BLK-3",
-        "description": "0 of 10 component sets have reached component_children_enumerated coverage; 1 of 10 (NODE-0313) reached only visual_matrix_verified, which does not qualify. The other 9 remain schema_only.",
+        "description": "0 of 10 component sets have reached component_children_enumerated coverage; 1 of 10 (NODE-0002) reached only visual_matrix_verified, which does not qualify. The other 9 remain schema_only.",
         "mustBeResolvedBefore": "Claiming physical completeness for any of the 10 sets, or using any of them as a coverage template for a new component.",
         "blockerClass": "owner_decision"
       },
@@ -2180,9 +2180,9 @@
     "Only the terminal export self-reports validation statistics; basic-tree counts were independently recomputed, not self-reported, and both recomputations agree with each other and with the terminal export's self-report.",
     "Reference-resolution validation (unresolved named styles, unresolved variables, duplicate IDs) is only possible from the terminal export, because the basic-tree export carries no style or variable data at all.",
     "explicitVariableModes occurs 0 times anywhere in the terminal export. The theme-mode resolution mechanism is therefore unverified, not directly observed, despite the resolved-value difference itself being directly observed.",
-    "Physical coverage verification at the component_children_enumerated level exists for 0 of 10 component sets. NODE-0313 was screenshotted (visual_matrix_verified), which is a real but categorically different, weaker kind of evidence -- it does not establish structural completeness. This is a correction from the prior contract revision, which had treated the screenshot as sufficient for a physical-completeness claim.",
-    "The 8 previously-unrecorded buildFrameId values (all sets except NODE-0313 and the two Disabled sets, which were separately corrected/confirmed) were derived by the same script-based extraction method used to confirm the user-supplied corrections for NODE-0560 and NODE-0568, and were independently cross-checked by a separate review pass. High confidence, Buttons scope.",
-    "The screenshot evidence artifact for NODE-0313 (evidence/comp_build_750-2443_screenshot.png) was originally saved only to an ephemeral, session-scoped scratch directory outside the project; it has been copied into this project's evidence/ folder specifically so it remains durable and independently re-hashable rather than pointing at a path that could vanish.",
+    "Physical coverage verification at the component_children_enumerated level exists for 0 of 10 component sets. NODE-0002 was screenshotted (visual_matrix_verified), which is a real but categorically different, weaker kind of evidence -- it does not establish structural completeness. This is a correction from the prior contract revision, which had treated the screenshot as sufficient for a physical-completeness claim.",
+    "The 8 previously-unrecorded buildFrameId values (all sets except NODE-0002 and the two Disabled sets, which were separately corrected/confirmed) were derived by the same script-based extraction method used to confirm the user-supplied corrections for NODE-0003 and NODE-0004, and were independently cross-checked by a separate review pass. High confidence, Buttons scope.",
+    "The screenshot evidence artifact for NODE-0002 (evidence/comp_build_NODE-0002_screenshot.png) was originally saved only to an ephemeral, session-scoped scratch directory outside the project; it has been copied into this project's evidence/ folder specifically so it remains durable and independently re-hashable rather than pointing at a path that could vanish.",
     "No non-Button component has been analyzed in this file or elsewhere. Every candidate_cross_component_invariant classification in this contract is an unverified hypothesis pending a second component example, not a confirmed rule.",
     "correlatedAxisTuples CAT-1 was derived by automatic pattern detection over this file's own annotation text and instance data (approvalBasis='unresolved'); it has not been owner-confirmed or structurally enumerated, and per CV-6/CV-8 must not be treated as approved for any Figma write.",
     "Identical rule/finding id sets appearing across this contract and its companion markdown documents (SF-*, VR-*, CV-*, BLK-*) are necessary but not sufficient evidence of semantic consistency between the documents -- the CV/VR rule tables in the markdown docs are generated directly from this file's own description/detectionCondition/action text specifically to close that gap; other prose was not mechanically diffed and could still drift.",
@@ -2192,7 +2192,7 @@
   "authoringMode": "migrated",
   "migrationReportRef": {
     "artifactPath": "migration-report-buttons-0.4.0-draft.json",
-    "artifactSha256": "28ed63b8b34c0e0f877b8c8b7d07573f7adb6b07ad81f4c3ebc48ad0d95a4a97"
+    "artifactSha256": "8687d20a8aaf2ceef22c6e2f8f78ae95146cb99a40c767e01e0bf8ebaf7dc26b"
   },
   "layoutRepresentations": [
     {
@@ -2203,18 +2203,18 @@
           "schema_a_full_state"
         ],
         "componentSetIds": [
-          "NODE-0313",
-          "NODE-0563",
-          "NODE-0565",
-          "NODE-0567",
-          "NODE-0571",
-          "NODE-0577",
-          "NODE-0573",
-          "NODE-0575"
+          "NODE-0002",
+          "NODE-0009",
+          "NODE-0011",
+          "NODE-0013",
+          "NODE-0015",
+          "NODE-0017",
+          "NODE-0019",
+          "NODE-0021"
         ]
       },
       "evidenceNodeIds": [
-        "NODE-0313"
+        "NODE-0002"
       ],
       "namingRuleRefs": [],
       "allocation": {
@@ -2282,7 +2282,7 @@
       },
       "evidence": {
         "classification": "observed",
-        "sourceFile": "NAME-0001-components-848-3342-terminal.json",
+        "sourceFile": "NAME-0001-components-NODE-0005-terminal.json",
         "confidence": "high",
         "note": "Applies to the 8 Primary/Secondary sets. bandsAxes references correlatedAxisTuples[tupleId=CAT-1] for which (Layout,Symbol) pairs are actually valid -- 4 bands, not the naive 2x4=8 Cartesian product. Not yet human-approved; approvalStatus must reach 'approved' with a resolvable ownerConfirmationRef before this allocation may be used as a Figma-write template."
       }
@@ -2295,12 +2295,12 @@
           "schema_b_disabled_state"
         ],
         "componentSetIds": [
-          "NODE-0561",
-          "NODE-0569"
+          "NODE-0023",
+          "NODE-0024"
         ]
       },
       "evidenceNodeIds": [
-        "NODE-0561"
+        "NODE-0023"
       ],
       "namingRuleRefs": [],
       "allocation": {
@@ -2357,7 +2357,7 @@
       },
       "evidence": {
         "classification": "observed",
-        "sourceFile": "NAME-0001-components-848-3342-terminal.json",
+        "sourceFile": "NAME-0001-components-NODE-0005-terminal.json",
         "confidence": "high",
         "note": "Applies to the 2 Disabled sets. columnsAxis is structurally null (not a free-text note) because State has a single declared value here and no column header row is rendered. Same 4-band correlation as MA-1."
       }
@@ -2366,16 +2366,16 @@
   "representationNodeBindings": [
     {
       "layoutRepresentationRef": "LR-1",
-      "containerNodeId": "NODE-0313",
-      "rootNodeId": "NODE-0578",
+      "containerNodeId": "NODE-0002",
+      "rootNodeId": "NODE-0005",
       "semanticRole": "documentation_block",
       "observedLayerName": "",
       "migrationReviewRequired": true
     },
     {
       "layoutRepresentationRef": "LR-2",
-      "containerNodeId": "NODE-0561",
-      "rootNodeId": "NODE-0578",
+      "containerNodeId": "NODE-0023",
+      "rootNodeId": "NODE-0005",
       "semanticRole": "documentation_block",
       "observedLayerName": "",
       "migrationReviewRequired": true

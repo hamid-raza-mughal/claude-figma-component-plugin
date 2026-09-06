@@ -16,7 +16,7 @@
  */
 import { test, describe } from 'node:test';
 import assert from 'node:assert/strict';
-import { readFileSync } from 'node:fs';
+import { readFileSync, readdirSync, statSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { ENFORCEMENT_OWNERS } from '../../src/contracts/failures.ts';
@@ -29,11 +29,22 @@ import {
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 
+function representationSources(dir = join(HERE, '..', '..', 'src', 'representation')): string[] {
+  const out: string[] = [];
+  for (const entry of readdirSync(dir)) {
+    const full = join(dir, entry);
+    if (statSync(full).isDirectory()) out.push(...representationSources(full));
+    else if (entry.endsWith('.ts')) out.push(full);
+  }
+  return out.sort();
+}
+
 type FixtureRow = {
   readonly file: string;
   readonly validator: 'schema' | 'reference' | 'semantic' | 'evidence';
   readonly expect: 'valid' | 'invalid';
   readonly rule_id: string | null;
+  readonly intended_error_code?: string | null | undefined;
   /** For an `evidence` row: the name of the test that is the evidence. */
   readonly covered_by?: string | undefined;
 };
@@ -71,10 +82,79 @@ describe('B2 · registry shape', () => {
     assert.deepEqual([...ids], [...ids].sort());
   });
 
-  test('error codes are unique — a shared code cannot be grouped or repaired', () => {
-    const codes = REPRESENTATION_INVARIANTS.map((i) => i.error_code);
-    assert.equal(new Set(codes).size, codes.length);
-    for (const code of codes) assert.match(code, /^REP_[A-Z0-9_]+$/);
+  test('every rule declares at least one code, and every code is well-formed', () => {
+    for (const invariant of REPRESENTATION_INVARIANTS) {
+      assert.ok(invariant.error_codes.length > 0, `${invariant.id} declares no code`);
+      for (const code of invariant.error_codes) {
+        assert.match(code, /^(?:REP|SCHEMA)_[A-Z0-9_]+$/, `${invariant.id} declares "${code}"`);
+      }
+    }
+  });
+
+  test('a REP_* code belongs to exactly one rule', () => {
+    // A `SCHEMA_*` code is ajv's, shared by every schema-owned rule by nature —
+    // it says what shape of failure occurred, not which rule. A `REP_*` code is
+    // ours and identifies the rule, so sharing one would make a violation
+    // ungroupable and unrepairable.
+    const seen = new Map<string, string>();
+    for (const invariant of REPRESENTATION_INVARIANTS) {
+      for (const code of invariant.error_codes) {
+        if (!code.startsWith('REP_')) continue;
+        const owner = seen.get(code);
+        assert.equal(owner, undefined, `${code} is claimed by both ${String(owner)} and ${invariant.id}`);
+        seen.set(code, invariant.id);
+      }
+    }
+  });
+
+  /**
+   * The agreement the registry did not have, found in audit cycle 2.
+   *
+   * Ten rows declared a `REP_*` code that occurred exactly once in the whole
+   * repository — in its own declaration — while the fixtures recorded the
+   * `SCHEMA_*` codes ajv actually emits. Eight codes went the other way: emitted
+   * by real code paths and named in no row, one of them
+   * (`REP_UNDOCUMENTED_VARIANT_NOT_DECLARED`) with no test at all.
+   *
+   * Three directions, because any two of them can agree while the third rots.
+   */
+  test('every code a fixture expects is declared by its rule', () => {
+    for (const row of fixtures) {
+      if (row.rule_id === null || row.intended_error_code === null) continue;
+      if (row.intended_error_code === undefined) continue;
+      const invariant = REPRESENTATION_INVARIANTS_BY_ID.get(row.rule_id);
+      assert.ok(invariant !== undefined, `${row.file} names undeclared ${row.rule_id}`);
+      assert.ok(
+        invariant.error_codes.includes(row.intended_error_code),
+        `${row.file} expects ${row.intended_error_code}, which ${row.rule_id} does not declare`,
+      );
+    }
+  });
+
+  test('every REP_* code the module emits is declared by some rule', () => {
+    const declared = new Set(REPRESENTATION_INVARIANTS.flatMap((i) => i.error_codes));
+    const undeclared = new Set<string>();
+    for (const file of representationSources()) {
+      if (file.endsWith('invariant-registry.ts')) continue; // the declaration itself
+      for (const match of readFileSync(file, 'utf8').matchAll(/'(REP_[A-Z0-9_]+)'/g)) {
+        if (!declared.has(match[1] as string)) undeclared.add(match[1] as string);
+      }
+    }
+    assert.deepEqual([...undeclared].sort(), [], 'a violation nothing in the registry accounts for');
+  });
+
+  test('every REP_* code the registry declares is emitted somewhere', () => {
+    const emitted = new Set<string>();
+    for (const file of representationSources()) {
+      if (file.endsWith('invariant-registry.ts')) continue;
+      for (const match of readFileSync(file, 'utf8').matchAll(/'(REP_[A-Z0-9_]+)'/g)) {
+        emitted.add(match[1] as string);
+      }
+    }
+    const dead = REPRESENTATION_INVARIANTS.flatMap((i) => i.error_codes)
+      .filter((code) => code.startsWith('REP_'))
+      .filter((code) => !emitted.has(code));
+    assert.deepEqual(dead.sort(), [], 'a declared code no code path can produce');
   });
 
   test('every statement is a statement, not a label', () => {

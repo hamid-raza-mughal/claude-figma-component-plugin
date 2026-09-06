@@ -17,6 +17,7 @@ import {
   scanText,
   scanPath,
   collectFiles,
+  collectPaths,
   RULES,
   ALLOWLIST,
 } from '../../tools/identifier-scan.ts';
@@ -74,6 +75,20 @@ describe('the scan reads paths, not only lines (AL-1 follow-up)', () => {
       .map((finding) => finding.file);
     assert.deepEqual(offenders, []);
   });
+
+  test('the path scan reads every file, not only the readable ones', () => {
+    // Found while auditing the rule above, in cycle 2. `collectFiles` filters to
+    // text extensions because it exists to read *contents* — and the path rule
+    // reads no contents. Filtering by extension there would have left a
+    // screenshot named for the node it shows completely invisible, which is the
+    // largest class of offender the rule was added for.
+    const paths = collectPaths();
+    assert.ok(paths.length > 100, `only ${paths.length} paths collected`);
+    assert.ok(
+      paths.some((path) => path.endsWith('.png') || path.endsWith('.ico') || path.endsWith('.sha256')),
+      'no non-text file was collected, so this check cannot tell whether it would be',
+    );
+  });
 });
 
 describe('every rule catches what it is named for', () => {
@@ -92,6 +107,11 @@ describe('every rule catches what it is named for', () => {
     'variable-id': `bound to VariableID:${'a'.repeat(40)}`,
     'component-property-id': `the property Label#${'1'.repeat(3)}:${'2'.repeat(3)} on the set`,
     'node-id': `the component set at ${'7'.repeat(3)}:${'4'.repeat(4)} in the file`,
+    // Added in audit cycle 2, when the corpus turned out to carry 203 real ids
+    // in hyphen form and one real key prefix behind an ellipsis, and this scan
+    // reported clean over both.
+    'node-id-hyphenated': `saved as enumeration-${'7'.repeat(3)}-${'4'.repeat(5)}.json`,
+    'truncated-hex': `bound to the key ${'a'.repeat(12)}…`,
   };
 
   for (const rule of RULES) {
@@ -115,6 +135,10 @@ describe('every rule catches what it is named for', () => {
       'composed at 2026-09-06T11:52:45.961Z',
       'Friday 17:00 to Monday 09:00 is 64 hours',
       'src/coordinator/compose-trusted-output.ts:246',
+      // Cycle 2's narrowings, each one a shape the widened rules must NOT eat.
+      `a uuid ${'a'.repeat(8)}-0000-4000-8000-000000000000 in a fixture`,
+      'const runId = `${hex}${hex}${hex}${hex}-0000-4000-8000-000000000000`;',
+      'lines 265-278 and 80-100 of the report',
     ];
     for (const text of synthetic) {
       assert.deepEqual(scanText('probe.md', text), [], `a synthetic value tripped the scan: ${text}`);
@@ -143,8 +167,10 @@ describe('the allowlist is bounded and justified', () => {
 
   test('the allowlist has not grown past what audit cycle 1 recorded', () => {
     // A growing allowlist is how a scan dies. Seven entries were the state at
-    // the end of cycle 1; an eighth is a deliberate act that edits this number
+    // the end of cycle 1; cycle 2 added three when two new rules went in — two
+    // synthetic hashes and one prose range — and an eleventh is a deliberate act
+    // that edits this number
     // and says why in the cycle document, not a quiet addition.
-    assert.equal(ALLOWLIST.length, 7);
+    assert.equal(ALLOWLIST.length, 10);
   });
 });

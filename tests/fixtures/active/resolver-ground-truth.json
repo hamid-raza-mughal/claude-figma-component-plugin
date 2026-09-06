@@ -1,6 +1,6 @@
 {
   "schema": "resolver-ground-truth/v1",
-  "provenance": "The 12 real resolutions from Specs/Outputs/warning-toast-run-002.md, with both verified defects corrected: resolution #6 named a border-width path that does not exist in the export and is corrected to stroke/thin (value 1.0, key 75ab1461...); resolution #12 is confirmed as body/reg/regular (14px), not body/sm/regular (12px). The fabricated label is quoted only in docs/v1-baseline-manifest.md.",
+  "provenance": "The 12 real resolutions from Specs/Outputs/warning-toast-run-002.md, with both verified defects corrected: resolution #6 named a border-width path that does not exist in the export and is corrected to stroke/thin (value 1.0, the key for that path); resolution #12 is confirmed as body/reg/regular (14px), not body/sm/regular (12px). The fabricated label is quoted only in docs/v1-baseline-manifest.md.",
   "window_rule": "Windows were assigned BEFORE the TypeScript resolver was run and are immutable thereafter (finding C12). Changing one requires a decision-log entry. Basis: exact numeric match -> 1; whole-component term match -> 1; semantic-only or unmapped abbreviation -> <=3; same-named family ambiguity -> <=5.",
   "n": 12,
   "caveat": "n=12. Report as fractions with explicit n, never as a percentage (finding C20).",

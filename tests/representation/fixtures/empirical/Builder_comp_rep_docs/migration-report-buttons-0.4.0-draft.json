@@ -3,11 +3,11 @@
   "contractId": "NAME-0001-buttons-component-representation-contract",
   "sourceContract": {
     "path": "versions/0.3.1-draft/component-representation-contract.json",
-    "sha256": "42078ee6a0ed4147e9d4cd035d18157024bd98261a0ea3de51f06958d2e7837d"
+    "sha256": "8aa6083bc1ab9b6fe2bf26481e48c3b0060e5eb2ac51a7d52983f2459972c84a"
   },
   "migrationTool": {
     "path": "migrate_v031_to_v040.py",
-    "sha256": "fc83bc0ccf76d8bc3cfe2f831df3cffcafcbd1be451b4540c2627e7137de2da6"
+    "sha256": "c4a277d02d594914ab73369d3ca6ac8d7234944c7aed7e5d49d760d56381062a"
   },
   "unresolvedStates": [
     {
@@ -17,7 +17,7 @@
       "responsibleOwner": "NAME-0001 design-system owner"
     },
     {
-      "site": "representationNodeBindings['NODE-0313']",
+      "site": "representationNodeBindings['NODE-0002']",
       "kind": "migration_review",
       "detail": "binding derived from allocation evidence.nodeIds (provenance), not from a recorded operational locator",
       "responsibleOwner": "NAME-0001 design-system owner"
@@ -29,67 +29,67 @@
       "responsibleOwner": "NAME-0001 design-system owner"
     },
     {
-      "site": "representationNodeBindings['NODE-0561']",
+      "site": "representationNodeBindings['NODE-0023']",
       "kind": "migration_review",
       "detail": "binding derived from allocation evidence.nodeIds (provenance), not from a recorded operational locator",
       "responsibleOwner": "NAME-0001 design-system owner"
     },
     {
-      "site": "coveragePolicy['NODE-0313'].coverageMetrics[0]",
+      "site": "coveragePolicy['NODE-0002'].coverageMetrics[0]",
       "kind": "legacy_unclassified_metric",
       "detail": "value 100 carried forward without an asserted metric kind",
       "responsibleOwner": "NAME-0001 design-system owner"
     },
     {
-      "site": "coveragePolicy['NODE-0563'].coverageMetrics[0]",
+      "site": "coveragePolicy['NODE-0009'].coverageMetrics[0]",
       "kind": "legacy_unclassified_metric",
       "detail": "value 100 carried forward without an asserted metric kind",
       "responsibleOwner": "NAME-0001 design-system owner"
     },
     {
-      "site": "coveragePolicy['NODE-0565'].coverageMetrics[0]",
+      "site": "coveragePolicy['NODE-0011'].coverageMetrics[0]",
       "kind": "legacy_unclassified_metric",
       "detail": "value 100 carried forward without an asserted metric kind",
       "responsibleOwner": "NAME-0001 design-system owner"
     },
     {
-      "site": "coveragePolicy['NODE-0567'].coverageMetrics[0]",
+      "site": "coveragePolicy['NODE-0013'].coverageMetrics[0]",
       "kind": "legacy_unclassified_metric",
       "detail": "value 100 carried forward without an asserted metric kind",
       "responsibleOwner": "NAME-0001 design-system owner"
     },
     {
-      "site": "coveragePolicy['NODE-0571'].coverageMetrics[0]",
+      "site": "coveragePolicy['NODE-0015'].coverageMetrics[0]",
       "kind": "legacy_unclassified_metric",
       "detail": "value 100 carried forward without an asserted metric kind",
       "responsibleOwner": "NAME-0001 design-system owner"
     },
     {
-      "site": "coveragePolicy['NODE-0577'].coverageMetrics[0]",
+      "site": "coveragePolicy['NODE-0017'].coverageMetrics[0]",
       "kind": "legacy_unclassified_metric",
       "detail": "value 100 carried forward without an asserted metric kind",
       "responsibleOwner": "NAME-0001 design-system owner"
     },
     {
-      "site": "coveragePolicy['NODE-0573'].coverageMetrics[0]",
+      "site": "coveragePolicy['NODE-0019'].coverageMetrics[0]",
       "kind": "legacy_unclassified_metric",
       "detail": "value 100 carried forward without an asserted metric kind",
       "responsibleOwner": "NAME-0001 design-system owner"
     },
     {
-      "site": "coveragePolicy['NODE-0575'].coverageMetrics[0]",
+      "site": "coveragePolicy['NODE-0021'].coverageMetrics[0]",
       "kind": "legacy_unclassified_metric",
       "detail": "value 100 carried forward without an asserted metric kind",
       "responsibleOwner": "NAME-0001 design-system owner"
     },
     {
-      "site": "coveragePolicy['NODE-0561'].coverageMetrics[0]",
+      "site": "coveragePolicy['NODE-0023'].coverageMetrics[0]",
       "kind": "legacy_unclassified_metric",
       "detail": "value 20 carried forward without an asserted metric kind",
       "responsibleOwner": "NAME-0001 design-system owner"
     },
     {
-      "site": "coveragePolicy['NODE-0569'].coverageMetrics[0]",
+      "site": "coveragePolicy['NODE-0024'].coverageMetrics[0]",
       "kind": "legacy_unclassified_metric",
       "detail": "value 20 carried forward without an asserted metric kind",
       "responsibleOwner": "NAME-0001 design-system owner"

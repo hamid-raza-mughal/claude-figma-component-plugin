@@ -1,4 +1,4 @@
-# Component Representation Analysis — NAME-0001 Components / `component_box` (NODE-0578)
+# Component Representation Analysis — NAME-0001 Components / `component_box` (NODE-0005)
 
 **Status: v0.3.0-draft revision.** This supersedes the v0.2.0-draft revision (archived in full under `versions/0.2.0-draft/`). See `CHANGELOG.md` for the itemized diff and `normalization-validation-report.md` for this round's validation results. This document must not contradict `component-representation-contract.json`, which validates against `component-representation-contract.schema.json` and is checked further by `semantic_validator.py`.
 
@@ -29,19 +29,19 @@ No second component type has been examined. Every claim that generalizes past th
 
 | Source | What it provides | Self-reports validation? |
 |---|---|---|
-| `NAME-0001-components-848-3342-basic-tree.json` (SHA-256 `40e56a47…0df1d3c`) | Full hierarchy, no style/variable data. | No — no `validation` block exists. Counts attributed to it were independently computed by walking the tree. |
-| `NAME-0001-components-848-3342-terminal.json` (SHA-256 `ee6cc0c1…be371e04`, `source.generatedAt: "2026-08-11T09:NODE-0300.312Z"`) | Same hierarchy plus `styles.*`, `componentPropertyDefinitions`, `namedStyleCatalog`, `variableCatalog`. | Yes — a `validation` block with layer/type counts and reference-resolution checks. Reference-resolution (unresolved styles/variables, duplicate IDs) is only possible from this file. |
+| `NAME-0001-components-NODE-0005-basic-tree.json` (SHA-256 `TRUNC-0001`) | Full hierarchy, no style/variable data. | No — no `validation` block exists. Counts attributed to it were independently computed by walking the tree. |
+| `NAME-0001-components-NODE-0005-terminal.json` (SHA-256 `TRUNC-0002`, `source.generatedAt: "2026-08-11T09:31:57.312Z"`) | Same hierarchy plus `styles.*`, `componentPropertyDefinitions`, `namedStyleCatalog`, `variableCatalog`. | Yes — a `validation` block with layer/type counts and reference-resolution checks. Reference-resolution (unresolved styles/variables, duplicate IDs) is only possible from this file. |
 | Rendered page image (chat-supplied) | Whole-page layout, panel grouping. Text too low-res to read reliably. | N/A |
-| Live Figma reads, read-only, both logged verbatim in `contract.provenance.liveFigmaAccessLog` | `get_metadata(NODE-0578)` confirmed root identity (`artifactAvailable: false` — no artifact was ever saved from this read). `get_screenshot(NODE-0557)` resolved a specific band-ordering ambiguity and showed one matrix visually populated (`resultingEvidenceLevel: "visual_matrix_verified"`, `artifactAvailable: true`, artifact preserved at `evidence/comp_build_750-2443_screenshot.png`, SHA-256 `34b78e37…4a54b7a9`). Neither read has a logged wall-clock `capturedAt` — recorded as `null` rather than guessed. | N/A |
+| Live Figma reads, read-only, both logged verbatim in `contract.provenance.liveFigmaAccessLog` | `get_metadata(NODE-0005)` confirmed root identity (`artifactAvailable: false` — no artifact was ever saved from this read). `get_screenshot(NODE-0006)` resolved a specific band-ordering ambiguity and showed one matrix visually populated (`resultingEvidenceLevel: "visual_matrix_verified"`, `artifactAvailable: true`, artifact preserved at `evidence/comp_build_NODE-0002_screenshot.png`, SHA-256 `TRUNC-0003`). Neither read has a logged wall-clock `capturedAt` — recorded as `null` rather than guessed. | N/A |
 
 ## 3. Structural anatomy
 
 *Classification: observed unless marked; scope: Buttons unless marked.*
 
 ```
-component_box                          SECTION   NODE-0578   [observed live via get_metadata]
-└── main_container                     FRAME     NODE-0311
-    ├── component_intro                FRAME     NODE-0312
+component_box                          SECTION   NODE-0005   [observed live via get_metadata]
+└── main_container                     FRAME     NODE-0007
+    ├── component_intro                FRAME     NODE-0008
     ├── hr                              RECTANGLE
     ├── components_representations      FRAME              — holds all 196 INSTANCE nodes in this file
     │   └── reps_containers → dark_rep_container / light_rep_container
@@ -60,16 +60,16 @@ Each of the 10 `comp_build` FRAMEs wraps exactly one `COMPONENT_SET`. **New in t
 
 | COMPONENT_SET id | comp_build (buildFrameId) | Name |
 |---|---|---|
-| NODE-0313 | NODE-0557 | Button - Primary - Filled - Gradient |
-| NODE-0563 | NODE-0562 | Button - Primary - Tonal - Solid |
-| NODE-0565 | NODE-0564 | Button - Primary - Outline - Gradient |
-| NODE-0567 | NODE-0566 | Button - Primary - Text - Void |
-| NODE-0571 | NODE-0570 | Button - Secondary - Filled - Solid |
-| NODE-0577 | NODE-0576 | Button - Secondary - Tonal - Solid |
-| NODE-0573 | NODE-0572 | Button - Secondary - Outline - Solid |
-| NODE-0575 | NODE-0574 | Button - Secondary - Text - Void |
-| NODE-0561 | **NODE-0560** | Button - Disabled - Outlined |
-| NODE-0569 | **NODE-0568** | Button - Disabled - TextOnly |
+| NODE-0002 | NODE-0006 | Button - Primary - Filled - Gradient |
+| NODE-0009 | NODE-0010 | Button - Primary - Tonal - Solid |
+| NODE-0011 | NODE-0012 | Button - Primary - Outline - Gradient |
+| NODE-0013 | NODE-0014 | Button - Primary - Text - Void |
+| NODE-0015 | NODE-0016 | Button - Secondary - Filled - Solid |
+| NODE-0017 | NODE-0018 | Button - Secondary - Tonal - Solid |
+| NODE-0019 | NODE-0020 | Button - Secondary - Outline - Solid |
+| NODE-0021 | NODE-0022 | Button - Secondary - Text - Void |
+| NODE-0023 | **NODE-0003** | Button - Disabled - Outlined |
+| NODE-0024 | **NODE-0004** | Button - Disabled - TextOnly |
 
 Bolded rows were directly corrected by the file owner and independently re-verified against the raw export in this revision; the other 8 were extracted the same way and cross-checked by an independent review pass.
 
@@ -87,13 +87,13 @@ Bolded rows were directly corrected by the file owner and independently re-verif
 
 Columns → `State` (screenshot-verified for one `comp_build`); rows → `Size` (same); the purple caption lines → `comp_build_variant_section/comp_build_var_description` (screenshot-verified, text also independently extracted for all 40 bands). The band lacking a divider is visually topmost but structurally the **last** child (`comp_build` uses `layoutMode: NONE`; neither export carries `x`/`y`, so this ordering fact is screenshot-only, not derivable from JSON — scope: specific node, since only one of the 10 `comp_build`s was re-screenshotted).
 
-**Corrected framing for the screenshot's evidentiary weight:** the live screenshot of `NODE-0313` showed a fully populated 4-band × 5-row × 5-column grid with no visible gaps. This is real, useful evidence — but it is a *visual* render, not a *structural enumeration* of the `COMPONENT_SET`'s actual children. The two are deliberately not ordered relative to each other in `contract.evidenceLevel`: a screenshot can miss an occluded node, a rendering artifact, or an off-canvas component in a way a real API-level child listing cannot. `coveragePolicy.perComponentSetCoverage` for `NODE-0313` therefore now reads `physicalCoverageEvidenceLevel: "visual_matrix_verified"`, `physicalCompletenessClaimed: false` — down from the prior draft's `component_children_verified` / `true`. **Net: 0 of 10 component sets meet the completeness bar**, not 1 of 10.
+**Corrected framing for the screenshot's evidentiary weight:** the live screenshot of `NODE-0002` showed a fully populated 4-band × 5-row × 5-column grid with no visible gaps. This is real, useful evidence — but it is a *visual* render, not a *structural enumeration* of the `COMPONENT_SET`'s actual children. The two are deliberately not ordered relative to each other in `contract.evidenceLevel`: a screenshot can miss an occluded node, a rendering artifact, or an off-canvas component in a way a real API-level child listing cannot. `coveragePolicy.perComponentSetCoverage` for `NODE-0002` therefore now reads `physicalCoverageEvidenceLevel: "visual_matrix_verified"`, `physicalCompletenessClaimed: false` — down from the prior draft's `component_children_verified` / `true`. **Net: 0 of 10 component sets meet the completeness bar**, not 1 of 10.
 
 ## 6. Component API: two schema variants
 
 *Classification: observed, read directly from `componentPropertyDefinitions`.*
 
-**`schema_a_full_state`** (8 sets: all Primary + Secondary) and **`schema_b_disabled_state`** (2 Disabled sets) are modeled as two explicit variants, differing only in `State.canonicalOptions` (`["Enabled","Hovered","Focused","Pressed","Disabled"]` vs. `["Disabled"]`). All other properties — `Size`, `Layout`, `Symbol`, the `Leading`/`Trailing` booleans, the two icon instance-swaps, the `Label` text property — are identical across both, including byte-identical synthetic property IDs (e.g. `Leading#NODE-0304`) across all 10 sets (inferred, not directly provable: likely shared lineage from one duplicated master).
+**`schema_a_full_state`** (8 sets: all Primary + Secondary) and **`schema_b_disabled_state`** (2 Disabled sets) are modeled as two explicit variants, differing only in `State.canonicalOptions` (`["Enabled","Hovered","Focused","Pressed","Disabled"]` vs. `["Disabled"]`). All other properties — `Size`, `Layout`, `Symbol`, the `Leading`/`Trailing` booleans, the two icon instance-swaps, the `Label` text property — are identical across both, including byte-identical synthetic property IDs (e.g. `Leading#NODE-0025`) across all 10 sets (inferred, not directly provable: likely shared lineage from one duplicated master).
 
 ## 7. Variant-matrix semantics, `layoutRepresentations[]`, and typed allocations
 
@@ -117,16 +117,16 @@ v0.3.1 exposed one untyped `documentedPairingCount` integer per component set an
 <!-- GENERATED:COVERAGE_METRIC_TABLE:START -->
 | Component set | Metric kind | Metric | Value | Scope |
 |---|---|---|---|---|
-| `NODE-0313` | **legacy_unclassified** | _undefined — owner decision_ | 100 | from `coveragePolicy.perComponentSetCoverage[].documentedPairingCount` |
-| `NODE-0563` | **legacy_unclassified** | _undefined — owner decision_ | 100 | from `coveragePolicy.perComponentSetCoverage[].documentedPairingCount` |
-| `NODE-0565` | **legacy_unclassified** | _undefined — owner decision_ | 100 | from `coveragePolicy.perComponentSetCoverage[].documentedPairingCount` |
-| `NODE-0567` | **legacy_unclassified** | _undefined — owner decision_ | 100 | from `coveragePolicy.perComponentSetCoverage[].documentedPairingCount` |
-| `NODE-0571` | **legacy_unclassified** | _undefined — owner decision_ | 100 | from `coveragePolicy.perComponentSetCoverage[].documentedPairingCount` |
-| `NODE-0577` | **legacy_unclassified** | _undefined — owner decision_ | 100 | from `coveragePolicy.perComponentSetCoverage[].documentedPairingCount` |
-| `NODE-0573` | **legacy_unclassified** | _undefined — owner decision_ | 100 | from `coveragePolicy.perComponentSetCoverage[].documentedPairingCount` |
-| `NODE-0575` | **legacy_unclassified** | _undefined — owner decision_ | 100 | from `coveragePolicy.perComponentSetCoverage[].documentedPairingCount` |
-| `NODE-0561` | **legacy_unclassified** | _undefined — owner decision_ | 20 | from `coveragePolicy.perComponentSetCoverage[].documentedPairingCount` |
-| `NODE-0569` | **legacy_unclassified** | _undefined — owner decision_ | 20 | from `coveragePolicy.perComponentSetCoverage[].documentedPairingCount` |
+| `NODE-0002` | **legacy_unclassified** | _undefined — owner decision_ | 100 | from `coveragePolicy.perComponentSetCoverage[].documentedPairingCount` |
+| `NODE-0009` | **legacy_unclassified** | _undefined — owner decision_ | 100 | from `coveragePolicy.perComponentSetCoverage[].documentedPairingCount` |
+| `NODE-0011` | **legacy_unclassified** | _undefined — owner decision_ | 100 | from `coveragePolicy.perComponentSetCoverage[].documentedPairingCount` |
+| `NODE-0013` | **legacy_unclassified** | _undefined — owner decision_ | 100 | from `coveragePolicy.perComponentSetCoverage[].documentedPairingCount` |
+| `NODE-0015` | **legacy_unclassified** | _undefined — owner decision_ | 100 | from `coveragePolicy.perComponentSetCoverage[].documentedPairingCount` |
+| `NODE-0017` | **legacy_unclassified** | _undefined — owner decision_ | 100 | from `coveragePolicy.perComponentSetCoverage[].documentedPairingCount` |
+| `NODE-0019` | **legacy_unclassified** | _undefined — owner decision_ | 100 | from `coveragePolicy.perComponentSetCoverage[].documentedPairingCount` |
+| `NODE-0021` | **legacy_unclassified** | _undefined — owner decision_ | 100 | from `coveragePolicy.perComponentSetCoverage[].documentedPairingCount` |
+| `NODE-0023` | **legacy_unclassified** | _undefined — owner decision_ | 20 | from `coveragePolicy.perComponentSetCoverage[].documentedPairingCount` |
+| `NODE-0024` | **legacy_unclassified** | _undefined — owner decision_ | 20 | from `coveragePolicy.perComponentSetCoverage[].documentedPairingCount` |
 
 `matrix_cells` counts rows × columns, **excluding** bands. A `legacy_unclassified` entry preserves a migrated value whose metric kind was never recorded; it blocks approval until the owner defines it.
 <!-- GENERATED:COVERAGE_METRIC_TABLE:END -->
@@ -151,7 +151,7 @@ Every structural claim is registered with a stable id. The table below is genera
 | SF-11 | Naming-convention violations exist and are not schema/lint-enforced: 4/38 var_col-title-role nodes are named 'Label' instead of 'var_col_title'; 4 comp_pan-role wrapper frames are named 'container'; the light-mode theme heading is named 'Subheading' vs. the dark-mode 'rep_title'; a capital-I typo ('Center - FIlled') ships in both theme panels. | contract:NAME-0001-buttons-component-representation-contract | single_component_observed |
 | SF-12 | All 196 exported INSTANCE nodes are located inside components_representations; 0 are located inside any comp_build. INSTANCE.variantProperties data therefore proves specific axis combinations exist as real components, but only for the combinations shown in the representation gallery, not for the matrix cells inside each COMPONENT_SET. | contract:NAME-0001-buttons-component-representation-contract | single_component_observed |
 | SF-13 | The mechanism by which dark_rep_container and light_rep_container resolve an identical bound variable to different literal values (explicit per-frame mode override vs. inherited vs. some other Figma mechanism) is not observable from either export; explicitVariableModes occurs 0 times anywhere in the terminal export. | contract:NAME-0001-buttons-component-representation-contract (review) | single_component_observed |
-| SF-14 | The v0.2.0-draft contract treated the get_screenshot(NODE-0557) result as component_children_verified-level evidence and claimed physical completeness for NODE-0313. That evidence level has been split (visual_matrix_verified vs. component_children_enumerated) and the screenshot correctly reclassified as visual_matrix_verified only, which does not meet the completeness bar. Net effect: 0 of 10 component sets now meet the bar (previously reported as 1 of 10). This finding exists purely for cross-version traceability. | contract:NAME-0001-buttons-component-representation-contract (review) | single_component_observed |
+| SF-14 | The v0.2.0-draft contract treated the get_screenshot(NODE-0006) result as component_children_verified-level evidence and claimed physical completeness for NODE-0002. That evidence level has been split (visual_matrix_verified vs. component_children_enumerated) and the screenshot correctly reclassified as visual_matrix_verified only, which does not meet the completeness bar. Net effect: 0 of 10 component sets now meet the bar (previously reported as 1 of 10). This finding exists purely for cross-version traceability. | contract:NAME-0001-buttons-component-representation-contract (review) | single_component_observed |
 | SF-15 | The v0.3.0-draft contract and validator claimed 5/5 enforceability but had five real enforcement gaps: fully_enumerated was label-based (an artifact could be fabricated/reused across sets); ownerConfirmations resolution was one-directional (an orphan confirmation record passed silently); layoutRepresentations[].allocation coverage only checked for zero coverage, not exactly-one, and its axis check unioned declared axes across referenced variants instead of requiring every one; the qualifying-evidence-levels policy field was unconstrained; and generate_tables.py had no drift-detection mode. All five are closed in v0.3.1-draft (CV-11 added; CV-3/CV-6/CV-7 corrected; CV-1 gained a schema-enforced floor restriction; generate_tables.py --check added). This finding exists purely for cross-version traceability. | contract:NAME-0001-buttons-component-representation-contract (review) | single_component_observed |
 <!-- GENERATED:SF_TABLE:END -->
 
@@ -159,7 +159,7 @@ No finding is labeled "fixed" or "universal." Scope and corroboration are now se
 
 ## 9. Theme mechanism — what is proved and what is not
 
-*Unchanged from the prior revision's correction, restated for completeness.* `dark_rep_container`/`light_rep_container` both bind the identical `VariableID:e7ec1030…/NODE-0293` and resolve to that variable's two different declared per-mode values (`Dark`/`Light`, modes `NODE-0299`/`NODE-0558`) — directly observed. `explicitVariableModes` occurs 0 times anywhere in `terminal.json`, so *why* the two containers resolve differently (explicit per-frame override vs. inherited vs. some other mechanism) is unverified, not directly observed (`SF-13`, `BLK-4`).
+*Unchanged from the prior revision's correction, restated for completeness.* `dark_rep_container`/`light_rep_container` both bind the identical `VariableID:TRUNC-0004/NODE-0026` and resolve to that variable's two different declared per-mode values (`Dark`/`Light`, modes `NODE-0027`/`NODE-0028`) — directly observed. `explicitVariableModes` occurs 0 times anywhere in `terminal.json`, so *why* the two containers resolve differently (explicit per-frame override vs. inherited vs. some other mechanism) is unverified, not directly observed (`SF-13`, `BLK-4`).
 
 ## 10. Editorial/display-label truth vs. Component API truth
 

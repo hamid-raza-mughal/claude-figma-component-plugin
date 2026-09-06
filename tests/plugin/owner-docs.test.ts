@@ -17,7 +17,7 @@ import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { OPERATIONS } from '../../src/registry/operations.ts';
 import { resolvePhase1Config, ConfigError } from '../../src/config/phase1-config.ts';
-import { scanText } from '../../tools/identifier-scan.ts';
+import { scanDocuments } from '../../tools/identifier-scan.ts';
 import { GUARD_CODES } from '../../src/guard/errors.ts';
 import { readCommandFiles, slashCommandNames, PLUGIN_MANIFEST } from '../../tools/command-surface.ts';
 
@@ -226,8 +226,18 @@ describe('the M1 verification record claims nothing it did not run', () => {
     // scanner that implements every shape BP-5 names, timestamp handling and
     // allowlist included, and `tests/unit/identifier-leakage.test.ts` runs it
     // over the whole repository so no file is covered only by accident.
-    assert.deepEqual(scanText('docs/builder-master-m1-verification.md', verification), []);
-    assert.deepEqual(scanText('docs/builder-master-owner-testing-guide.md', guide), []);
+    // Both documents go in together. Audit cycle 2 added a rule for hex
+    // abbreviated with an ellipsis, and whether an abbreviation discloses
+    // anything depends on whether the full value is already tracked — which is
+    // a fact about the *set* of documents, not about one of them. Scanning them
+    // one at a time reported the guide's own hash as a leak against itself.
+    assert.deepEqual(
+      scanDocuments([
+        ['docs/builder-master-m1-verification.md', verification],
+        ['docs/builder-master-owner-testing-guide.md', guide],
+      ]),
+      [],
+    );
   });
 });
 

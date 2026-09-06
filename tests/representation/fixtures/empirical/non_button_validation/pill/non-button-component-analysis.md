@@ -1,6 +1,6 @@
 # Pill — Re-derived Component Model
 
-**File:** `NAME-0001-Components` (`FILEKEY-0002`) · **Page:** `Pills` (`NODE-0538`) · **Root:** `NODE-0539` `component_box`
+**File:** `NAME-0001-Components` (`FILEKEY-0003`) · **Page:** `Pills` (`NODE-0045`) · **Root:** `NODE-0040` `component_box`
 **Pass:** R-2 live-evidence reconciliation · **Date:** 2026-08-16
 
 All structural facts are now read from the **Figma Plugin API** via read-only `use_figma` scripts. R-1's name-parsed derivations have been replaced and diffed (`evidence/api-vs-nameparse-diff.json`). No Button family, axis, correlation, layout strategy, allocation, scaffold, or coverage count was carried in. Claims are tagged **[observed]**, **[computed]**, **[inferred]**, **[unverified]**, or **[owner-decision]**.
@@ -9,34 +9,34 @@ All structural facts are now read from the **Figma Plugin API** via read-only `u
 
 ## 1. Identity and scope
 
-**[observed]** Root `NODE-0539` is a direct child of page `Pills` (`NODE-0538`) — a two-node ancestry chain, so the selection is a top-level component box.
+**[observed]** Root `NODE-0040` is a direct child of page `Pills` (`NODE-0045`) — a two-node ancestry chain, so the selection is a top-level component box.
 
 ```
-NODE-0538  PAGE "Pills"
-└── NODE-0539  FRAME component_box
-    ├── NODE-0540   FRAME header                     (page chrome)
-    ├── NODE-0001   FRAME components_holder          DOCUMENTATION — "Pills — Anatomy & Usage"
-    │   └── NODE-0004 container
-    │       ├── NODE-0005 card  ← TEXT NODE-0007 = "Dark Mode"
-    │       │   ├── NODE-0008  content  block A: per-axis list strip   (15 Pill instances)
-    │       │   └── NODE-0133 content  block B: treatment × accent matrix (32)
-    │       └── NODE-0069 card  ← TEXT NODE-0071 = "Light Mode"
-    │           ├── NODE-0072  content  block A  (15)
-    │           └── NODE-0213 content  block B  (32)
-    └── NODE-0545   FRAME components_holder          BUILD — five COMPONENT_SET nodes
+NODE-0045  PAGE "Pills"
+└── NODE-0040  FRAME component_box
+    ├── NODE-0382   FRAME header                     (page chrome)
+    ├── NODE-0041   FRAME components_holder          DOCUMENTATION — "Pills — Anatomy & Usage"
+    │   └── NODE-0380 container
+    │       ├── NODE-0043 card  ← TEXT NODE-0379 = "Dark Mode"
+    │       │   ├── NODE-0046  content  block A: per-axis list strip   (15 Pill instances)
+    │       │   └── NODE-0047 content  block B: treatment × accent matrix (32)
+    │       └── NODE-0044 card  ← TEXT NODE-0381 = "Light Mode"
+    │           ├── NODE-0345  content  block A  (15)
+    │           └── NODE-0051 content  block B  (32)
+    └── NODE-0042   FRAME components_holder          BUILD — five COMPONENT_SET nodes
 ```
 
 ## 2. Component sets — API-confirmed
 
-**[observed]** All five are genuine `COMPONENT_SET` nodes whose children are all `COMPONENT`. All five share the single build frame `NODE-0545`.
+**[observed]** All five are genuine `COMPONENT_SET` nodes whose children are all `COMPONENT`. All five share the single build frame `NODE-0042`.
 
 | Node | Name | `type` | `visible` | Children | Component-set `key` |
 |---|---|---|---|---|---|
-| `NODE-0317` | Pill – Highline | COMPONENT_SET | `true` | 48 | `KEY-0015` |
-| `NODE-0366` | Pill – Highlighted | COMPONENT_SET | `true` | 48 | `KEY-0017` |
-| `NODE-0415` | Pill – Filled | COMPONENT_SET | `true` | 48 | `KEY-0016` |
-| `NODE-0464` | Pill – Text | COMPONENT_SET | `true` | 48 | `KEY-0013` |
-| `NODE-0513` | Pill – Pulse Animation | COMPONENT_SET | **`false`** | 24 | `KEY-0005` |
+| `NODE-0035` | Pill – Highline | COMPONENT_SET | `true` | 48 | `KEY-0005` |
+| `NODE-0036` | Pill – Highlighted | COMPONENT_SET | `true` | 48 | `KEY-0007` |
+| `NODE-0037` | Pill – Filled | COMPONENT_SET | `true` | 48 | `KEY-0008` |
+| `NODE-0038` | Pill – Text | COMPONENT_SET | `true` | 48 | `KEY-0009` |
+| `NODE-0039` | Pill – Pulse Animation | COMPONENT_SET | **`false`** | 24 | `KEY-0010` |
 
 **[computed]** Completeness and integrity, checked inside Figma against each set's own declared `variantOptions`:
 
@@ -58,18 +58,18 @@ Every audit claim on this table is confirmed. 216 children total.
 
 | Property key | Type | Default | Options |
 |---|---|---|---|
-| `Pill Value#NODE-0301` | TEXT | `Label` | — |
-| `Pill Symbol#NODE-0295` | INSTANCE_SWAP | `NODE-0315` | preferred: component key `KEY-0011` |
+| `Pill Value#NODE-0124` | TEXT | `Label` | — |
+| `Pill Symbol#NODE-0125` | INSTANCE_SWAP | `NODE-0126` | preferred: component key `KEY-0006` |
 | `Accent` | VARIANT | `Success` | Warning, Error, Success, Info |
 | `Size` | VARIANT | `XXSmall` | Regular, Small, XSmall, XXSmall |
 | `Icon` | VARIANT | `None` | Leading, None, Trailing |
 
-**PSV-2** — `NODE-0513`:
+**PSV-2** — `NODE-0039`:
 
 | Property key | Type | Default | Options |
 |---|---|---|---|
-| `Badge Value#NODE-0301` | TEXT | `-3.2%` | — |
-| `Trend Symbol#NODE-0294` | INSTANCE_SWAP | `NODE-0316` | preferred: component key `KEY-0001` |
+| `Badge Value#NODE-0124` | TEXT | `-3.2%` | — |
+| `Trend Symbol#NODE-0319` | INSTANCE_SWAP | `NODE-0320` | preferred: component key `KEY-0011` |
 | `Type` | VARIANT | `Warning` | Warning, Error |
 | `Style` | VARIANT | `Highline` | Highline, Filled |
 | `Size` | VARIANT | `Small` | Large, Regular, Small |
@@ -111,10 +111,10 @@ Recorded as `CAT-1` (PSV-1) and `CAT-2` (PSV-2), both with `approvalBasis: "unre
 
 | Block | Node | Pill instances |
 |---|---|---|
-| Dark · list | `NODE-0008` | **15** |
-| Dark · matrix | `NODE-0133` | **32** |
-| Light · list | `NODE-0072` | **15** |
-| Light · matrix | `NODE-0213` | **32** |
+| Dark · list | `NODE-0046` | **15** |
+| Dark · matrix | `NODE-0047` | **32** |
+| Light · list | `NODE-0345` | **15** |
+| Light · matrix | `NODE-0051` | **32** |
 | **Per theme** | | **47** |
 | **Total** | | **94** |
 
@@ -151,12 +151,12 @@ Both audit-claimed metric sets are confirmed. `documentedPairingCount` in the co
 
 | Field | Value |
 |---|---|
-| id | `VC-0002` |
-| key | `KEY-0008` |
+| id | `VC-0001` |
+| key | `KEY-0013` |
 | `remote` | **`true`** |
 | variables | 105 |
-| `defaultModeId` | `NODE-0299` |
-| modes | **Dark** `NODE-0299` · **Light** `NODE-0558` |
+| `defaultModeId` | `NODE-0027` |
+| modes | **Dark** `NODE-0027` · **Light** `NODE-0028` |
 
 All audit-claimed identities confirmed. One refinement: **`colors` is a remote (library) collection.** `getLocalVariableCollectionsAsync()` returns only `icon_config`; `colors` had to be resolved by id. A tool that enumerates local collections alone would conclude this file has no theme system.
 
@@ -164,19 +164,19 @@ All audit-claimed identities confirmed. One refinement: **`colors` is a remote (
 
 | Container | `explicitVariableModes` | Resolved `colors` mode | Provenance |
 |---|---|---|---|
-| `NODE-0005` "Dark Mode" | `{}` — empty, **and empty on every ancestor up to PAGE** | `NODE-0299` Dark | **inherited** (collection default) |
-| `NODE-0069` "Light Mode" | `{colors: "NODE-0558"}` | `NODE-0558` Light | **explicit** |
+| `NODE-0043` "Dark Mode" | `{}` — empty, **and empty on every ancestor up to PAGE** | `NODE-0027` Dark | **inherited** (collection default) |
+| `NODE-0044` "Light Mode" | `{colors: "NODE-0028"}` | `NODE-0028` Light | **explicit** |
 
 **[observed]** The same variable IDs are bound under both cards — theme divergence comes from mode resolution, not from different variables:
 
-| Bound on | Variable | ID | Dark `NODE-0299` | Light `NODE-0558` |
+| Bound on | Variable | ID | Dark `NODE-0027` | Light `NODE-0028` |
 |---|---|---|---|---|
-| `INSTANCE.fills` | `System/Expressions/success` | `…448294c4…/NODE-0579` | `#43DB70` | `#17CF60` |
-| `TEXT "Label".fills` | `System/Expressions/on_success` | `…2dec1bfb…/NODE-0580` | `#01180D` | `#FFFFFF` |
-| padding L/R | `4-scale/xs` | `…ceae99d3…/NODE-0297` | 12 | 12 |
-| padding T/B | `aux/xs` | `…79b9df58…/NODE-0298` | 6 | 6 |
+| `INSTANCE.fills` | `System/Expressions/success` | `…TRUNC-0006/NODE-0050` | `#43DB70` | `#17CF60` |
+| `TEXT "Label".fills` | `System/Expressions/on_success` | `…TRUNC-0007/NODE-0578` | `#01180D` | `#FFFFFF` |
+| padding L/R | `4-scale/xs` | `…TRUNC-0008/NODE-0579` | 12 | 12 |
+| padding T/B | `aux/xs` | `…TRUNC-0009/NODE-0580` | 6 | 6 |
 
-**[observed]** A **second remote collection** also resolves on both containers: `layout-scale` (`…2ca0ac65…/NODE-0296`, 15 variables, single mode `Default` = `6:1`). It supplies the padding and is **not** theme-varying. The contract's singular `themeModel` cannot record it.
+**[observed]** A **second remote collection** also resolves on both containers: `layout-scale` (`…TRUNC-0010/NODE-0581`, 15 variables, single mode `Default` = `NODE-0378`). It supplies the padding and is **not** theme-varying. The contract's singular `themeModel` cannot record it.
 
 Three things must therefore be kept separate — and v0.3.1 conflates all three into one `boundVariableId` string (blocker **PB-4**):
 
@@ -188,10 +188,10 @@ Three things must therefore be kept separate — and v0.3.1 conflates all three 
 
 ## 8. Hidden Pulse Animation set
 
-**[observed]** `NODE-0513` — every audit claim confirmed:
+**[observed]** `NODE-0039` — every audit claim confirmed:
 
 - `visible: false` while `parent.visible: true` — structurally present, visually hidden.
-- **Real variable bindings:** 12 of the 24 top-level COMPONENT children carry `boundVariables` (e.g. `fills` → `…e402b0fd…/NODE-0314`). The set node itself has none. R-1's `get_variable_defs` → `{}` was a tool artifact of the hidden subtree, not an absence.
+- **Real variable bindings:** 12 of the 24 top-level COMPONENT children carry `boundVariables` (e.g. `fills` → `…TRUNC-0011/NODE-0582`). The set node itself has none. R-1's `get_variable_defs` → `{}` was a tool artifact of the hidden subtree, not an absence.
 - **24 prototype reactions**, one per child: `AFTER_TIMEOUT` triggers driving `CHANGE_TO` actions with `SMART_ANIMATE` / `EASE_OUT` / `0.6s`.
   - Timeouts: **0.4s** for Small and Regular, **0.8s** for Large.
   - Pairing is **bidirectional** S1 ↔ S2, forming 12 two-state loops over each (Type, Style, Size) triple.
@@ -199,7 +199,7 @@ Three things must therefore be kept separate — and v0.3.1 conflates all three 
 
 **[observed]** Terminology bearing on taxonomy: this set names its content properties `Badge Value` (default `-3.2%`) and `Trend Symbol`, against `Pill Value` (default `Label`) and `Pill Symbol` in the four visible sets.
 
-> **[owner-decision]** Whether `NODE-0513` is production Pill, work-in-progress, legacy, or a separate Badge component is **not decided here**. Its presence in this contract reflects structural containment under `NODE-0545` only. The naming evidence, the disjoint schema, the hidden flag, and the zero documentation coverage are all recorded as inputs to that decision.
+> **[owner-decision]** Whether `NODE-0039` is production Pill, work-in-progress, legacy, or a separate Badge component is **not decided here**. Its presence in this contract reflects structural containment under `NODE-0042` only. The naming evidence, the disjoint schema, the hidden flag, and the zero documentation coverage are all recorded as inputs to that decision.
 
 **[unverified]** What S1 and S2 render differently; only the transition wiring was captured.
 
@@ -207,11 +207,11 @@ Three things must therefore be kept separate — and v0.3.1 conflates all three 
 
 | Set | Evidence level | Completeness claimed | `documentedPairingCount` (unique combos) |
 |---|---|---|---|
-| `NODE-0317` | `component_children_enumerated` | **false** | 8 |
-| `NODE-0366` | `component_children_enumerated` | **false** | 8 |
-| `NODE-0415` | `component_children_enumerated` | **false** | 12 |
-| `NODE-0464` | `component_children_enumerated` | **false** | 8 |
-| `NODE-0513` | `component_children_enumerated` | **false** | 0 |
+| `NODE-0035` | `component_children_enumerated` | **false** | 8 |
+| `NODE-0036` | `component_children_enumerated` | **false** | 8 |
+| `NODE-0037` | `component_children_enumerated` | **false** | 12 |
+| `NODE-0038` | `component_children_enumerated` | **false** | 8 |
+| `NODE-0039` | `component_children_enumerated` | **false** | 0 |
 
 All five now reach the level via a first-class API field rather than name parsing. Every completeness claim remains `false` — this experiment is not authorised to approve completeness.
 
@@ -245,8 +245,8 @@ Name parsing happened to be correct for Pill — but that could not be known wit
 | # | Question | Status |
 |---|---|---|
 | Q-1…Q-7 | See `baseline-delta-report.md` Part 9 | **resolved** by the Plugin API |
-| Q-8 | Does another non-Button component share Pill's 5:1 build-frame topology and hybrid documentation? | **open** — needs a third component |
+| Q-8 | Does another non-Button component share Pill's NODE-0049 build-frame topology and hybrid documentation? | **open** — needs a third component |
 | Q-9 | What do `Animation=S1` / `S2` render? | open — transition wiring captured, frame content not |
-| Q-10 | Is `NODE-0513` production, WIP, legacy, or a separate component? | **owner decision** |
+| Q-10 | Is `NODE-0039` production, WIP, legacy, or a separate component? | **owner decision** |
 | Q-11 | Why does PSV-2 restrict to {Warning, Error} and {Highline, Filled}? | owner decision |
 | Q-12 | Are the `Size` defaults (`XXSmall` in PSV-1) intentional, given the documentation shows `Regular`? | owner decision |

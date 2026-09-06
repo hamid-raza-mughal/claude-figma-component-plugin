@@ -1,11 +1,11 @@
 {
-  "componentSetId": "NODE-0366",
-  "fileKey": "FILEKEY-0002",
+  "componentSetId": "NODE-0037",
+  "fileKey": "FILEKEY-0003",
   "capturedAt": "2026-08-15T19:44:00Z",
   "enumerationMethod": "figma_mcp_get_metadata_descent__component_child_name_parse (COMPONENT children of the COMPONENT_SET listed structurally via mcp__Figma__get_metadata; each child's variantProperties parsed from its Figma-generated 'Axis=Value, Axis=Value' node name, NOT read from a variantProperties API field)",
   "children": [
     {
-      "componentId": "NODE-0367",
+      "componentId": "NODE-0223",
       "variantProperties": {
         "Accent": "Success",
         "Size": "Regular",
@@ -13,7 +13,7 @@
       }
     },
     {
-      "componentId": "NODE-0368",
+      "componentId": "NODE-0224",
       "variantProperties": {
         "Accent": "Success",
         "Size": "Regular",
@@ -21,7 +21,7 @@
       }
     },
     {
-      "componentId": "NODE-0369",
+      "componentId": "NODE-0225",
       "variantProperties": {
         "Accent": "Success",
         "Size": "Regular",
@@ -29,7 +29,7 @@
       }
     },
     {
-      "componentId": "NODE-0370",
+      "componentId": "NODE-0226",
       "variantProperties": {
         "Accent": "Success",
         "Size": "Small",
@@ -37,7 +37,7 @@
       }
     },
     {
-      "componentId": "NODE-0371",
+      "componentId": "NODE-0227",
       "variantProperties": {
         "Accent": "Success",
         "Size": "Small",
@@ -45,7 +45,7 @@
       }
     },
     {
-      "componentId": "NODE-0372",
+      "componentId": "NODE-0228",
       "variantProperties": {
         "Accent": "Success",
         "Size": "Small",
@@ -53,7 +53,7 @@
       }
     },
     {
-      "componentId": "NODE-0373",
+      "componentId": "NODE-0229",
       "variantProperties": {
         "Accent": "Success",
         "Size": "XSmall",
@@ -61,7 +61,7 @@
       }
     },
     {
-      "componentId": "NODE-0374",
+      "componentId": "NODE-0230",
       "variantProperties": {
         "Accent": "Success",
         "Size": "XSmall",
@@ -69,7 +69,7 @@
       }
     },
     {
-      "componentId": "NODE-0375",
+      "componentId": "NODE-0231",
       "variantProperties": {
         "Accent": "Success",
         "Size": "XSmall",
@@ -77,7 +77,7 @@
       }
     },
     {
-      "componentId": "NODE-0376",
+      "componentId": "NODE-0232",
       "variantProperties": {
         "Accent": "Success",
         "Size": "XXSmall",
@@ -85,7 +85,7 @@
       }
     },
     {
-      "componentId": "NODE-0377",
+      "componentId": "NODE-0233",
       "variantProperties": {
         "Accent": "Success",
         "Size": "XXSmall",
@@ -93,7 +93,7 @@
       }
     },
     {
-      "componentId": "NODE-0378",
+      "componentId": "NODE-0234",
       "variantProperties": {
         "Accent": "Success",
         "Size": "XXSmall",
@@ -101,7 +101,7 @@
       }
     },
     {
-      "componentId": "NODE-0379",
+      "componentId": "NODE-0235",
       "variantProperties": {
         "Accent": "Warning",
         "Size": "Regular",
@@ -109,7 +109,7 @@
       }
     },
     {
-      "componentId": "NODE-0380",
+      "componentId": "NODE-0236",
       "variantProperties": {
         "Accent": "Warning",
         "Size": "Regular",
@@ -117,7 +117,7 @@
       }
     },
     {
-      "componentId": "NODE-0381",
+      "componentId": "NODE-0237",
       "variantProperties": {
         "Accent": "Warning",
         "Size": "Regular",
@@ -125,7 +125,7 @@
       }
     },
     {
-      "componentId": "NODE-0382",
+      "componentId": "NODE-0238",
       "variantProperties": {
         "Accent": "Warning",
         "Size": "Small",
@@ -133,7 +133,7 @@
       }
     },
     {
-      "componentId": "NODE-0383",
+      "componentId": "NODE-0239",
       "variantProperties": {
         "Accent": "Warning",
         "Size": "Small",
@@ -141,7 +141,7 @@
       }
     },
     {
-      "componentId": "NODE-0384",
+      "componentId": "NODE-0240",
       "variantProperties": {
         "Accent": "Warning",
         "Size": "Small",
@@ -149,7 +149,7 @@
       }
     },
     {
-      "componentId": "NODE-0385",
+      "componentId": "NODE-0241",
       "variantProperties": {
         "Accent": "Warning",
         "Size": "XSmall",
@@ -157,7 +157,7 @@
       }
     },
     {
-      "componentId": "NODE-0386",
+      "componentId": "NODE-0242",
       "variantProperties": {
         "Accent": "Warning",
         "Size": "XSmall",
@@ -165,7 +165,7 @@
       }
     },
     {
-      "componentId": "NODE-0387",
+      "componentId": "NODE-0243",
       "variantProperties": {
         "Accent": "Warning",
         "Size": "XSmall",
@@ -173,7 +173,7 @@
       }
     },
     {
-      "componentId": "NODE-0388",
+      "componentId": "NODE-0244",
       "variantProperties": {
         "Accent": "Warning",
         "Size": "XXSmall",
@@ -181,7 +181,7 @@
       }
     },
     {
-      "componentId": "NODE-0389",
+      "componentId": "NODE-0245",
       "variantProperties": {
         "Accent": "Warning",
         "Size": "XXSmall",
@@ -189,7 +189,7 @@
       }
     },
     {
-      "componentId": "NODE-0390",
+      "componentId": "NODE-0246",
       "variantProperties": {
         "Accent": "Warning",
         "Size": "XXSmall",
@@ -197,7 +197,7 @@
       }
     },
     {
-      "componentId": "NODE-0391",
+      "componentId": "NODE-0247",
       "variantProperties": {
         "Accent": "Error",
         "Size": "Regular",
@@ -205,7 +205,7 @@
       }
     },
     {
-      "componentId": "NODE-0392",
+      "componentId": "NODE-0248",
       "variantProperties": {
         "Accent": "Error",
         "Size": "Regular",
@@ -213,7 +213,7 @@
       }
     },
     {
-      "componentId": "NODE-0393",
+      "componentId": "NODE-0249",
       "variantProperties": {
         "Accent": "Error",
         "Size": "Regular",
@@ -221,7 +221,7 @@
       }
     },
     {
-      "componentId": "NODE-0394",
+      "componentId": "NODE-0250",
       "variantProperties": {
         "Accent": "Error",
         "Size": "Small",
@@ -229,7 +229,7 @@
       }
     },
     {
-      "componentId": "NODE-0395",
+      "componentId": "NODE-0251",
       "variantProperties": {
         "Accent": "Error",
         "Size": "Small",
@@ -237,7 +237,7 @@
       }
     },
     {
-      "componentId": "NODE-0396",
+      "componentId": "NODE-0252",
       "variantProperties": {
         "Accent": "Error",
         "Size": "Small",
@@ -245,7 +245,7 @@
       }
     },
     {
-      "componentId": "NODE-0397",
+      "componentId": "NODE-0253",
       "variantProperties": {
         "Accent": "Error",
         "Size": "XSmall",
@@ -253,7 +253,7 @@
       }
     },
     {
-      "componentId": "NODE-0398",
+      "componentId": "NODE-0254",
       "variantProperties": {
         "Accent": "Error",
         "Size": "XSmall",
@@ -261,7 +261,7 @@
       }
     },
     {
-      "componentId": "NODE-0399",
+      "componentId": "NODE-0255",
       "variantProperties": {
         "Accent": "Error",
         "Size": "XSmall",
@@ -269,7 +269,7 @@
       }
     },
     {
-      "componentId": "NODE-0400",
+      "componentId": "NODE-0256",
       "variantProperties": {
         "Accent": "Error",
         "Size": "XXSmall",
@@ -277,7 +277,7 @@
       }
     },
     {
-      "componentId": "NODE-0401",
+      "componentId": "NODE-0257",
       "variantProperties": {
         "Accent": "Error",
         "Size": "XXSmall",
@@ -285,7 +285,7 @@
       }
     },
     {
-      "componentId": "NODE-0402",
+      "componentId": "NODE-0258",
       "variantProperties": {
         "Accent": "Error",
         "Size": "XXSmall",
@@ -293,7 +293,7 @@
       }
     },
     {
-      "componentId": "NODE-0403",
+      "componentId": "NODE-0259",
       "variantProperties": {
         "Accent": "Info",
         "Size": "Regular",
@@ -301,7 +301,7 @@
       }
     },
     {
-      "componentId": "NODE-0404",
+      "componentId": "NODE-0260",
       "variantProperties": {
         "Accent": "Info",
         "Size": "Regular",
@@ -309,7 +309,7 @@
       }
     },
     {
-      "componentId": "NODE-0405",
+      "componentId": "NODE-0261",
       "variantProperties": {
         "Accent": "Info",
         "Size": "Regular",
@@ -317,7 +317,7 @@
       }
     },
     {
-      "componentId": "NODE-0406",
+      "componentId": "NODE-0262",
       "variantProperties": {
         "Accent": "Info",
         "Size": "Small",
@@ -325,7 +325,7 @@
       }
     },
     {
-      "componentId": "NODE-0407",
+      "componentId": "NODE-0263",
       "variantProperties": {
         "Accent": "Info",
         "Size": "Small",
@@ -333,7 +333,7 @@
       }
     },
     {
-      "componentId": "NODE-0408",
+      "componentId": "NODE-0264",
       "variantProperties": {
         "Accent": "Info",
         "Size": "Small",
@@ -341,7 +341,7 @@
       }
     },
     {
-      "componentId": "NODE-0409",
+      "componentId": "NODE-0265",
       "variantProperties": {
         "Accent": "Info",
         "Size": "XSmall",
@@ -349,7 +349,7 @@
       }
     },
     {
-      "componentId": "NODE-0410",
+      "componentId": "NODE-0266",
       "variantProperties": {
         "Accent": "Info",
         "Size": "XSmall",
@@ -357,7 +357,7 @@
       }
     },
     {
-      "componentId": "NODE-0411",
+      "componentId": "NODE-0267",
       "variantProperties": {
         "Accent": "Info",
         "Size": "XSmall",
@@ -365,7 +365,7 @@
       }
     },
     {
-      "componentId": "NODE-0412",
+      "componentId": "NODE-0268",
       "variantProperties": {
         "Accent": "Info",
         "Size": "XXSmall",
@@ -373,7 +373,7 @@
       }
     },
     {
-      "componentId": "NODE-0413",
+      "componentId": "NODE-0269",
       "variantProperties": {
         "Accent": "Info",
         "Size": "XXSmall",
@@ -381,7 +381,7 @@
       }
     },
     {
-      "componentId": "NODE-0414",
+      "componentId": "NODE-0270",
       "variantProperties": {
         "Accent": "Info",
         "Size": "XXSmall",

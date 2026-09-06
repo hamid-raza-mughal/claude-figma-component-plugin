@@ -40,7 +40,27 @@ const SKIP_DIRS = new Set(['node_modules', 'dist', '.git', 'plugin_explore_phase
 const SKIP_FILES = new Set(['CLAUDE.md', 'AGENT-CHANNEL.md', 'package-lock.json', '.DS_Store']);
 
 /** Extensions worth reading. A binary would produce noise, not findings. */
-const TEXT_EXTENSIONS = ['.ts', '.js', '.json', '.md', '.yml', '.yaml', '.sql', '.txt', ''];
+/**
+ * Extensions whose *contents* are read.
+ *
+ * `.sha256` and `.xml` were added in audit cycle 2: a checksums manifest in the
+ * promoted corpus carried real ids on twenty-one lines and was never opened,
+ * because its extension was not on this list.
+ *
+ * A leading-dot filename — `.gitignore`, `.npmrc` — has `lastIndexOf('.') === 0`,
+ * so its whole name reads as the extension and it matched nothing here. That is
+ * the file the path rule was written from, and its contents were still
+ * unscanned; `isScannable` handles it explicitly rather than by adding names to
+ * this list one at a time.
+ */
+const TEXT_EXTENSIONS = ['.ts', '.js', '.json', '.md', '.yml', '.yaml', '.sql', '.txt', '.sha256', '.xml', ''];
+
+/** A dotfile with no second dot is a text config file, and is read. */
+function isScannable(entry: string): boolean {
+  const dot = entry.lastIndexOf('.');
+  if (dot === 0) return true;
+  return TEXT_EXTENSIONS.includes(dot === -1 ? '' : entry.slice(dot));
+}
 
 export type Rule = {
   readonly id: string;
@@ -48,6 +68,15 @@ export type Rule = {
   readonly pattern: RegExp;
   /** Why a match is a BP-5 violation rather than a coincidence. */
   readonly why: string;
+  /**
+   * Occurrences falling inside a match of this pattern are not findings.
+   *
+   * Needed because a UUID's `8-4-4-4-12` grouping produces all-digit runs that
+   * are node-id-shaped — `…-0000-4000-…` — and this repository is full of
+   * UUIDs by design (INV-02 requires them). A lookaround cannot express it: the
+   * hyphen before the run is exactly what a real node id in a filename also has.
+   */
+  readonly excludeWithin?: RegExp | undefined;
 };
 
 /**
@@ -77,6 +106,57 @@ export const RULES: readonly Rule[] = [
     // Figma's shape is `PropertyName#<nodeid>`, e.g. `Label#123:456`.
     pattern: /\b[A-Za-z][A-Za-z0-9_ ]*#\d{2,}:\d{1,}\b/g,
     why: 'componentPropertyDefinitions keys embed a real node id',
+  },
+  {
+    id: 'node-id-hyphenated',
+    what: 'a Figma node id written with a hyphen, in file content',
+    /*
+     * Audit cycle 2. `node-id-in-path` caught the hyphen form in a *path*; every
+     * content rule was colon-only, so a filename quoted inside a document kept
+     * its real id — 203 occurrences of eleven distinct real ids, in a corpus
+     * this scan reported clean.
+     *
+     * The second field needs four digits or more, which is what separates a
+     * node id from an ISO date (`2026-09-06`), a version fragment and a
+     * sequence number.
+     */
+    /*
+     * The first field may not start with `0`. That single narrowing is what
+     * separates a Figma node id — an integer, never zero-padded — from a UUID's
+     * middle groups, which this repository is full of because INV-02 requires
+     * UUIDs. A UUID's version and variant groups are node-id-shaped and are not
+     * node ids, and a lookaround on the surrounding hyphens cannot tell the two
+     * apart: a real id inside a filename has hyphens on both sides too.
+     *
+     * The two alternatives require **seven digits across the pair**, which is
+     * the shortest a real id in this corpus is. Without it the rule eats line
+     * ranges — `265-278`, `80-100` — and a rule that fires on every prose range
+     * is a rule that gets allowlisted into silence.
+     */
+    pattern: /(?<![\d.])(?:[1-9]\d{2,6}-\d{4,7}|[1-9]\d{3,6}-\d{3,7})(?!\d)/g,
+    /*
+     * Three or more hyphen-separated hex-only groups is a UUID, whether or not
+     * the line spells the whole thing out. The display-id tests build one by
+     * interpolating its first half, so a fixed UUID pattern never matches the
+     * literal text and the version and variant groups read as a node id.
+     * A real node id in a filename sits between non-hex words, so it never forms
+     * a run this long.
+     */
+    excludeWithin: /(?<![0-9a-fA-F])[0-9a-f]+(?:-[0-9a-f]+){2,}(?![0-9a-fA-F-])/g,
+    why: 'a node id in prose or in a quoted filename is as real as one in a field',
+  },
+  {
+    id: 'truncated-hex',
+    what: 'a hex identifier abbreviated with an ellipsis',
+    /*
+     * Audit cycle 2. Prose abbreviates keys and hashes constantly, and an
+     * eight-hex prefix still resolves to exactly one real value. Every rule
+     * here required a full 40 or 64 hex, so the abbreviated form passed through
+     * every one of them — including, in one document, a real SHA-256 prefix
+     * over bytes that were never promoted.
+     */
+    pattern: /(?<![0-9a-fA-F])[0-9a-f]{8,}\s*(?:…|\.\.\.)/g,
+    why: 'an eight-hex prefix of a real key or hash identifies it uniquely; abbreviation is not redaction',
   },
   {
     id: 'node-id',
@@ -132,6 +212,24 @@ export const ALLOWLIST: readonly { readonly token: string; readonly why: string 
   { token: '410:159', why: 'ingestion fixture mode id; absent from the research corpus' },
   { token: 'Label#123:456', why: "this scanner's own documentation of the shape it looks for" },
   { token: '123:456', why: "this scanner's own documentation of the shape it looks for" },
+  {
+    token: '1cafef00d…',
+    why:
+      'a synthetic paint key in the owner testing guide, spelled 1cafef00d to be unmistakably ' +
+      'invented; absent from the research corpus (audit cycle 2 sweep)',
+  },
+  {
+    token: '2ec60fd0cac62453…',
+    why:
+      'an artifact hash from a Phase 2 verification transcript, computed over a synthetic ' +
+      'Coordinator output; absent from the research corpus (audit cycle 2 sweep)',
+  },
+  {
+    token: '700-1200',
+    why:
+      'a token-count range in a test title, not a node id. The seven-digit rule keeps ranges out ' +
+      'in general; this one is seven digits by coincidence',
+  },
 ];
 
 const ALLOWED = new Set(ALLOWLIST.map((entry) => entry.token));
@@ -145,13 +243,23 @@ export type Finding = {
   readonly why: string;
 };
 
+/** The spans a rule's `excludeWithin` covers on one line. */
+function excludedSpans(line: string, pattern: RegExp | undefined): readonly [number, number][] {
+  if (pattern === undefined) return [];
+  return [...line.matchAll(pattern)].map(
+    (match) => [match.index, match.index + match[0].length] as [number, number],
+  );
+}
+
 export function scanText(relPath: string, text: string): readonly Finding[] {
   const found: Finding[] = [];
   const lines = stripTimestamps(text).split('\n');
   for (const rule of RULES) {
     lines.forEach((line, index) => {
+      const excluded = excludedSpans(line, rule.excludeWithin);
       for (const match of line.matchAll(rule.pattern)) {
         if (ALLOWED.has(match[0])) continue;
+        if (excluded.some(([from, to]) => match.index >= from && match.index < to)) continue;
         found.push({
           file: relPath,
           line: index + 1,
@@ -175,9 +283,7 @@ export function collectFiles(dir: string = REPO_ROOT): readonly string[] {
       if (SKIP_DIRS.has(entry)) continue;
       out.push(...collectFiles(full));
     } else {
-      const dot = entry.lastIndexOf('.');
-      const extension = dot === -1 ? '' : entry.slice(dot);
-      if (TEXT_EXTENSIONS.includes(extension)) out.push(full);
+      if (isScannable(entry)) out.push(full);
     }
   }
   return out;
@@ -221,13 +327,93 @@ export function scanPath(relPath: string): readonly Finding[] {
   return found;
 }
 
+/**
+ * Every path, whatever the file is.
+ *
+ * `collectFiles` filters to text extensions because it exists to read contents.
+ * The path rule reads no contents, and a screenshot named for the node it shows
+ * is exactly the case it was added for — so filtering by extension here would
+ * have left the largest class of offender invisible. Found while auditing the
+ * rule I had just written.
+ */
+export function collectPaths(dir: string = REPO_ROOT, root: string = REPO_ROOT): readonly string[] {
+  const out: string[] = [];
+  for (const entry of readdirSync(dir)) {
+    if (SKIP_FILES.has(entry)) continue;
+    const full = join(dir, entry);
+    if (statSync(full).isDirectory()) {
+      if (SKIP_DIRS.has(entry)) continue;
+      out.push(...collectPaths(full, root));
+    } else {
+      out.push(relative(root, full));
+    }
+  }
+  return out.sort();
+}
+
+/**
+ * An abbreviation of a value the repository already carries in full is not a
+ * disclosure.
+ *
+ * `ae40356ad5c7…` in a testing guide is the same hash printed in full eight
+ * lines earlier in the same document, over a *tracked synthetic fixture*.
+ * Whether the full value should be there is the full-length rules' question,
+ * and they answer it; flagging the abbreviation as well reports one fact twice
+ * and trains the reader to skim. What stays a finding is an abbreviation of
+ * something the repository does **not** carry in full — which is precisely the
+ * case audit cycle 2 found, a real key prefix whose full value exists only in
+ * the untracked corpus.
+ */
+function isAbbreviationOfATrackedValue(match: string, fullValues: ReadonlySet<string>): boolean {
+  const prefix = match.replace(/[^0-9a-f]/g, '');
+  for (const value of fullValues) {
+    if (value.startsWith(prefix)) return true;
+  }
+  return false;
+}
+
+/**
+ * Scans a set of documents *together*.
+ *
+ * Together matters: the abbreviation suppression is a cross-document fact, so a
+ * caller that scanned one file at a time would report an abbreviation as a
+ * finding while the full value sat eight lines above it. Every caller goes
+ * through here, which is what keeps the two entry points from disagreeing —
+ * and they did disagree when the suppression lived only in `scanRepository`.
+ */
+export function scanDocuments(
+  documents: readonly (readonly [string, string])[],
+): readonly Finding[] {
+  const fullValues = new Set<string>();
+  for (const [, text] of documents) {
+    for (const match of text.matchAll(/(?<![0-9a-fA-F])[0-9a-f]{40}(?:[0-9a-f]{24})?(?![0-9a-fA-F])/g)) {
+      fullValues.add(match[0]);
+    }
+  }
+  const found: Finding[] = [];
+  for (const [relPath, text] of documents) {
+    for (const finding of scanText(relPath, text)) {
+      if (
+        finding.rule === 'truncated-hex' &&
+        isAbbreviationOfATrackedValue(finding.match, fullValues)
+      ) {
+        continue;
+      }
+      found.push(finding);
+    }
+  }
+  return found;
+}
+
 export function scanRepository(root: string = REPO_ROOT): readonly Finding[] {
   const found: Finding[] = [];
-  for (const file of collectFiles(root)) {
-    const relPath = relative(root, file);
+  for (const relPath of collectPaths(root, root)) {
     found.push(...scanPath(relPath));
-    found.push(...scanText(relPath, readFileSync(file, 'utf8')));
   }
+  const documents = collectFiles(root).map(
+    (file) => [relative(root, file), readFileSync(file, 'utf8')] as const,
+  );
+  found.push(...scanDocuments(documents));
   return found;
 }
 

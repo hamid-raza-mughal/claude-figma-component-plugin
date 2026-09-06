@@ -1,6 +1,6 @@
 {
   "captureMethod": "mcp__plugin_figma_figma__use_figma (Figma Plugin API, read-only script)",
-  "fileKey": "FILEKEY-0002",
+  "fileKey": "FILEKEY-0003",
   "apiFieldsRead": [
     "INSTANCE.variantProperties",
     "INSTANCE.getMainComponentAsync()",
@@ -12,25 +12,25 @@
     {
       "theme": "dark",
       "kind": "list",
-      "blockId": "NODE-0008",
+      "blockId": "NODE-0046",
       "pillInstanceCount": 15
     },
     {
       "theme": "dark",
       "kind": "matrix",
-      "blockId": "NODE-0133",
+      "blockId": "NODE-0047",
       "pillInstanceCount": 32
     },
     {
       "theme": "light",
       "kind": "list",
-      "blockId": "NODE-0072",
+      "blockId": "NODE-0345",
       "pillInstanceCount": 15
     },
     {
       "theme": "light",
       "kind": "matrix",
-      "blockId": "NODE-0213",
+      "blockId": "NODE-0051",
       "pillInstanceCount": 32
     }
   ],
@@ -41,27 +41,27 @@
     },
     "pillInstancesTotal": 94,
     "instancePlacementsPerSet": {
-      "NODE-0415": 40,
-      "NODE-0317": 18,
-      "NODE-0366": 18,
-      "NODE-0464": 18
+      "NODE-0037": 40,
+      "NODE-0035": 18,
+      "NODE-0036": 18,
+      "NODE-0038": 18
     },
     "uniqueVariantCombinationsPerSet": {
-      "NODE-0415": 12,
-      "NODE-0317": 8,
-      "NODE-0366": 8,
-      "NODE-0464": 8
+      "NODE-0037": 12,
+      "NODE-0035": 8,
+      "NODE-0036": 8,
+      "NODE-0038": 8
     }
   },
   "exclusions": "Nested icon INSTANCEs inside each pill were excluded: only instances whose main component's parent is a Pill COMPONENT_SET are counted.",
   "instances": [
     {
-      "instanceId": "NODE-0013",
-      "componentSetId": "NODE-0415",
+      "instanceId": "NODE-0346",
+      "componentSetId": "NODE-0037",
       "componentSetName": "Pill – Filled",
       "theme": "dark",
       "blockKind": "list",
-      "blockId": "NODE-0008",
+      "blockId": "NODE-0046",
       "structuralPath": "size_row/pills/col",
       "rowGroup": "size_row",
       "variantProperties": {
@@ -73,12 +73,12 @@
       "absoluteY": 1430
     },
     {
-      "instanceId": "NODE-0016",
-      "componentSetId": "NODE-0415",
+      "instanceId": "NODE-0347",
+      "componentSetId": "NODE-0037",
       "componentSetName": "Pill – Filled",
       "theme": "dark",
       "blockKind": "list",
-      "blockId": "NODE-0008",
+      "blockId": "NODE-0046",
       "structuralPath": "size_row/pills/col",
       "rowGroup": "size_row",
       "variantProperties": {
@@ -90,12 +90,12 @@
       "absoluteY": 1430
     },
     {
-      "instanceId": "NODE-0019",
-      "componentSetId": "NODE-0415",
+      "instanceId": "NODE-0348",
+      "componentSetId": "NODE-0037",
       "componentSetName": "Pill – Filled",
       "theme": "dark",
       "blockKind": "list",
-      "blockId": "NODE-0008",
+      "blockId": "NODE-0046",
       "structuralPath": "size_row/pills/col",
       "rowGroup": "size_row",
       "variantProperties": {
@@ -107,12 +107,12 @@
       "absoluteY": 1430
     },
     {
-      "instanceId": "NODE-0022",
-      "componentSetId": "NODE-0415",
+      "instanceId": "NODE-0349",
+      "componentSetId": "NODE-0037",
       "componentSetName": "Pill – Filled",
       "theme": "dark",
       "blockKind": "list",
-      "blockId": "NODE-0008",
+      "blockId": "NODE-0046",
       "structuralPath": "size_row/pills/col",
       "rowGroup": "size_row",
       "variantProperties": {
@@ -124,12 +124,12 @@
       "absoluteY": 1430
     },
     {
-      "instanceId": "NODE-0029",
-      "componentSetId": "NODE-0317",
+      "instanceId": "NODE-0350",
+      "componentSetId": "NODE-0035",
       "componentSetName": "Pill – Highline",
       "theme": "dark",
       "blockKind": "list",
-      "blockId": "NODE-0008",
+      "blockId": "NODE-0046",
       "structuralPath": "style_row/pills/col",
       "rowGroup": "style_row",
       "variantProperties": {
@@ -141,12 +141,12 @@
       "absoluteY": 1621
     },
     {
-      "instanceId": "NODE-0032",
-      "componentSetId": "NODE-0366",
+      "instanceId": "NODE-0351",
+      "componentSetId": "NODE-0036",
       "componentSetName": "Pill – Highlighted",
       "theme": "dark",
       "blockKind": "list",
-      "blockId": "NODE-0008",
+      "blockId": "NODE-0046",
       "structuralPath": "style_row/pills/col",
       "rowGroup": "style_row",
       "variantProperties": {
@@ -158,12 +158,12 @@
       "absoluteY": 1621
     },
     {
-      "instanceId": "NODE-0035",
-      "componentSetId": "NODE-0415",
+      "instanceId": "NODE-0352",
+      "componentSetId": "NODE-0037",
       "componentSetName": "Pill – Filled",
       "theme": "dark",
       "blockKind": "list",
-      "blockId": "NODE-0008",
+      "blockId": "NODE-0046",
       "structuralPath": "style_row/pills/col",
       "rowGroup": "style_row",
       "variantProperties": {
@@ -175,12 +175,12 @@
       "absoluteY": 1621
     },
     {
-      "instanceId": "NODE-0038",
-      "componentSetId": "NODE-0464",
+      "instanceId": "NODE-0353",
+      "componentSetId": "NODE-0038",
       "componentSetName": "Pill – Text",
       "theme": "dark",
       "blockKind": "list",
-      "blockId": "NODE-0008",
+      "blockId": "NODE-0046",
       "structuralPath": "style_row/pills/col",
       "rowGroup": "style_row",
       "variantProperties": {
@@ -192,12 +192,12 @@
       "absoluteY": 1621
     },
     {
-      "instanceId": "NODE-0045",
-      "componentSetId": "NODE-0415",
+      "instanceId": "NODE-0354",
+      "componentSetId": "NODE-0037",
       "componentSetName": "Pill – Filled",
       "theme": "dark",
       "blockKind": "list",
-      "blockId": "NODE-0008",
+      "blockId": "NODE-0046",
       "structuralPath": "accent_row/pills/col",
       "rowGroup": "accent_row",
       "variantProperties": {
@@ -209,12 +209,12 @@
       "absoluteY": 1812
     },
     {
-      "instanceId": "NODE-0048",
-      "componentSetId": "NODE-0415",
+      "instanceId": "NODE-0355",
+      "componentSetId": "NODE-0037",
       "componentSetName": "Pill – Filled",
       "theme": "dark",
       "blockKind": "list",
-      "blockId": "NODE-0008",
+      "blockId": "NODE-0046",
       "structuralPath": "accent_row/pills/col",
       "rowGroup": "accent_row",
       "variantProperties": {
@@ -226,12 +226,12 @@
       "absoluteY": 1812
     },
     {
-      "instanceId": "NODE-0051",
-      "componentSetId": "NODE-0415",
+      "instanceId": "NODE-0356",
+      "componentSetId": "NODE-0037",
       "componentSetName": "Pill – Filled",
       "theme": "dark",
       "blockKind": "list",
-      "blockId": "NODE-0008",
+      "blockId": "NODE-0046",
       "structuralPath": "accent_row/pills/col",
       "rowGroup": "accent_row",
       "variantProperties": {
@@ -243,12 +243,12 @@
       "absoluteY": 1812
     },
     {
-      "instanceId": "NODE-0054",
-      "componentSetId": "NODE-0415",
+      "instanceId": "NODE-0357",
+      "componentSetId": "NODE-0037",
       "componentSetName": "Pill – Filled",
       "theme": "dark",
       "blockKind": "list",
-      "blockId": "NODE-0008",
+      "blockId": "NODE-0046",
       "structuralPath": "accent_row/pills/col",
       "rowGroup": "accent_row",
       "variantProperties": {
@@ -260,12 +260,12 @@
       "absoluteY": 1812
     },
     {
-      "instanceId": "NODE-0061",
-      "componentSetId": "NODE-0415",
+      "instanceId": "NODE-0358",
+      "componentSetId": "NODE-0037",
       "componentSetName": "Pill – Filled",
       "theme": "dark",
       "blockKind": "list",
-      "blockId": "NODE-0008",
+      "blockId": "NODE-0046",
       "structuralPath": "icon_row/pills/col",
       "rowGroup": "icon_row",
       "variantProperties": {
@@ -277,12 +277,12 @@
       "absoluteY": 2003
     },
     {
-      "instanceId": "NODE-0064",
-      "componentSetId": "NODE-0415",
+      "instanceId": "NODE-0359",
+      "componentSetId": "NODE-0037",
       "componentSetName": "Pill – Filled",
       "theme": "dark",
       "blockKind": "list",
-      "blockId": "NODE-0008",
+      "blockId": "NODE-0046",
       "structuralPath": "icon_row/pills/col",
       "rowGroup": "icon_row",
       "variantProperties": {
@@ -294,12 +294,12 @@
       "absoluteY": 2003
     },
     {
-      "instanceId": "NODE-0067",
-      "componentSetId": "NODE-0415",
+      "instanceId": "NODE-0360",
+      "componentSetId": "NODE-0037",
       "componentSetName": "Pill – Filled",
       "theme": "dark",
       "blockKind": "list",
-      "blockId": "NODE-0008",
+      "blockId": "NODE-0046",
       "structuralPath": "icon_row/pills/col",
       "rowGroup": "icon_row",
       "variantProperties": {
@@ -311,12 +311,12 @@
       "absoluteY": 2003
     },
     {
-      "instanceId": "NODE-0138",
-      "componentSetId": "NODE-0317",
+      "instanceId": "NODE-0052",
+      "componentSetId": "NODE-0035",
       "componentSetName": "Pill – Highline",
       "theme": "dark",
       "blockKind": "matrix",
-      "blockId": "NODE-0133",
+      "blockId": "NODE-0047",
       "structuralPath": "row_Highline/pills/col",
       "rowGroup": "row_Highline",
       "variantProperties": {
@@ -328,12 +328,12 @@
       "absoluteY": 2117
     },
     {
-      "instanceId": "NODE-0139",
-      "componentSetId": "NODE-0317",
+      "instanceId": "NODE-0057",
+      "componentSetId": "NODE-0035",
       "componentSetName": "Pill – Highline",
       "theme": "dark",
       "blockKind": "matrix",
-      "blockId": "NODE-0133",
+      "blockId": "NODE-0047",
       "structuralPath": "row_Highline/pills/col",
       "rowGroup": "row_Highline",
       "variantProperties": {
@@ -345,12 +345,12 @@
       "absoluteY": 2155
     },
     {
-      "instanceId": "NODE-0142",
-      "componentSetId": "NODE-0317",
+      "instanceId": "NODE-0054",
+      "componentSetId": "NODE-0035",
       "componentSetName": "Pill – Highline",
       "theme": "dark",
       "blockKind": "matrix",
-      "blockId": "NODE-0133",
+      "blockId": "NODE-0047",
       "structuralPath": "row_Highline/pills/col",
       "rowGroup": "row_Highline",
       "variantProperties": {
@@ -362,12 +362,12 @@
       "absoluteY": 2117
     },
     {
-      "instanceId": "NODE-0143",
-      "componentSetId": "NODE-0317",
+      "instanceId": "NODE-0058",
+      "componentSetId": "NODE-0035",
       "componentSetName": "Pill – Highline",
       "theme": "dark",
       "blockKind": "matrix",
-      "blockId": "NODE-0133",
+      "blockId": "NODE-0047",
       "structuralPath": "row_Highline/pills/col",
       "rowGroup": "row_Highline",
       "variantProperties": {
@@ -379,12 +379,12 @@
       "absoluteY": 2155
     },
     {
-      "instanceId": "NODE-0146",
-      "componentSetId": "NODE-0317",
+      "instanceId": "NODE-0055",
+      "componentSetId": "NODE-0035",
       "componentSetName": "Pill – Highline",
       "theme": "dark",
       "blockKind": "matrix",
-      "blockId": "NODE-0133",
+      "blockId": "NODE-0047",
       "structuralPath": "row_Highline/pills/col",
       "rowGroup": "row_Highline",
       "variantProperties": {
@@ -396,12 +396,12 @@
       "absoluteY": 2117
     },
     {
-      "instanceId": "NODE-0147",
-      "componentSetId": "NODE-0317",
+      "instanceId": "NODE-0059",
+      "componentSetId": "NODE-0035",
       "componentSetName": "Pill – Highline",
       "theme": "dark",
       "blockKind": "matrix",
-      "blockId": "NODE-0133",
+      "blockId": "NODE-0047",
       "structuralPath": "row_Highline/pills/col",
       "rowGroup": "row_Highline",
       "variantProperties": {
@@ -413,12 +413,12 @@
       "absoluteY": 2155
     },
     {
-      "instanceId": "NODE-0150",
-      "componentSetId": "NODE-0317",
+      "instanceId": "NODE-0056",
+      "componentSetId": "NODE-0035",
       "componentSetName": "Pill – Highline",
       "theme": "dark",
       "blockKind": "matrix",
-      "blockId": "NODE-0133",
+      "blockId": "NODE-0047",
       "structuralPath": "row_Highline/pills/col",
       "rowGroup": "row_Highline",
       "variantProperties": {
@@ -430,12 +430,12 @@
       "absoluteY": 2117
     },
     {
-      "instanceId": "NODE-0151",
-      "componentSetId": "NODE-0317",
+      "instanceId": "NODE-0060",
+      "componentSetId": "NODE-0035",
       "componentSetName": "Pill – Highline",
       "theme": "dark",
       "blockKind": "matrix",
-      "blockId": "NODE-0133",
+      "blockId": "NODE-0047",
       "structuralPath": "row_Highline/pills/col",
       "rowGroup": "row_Highline",
       "variantProperties": {
@@ -447,12 +447,12 @@
       "absoluteY": 2155
     },
     {
-      "instanceId": "NODE-0158",
-      "componentSetId": "NODE-0366",
+      "instanceId": "NODE-0061",
+      "componentSetId": "NODE-0036",
       "componentSetName": "Pill – Highlighted",
       "theme": "dark",
       "blockKind": "matrix",
-      "blockId": "NODE-0133",
+      "blockId": "NODE-0047",
       "structuralPath": "row_Highlighted/pills/col",
       "rowGroup": "row_Highlighted",
       "variantProperties": {
@@ -464,12 +464,12 @@
       "absoluteY": 2291
     },
     {
-      "instanceId": "NODE-0159",
-      "componentSetId": "NODE-0366",
+      "instanceId": "NODE-0066",
+      "componentSetId": "NODE-0036",
       "componentSetName": "Pill – Highlighted",
       "theme": "dark",
       "blockKind": "matrix",
-      "blockId": "NODE-0133",
+      "blockId": "NODE-0047",
       "structuralPath": "row_Highlighted/pills/col",
       "rowGroup": "row_Highlighted",
       "variantProperties": {
@@ -481,12 +481,12 @@
       "absoluteY": 2329
     },
     {
-      "instanceId": "NODE-0162",
-      "componentSetId": "NODE-0366",
+      "instanceId": "NODE-0063",
+      "componentSetId": "NODE-0036",
       "componentSetName": "Pill – Highlighted",
       "theme": "dark",
       "blockKind": "matrix",
-      "blockId": "NODE-0133",
+      "blockId": "NODE-0047",
       "structuralPath": "row_Highlighted/pills/col",
       "rowGroup": "row_Highlighted",
       "variantProperties": {
@@ -498,12 +498,12 @@
       "absoluteY": 2291
     },
     {
-      "instanceId": "NODE-0163",
-      "componentSetId": "NODE-0366",
+      "instanceId": "NODE-0067",
+      "componentSetId": "NODE-0036",
       "componentSetName": "Pill – Highlighted",
       "theme": "dark",
       "blockKind": "matrix",
-      "blockId": "NODE-0133",
+      "blockId": "NODE-0047",
       "structuralPath": "row_Highlighted/pills/col",
       "rowGroup": "row_Highlighted",
       "variantProperties": {
@@ -515,12 +515,12 @@
       "absoluteY": 2329
     },
     {
-      "instanceId": "NODE-0166",
-      "componentSetId": "NODE-0366",
+      "instanceId": "NODE-0064",
+      "componentSetId": "NODE-0036",
       "componentSetName": "Pill – Highlighted",
       "theme": "dark",
       "blockKind": "matrix",
-      "blockId": "NODE-0133",
+      "blockId": "NODE-0047",
       "structuralPath": "row_Highlighted/pills/col",
       "rowGroup": "row_Highlighted",
       "variantProperties": {
@@ -532,12 +532,12 @@
       "absoluteY": 2291
     },
     {
-      "instanceId": "NODE-0167",
-      "componentSetId": "NODE-0366",
+      "instanceId": "NODE-0068",
+      "componentSetId": "NODE-0036",
       "componentSetName": "Pill – Highlighted",
       "theme": "dark",
       "blockKind": "matrix",
-      "blockId": "NODE-0133",
+      "blockId": "NODE-0047",
       "structuralPath": "row_Highlighted/pills/col",
       "rowGroup": "row_Highlighted",
       "variantProperties": {
@@ -549,12 +549,12 @@
       "absoluteY": 2329
     },
     {
-      "instanceId": "NODE-0170",
-      "componentSetId": "NODE-0366",
+      "instanceId": "NODE-0065",
+      "componentSetId": "NODE-0036",
       "componentSetName": "Pill – Highlighted",
       "theme": "dark",
       "blockKind": "matrix",
-      "blockId": "NODE-0133",
+      "blockId": "NODE-0047",
       "structuralPath": "row_Highlighted/pills/col",
       "rowGroup": "row_Highlighted",
       "variantProperties": {
@@ -566,12 +566,12 @@
       "absoluteY": 2291
     },
     {
-      "instanceId": "NODE-0171",
-      "componentSetId": "NODE-0366",
+      "instanceId": "NODE-0069",
+      "componentSetId": "NODE-0036",
       "componentSetName": "Pill – Highlighted",
       "theme": "dark",
       "blockKind": "matrix",
-      "blockId": "NODE-0133",
+      "blockId": "NODE-0047",
       "structuralPath": "row_Highlighted/pills/col",
       "rowGroup": "row_Highlighted",
       "variantProperties": {
@@ -583,12 +583,12 @@
       "absoluteY": 2329
     },
     {
-      "instanceId": "NODE-0178",
-      "componentSetId": "NODE-0415",
+      "instanceId": "NODE-0070",
+      "componentSetId": "NODE-0037",
       "componentSetName": "Pill – Filled",
       "theme": "dark",
       "blockKind": "matrix",
-      "blockId": "NODE-0133",
+      "blockId": "NODE-0047",
       "structuralPath": "row_Filled/pills/col",
       "rowGroup": "row_Filled",
       "variantProperties": {
@@ -600,12 +600,12 @@
       "absoluteY": 2465
     },
     {
-      "instanceId": "NODE-0179",
-      "componentSetId": "NODE-0415",
+      "instanceId": "NODE-0075",
+      "componentSetId": "NODE-0037",
       "componentSetName": "Pill – Filled",
       "theme": "dark",
       "blockKind": "matrix",
-      "blockId": "NODE-0133",
+      "blockId": "NODE-0047",
       "structuralPath": "row_Filled/pills/col",
       "rowGroup": "row_Filled",
       "variantProperties": {
@@ -617,12 +617,12 @@
       "absoluteY": 2503
     },
     {
-      "instanceId": "NODE-0182",
-      "componentSetId": "NODE-0415",
+      "instanceId": "NODE-0072",
+      "componentSetId": "NODE-0037",
       "componentSetName": "Pill – Filled",
       "theme": "dark",
       "blockKind": "matrix",
-      "blockId": "NODE-0133",
+      "blockId": "NODE-0047",
       "structuralPath": "row_Filled/pills/col",
       "rowGroup": "row_Filled",
       "variantProperties": {
@@ -634,12 +634,12 @@
       "absoluteY": 2465
     },
     {
-      "instanceId": "NODE-0183",
-      "componentSetId": "NODE-0415",
+      "instanceId": "NODE-0076",
+      "componentSetId": "NODE-0037",
       "componentSetName": "Pill – Filled",
       "theme": "dark",
       "blockKind": "matrix",
-      "blockId": "NODE-0133",
+      "blockId": "NODE-0047",
       "structuralPath": "row_Filled/pills/col",
       "rowGroup": "row_Filled",
       "variantProperties": {
@@ -651,12 +651,12 @@
       "absoluteY": 2503
     },
     {
-      "instanceId": "NODE-0186",
-      "componentSetId": "NODE-0415",
+      "instanceId": "NODE-0073",
+      "componentSetId": "NODE-0037",
       "componentSetName": "Pill – Filled",
       "theme": "dark",
       "blockKind": "matrix",
-      "blockId": "NODE-0133",
+      "blockId": "NODE-0047",
       "structuralPath": "row_Filled/pills/col",
       "rowGroup": "row_Filled",
       "variantProperties": {
@@ -668,12 +668,12 @@
       "absoluteY": 2465
     },
     {
-      "instanceId": "NODE-0187",
-      "componentSetId": "NODE-0415",
+      "instanceId": "NODE-0077",
+      "componentSetId": "NODE-0037",
       "componentSetName": "Pill – Filled",
       "theme": "dark",
       "blockKind": "matrix",
-      "blockId": "NODE-0133",
+      "blockId": "NODE-0047",
       "structuralPath": "row_Filled/pills/col",
       "rowGroup": "row_Filled",
       "variantProperties": {
@@ -685,12 +685,12 @@
       "absoluteY": 2503
     },
     {
-      "instanceId": "NODE-0190",
-      "componentSetId": "NODE-0415",
+      "instanceId": "NODE-0074",
+      "componentSetId": "NODE-0037",
       "componentSetName": "Pill – Filled",
       "theme": "dark",
       "blockKind": "matrix",
-      "blockId": "NODE-0133",
+      "blockId": "NODE-0047",
       "structuralPath": "row_Filled/pills/col",
       "rowGroup": "row_Filled",
       "variantProperties": {
@@ -702,12 +702,12 @@
       "absoluteY": 2465
     },
     {
-      "instanceId": "NODE-0191",
-      "componentSetId": "NODE-0415",
+      "instanceId": "NODE-0078",
+      "componentSetId": "NODE-0037",
       "componentSetName": "Pill – Filled",
       "theme": "dark",
       "blockKind": "matrix",
-      "blockId": "NODE-0133",
+      "blockId": "NODE-0047",
       "structuralPath": "row_Filled/pills/col",
       "rowGroup": "row_Filled",
       "variantProperties": {
@@ -719,12 +719,12 @@
       "absoluteY": 2503
     },
     {
-      "instanceId": "NODE-0198",
-      "componentSetId": "NODE-0464",
+      "instanceId": "NODE-0079",
+      "componentSetId": "NODE-0038",
       "componentSetName": "Pill – Text",
       "theme": "dark",
       "blockKind": "matrix",
-      "blockId": "NODE-0133",
+      "blockId": "NODE-0047",
       "structuralPath": "row_Text/pills/col",
       "rowGroup": "row_Text",
       "variantProperties": {
@@ -736,12 +736,12 @@
       "absoluteY": 2639
     },
     {
-      "instanceId": "NODE-0199",
-      "componentSetId": "NODE-0464",
+      "instanceId": "NODE-0084",
+      "componentSetId": "NODE-0038",
       "componentSetName": "Pill – Text",
       "theme": "dark",
       "blockKind": "matrix",
-      "blockId": "NODE-0133",
+      "blockId": "NODE-0047",
       "structuralPath": "row_Text/pills/col",
       "rowGroup": "row_Text",
       "variantProperties": {
@@ -753,12 +753,12 @@
       "absoluteY": 2665
     },
     {
-      "instanceId": "NODE-0202",
-      "componentSetId": "NODE-0464",
+      "instanceId": "NODE-0081",
+      "componentSetId": "NODE-0038",
       "componentSetName": "Pill – Text",
       "theme": "dark",
       "blockKind": "matrix",
-      "blockId": "NODE-0133",
+      "blockId": "NODE-0047",
       "structuralPath": "row_Text/pills/col",
       "rowGroup": "row_Text",
       "variantProperties": {
@@ -770,12 +770,12 @@
       "absoluteY": 2639
     },
     {
-      "instanceId": "NODE-0203",
-      "componentSetId": "NODE-0464",
+      "instanceId": "NODE-0085",
+      "componentSetId": "NODE-0038",
       "componentSetName": "Pill – Text",
       "theme": "dark",
       "blockKind": "matrix",
-      "blockId": "NODE-0133",
+      "blockId": "NODE-0047",
       "structuralPath": "row_Text/pills/col",
       "rowGroup": "row_Text",
       "variantProperties": {
@@ -787,12 +787,12 @@
       "absoluteY": 2665
     },
     {
-      "instanceId": "NODE-0206",
-      "componentSetId": "NODE-0464",
+      "instanceId": "NODE-0082",
+      "componentSetId": "NODE-0038",
       "componentSetName": "Pill – Text",
       "theme": "dark",
       "blockKind": "matrix",
-      "blockId": "NODE-0133",
+      "blockId": "NODE-0047",
       "structuralPath": "row_Text/pills/col",
       "rowGroup": "row_Text",
       "variantProperties": {
@@ -804,12 +804,12 @@
       "absoluteY": 2639
     },
     {
-      "instanceId": "NODE-0207",
-      "componentSetId": "NODE-0464",
+      "instanceId": "NODE-0086",
+      "componentSetId": "NODE-0038",
       "componentSetName": "Pill – Text",
       "theme": "dark",
       "blockKind": "matrix",
-      "blockId": "NODE-0133",
+      "blockId": "NODE-0047",
       "structuralPath": "row_Text/pills/col",
       "rowGroup": "row_Text",
       "variantProperties": {
@@ -821,12 +821,12 @@
       "absoluteY": 2665
     },
     {
-      "instanceId": "NODE-0210",
-      "componentSetId": "NODE-0464",
+      "instanceId": "NODE-0083",
+      "componentSetId": "NODE-0038",
       "componentSetName": "Pill – Text",
       "theme": "dark",
       "blockKind": "matrix",
-      "blockId": "NODE-0133",
+      "blockId": "NODE-0047",
       "structuralPath": "row_Text/pills/col",
       "rowGroup": "row_Text",
       "variantProperties": {
@@ -838,12 +838,12 @@
       "absoluteY": 2639
     },
     {
-      "instanceId": "NODE-0211",
-      "componentSetId": "NODE-0464",
+      "instanceId": "NODE-0087",
+      "componentSetId": "NODE-0038",
       "componentSetName": "Pill – Text",
       "theme": "dark",
       "blockKind": "matrix",
-      "blockId": "NODE-0133",
+      "blockId": "NODE-0047",
       "structuralPath": "row_Text/pills/col",
       "rowGroup": "row_Text",
       "variantProperties": {
@@ -855,12 +855,12 @@
       "absoluteY": 2665
     },
     {
-      "instanceId": "NODE-0077",
-      "componentSetId": "NODE-0415",
+      "instanceId": "NODE-0361",
+      "componentSetId": "NODE-0037",
       "componentSetName": "Pill – Filled",
       "theme": "light",
       "blockKind": "list",
-      "blockId": "NODE-0072",
+      "blockId": "NODE-0345",
       "structuralPath": "size_row/pills/col",
       "rowGroup": "size_row",
       "variantProperties": {
@@ -872,12 +872,12 @@
       "absoluteY": 1430
     },
     {
-      "instanceId": "NODE-0080",
-      "componentSetId": "NODE-0415",
+      "instanceId": "NODE-0362",
+      "componentSetId": "NODE-0037",
       "componentSetName": "Pill – Filled",
       "theme": "light",
       "blockKind": "list",
-      "blockId": "NODE-0072",
+      "blockId": "NODE-0345",
       "structuralPath": "size_row/pills/col",
       "rowGroup": "size_row",
       "variantProperties": {
@@ -889,12 +889,12 @@
       "absoluteY": 1430
     },
     {
-      "instanceId": "NODE-0083",
-      "componentSetId": "NODE-0415",
+      "instanceId": "NODE-0363",
+      "componentSetId": "NODE-0037",
       "componentSetName": "Pill – Filled",
       "theme": "light",
       "blockKind": "list",
-      "blockId": "NODE-0072",
+      "blockId": "NODE-0345",
       "structuralPath": "size_row/pills/col",
       "rowGroup": "size_row",
       "variantProperties": {
@@ -906,12 +906,12 @@
       "absoluteY": 1430
     },
     {
-      "instanceId": "NODE-0086",
-      "componentSetId": "NODE-0415",
+      "instanceId": "NODE-0364",
+      "componentSetId": "NODE-0037",
       "componentSetName": "Pill – Filled",
       "theme": "light",
       "blockKind": "list",
-      "blockId": "NODE-0072",
+      "blockId": "NODE-0345",
       "structuralPath": "size_row/pills/col",
       "rowGroup": "size_row",
       "variantProperties": {
@@ -923,12 +923,12 @@
       "absoluteY": 1430
     },
     {
-      "instanceId": "NODE-0093",
-      "componentSetId": "NODE-0317",
+      "instanceId": "NODE-0365",
+      "componentSetId": "NODE-0035",
       "componentSetName": "Pill – Highline",
       "theme": "light",
       "blockKind": "list",
-      "blockId": "NODE-0072",
+      "blockId": "NODE-0345",
       "structuralPath": "style_row/pills/col",
       "rowGroup": "style_row",
       "variantProperties": {
@@ -940,12 +940,12 @@
       "absoluteY": 1621
     },
     {
-      "instanceId": "NODE-0096",
-      "componentSetId": "NODE-0366",
+      "instanceId": "NODE-0366",
+      "componentSetId": "NODE-0036",
       "componentSetName": "Pill – Highlighted",
       "theme": "light",
       "blockKind": "list",
-      "blockId": "NODE-0072",
+      "blockId": "NODE-0345",
       "structuralPath": "style_row/pills/col",
       "rowGroup": "style_row",
       "variantProperties": {
@@ -957,12 +957,12 @@
       "absoluteY": 1621
     },
     {
-      "instanceId": "NODE-0099",
-      "componentSetId": "NODE-0415",
+      "instanceId": "NODE-0367",
+      "componentSetId": "NODE-0037",
       "componentSetName": "Pill – Filled",
       "theme": "light",
       "blockKind": "list",
-      "blockId": "NODE-0072",
+      "blockId": "NODE-0345",
       "structuralPath": "style_row/pills/col",
       "rowGroup": "style_row",
       "variantProperties": {
@@ -974,12 +974,12 @@
       "absoluteY": 1621
     },
     {
-      "instanceId": "NODE-0102",
-      "componentSetId": "NODE-0464",
+      "instanceId": "NODE-0368",
+      "componentSetId": "NODE-0038",
       "componentSetName": "Pill – Text",
       "theme": "light",
       "blockKind": "list",
-      "blockId": "NODE-0072",
+      "blockId": "NODE-0345",
       "structuralPath": "style_row/pills/col",
       "rowGroup": "style_row",
       "variantProperties": {
@@ -991,12 +991,12 @@
       "absoluteY": 1621
     },
     {
-      "instanceId": "NODE-0109",
-      "componentSetId": "NODE-0415",
+      "instanceId": "NODE-0369",
+      "componentSetId": "NODE-0037",
       "componentSetName": "Pill – Filled",
       "theme": "light",
       "blockKind": "list",
-      "blockId": "NODE-0072",
+      "blockId": "NODE-0345",
       "structuralPath": "accent_row/pills/col",
       "rowGroup": "accent_row",
       "variantProperties": {
@@ -1008,12 +1008,12 @@
       "absoluteY": 1812
     },
     {
-      "instanceId": "NODE-0112",
-      "componentSetId": "NODE-0415",
+      "instanceId": "NODE-0370",
+      "componentSetId": "NODE-0037",
       "componentSetName": "Pill – Filled",
       "theme": "light",
       "blockKind": "list",
-      "blockId": "NODE-0072",
+      "blockId": "NODE-0345",
       "structuralPath": "accent_row/pills/col",
       "rowGroup": "accent_row",
       "variantProperties": {
@@ -1025,12 +1025,12 @@
       "absoluteY": 1812
     },
     {
-      "instanceId": "NODE-0115",
-      "componentSetId": "NODE-0415",
+      "instanceId": "NODE-0371",
+      "componentSetId": "NODE-0037",
       "componentSetName": "Pill – Filled",
       "theme": "light",
       "blockKind": "list",
-      "blockId": "NODE-0072",
+      "blockId": "NODE-0345",
       "structuralPath": "accent_row/pills/col",
       "rowGroup": "accent_row",
       "variantProperties": {
@@ -1042,12 +1042,12 @@
       "absoluteY": 1812
     },
     {
-      "instanceId": "NODE-0118",
-      "componentSetId": "NODE-0415",
+      "instanceId": "NODE-0372",
+      "componentSetId": "NODE-0037",
       "componentSetName": "Pill – Filled",
       "theme": "light",
       "blockKind": "list",
-      "blockId": "NODE-0072",
+      "blockId": "NODE-0345",
       "structuralPath": "accent_row/pills/col",
       "rowGroup": "accent_row",
       "variantProperties": {
@@ -1059,12 +1059,12 @@
       "absoluteY": 1812
     },
     {
-      "instanceId": "NODE-0125",
-      "componentSetId": "NODE-0415",
+      "instanceId": "NODE-0373",
+      "componentSetId": "NODE-0037",
       "componentSetName": "Pill – Filled",
       "theme": "light",
       "blockKind": "list",
-      "blockId": "NODE-0072",
+      "blockId": "NODE-0345",
       "structuralPath": "icon_row/pills/col",
       "rowGroup": "icon_row",
       "variantProperties": {
@@ -1076,12 +1076,12 @@
       "absoluteY": 2003
     },
     {
-      "instanceId": "NODE-0128",
-      "componentSetId": "NODE-0415",
+      "instanceId": "NODE-0374",
+      "componentSetId": "NODE-0037",
       "componentSetName": "Pill – Filled",
       "theme": "light",
       "blockKind": "list",
-      "blockId": "NODE-0072",
+      "blockId": "NODE-0345",
       "structuralPath": "icon_row/pills/col",
       "rowGroup": "icon_row",
       "variantProperties": {
@@ -1093,12 +1093,12 @@
       "absoluteY": 2003
     },
     {
-      "instanceId": "NODE-0131",
-      "componentSetId": "NODE-0415",
+      "instanceId": "NODE-0375",
+      "componentSetId": "NODE-0037",
       "componentSetName": "Pill – Filled",
       "theme": "light",
       "blockKind": "list",
-      "blockId": "NODE-0072",
+      "blockId": "NODE-0345",
       "structuralPath": "icon_row/pills/col",
       "rowGroup": "icon_row",
       "variantProperties": {
@@ -1110,12 +1110,12 @@
       "absoluteY": 2003
     },
     {
-      "instanceId": "NODE-0218",
-      "componentSetId": "NODE-0317",
+      "instanceId": "NODE-0088",
+      "componentSetId": "NODE-0035",
       "componentSetName": "Pill – Highline",
       "theme": "light",
       "blockKind": "matrix",
-      "blockId": "NODE-0213",
+      "blockId": "NODE-0051",
       "structuralPath": "row_Highline/pills/col",
       "rowGroup": "row_Highline",
       "variantProperties": {
@@ -1127,12 +1127,12 @@
       "absoluteY": 2117
     },
     {
-      "instanceId": "NODE-0219",
-      "componentSetId": "NODE-0317",
+      "instanceId": "NODE-0093",
+      "componentSetId": "NODE-0035",
       "componentSetName": "Pill – Highline",
       "theme": "light",
       "blockKind": "matrix",
-      "blockId": "NODE-0213",
+      "blockId": "NODE-0051",
       "structuralPath": "row_Highline/pills/col",
       "rowGroup": "row_Highline",
       "variantProperties": {
@@ -1144,12 +1144,12 @@
       "absoluteY": 2155
     },
     {
-      "instanceId": "NODE-0222",
-      "componentSetId": "NODE-0317",
+      "instanceId": "NODE-0090",
+      "componentSetId": "NODE-0035",
       "componentSetName": "Pill – Highline",
       "theme": "light",
       "blockKind": "matrix",
-      "blockId": "NODE-0213",
+      "blockId": "NODE-0051",
       "structuralPath": "row_Highline/pills/col",
       "rowGroup": "row_Highline",
       "variantProperties": {
@@ -1161,12 +1161,12 @@
       "absoluteY": 2117
     },
     {
-      "instanceId": "NODE-0223",
-      "componentSetId": "NODE-0317",
+      "instanceId": "NODE-0094",
+      "componentSetId": "NODE-0035",
       "componentSetName": "Pill – Highline",
       "theme": "light",
       "blockKind": "matrix",
-      "blockId": "NODE-0213",
+      "blockId": "NODE-0051",
       "structuralPath": "row_Highline/pills/col",
       "rowGroup": "row_Highline",
       "variantProperties": {
@@ -1178,12 +1178,12 @@
       "absoluteY": 2155
     },
     {
-      "instanceId": "NODE-0226",
-      "componentSetId": "NODE-0317",
+      "instanceId": "NODE-0091",
+      "componentSetId": "NODE-0035",
       "componentSetName": "Pill – Highline",
       "theme": "light",
       "blockKind": "matrix",
-      "blockId": "NODE-0213",
+      "blockId": "NODE-0051",
       "structuralPath": "row_Highline/pills/col",
       "rowGroup": "row_Highline",
       "variantProperties": {
@@ -1195,12 +1195,12 @@
       "absoluteY": 2117
     },
     {
-      "instanceId": "NODE-0227",
-      "componentSetId": "NODE-0317",
+      "instanceId": "NODE-0095",
+      "componentSetId": "NODE-0035",
       "componentSetName": "Pill – Highline",
       "theme": "light",
       "blockKind": "matrix",
-      "blockId": "NODE-0213",
+      "blockId": "NODE-0051",
       "structuralPath": "row_Highline/pills/col",
       "rowGroup": "row_Highline",
       "variantProperties": {
@@ -1212,12 +1212,12 @@
       "absoluteY": 2155
     },
     {
-      "instanceId": "NODE-0230",
-      "componentSetId": "NODE-0317",
+      "instanceId": "NODE-0092",
+      "componentSetId": "NODE-0035",
       "componentSetName": "Pill – Highline",
       "theme": "light",
       "blockKind": "matrix",
-      "blockId": "NODE-0213",
+      "blockId": "NODE-0051",
       "structuralPath": "row_Highline/pills/col",
       "rowGroup": "row_Highline",
       "variantProperties": {
@@ -1229,12 +1229,12 @@
       "absoluteY": 2117
     },
     {
-      "instanceId": "NODE-0231",
-      "componentSetId": "NODE-0317",
+      "instanceId": "NODE-0096",
+      "componentSetId": "NODE-0035",
       "componentSetName": "Pill – Highline",
       "theme": "light",
       "blockKind": "matrix",
-      "blockId": "NODE-0213",
+      "blockId": "NODE-0051",
       "structuralPath": "row_Highline/pills/col",
       "rowGroup": "row_Highline",
       "variantProperties": {
@@ -1246,12 +1246,12 @@
       "absoluteY": 2155
     },
     {
-      "instanceId": "NODE-0238",
-      "componentSetId": "NODE-0366",
+      "instanceId": "NODE-0097",
+      "componentSetId": "NODE-0036",
       "componentSetName": "Pill – Highlighted",
       "theme": "light",
       "blockKind": "matrix",
-      "blockId": "NODE-0213",
+      "blockId": "NODE-0051",
       "structuralPath": "row_Highlighted/pills/col",
       "rowGroup": "row_Highlighted",
       "variantProperties": {
@@ -1263,12 +1263,12 @@
       "absoluteY": 2291
     },
     {
-      "instanceId": "NODE-0239",
-      "componentSetId": "NODE-0366",
+      "instanceId": "NODE-0102",
+      "componentSetId": "NODE-0036",
       "componentSetName": "Pill – Highlighted",
       "theme": "light",
       "blockKind": "matrix",
-      "blockId": "NODE-0213",
+      "blockId": "NODE-0051",
       "structuralPath": "row_Highlighted/pills/col",
       "rowGroup": "row_Highlighted",
       "variantProperties": {
@@ -1280,12 +1280,12 @@
       "absoluteY": 2329
     },
     {
-      "instanceId": "NODE-0242",
-      "componentSetId": "NODE-0366",
+      "instanceId": "NODE-0099",
+      "componentSetId": "NODE-0036",
       "componentSetName": "Pill – Highlighted",
       "theme": "light",
       "blockKind": "matrix",
-      "blockId": "NODE-0213",
+      "blockId": "NODE-0051",
       "structuralPath": "row_Highlighted/pills/col",
       "rowGroup": "row_Highlighted",
       "variantProperties": {
@@ -1297,12 +1297,12 @@
       "absoluteY": 2291
     },
     {
-      "instanceId": "NODE-0243",
-      "componentSetId": "NODE-0366",
+      "instanceId": "NODE-0103",
+      "componentSetId": "NODE-0036",
       "componentSetName": "Pill – Highlighted",
       "theme": "light",
       "blockKind": "matrix",
-      "blockId": "NODE-0213",
+      "blockId": "NODE-0051",
       "structuralPath": "row_Highlighted/pills/col",
       "rowGroup": "row_Highlighted",
       "variantProperties": {
@@ -1314,12 +1314,12 @@
       "absoluteY": 2329
     },
     {
-      "instanceId": "NODE-0246",
-      "componentSetId": "NODE-0366",
+      "instanceId": "NODE-0100",
+      "componentSetId": "NODE-0036",
       "componentSetName": "Pill – Highlighted",
       "theme": "light",
       "blockKind": "matrix",
-      "blockId": "NODE-0213",
+      "blockId": "NODE-0051",
       "structuralPath": "row_Highlighted/pills/col",
       "rowGroup": "row_Highlighted",
       "variantProperties": {
@@ -1331,12 +1331,12 @@
       "absoluteY": 2291
     },
     {
-      "instanceId": "NODE-0247",
-      "componentSetId": "NODE-0366",
+      "instanceId": "NODE-0104",
+      "componentSetId": "NODE-0036",
       "componentSetName": "Pill – Highlighted",
       "theme": "light",
       "blockKind": "matrix",
-      "blockId": "NODE-0213",
+      "blockId": "NODE-0051",
       "structuralPath": "row_Highlighted/pills/col",
       "rowGroup": "row_Highlighted",
       "variantProperties": {
@@ -1348,12 +1348,12 @@
       "absoluteY": 2329
     },
     {
-      "instanceId": "NODE-0250",
-      "componentSetId": "NODE-0366",
+      "instanceId": "NODE-0101",
+      "componentSetId": "NODE-0036",
       "componentSetName": "Pill – Highlighted",
       "theme": "light",
       "blockKind": "matrix",
-      "blockId": "NODE-0213",
+      "blockId": "NODE-0051",
       "structuralPath": "row_Highlighted/pills/col",
       "rowGroup": "row_Highlighted",
       "variantProperties": {
@@ -1365,12 +1365,12 @@
       "absoluteY": 2291
     },
     {
-      "instanceId": "NODE-0251",
-      "componentSetId": "NODE-0366",
+      "instanceId": "NODE-0105",
+      "componentSetId": "NODE-0036",
       "componentSetName": "Pill – Highlighted",
       "theme": "light",
       "blockKind": "matrix",
-      "blockId": "NODE-0213",
+      "blockId": "NODE-0051",
       "structuralPath": "row_Highlighted/pills/col",
       "rowGroup": "row_Highlighted",
       "variantProperties": {
@@ -1382,12 +1382,12 @@
       "absoluteY": 2329
     },
     {
-      "instanceId": "NODE-0258",
-      "componentSetId": "NODE-0415",
+      "instanceId": "NODE-0106",
+      "componentSetId": "NODE-0037",
       "componentSetName": "Pill – Filled",
       "theme": "light",
       "blockKind": "matrix",
-      "blockId": "NODE-0213",
+      "blockId": "NODE-0051",
       "structuralPath": "row_Filled/pills/col",
       "rowGroup": "row_Filled",
       "variantProperties": {
@@ -1399,12 +1399,12 @@
       "absoluteY": 2465
     },
     {
-      "instanceId": "NODE-0259",
-      "componentSetId": "NODE-0415",
+      "instanceId": "NODE-0111",
+      "componentSetId": "NODE-0037",
       "componentSetName": "Pill – Filled",
       "theme": "light",
       "blockKind": "matrix",
-      "blockId": "NODE-0213",
+      "blockId": "NODE-0051",
       "structuralPath": "row_Filled/pills/col",
       "rowGroup": "row_Filled",
       "variantProperties": {
@@ -1416,12 +1416,12 @@
       "absoluteY": 2503
     },
     {
-      "instanceId": "NODE-0262",
-      "componentSetId": "NODE-0415",
+      "instanceId": "NODE-0108",
+      "componentSetId": "NODE-0037",
       "componentSetName": "Pill – Filled",
       "theme": "light",
       "blockKind": "matrix",
-      "blockId": "NODE-0213",
+      "blockId": "NODE-0051",
       "structuralPath": "row_Filled/pills/col",
       "rowGroup": "row_Filled",
       "variantProperties": {
@@ -1433,12 +1433,12 @@
       "absoluteY": 2465
     },
     {
-      "instanceId": "NODE-0263",
-      "componentSetId": "NODE-0415",
+      "instanceId": "NODE-0112",
+      "componentSetId": "NODE-0037",
       "componentSetName": "Pill – Filled",
       "theme": "light",
       "blockKind": "matrix",
-      "blockId": "NODE-0213",
+      "blockId": "NODE-0051",
       "structuralPath": "row_Filled/pills/col",
       "rowGroup": "row_Filled",
       "variantProperties": {
@@ -1450,12 +1450,12 @@
       "absoluteY": 2503
     },
     {
-      "instanceId": "NODE-0266",
-      "componentSetId": "NODE-0415",
+      "instanceId": "NODE-0109",
+      "componentSetId": "NODE-0037",
       "componentSetName": "Pill – Filled",
       "theme": "light",
       "blockKind": "matrix",
-      "blockId": "NODE-0213",
+      "blockId": "NODE-0051",
       "structuralPath": "row_Filled/pills/col",
       "rowGroup": "row_Filled",
       "variantProperties": {
@@ -1467,12 +1467,12 @@
       "absoluteY": 2465
     },
     {
-      "instanceId": "NODE-0267",
-      "componentSetId": "NODE-0415",
+      "instanceId": "NODE-0113",
+      "componentSetId": "NODE-0037",
       "componentSetName": "Pill – Filled",
       "theme": "light",
       "blockKind": "matrix",
-      "blockId": "NODE-0213",
+      "blockId": "NODE-0051",
       "structuralPath": "row_Filled/pills/col",
       "rowGroup": "row_Filled",
       "variantProperties": {
@@ -1484,12 +1484,12 @@
       "absoluteY": 2503
     },
     {
-      "instanceId": "NODE-0270",
-      "componentSetId": "NODE-0415",
+      "instanceId": "NODE-0110",
+      "componentSetId": "NODE-0037",
       "componentSetName": "Pill – Filled",
       "theme": "light",
       "blockKind": "matrix",
-      "blockId": "NODE-0213",
+      "blockId": "NODE-0051",
       "structuralPath": "row_Filled/pills/col",
       "rowGroup": "row_Filled",
       "variantProperties": {
@@ -1501,12 +1501,12 @@
       "absoluteY": 2465
     },
     {
-      "instanceId": "NODE-0271",
-      "componentSetId": "NODE-0415",
+      "instanceId": "NODE-0114",
+      "componentSetId": "NODE-0037",
       "componentSetName": "Pill – Filled",
       "theme": "light",
       "blockKind": "matrix",
-      "blockId": "NODE-0213",
+      "blockId": "NODE-0051",
       "structuralPath": "row_Filled/pills/col",
       "rowGroup": "row_Filled",
       "variantProperties": {
@@ -1518,12 +1518,12 @@
       "absoluteY": 2503
     },
     {
-      "instanceId": "NODE-0278",
-      "componentSetId": "NODE-0464",
+      "instanceId": "NODE-0115",
+      "componentSetId": "NODE-0038",
       "componentSetName": "Pill – Text",
       "theme": "light",
       "blockKind": "matrix",
-      "blockId": "NODE-0213",
+      "blockId": "NODE-0051",
       "structuralPath": "row_Text/pills/col",
       "rowGroup": "row_Text",
       "variantProperties": {
@@ -1535,12 +1535,12 @@
       "absoluteY": 2639
     },
     {
-      "instanceId": "NODE-0279",
-      "componentSetId": "NODE-0464",
+      "instanceId": "NODE-0120",
+      "componentSetId": "NODE-0038",
       "componentSetName": "Pill – Text",
       "theme": "light",
       "blockKind": "matrix",
-      "blockId": "NODE-0213",
+      "blockId": "NODE-0051",
       "structuralPath": "row_Text/pills/col",
       "rowGroup": "row_Text",
       "variantProperties": {
@@ -1552,12 +1552,12 @@
       "absoluteY": 2665
     },
     {
-      "instanceId": "NODE-0282",
-      "componentSetId": "NODE-0464",
+      "instanceId": "NODE-0117",
+      "componentSetId": "NODE-0038",
       "componentSetName": "Pill – Text",
       "theme": "light",
       "blockKind": "matrix",
-      "blockId": "NODE-0213",
+      "blockId": "NODE-0051",
       "structuralPath": "row_Text/pills/col",
       "rowGroup": "row_Text",
       "variantProperties": {
@@ -1569,12 +1569,12 @@
       "absoluteY": 2639
     },
     {
-      "instanceId": "NODE-0283",
-      "componentSetId": "NODE-0464",
+      "instanceId": "NODE-0121",
+      "componentSetId": "NODE-0038",
       "componentSetName": "Pill – Text",
       "theme": "light",
       "blockKind": "matrix",
-      "blockId": "NODE-0213",
+      "blockId": "NODE-0051",
       "structuralPath": "row_Text/pills/col",
       "rowGroup": "row_Text",
       "variantProperties": {
@@ -1586,12 +1586,12 @@
       "absoluteY": 2665
     },
     {
-      "instanceId": "NODE-0286",
-      "componentSetId": "NODE-0464",
+      "instanceId": "NODE-0118",
+      "componentSetId": "NODE-0038",
       "componentSetName": "Pill – Text",
       "theme": "light",
       "blockKind": "matrix",
-      "blockId": "NODE-0213",
+      "blockId": "NODE-0051",
       "structuralPath": "row_Text/pills/col",
       "rowGroup": "row_Text",
       "variantProperties": {
@@ -1603,12 +1603,12 @@
       "absoluteY": 2639
     },
     {
-      "instanceId": "NODE-0287",
-      "componentSetId": "NODE-0464",
+      "instanceId": "NODE-0122",
+      "componentSetId": "NODE-0038",
       "componentSetName": "Pill – Text",
       "theme": "light",
       "blockKind": "matrix",
-      "blockId": "NODE-0213",
+      "blockId": "NODE-0051",
       "structuralPath": "row_Text/pills/col",
       "rowGroup": "row_Text",
       "variantProperties": {
@@ -1620,12 +1620,12 @@
       "absoluteY": 2665
     },
     {
-      "instanceId": "NODE-0290",
-      "componentSetId": "NODE-0464",
+      "instanceId": "NODE-0119",
+      "componentSetId": "NODE-0038",
       "componentSetName": "Pill – Text",
       "theme": "light",
       "blockKind": "matrix",
-      "blockId": "NODE-0213",
+      "blockId": "NODE-0051",
       "structuralPath": "row_Text/pills/col",
       "rowGroup": "row_Text",
       "variantProperties": {
@@ -1637,12 +1637,12 @@
       "absoluteY": 2639
     },
     {
-      "instanceId": "NODE-0291",
-      "componentSetId": "NODE-0464",
+      "instanceId": "NODE-0123",
+      "componentSetId": "NODE-0038",
       "componentSetName": "Pill – Text",
       "theme": "light",
       "blockKind": "matrix",
-      "blockId": "NODE-0213",
+      "blockId": "NODE-0051",
       "structuralPath": "row_Text/pills/col",
       "rowGroup": "row_Text",
       "variantProperties": {
@@ -1655,7 +1655,7 @@
     }
   ],
   "limitations": [
-    "Counts cover the documentation holder NODE-0001 only.",
+    "Counts cover the documentation holder NODE-0041 only.",
     "TEXT/INSTANCE_SWAP overrides on each instance were not captured in this sweep; only variantProperties."
   ]
 }

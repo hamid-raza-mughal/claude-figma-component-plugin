@@ -25,7 +25,9 @@
         "readinessStatus",
         "const"
       ],
-      "expected_instance_path_contains": [],
+      "expected_instance_path_contains": [
+        "readinessStatus"
+      ],
       "purpose": "BP-3: a 1.0.0 version string requires ready_for_production and zero blockers, so it cannot be used to dress an unapproved contract as approved."
     },
     {
@@ -42,7 +44,9 @@
         "readinessStatus",
         "enum"
       ],
-      "expected_instance_path_contains": [],
+      "expected_instance_path_contains": [
+        "readinessStatus"
+      ],
       "purpose": "A -draft version permits only not_ready or validation_ready. This is the gate that keeps the -draft suffix honest."
     },
     {
@@ -52,6 +56,8 @@
       "rule_id": "REP-03",
       "intended_error_code": "SCHEMA_CONSTRAINT_FAILED",
       "expected_schema_path_contains": [
+        "properties",
+        "approvalStatus",
         "allOf",
         "0",
         "then",
@@ -60,7 +66,8 @@
         "maxItems"
       ],
       "expected_instance_path_contains": [
-        "/approvalStatus"
+        "approvalStatus",
+        "blockers"
       ],
       "purpose": "D-5 orphan CV-4: approval must not coexist with open blockers. The research fixture set asserted this rule id against a rule the contract never declared."
     },
@@ -77,7 +84,8 @@
         "not"
       ],
       "expected_instance_path_contains": [
-        "/layoutRepresentations/0"
+        "layoutRepresentations",
+        "0"
       ],
       "purpose": "D-5 orphan CV-9 / C-1: only a matrix representation may carry an allocation. D-3 is the consequence of nobody checking which strategy a target actually has."
     },
@@ -96,7 +104,9 @@
         "const"
       ],
       "expected_instance_path_contains": [
-        "/namingRules/0"
+        "namingRules",
+        "0",
+        "uniquenessPolicy"
       ],
       "purpose": "D-5 orphan CV-19 / C-10: enforcement=observed_only requires uniquenessPolicy not_applicable. A rule nobody enforces cannot also claim uniqueness."
     },
@@ -107,10 +117,14 @@
       "rule_id": "REP-06",
       "intended_error_code": "SCHEMA_MISSING_REQUIRED",
       "expected_schema_path_contains": [
-        "/properties/structuralFindings/items/required"
+        "properties",
+        "structuralFindings",
+        "items",
+        "required"
       ],
       "expected_instance_path_contains": [
-        "/structuralFindings/0"
+        "structuralFindings",
+        "0"
       ],
       "purpose": "D-1 class: a finding with no structured target is a claim nothing can resolve."
     },
@@ -121,10 +135,17 @@
       "rule_id": "REP-06",
       "intended_error_code": "SCHEMA_MISSING_REQUIRED",
       "expected_schema_path_contains": [
-        "/properties/approvalStatus/properties/blockers/items/required"
+        "properties",
+        "approvalStatus",
+        "properties",
+        "blockers",
+        "items",
+        "required"
       ],
       "expected_instance_path_contains": [
-        "/approvalStatus/blockers/0"
+        "approvalStatus",
+        "blockers",
+        "0"
       ],
       "purpose": "D-2 and D-7 class: a blocker whose subject and cited artifact live only in prose."
     },
@@ -135,10 +156,14 @@
       "rule_id": "REP-06",
       "intended_error_code": "SCHEMA_MISSING_REQUIRED",
       "expected_schema_path_contains": [
-        "/properties/knownLimitations/items/required"
+        "properties",
+        "knownLimitations",
+        "items",
+        "required"
       ],
       "expected_instance_path_contains": [
-        "/knownLimitations/0"
+        "knownLimitations",
+        "0"
       ],
       "purpose": "D-2 had a knownLimitations twin asserting a fact the corpus contradicted. An unanchored limitation cannot be checked against what it describes."
     },
@@ -155,7 +180,9 @@
         "not"
       ],
       "expected_instance_path_contains": [
-        "/structuralFindings/0/target"
+        "structuralFindings",
+        "0",
+        "target"
       ],
       "purpose": "requiredStrategy is meaningful only for a layout_representation target; permitting it elsewhere would make kind-compatibility unenforceable."
     },
@@ -172,7 +199,10 @@
         "required"
       ],
       "expected_instance_path_contains": [
-        "/approvalStatus/blockers/0/target"
+        "approvalStatus",
+        "blockers",
+        "0",
+        "target"
       ],
       "purpose": "D-7 exactly: a blocker citing an artifact. An unpinned path can resolve to different bytes than the ones the claim was made over, so the pin is required, not optional."
     },
@@ -191,7 +221,10 @@
         "const"
       ],
       "expected_instance_path_contains": [
-        "/knownLimitations/0/target"
+        "knownLimitations",
+        "0",
+        "target",
+        "targetRef"
       ],
       "purpose": "The target field is where prose is not allowed. A contract target takes the literal \"self\"."
     },
@@ -202,10 +235,17 @@
       "rule_id": "REP-09",
       "intended_error_code": "SCHEMA_UNKNOWN_FIELD",
       "expected_schema_path_contains": [
-        "/properties/structuralFindings/items/properties/narrative/additionalProperties"
+        "properties",
+        "structuralFindings",
+        "items",
+        "properties",
+        "narrative",
+        "additionalProperties"
       ],
       "expected_instance_path_contains": [
-        "/structuralFindings/0/narrative"
+        "structuralFindings",
+        "0",
+        "narrative"
       ],
       "purpose": "D-1 is a reference smuggled into a sentence. The narrative object is closed so a new reference cannot be added there instead of to target."
     },
@@ -223,7 +263,9 @@
         "migrationReportRef",
         "type"
       ],
-      "expected_instance_path_contains": [],
+      "expected_instance_path_contains": [
+        "migrationReportRef"
+      ],
       "purpose": "authoringMode is the discriminator that makes \"legacy states are migration-only\" enforceable without version-sniffing."
     },
     {
@@ -555,6 +597,57 @@
       "rule_id": "REP-21",
       "covered_by": "an enumeration that matches the artifact is accepted",
       "purpose": "The passing direction, and its mirror \u2014 a table listing a member the artifact dropped \u2014 is covered beside it."
+    },
+    {
+      "file": "negative/approved-without-owner-confirmation.json",
+      "validator": "schema",
+      "rule_id": "REP-03",
+      "expect": "invalid",
+      "intended_error_code": "SCHEMA_TYPE_MISMATCH",
+      "expected_schema_path_contains": [
+        "properties",
+        "approvalStatus",
+        "allOf",
+        "0",
+        "then",
+        "properties",
+        "ownerConfirmationRef",
+        "type"
+      ],
+      "expected_instance_path_contains": [
+        "approvalStatus",
+        "ownerConfirmationRef"
+      ],
+      "purpose": "REP-03 has two clauses and only the blockers one was covered. Approval also costs a resolvable confirmation reference, and a rule-id-level coverage check cannot see a rule half-tested."
+    },
+    {
+      "file": "negative/ready-for-production-without-version-or-approval.json",
+      "validator": "schema",
+      "rule_id": "REP-22",
+      "expect": "invalid",
+      "intended_error_code": "SCHEMA_CONSTRAINT_FAILED",
+      "expected_schema_path_contains": [
+        "allOf",
+        "3",
+        "then",
+        "properties",
+        "contractVersion",
+        "pattern"
+      ],
+      "expected_instance_path_contains": [
+        "contractVersion"
+      ],
+      "purpose": "The converse gate, enforced by the schema and declared by no rule until audit cycle 2 found it. Declaring ready_for_production requires the version and the approval that earn it."
+    },
+    {
+      "file": "positive/rep-22-ready-for-production-earned.json",
+      "validator": "schema",
+      "rule_id": "REP-22",
+      "expect": "valid",
+      "intended_error_code": null,
+      "expected_schema_path_contains": [],
+      "expected_instance_path_contains": [],
+      "purpose": "REP-22 in the passing direction: ready_for_production is reachable, and what it costs is a 1.0.0 version, approval and zero blockers."
     }
   ]
 }

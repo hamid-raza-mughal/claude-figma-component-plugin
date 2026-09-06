@@ -1,11 +1,17 @@
 {
-  "componentSetId": "NODE-0513",
-  "fileKey": "FILEKEY-0002",
-  "capturedAt": "2026-08-15T19:44:00Z",
-  "enumerationMethod": "figma_mcp_get_metadata_descent__component_child_name_parse (COMPONENT children of the COMPONENT_SET listed structurally via mcp__Figma__get_metadata; each child's variantProperties parsed from its Figma-generated 'Axis=Value, Axis=Value' node name, NOT read from a variantProperties API field)",
+  "componentSetId": "NODE-0039",
+  "fileKey": "FILEKEY-0003",
+  "capturedAt": "2026-08-16T08:55:00Z",
+  "enumerationMethodClass": "plugin_api_variant_properties",
+  "toolIdentity": "mcp__plugin_figma_figma__use_figma",
+  "apiFieldsRead": [
+    "COMPONENT_SET.children",
+    "COMPONENT.variantProperties"
+  ],
+  "rawCaptureRef": "evidence/api-capture-component-sets.json",
   "children": [
     {
-      "componentId": "NODE-0514",
+      "componentId": "NODE-0321",
       "variantProperties": {
         "Type": "Warning",
         "Style": "Highline",
@@ -14,7 +20,7 @@
       }
     },
     {
-      "componentId": "NODE-0515",
+      "componentId": "NODE-0322",
       "variantProperties": {
         "Type": "Warning",
         "Style": "Highline",
@@ -23,7 +29,7 @@
       }
     },
     {
-      "componentId": "NODE-0516",
+      "componentId": "NODE-0323",
       "variantProperties": {
         "Type": "Warning",
         "Style": "Highline",
@@ -32,7 +38,7 @@
       }
     },
     {
-      "componentId": "NODE-0517",
+      "componentId": "NODE-0324",
       "variantProperties": {
         "Type": "Warning",
         "Style": "Highline",
@@ -41,7 +47,7 @@
       }
     },
     {
-      "componentId": "NODE-0518",
+      "componentId": "NODE-0325",
       "variantProperties": {
         "Type": "Warning",
         "Style": "Highline",
@@ -50,7 +56,7 @@
       }
     },
     {
-      "componentId": "NODE-0519",
+      "componentId": "NODE-0326",
       "variantProperties": {
         "Type": "Warning",
         "Style": "Highline",
@@ -59,7 +65,7 @@
       }
     },
     {
-      "componentId": "NODE-0520",
+      "componentId": "NODE-0327",
       "variantProperties": {
         "Type": "Warning",
         "Style": "Filled",
@@ -68,7 +74,7 @@
       }
     },
     {
-      "componentId": "NODE-0521",
+      "componentId": "NODE-0328",
       "variantProperties": {
         "Type": "Warning",
         "Style": "Filled",
@@ -77,7 +83,7 @@
       }
     },
     {
-      "componentId": "NODE-0522",
+      "componentId": "NODE-0329",
       "variantProperties": {
         "Type": "Warning",
         "Style": "Filled",
@@ -86,7 +92,7 @@
       }
     },
     {
-      "componentId": "NODE-0523",
+      "componentId": "NODE-0330",
       "variantProperties": {
         "Type": "Warning",
         "Style": "Filled",
@@ -95,124 +101,124 @@
       }
     },
     {
-      "componentId": "NODE-0524",
+      "componentId": "NODE-0331",
       "variantProperties": {
         "Type": "Warning",
+        "Style": "Filled",
+        "Size": "Large",
+        "Animation": "S1"
+      }
+    },
+    {
+      "componentId": "NODE-0332",
+      "variantProperties": {
+        "Type": "Warning",
+        "Style": "Filled",
+        "Size": "Large",
+        "Animation": "S2"
+      }
+    },
+    {
+      "componentId": "NODE-0333",
+      "variantProperties": {
+        "Type": "Error",
+        "Style": "Highline",
+        "Size": "Small",
+        "Animation": "S1"
+      }
+    },
+    {
+      "componentId": "NODE-0334",
+      "variantProperties": {
+        "Type": "Error",
+        "Style": "Highline",
+        "Size": "Small",
+        "Animation": "S2"
+      }
+    },
+    {
+      "componentId": "NODE-0335",
+      "variantProperties": {
+        "Type": "Error",
+        "Style": "Highline",
+        "Size": "Regular",
+        "Animation": "S1"
+      }
+    },
+    {
+      "componentId": "NODE-0336",
+      "variantProperties": {
+        "Type": "Error",
+        "Style": "Highline",
+        "Size": "Regular",
+        "Animation": "S2"
+      }
+    },
+    {
+      "componentId": "NODE-0337",
+      "variantProperties": {
+        "Type": "Error",
+        "Style": "Highline",
+        "Size": "Large",
+        "Animation": "S1"
+      }
+    },
+    {
+      "componentId": "NODE-0338",
+      "variantProperties": {
+        "Type": "Error",
+        "Style": "Highline",
+        "Size": "Large",
+        "Animation": "S2"
+      }
+    },
+    {
+      "componentId": "NODE-0339",
+      "variantProperties": {
+        "Type": "Error",
+        "Style": "Filled",
+        "Size": "Small",
+        "Animation": "S1"
+      }
+    },
+    {
+      "componentId": "NODE-0340",
+      "variantProperties": {
+        "Type": "Error",
+        "Style": "Filled",
+        "Size": "Small",
+        "Animation": "S2"
+      }
+    },
+    {
+      "componentId": "NODE-0341",
+      "variantProperties": {
+        "Type": "Error",
+        "Style": "Filled",
+        "Size": "Regular",
+        "Animation": "S1"
+      }
+    },
+    {
+      "componentId": "NODE-0342",
+      "variantProperties": {
+        "Type": "Error",
+        "Style": "Filled",
+        "Size": "Regular",
+        "Animation": "S2"
+      }
+    },
+    {
+      "componentId": "NODE-0343",
+      "variantProperties": {
+        "Type": "Error",
         "Style": "Filled",
         "Size": "Large",
         "Animation": "S1"
       }
     },
     {
-      "componentId": "NODE-0525",
-      "variantProperties": {
-        "Type": "Warning",
-        "Style": "Filled",
-        "Size": "Large",
-        "Animation": "S2"
-      }
-    },
-    {
-      "componentId": "NODE-0526",
-      "variantProperties": {
-        "Type": "Error",
-        "Style": "Highline",
-        "Size": "Small",
-        "Animation": "S1"
-      }
-    },
-    {
-      "componentId": "NODE-0527",
-      "variantProperties": {
-        "Type": "Error",
-        "Style": "Highline",
-        "Size": "Small",
-        "Animation": "S2"
-      }
-    },
-    {
-      "componentId": "NODE-0528",
-      "variantProperties": {
-        "Type": "Error",
-        "Style": "Highline",
-        "Size": "Regular",
-        "Animation": "S1"
-      }
-    },
-    {
-      "componentId": "NODE-0529",
-      "variantProperties": {
-        "Type": "Error",
-        "Style": "Highline",
-        "Size": "Regular",
-        "Animation": "S2"
-      }
-    },
-    {
-      "componentId": "NODE-0530",
-      "variantProperties": {
-        "Type": "Error",
-        "Style": "Highline",
-        "Size": "Large",
-        "Animation": "S1"
-      }
-    },
-    {
-      "componentId": "NODE-0531",
-      "variantProperties": {
-        "Type": "Error",
-        "Style": "Highline",
-        "Size": "Large",
-        "Animation": "S2"
-      }
-    },
-    {
-      "componentId": "NODE-0532",
-      "variantProperties": {
-        "Type": "Error",
-        "Style": "Filled",
-        "Size": "Small",
-        "Animation": "S1"
-      }
-    },
-    {
-      "componentId": "NODE-0533",
-      "variantProperties": {
-        "Type": "Error",
-        "Style": "Filled",
-        "Size": "Small",
-        "Animation": "S2"
-      }
-    },
-    {
-      "componentId": "NODE-0534",
-      "variantProperties": {
-        "Type": "Error",
-        "Style": "Filled",
-        "Size": "Regular",
-        "Animation": "S1"
-      }
-    },
-    {
-      "componentId": "NODE-0535",
-      "variantProperties": {
-        "Type": "Error",
-        "Style": "Filled",
-        "Size": "Regular",
-        "Animation": "S2"
-      }
-    },
-    {
-      "componentId": "NODE-0536",
-      "variantProperties": {
-        "Type": "Error",
-        "Style": "Filled",
-        "Size": "Large",
-        "Animation": "S1"
-      }
-    },
-    {
-      "componentId": "NODE-0537",
+      "componentId": "NODE-0344",
       "variantProperties": {
         "Type": "Error",
         "Style": "Filled",

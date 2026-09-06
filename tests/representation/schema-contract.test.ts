@@ -72,6 +72,23 @@ type FixtureRow = {
 const allRows = loadJson<{ readonly fixtures: readonly FixtureRow[] }>(FIXTURE_INDEX).fixtures;
 const schemaRows = allRows.filter((row) => row.validator === 'schema');
 
+/** JSON Pointer / ajv schema path to its segments. `#` and empty segments drop
+ *  out, so `#/allOf/2/then` is `['allOf','2','then']`. */
+function pathSegments(path: string): readonly string[] {
+  return path.split('/').filter((segment) => segment.length > 0 && segment !== '#');
+}
+
+/** True when `expected` appears as a contiguous run inside `actual`. An empty
+ *  expectation matches anything, which is why a negative fixture is separately
+ *  required to declare a non-empty one. */
+function containsRun(actual: readonly string[], expected: readonly string[]): boolean {
+  if (expected.length === 0) return true;
+  for (let start = 0; start + expected.length <= actual.length; start += 1) {
+    if (expected.every((segment, offset) => actual[start + offset] === segment)) return true;
+  }
+  return false;
+}
+
 /** A fixture is addressed by its tracked relative name, never discovered. */
 function fixturePath(relativeName: string): string {
   return join(HERE, 'fixtures', relativeName);
@@ -156,19 +173,27 @@ describe('B1 · fixtures fail at their intended gate', () => {
       assert.equal(result.ok, false, `${fixture.file} was expected to be rejected`);
       if (result.ok) return;
 
-      // `schemaPath` is reported relative to the innermost `$ref`ed subschema,
-      // so `#/allOf/1/then/required` names a gate inside `$defs/ruleTarget` and an
-      // identical string names one at the document root. `instancePath` is what
-      // separates them, and a fixture that named only the schema path would be
-      // asserting against a string two different gates can produce.
+      /*
+       * `schemaPath` is reported relative to the innermost `$ref`ed subschema,
+       * so `#/allOf/1/then/required` names a gate inside `$defs/ruleTarget` and
+       * an identical string names one at the document root. `instancePath` is
+       * what separates them.
+       *
+       * The segments are matched as a **contiguous run of path segments**, not
+       * as independent substrings. Audit cycle 2 found the substring version
+       * was doing nothing: several segments are a single character, so
+       * `['allOf','2','then',…]` was satisfied by `#/allOf/12/then/…`,
+       * `#/allOf/20/…` and `#/allOf/32/…` alike. This file's own header claimed
+       * the assertion existed so that correcting the schema for strict mode
+       * "could not have silently moved a gate" — and a gate moving from
+       * `allOf/1` to `allOf/21` passed. An assertion that looks structural and
+       * is lexical is the exact shape of the `JSON.stringify`-replacer defect
+       * this project already paid for once.
+       */
       const matching = result.violations.filter(
         (v) =>
-          fixture.expected_schema_path_contains.every((segment) =>
-            v.schemaPath.includes(segment),
-          ) &&
-          fixture.expected_instance_path_contains.every((segment) =>
-            v.instancePath.includes(segment),
-          ),
+          containsRun(pathSegments(v.schemaPath), fixture.expected_schema_path_contains) &&
+          containsRun(pathSegments(v.instancePath), fixture.expected_instance_path_contains),
       );
       assert.ok(
         matching.length > 0,
@@ -205,11 +230,41 @@ describe('B1 · the target model is closed', () => {
   });
 
   test('the exported layout strategies and the schema enum are one list', () => {
+    const defs = schemaDocument['$defs'] as Record<string, { enum?: readonly string[] }>;
+    assert.deepEqual([...(defs['layoutStrategy']?.enum ?? [])], [...LAYOUT_STRATEGIES]);
+  });
+
+  test('the strategy enum is declared once and referenced, never repeated', () => {
+    // Audit cycle 2 found it inline in two places — `layoutRepresentation.strategy`
+    // and `ruleTarget.requiredStrategy` — with the agreement test covering one.
+    // A fourth strategy added to the covered copy would have passed the test and
+    // made REP-12's D-3 guard silently unexpressible for it.
+    const document = readFileSync(join(ROOT, REPRESENTATION_CONTRACT_SCHEMA_PATH), 'utf8');
+    assert.equal(
+      (document.match(/scenario_gallery/g) ?? []).length,
+      1,
+      'the strategy vocabulary appears more than once, so one copy can drift',
+    );
     const defs = schemaDocument['$defs'] as Record<string, Record<string, unknown>>;
-    const strategy = (
-      (defs['layoutRepresentation']?.['properties'] as Record<string, { enum?: readonly string[] }>)
+    const strategyRef = (
+      defs['layoutRepresentation']?.['properties'] as Record<string, { $ref?: string }>
     )['strategy'];
-    assert.deepEqual([...(strategy?.enum ?? [])], [...LAYOUT_STRATEGIES]);
+    const requiredRef = (defs['ruleTarget']?.['properties'] as Record<string, { $ref?: string }>)[
+      'requiredStrategy'
+    ];
+    assert.equal(strategyRef?.$ref, '#/$defs/layoutStrategy');
+    assert.equal(requiredRef?.$ref, '#/$defs/layoutStrategy');
+  });
+
+  test('one field name means one thing — scopeType is not two vocabularies', () => {
+    // Audit cycle 2: `$defs/scopeType` and `ownerConfirmationRecord.scopeType`
+    // were both called scopeType and shared exactly one of their combined nine
+    // values. A resolver transcribing "the scopeType vocabulary" was
+    // transcribing one of two, and nothing said which.
+    const defs = schemaDocument['$defs'] as Record<string, Record<string, unknown>>;
+    const confirmation = defs['ownerConfirmationRecord']?.['properties'] as Record<string, unknown>;
+    assert.equal('scopeType' in confirmation, false, 'the collision is back');
+    assert.ok('confirmationScopeType' in confirmation);
   });
 
   test('the contract instance declares no rule catalogue of its own (MB-7)', () => {
