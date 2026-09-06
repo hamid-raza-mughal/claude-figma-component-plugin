@@ -24,3 +24,17 @@ export type {
   LayoutStrategy,
   RuleTarget,
 } from './contracts/representation-contract.ts';
+
+export {
+  REPRESENTATION_INVARIANTS,
+  REPRESENTATION_INVARIANTS_BY_ID,
+} from './validation/invariant-registry.ts';
+
+export type { RepresentationInvariant } from './validation/invariant-registry.ts';
+
+export { PROMOTION_LEDGER, NEW_IN_PROMOTION } from './validation/promotion-ledger.ts';
+
+export type {
+  PromotionLedgerRow,
+  PromotionDisposition,
+} from './validation/promotion-ledger.ts';

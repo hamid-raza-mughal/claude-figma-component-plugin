@@ -1,9 +1,10 @@
 {
-  "note": "Schema-level fixtures for the promoted representation contract (0.4.1-draft). Every valid fixture must pass with format assertion on; every invalid fixture must fail AT ITS INTENDED GATE, which is what expected_schema_path_contains asserts. A fixture that merely fails is not evidence the gate works.",
+  "note": "Schema-level fixtures for the promoted representation contract (0.4.1-draft). Every valid fixture must pass with format assertion on; every invalid fixture must fail AT ITS INTENDED GATE, which is what expected_schema_path_contains and expected_instance_path_contains assert together. A fixture that merely fails is not evidence the gate works. rule_id binds a fixture to a REP-* row, and the binding is checked in BOTH directions (BP-6): no declared rule without a positive and a negative, no fixture naming a rule that is not declared. D-5 is what a one-way check misses -- three fixture-asserted ids that were never declared, and one declared rule with no negative fixture at all.",
   "fixtures": [
     {
       "file": "positive/minimal-contract.json",
       "expect": "valid",
+      "rule_id": null,
       "intended_error_code": null,
       "expected_schema_path_contains": [],
       "expected_instance_path_contains": [],
@@ -12,6 +13,7 @@
     {
       "file": "negative/promotion-gate-1.0.0-not-approved.json",
       "expect": "invalid",
+      "rule_id": "REP-01",
       "intended_error_code": "SCHEMA_ENUM_MISMATCH",
       "expected_schema_path_contains": [
         "allOf",
@@ -27,6 +29,7 @@
     {
       "file": "negative/promotion-gate-draft-declared-ready.json",
       "expect": "invalid",
+      "rule_id": "REP-02",
       "intended_error_code": "SCHEMA_ENUM_MISMATCH",
       "expected_schema_path_contains": [
         "allOf",
@@ -42,6 +45,7 @@
     {
       "file": "negative/approved-with-open-blockers.json",
       "expect": "invalid",
+      "rule_id": "REP-03",
       "intended_error_code": "SCHEMA_CONSTRAINT_FAILED",
       "expected_schema_path_contains": [
         "allOf",
@@ -59,6 +63,7 @@
     {
       "file": "negative/list-representation-carrying-allocation.json",
       "expect": "invalid",
+      "rule_id": "REP-04",
       "intended_error_code": "SCHEMA_CONSTRAINT_FAILED",
       "expected_schema_path_contains": [
         "allOf",
@@ -74,6 +79,7 @@
     {
       "file": "negative/naming-observed-only-with-uniqueness.json",
       "expect": "invalid",
+      "rule_id": "REP-05",
       "intended_error_code": "SCHEMA_ENUM_MISMATCH",
       "expected_schema_path_contains": [
         "allOf",
@@ -91,6 +97,7 @@
     {
       "file": "negative/finding-without-target.json",
       "expect": "invalid",
+      "rule_id": "REP-06",
       "intended_error_code": "SCHEMA_MISSING_REQUIRED",
       "expected_schema_path_contains": [
         "/properties/structuralFindings/items/required"
@@ -103,6 +110,7 @@
     {
       "file": "negative/blocker-without-target.json",
       "expect": "invalid",
+      "rule_id": "REP-06",
       "intended_error_code": "SCHEMA_MISSING_REQUIRED",
       "expected_schema_path_contains": [
         "/properties/approvalStatus/properties/blockers/items/required"
@@ -115,6 +123,7 @@
     {
       "file": "negative/limitation-without-target.json",
       "expect": "invalid",
+      "rule_id": "REP-06",
       "intended_error_code": "SCHEMA_MISSING_REQUIRED",
       "expected_schema_path_contains": [
         "/properties/knownLimitations/items/required"
@@ -127,6 +136,7 @@
     {
       "file": "negative/required-strategy-on-non-layout-target.json",
       "expect": "invalid",
+      "rule_id": "REP-07",
       "intended_error_code": "SCHEMA_CONSTRAINT_FAILED",
       "expected_schema_path_contains": [
         "allOf",
@@ -142,6 +152,7 @@
     {
       "file": "negative/artifact-target-without-hash.json",
       "expect": "invalid",
+      "rule_id": "REP-08",
       "intended_error_code": "SCHEMA_MISSING_REQUIRED",
       "expected_schema_path_contains": [
         "allOf",
@@ -157,6 +168,7 @@
     {
       "file": "negative/contract-target-carrying-prose.json",
       "expect": "invalid",
+      "rule_id": "REP-07",
       "intended_error_code": "SCHEMA_ENUM_MISMATCH",
       "expected_schema_path_contains": [
         "allOf",
@@ -174,6 +186,7 @@
     {
       "file": "negative/narrative-carrying-a-reference.json",
       "expect": "invalid",
+      "rule_id": "REP-09",
       "intended_error_code": "SCHEMA_UNKNOWN_FIELD",
       "expected_schema_path_contains": [
         "/properties/structuralFindings/items/properties/narrative/additionalProperties"
@@ -186,6 +199,7 @@
     {
       "file": "negative/authored-contract-with-migration-report.json",
       "expect": "invalid",
+      "rule_id": "REP-10",
       "intended_error_code": "SCHEMA_TYPE_MISMATCH",
       "expected_schema_path_contains": [
         "allOf",
@@ -197,6 +211,96 @@
       ],
       "expected_instance_path_contains": [],
       "purpose": "authoringMode is the discriminator that makes \"legacy states are migration-only\" enforceable without version-sniffing."
+    },
+    {
+      "file": "positive/rep-01-version-1.0.0-fully-earned.json",
+      "expect": "valid",
+      "rule_id": "REP-01",
+      "intended_error_code": null,
+      "expected_schema_path_contains": [],
+      "expected_instance_path_contains": [],
+      "purpose": "REP-01 in the passing direction: the only shape in which a 1.0.0 version string is a true statement. Without this the rule is only ever evidenced by rejection, which cannot show it is satisfiable at all."
+    },
+    {
+      "file": "positive/rep-02-draft-not-ready.json",
+      "expect": "valid",
+      "rule_id": "REP-02",
+      "intended_error_code": null,
+      "expected_schema_path_contains": [],
+      "expected_instance_path_contains": [],
+      "purpose": "REP-02 permits both draft readiness values, and not_ready is the one the baseline does not exercise."
+    },
+    {
+      "file": "positive/rep-03-approved-with-no-blockers.json",
+      "expect": "valid",
+      "rule_id": "REP-03",
+      "intended_error_code": null,
+      "expected_schema_path_contains": [],
+      "expected_instance_path_contains": [],
+      "purpose": "REP-03 in the passing direction: approval is reachable, and what it costs is zero blockers and a confirmation reference."
+    },
+    {
+      "file": "positive/rep-04-matrix-with-allocation.json",
+      "expect": "valid",
+      "rule_id": "REP-04",
+      "intended_error_code": null,
+      "expected_schema_path_contains": [],
+      "expected_instance_path_contains": [],
+      "purpose": "REP-04 is an if-and-only-if. The negative shows a list carrying an allocation; this shows a matrix carrying one, which is the half a rejection test cannot demonstrate."
+    },
+    {
+      "file": "positive/rep-05-naming-required-with-uniqueness.json",
+      "expect": "valid",
+      "rule_id": "REP-05",
+      "intended_error_code": null,
+      "expected_schema_path_contains": [],
+      "expected_instance_path_contains": [],
+      "purpose": "REP-05 in the passing direction: an enforced naming rule may claim uniqueness."
+    },
+    {
+      "file": "positive/rep-06-targets-across-three-kinds.json",
+      "expect": "valid",
+      "rule_id": "REP-06",
+      "intended_error_code": null,
+      "expected_schema_path_contains": [],
+      "expected_instance_path_contains": [],
+      "purpose": "REP-06 across all three sites at once, each naming a different collection. A positive that only repeated the baseline would prove the rule is satisfiable but not that it is satisfiable by more than one kind."
+    },
+    {
+      "file": "positive/rep-07-kind-compatible-targets.json",
+      "expect": "valid",
+      "rule_id": "REP-07",
+      "intended_error_code": null,
+      "expected_schema_path_contains": [],
+      "expected_instance_path_contains": [],
+      "purpose": "REP-07 in the passing direction, and the exact shape D-3 should have had: a rule guarding a matrix says requiredStrategy matrix, and its target resolves to a matrix."
+    },
+    {
+      "file": "positive/rep-08-pinned-artifact-target.json",
+      "expect": "valid",
+      "rule_id": "REP-08",
+      "intended_error_code": null,
+      "expected_schema_path_contains": [],
+      "expected_instance_path_contains": [],
+      "purpose": "REP-08 in the passing direction. The path here resolves in this repository, which is what D-7 could not claim; whether the pin matches the bytes is B3's reference validator, not the schema, and is not asserted here."
+    },
+    {
+      "file": "positive/rep-09-narrative-naming-ids-as-prose.json",
+      "expect": "valid",
+      "rule_id": "REP-09",
+      "intended_error_code": null,
+      "expected_schema_path_contains": [],
+      "expected_instance_path_contains": [],
+      "purpose": "REP-09 in the passing direction, deliberately mentioning three real ids inside the prose. That is allowed and inert: the narrative is closed, so those ids cannot become references, which is exactly what D-1 needed and did not have."
+    },
+    {
+      "file": "positive/rep-10-migrated-with-hashed-report.json",
+      "expect": "valid",
+      "rule_id": "REP-10",
+      "intended_error_code": null,
+      "expected_schema_path_contains": [],
+      "expected_instance_path_contains": [],
+      "purpose": "REP-10 is a two-sided discriminator. The negative shows authored refusing a report; this shows migrated requiring one."
     }
   ]
 }

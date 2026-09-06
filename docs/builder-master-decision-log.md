@@ -210,3 +210,28 @@ rule. That is the same class as D-4 — a checker that cannot observe the defect
 
 **Revisit trigger.** A future `ajv` major changing what `strictTypes` or `strictRequired` accept, at
 which point the corrections are re-derived by compiling rather than by editing to taste.
+
+---
+
+## MB-9 · A `REP-*` row is declared only once something enforces it, and the gap is a ledger
+
+**Ruling.** The `REP-*` registry carries only invariants that have an enforcement point today and a
+positive **and** negative fixture proving it. The remaining research rules — nineteen of the
+twenty-nine — are recorded in `src/representation/validation/promotion-ledger.ts` with the work
+package that lands each. A test asserts the ledger covers every research id exactly once, that every
+`promoted_to` names a declared row, that every declared row is either claimed by the ledger or listed
+as new, and that lineage agrees in both directions.
+
+**Why this is the smallest safe option.** The obvious alternative — declare all twenty-nine rows now
+and fill in enforcement later — **is D-5, performed deliberately.** D-5 is a fixture manifest
+asserting three rule ids the contract never declared while a fourth declared rule had no negative
+fixture, and BP-6 exists specifically to make that condition a failing test. A registry that outruns
+its enforcement would have to suppress its own bidirectional check to stay green, which is the one
+thing this phase must not do. The other alternative — say nothing about the nineteen — makes a
+dropped rule indistinguishable from a deferred one, and the research package is the evidence that
+silence is what lets a rule rot. `CV-17` gets a fourth disposition, `partially_promoted`, because its
+`authoringMode` leg is schema-enforced today while its legacy-state and migration-review legs are
+not; recording it as plain `promoted` would overstate coverage by exactly the amount that matters.
+
+**Revisit trigger.** The ledger reaching zero `pending` rows, at which point it becomes a lineage
+record rather than a work list and its `pending_in` field should be dropped.
