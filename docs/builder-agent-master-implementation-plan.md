@@ -54,7 +54,7 @@ Highest authority first. A lower source never overrides a higher one.
    `docs/phase2-r1-verification.md`.
 4. **This plan.**
 5. **The research package** `plugin_explore_phase/` — evidence only, never a dependency (BP-1).
-6. **The OneDrive planning folder** (`.../Techlogix UX Studio/Claude/AI Agentic Architect/`) —
+6. **The OneDrive planning folder** (the owner's planning folder — real path deliberately not recorded in a tracked file, AL-6) —
    **frozen at 2026-07-31 and superseded.** Never cite it as current status. Its
    `manage-ds-components-spec-amendments_v4.md` is headed "PROPOSED"; that is a stale generation.
    **Revision 4 is locked** — `docs/phase2-decision-log.md` PD-1 records it. A filename or header

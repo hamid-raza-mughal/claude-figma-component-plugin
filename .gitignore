@@ -24,3 +24,30 @@ Thumbs.db
 .env
 .env.local
 phase1-config.local.json
+
+# ⚠ The research corpus. UNTRACKED BY RULING (BP-1) — this line makes that
+# ruling enforceable rather than aspirational (MB-5, docs/builder-master-decision-log.md).
+# Without it the whole 24 MB tree is untracked AND unignored, so a single
+# `git add -A` stages a real Figma file key, ~2,000 real node ids, real
+# variable/style keys and screenshots of the client's live canvas onto a branch
+# whose remote resolves WITHOUT AUTHENTICATION. BP-5 calls that the load-bearing
+# risk, not a cautious one. This line is working-tree-only, exactly like the two
+# below it: it changes nothing about the committed tree, and the two file-level
+# rules that follow are left as the owner wrote them.
+plugin_explore_phase/
+
+# Nothing is selectively un-ignored beneath that line, and nothing can be: git
+# does not re-include a file inside an ignored directory, so a negation here
+# would be inert. Two file-level rules naming the raw Figma exports used to sit
+# here; they were removed because the directory rule above already covers them
+# and their filenames embed a real node id, which BP-5 forbids a tracked file
+# from carrying. The exports themselves stay out of the tree — they are large,
+# regenerable, and already recorded by SHA-256 in the research contract's
+# provenance.exportsUsed, which is the durable reference to their content.
+
+# Local-only working files — session-local, never committed (owner decision, 2026-09-06)
+# CLAUDE.md      standing project instructions for the executing session
+# AGENT-CHANNEL.md  the EXEC<->REVIEW thread; untracked by design, so it has NO git history
+#                   -> never `git clean -fd` or `git stash -u` in this repo: both delete it
+CLAUDE.md
+AGENT-CHANNEL.md
