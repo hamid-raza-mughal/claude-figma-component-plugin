@@ -58,6 +58,10 @@ function registry(): SchemaRegistry {
 
 type FixtureRow = {
   readonly file: string;
+  /** Which check the row is evidence for. B1 owns only the schema rows; the
+   *  `reference` and `semantic` rows are deliberately schema-VALID, so running
+   *  them here would assert the opposite of what they exist to show. */
+  readonly validator: 'schema' | 'reference' | 'semantic';
   readonly expect: 'valid' | 'invalid';
   readonly intended_error_code: string | null;
   readonly expected_schema_path_contains: readonly string[];
@@ -65,7 +69,8 @@ type FixtureRow = {
   readonly purpose: string;
 };
 
-const index = loadJson<{ readonly fixtures: readonly FixtureRow[] }>(FIXTURE_INDEX);
+const allRows = loadJson<{ readonly fixtures: readonly FixtureRow[] }>(FIXTURE_INDEX).fixtures;
+const schemaRows = allRows.filter((row) => row.validator === 'schema');
 
 /** A fixture is addressed by its tracked relative name, never discovered. */
 function fixturePath(relativeName: string): string {
@@ -134,7 +139,7 @@ describe('B1 · the schema compiles under the production registry', () => {
 });
 
 describe('B1 · fixtures fail at their intended gate', () => {
-  for (const fixture of index.fixtures) {
+  for (const fixture of schemaRows) {
     test(`${fixture.file} — ${fixture.purpose.slice(0, 70)}`, () => {
       const data = loadJson(fixturePath(fixture.file));
       const result = registry().validate(REPRESENTATION_CONTRACT_SCHEMA_ID, data);
@@ -181,8 +186,8 @@ describe('B1 · fixtures fail at their intended gate', () => {
     });
   }
 
-  test('every negative fixture names a gate — an unanchored expectation is not evidence', () => {
-    for (const fixture of index.fixtures) {
+  test('every schema negative names a gate — an unanchored expectation is not evidence', () => {
+    for (const fixture of schemaRows) {
       if (fixture.expect !== 'invalid') continue;
       assert.ok(
         fixture.expected_schema_path_contains.length > 0,

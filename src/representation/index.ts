@@ -38,3 +38,19 @@ export type {
   PromotionLedgerRow,
   PromotionDisposition,
 } from './validation/promotion-ledger.ts';
+
+export { resolveReferences } from './validation/reference-resolver.ts';
+
+export type {
+  ArtifactReader,
+  ReferenceViolation,
+  ReferenceResult,
+  ResolveInput,
+} from './validation/reference-resolver.ts';
+
+export { checkSemantics } from './validation/semantic-validator.ts';
+
+export type {
+  SemanticViolation,
+  SemanticResult,
+} from './validation/semantic-validator.ts';

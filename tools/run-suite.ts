@@ -51,7 +51,7 @@ export const EXPECTATIONS = {
    * today's measured source-only count gives `641 + 84 = 725`, which is a
    * **lower bound** on the real strict count and therefore a valid floor: a
    * bundle-gated suite that has grown since only moves the real count further
-   * above it. Re-derived the same way at WP A2 (`709 + 84 = 793`) WP A3 (`725 + 84 = 809`), WP A4 (`748 + 84 = 832`), audit cycle 1 (`809 + 84 = 893`) Builder Phase 1 WP B1 (`836 + 84 = 920`) and WP B2 (`863 + 84 = 947`).
+   * above it. Re-derived the same way at WP A2 (`709 + 84 = 793`) WP A3 (`725 + 84 = 809`), WP A4 (`748 + 84 = 832`), audit cycle 1 (`809 + 84 = 893`) Builder Phase 1 WP B1 (`836 + 84 = 920`) WP B2 (`863 + 84 = 947`) and WP B3 (`905 + 84 = 989`).
    *
    * Recorded while raising it: this figure had drifted **278 tests behind**
    * the source-only suite (447 against 605) because the floors were last
@@ -61,13 +61,14 @@ export const EXPECTATIONS = {
    * checking that. Re-measure and replace this value the first time the
    * bundle is present.
    */
-  strictTestFloor: 947,
+  strictTestFloor: 989,
   /** Source-only suite. Measured 2026-07-30: 363 tests, 7 skipped.
    *  Re-measured 2026-09-06 at Builder-master WP A1: 641 tests, 7 skipped;
    *  at WP A2: 709 tests, 7 skipped; at WP A3: 725 tests, 7 skipped;
    *  at WP A4: 748 tests, 7 skipped; after audit cycle 1: 809 tests, 7 skipped;
-   *  at Builder Phase 1 WP B1: 836 tests, 7 skipped; at WP B2: 863 tests, 7 skipped. */
-  sourceOnlyTestFloor: 863,
+   *  at Builder Phase 1 WP B1: 836 tests, 7 skipped; at WP B2: 863 tests, 7 skipped;
+   *  at WP B3: 905 tests, 7 skipped. */
+  sourceOnlyTestFloor: 905,
   /**
    * The bundle-gated placeholder tests — one per source-backed suite, each
    * declared `{ skip: true }` so an absent bundle is legible in the report

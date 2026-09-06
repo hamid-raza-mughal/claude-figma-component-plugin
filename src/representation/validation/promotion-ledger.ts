@@ -89,9 +89,9 @@ export const PROMOTION_LEDGER: readonly PromotionLedgerRow[] = [
 
   // --- CV-*: document integrity -------------------------------------------
   pending('CV-1', 'B3', 'Weak evidence must not be paired with a physical-completeness claim.'),
-  pending('CV-2', 'B3', 'Duplicate identifiers within a namespace.'),
-  pending('CV-3', 'B3', 'Broken or inconsistent cross-references. D-5: declared in the research contract with zero negative fixture.'),
-  pending('CV-3b', 'B3', 'Layout-representation and typed-scope reference integrity; undocumented variants stated explicitly.'),
+  promoted('CV-2', ['REP-16'], 'Duplicate identifiers within a namespace, plus C-11: a buildFrameId must not collide with a component set id.'),
+  promoted('CV-3', ['REP-11', 'REP-15'], 'Broken or inconsistent cross-references. D-5 said it was declared with zero negative fixture; both directions now carry one.'),
+  promoted('CV-3b', ['REP-12', 'REP-17'], 'Layout-representation kind-compatibility (D-3) and explicit declaration of variants no representation covers.'),
   promoted('CV-4', ['REP-03'], 'D-5 orphan: fixture-asserted, never declared. Now declared with coverage in both directions.'),
   pending('CV-5', 'B3', 'Incomplete or duplicate correlated-axis tuple entry.'),
   pending('CV-6', 'B3', 'Owner approval without a resolvable, bidirectionally-agreeing confirmation record.'),
@@ -112,4 +112,11 @@ export const PROMOTION_LEDGER: readonly PromotionLedgerRow[] = [
 
 /** `REP-*` rows introduced by the promotion rather than descended from a
  *  research rule. Kept beside the ledger so "new" is a list, not an inference. */
-export const NEW_IN_PROMOTION: readonly string[] = ['REP-06', 'REP-07', 'REP-08', 'REP-09'];
+export const NEW_IN_PROMOTION: readonly string[] = [
+  'REP-06',
+  'REP-07',
+  'REP-08',
+  'REP-09',
+  'REP-13',
+  'REP-14',
+];

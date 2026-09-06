@@ -1,8 +1,9 @@
 {
-  "note": "Schema-level fixtures for the promoted representation contract (0.4.1-draft). Every valid fixture must pass with format assertion on; every invalid fixture must fail AT ITS INTENDED GATE, which is what expected_schema_path_contains and expected_instance_path_contains assert together. A fixture that merely fails is not evidence the gate works. rule_id binds a fixture to a REP-* row, and the binding is checked in BOTH directions (BP-6): no declared rule without a positive and a negative, no fixture naming a rule that is not declared. D-5 is what a one-way check misses -- three fixture-asserted ids that were never declared, and one declared rule with no negative fixture at all.",
+  "note": "Fixtures for the promoted representation contract (0.4.1-draft). `validator` says which check a row is evidence for: `schema` rows are validated by the schema and must fail AT THEIR INTENDED GATE (expected_schema_path_contains plus expected_instance_path_contains together, because ajv reports schemaPath relative to the innermost $ref and the same string names two gates). `reference` and `semantic` rows are validated by the resolvers in src/representation/validation/, and every one of their negatives is ALSO asserted to be schema-valid -- which is the whole argument for B3: D-1, D-2, D-3 and D-7 all passed a schema. rule_id binds every row to a REP-* invariant, checked in BOTH directions (BP-6): no declared rule without a positive and a negative, no fixture naming a rule that is not declared. D-5 is what a one-way check misses.",
   "fixtures": [
     {
       "file": "positive/minimal-contract.json",
+      "validator": "schema",
       "expect": "valid",
       "rule_id": null,
       "intended_error_code": null,
@@ -12,6 +13,7 @@
     },
     {
       "file": "negative/promotion-gate-1.0.0-not-approved.json",
+      "validator": "schema",
       "expect": "invalid",
       "rule_id": "REP-01",
       "intended_error_code": "SCHEMA_ENUM_MISMATCH",
@@ -28,6 +30,7 @@
     },
     {
       "file": "negative/promotion-gate-draft-declared-ready.json",
+      "validator": "schema",
       "expect": "invalid",
       "rule_id": "REP-02",
       "intended_error_code": "SCHEMA_ENUM_MISMATCH",
@@ -44,6 +47,7 @@
     },
     {
       "file": "negative/approved-with-open-blockers.json",
+      "validator": "schema",
       "expect": "invalid",
       "rule_id": "REP-03",
       "intended_error_code": "SCHEMA_CONSTRAINT_FAILED",
@@ -62,6 +66,7 @@
     },
     {
       "file": "negative/list-representation-carrying-allocation.json",
+      "validator": "schema",
       "expect": "invalid",
       "rule_id": "REP-04",
       "intended_error_code": "SCHEMA_CONSTRAINT_FAILED",
@@ -78,6 +83,7 @@
     },
     {
       "file": "negative/naming-observed-only-with-uniqueness.json",
+      "validator": "schema",
       "expect": "invalid",
       "rule_id": "REP-05",
       "intended_error_code": "SCHEMA_ENUM_MISMATCH",
@@ -96,6 +102,7 @@
     },
     {
       "file": "negative/finding-without-target.json",
+      "validator": "schema",
       "expect": "invalid",
       "rule_id": "REP-06",
       "intended_error_code": "SCHEMA_MISSING_REQUIRED",
@@ -109,6 +116,7 @@
     },
     {
       "file": "negative/blocker-without-target.json",
+      "validator": "schema",
       "expect": "invalid",
       "rule_id": "REP-06",
       "intended_error_code": "SCHEMA_MISSING_REQUIRED",
@@ -122,6 +130,7 @@
     },
     {
       "file": "negative/limitation-without-target.json",
+      "validator": "schema",
       "expect": "invalid",
       "rule_id": "REP-06",
       "intended_error_code": "SCHEMA_MISSING_REQUIRED",
@@ -135,6 +144,7 @@
     },
     {
       "file": "negative/required-strategy-on-non-layout-target.json",
+      "validator": "schema",
       "expect": "invalid",
       "rule_id": "REP-07",
       "intended_error_code": "SCHEMA_CONSTRAINT_FAILED",
@@ -151,6 +161,7 @@
     },
     {
       "file": "negative/artifact-target-without-hash.json",
+      "validator": "schema",
       "expect": "invalid",
       "rule_id": "REP-08",
       "intended_error_code": "SCHEMA_MISSING_REQUIRED",
@@ -167,6 +178,7 @@
     },
     {
       "file": "negative/contract-target-carrying-prose.json",
+      "validator": "schema",
       "expect": "invalid",
       "rule_id": "REP-07",
       "intended_error_code": "SCHEMA_ENUM_MISMATCH",
@@ -185,6 +197,7 @@
     },
     {
       "file": "negative/narrative-carrying-a-reference.json",
+      "validator": "schema",
       "expect": "invalid",
       "rule_id": "REP-09",
       "intended_error_code": "SCHEMA_UNKNOWN_FIELD",
@@ -198,6 +211,7 @@
     },
     {
       "file": "negative/authored-contract-with-migration-report.json",
+      "validator": "schema",
       "expect": "invalid",
       "rule_id": "REP-10",
       "intended_error_code": "SCHEMA_TYPE_MISMATCH",
@@ -214,6 +228,7 @@
     },
     {
       "file": "positive/rep-01-version-1.0.0-fully-earned.json",
+      "validator": "schema",
       "expect": "valid",
       "rule_id": "REP-01",
       "intended_error_code": null,
@@ -223,6 +238,7 @@
     },
     {
       "file": "positive/rep-02-draft-not-ready.json",
+      "validator": "schema",
       "expect": "valid",
       "rule_id": "REP-02",
       "intended_error_code": null,
@@ -232,6 +248,7 @@
     },
     {
       "file": "positive/rep-03-approved-with-no-blockers.json",
+      "validator": "schema",
       "expect": "valid",
       "rule_id": "REP-03",
       "intended_error_code": null,
@@ -241,6 +258,7 @@
     },
     {
       "file": "positive/rep-04-matrix-with-allocation.json",
+      "validator": "schema",
       "expect": "valid",
       "rule_id": "REP-04",
       "intended_error_code": null,
@@ -250,6 +268,7 @@
     },
     {
       "file": "positive/rep-05-naming-required-with-uniqueness.json",
+      "validator": "schema",
       "expect": "valid",
       "rule_id": "REP-05",
       "intended_error_code": null,
@@ -259,6 +278,7 @@
     },
     {
       "file": "positive/rep-06-targets-across-three-kinds.json",
+      "validator": "schema",
       "expect": "valid",
       "rule_id": "REP-06",
       "intended_error_code": null,
@@ -268,6 +288,7 @@
     },
     {
       "file": "positive/rep-07-kind-compatible-targets.json",
+      "validator": "schema",
       "expect": "valid",
       "rule_id": "REP-07",
       "intended_error_code": null,
@@ -277,6 +298,7 @@
     },
     {
       "file": "positive/rep-08-pinned-artifact-target.json",
+      "validator": "schema",
       "expect": "valid",
       "rule_id": "REP-08",
       "intended_error_code": null,
@@ -286,6 +308,7 @@
     },
     {
       "file": "positive/rep-09-narrative-naming-ids-as-prose.json",
+      "validator": "schema",
       "expect": "valid",
       "rule_id": "REP-09",
       "intended_error_code": null,
@@ -295,12 +318,179 @@
     },
     {
       "file": "positive/rep-10-migrated-with-hashed-report.json",
+      "validator": "schema",
       "expect": "valid",
       "rule_id": "REP-10",
       "intended_error_code": null,
       "expected_schema_path_contains": [],
       "expected_instance_path_contains": [],
       "purpose": "REP-10 is a two-sided discriminator. The negative shows authored refusing a report; this shows migrated requiring one."
+    },
+    {
+      "file": "reference/rep-11-negative-dangling-component-set.json",
+      "validator": "reference",
+      "expect": "invalid",
+      "rule_id": "REP-11",
+      "intended_error_code": "REP_TARGET_UNRESOLVED",
+      "artifact_reader": null,
+      "purpose": "D-1 and D-2 class: a target naming a component set the contract does not contain. The schema accepts it, because a string that matches no pattern rule is just a string."
+    },
+    {
+      "file": "reference/rep-11-positive-targets-resolve.json",
+      "validator": "reference",
+      "expect": "valid",
+      "rule_id": "REP-11",
+      "intended_error_code": null,
+      "artifact_reader": null,
+      "purpose": "REP-11 in the passing direction, across two collections."
+    },
+    {
+      "file": "reference/rep-12-negative-matrix-rule-targets-list.json",
+      "validator": "reference",
+      "expect": "invalid",
+      "rule_id": "REP-12",
+      "intended_error_code": "REP_TARGET_STRATEGY_MISMATCH",
+      "artifact_reader": null,
+      "purpose": "D-3 reproduced: a rule guarding matrix cells whose target resolves to a list representation. LR-1 exists, so existence checking alone passes this \u2014 which is why the research suite did."
+    },
+    {
+      "file": "reference/rep-12-positive-matrix-rule-targets-matrix.json",
+      "validator": "reference",
+      "expect": "valid",
+      "rule_id": "REP-12",
+      "intended_error_code": null,
+      "artifact_reader": null,
+      "purpose": "The shape D-3 should have had."
+    },
+    {
+      "file": "reference/rep-13-negative-artifact-missing.json",
+      "validator": "reference",
+      "expect": "invalid",
+      "rule_id": "REP-13",
+      "intended_error_code": "REP_ARTIFACT_TARGET_MISSING",
+      "artifact_reader": {},
+      "purpose": "D-7 exactly: a blocker citing an artifact that is not there. The reader is present and empty, which is the difference between \"checked and absent\" and \"never checked\"."
+    },
+    {
+      "file": "reference/rep-13-negative-artifact-hash-mismatch.json",
+      "validator": "reference",
+      "expect": "invalid",
+      "rule_id": "REP-13",
+      "intended_error_code": "REP_ARTIFACT_TARGET_HASH_MISMATCH",
+      "artifact_reader": {
+        "evidence/allocation.json": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+      },
+      "purpose": "The artifact exists and is the wrong bytes. A path that resolves is not the same claim as a path whose content backs the statement made over it."
+    },
+    {
+      "file": "reference/rep-13-negative-no-artifact-reader.json",
+      "validator": "reference",
+      "expect": "invalid",
+      "rule_id": "REP-13",
+      "intended_error_code": "REP_ARTIFACT_TARGET_UNRESOLVABLE",
+      "artifact_reader": null,
+      "purpose": "No reader supplied. This must fail rather than skip: an unchecked reference reading as a passing one is how D-7 survived a green suite in the first place."
+    },
+    {
+      "file": "reference/rep-13-positive-artifact-pinned-and-present.json",
+      "validator": "reference",
+      "expect": "valid",
+      "rule_id": "REP-13",
+      "intended_error_code": null,
+      "artifact_reader": {
+        "evidence/allocation.json": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+      },
+      "purpose": "REP-13 in the passing direction: present, and the bytes are the ones the claim was made over."
+    },
+    {
+      "file": "reference/rep-14-negative-pointer-past-end-of-array.json",
+      "validator": "reference",
+      "expect": "invalid",
+      "rule_id": "REP-14",
+      "intended_error_code": "REP_CONTRACT_FIELD_POINTER_UNRESOLVED",
+      "artifact_reader": null,
+      "purpose": "The pointer is well-formed and resolves to nothing. An index past the end of an array is the silent-miss case, because it looks exactly like a valid one."
+    },
+    {
+      "file": "reference/rep-14-positive-pointer-resolves.json",
+      "validator": "reference",
+      "expect": "valid",
+      "rule_id": "REP-14",
+      "intended_error_code": null,
+      "artifact_reader": null,
+      "purpose": "REP-14 in the passing direction."
+    },
+    {
+      "file": "reference/rep-15-negative-scope-ref-unresolved.json",
+      "validator": "reference",
+      "expect": "invalid",
+      "rule_id": "REP-15",
+      "intended_error_code": "REP_SCOPE_REF_UNRESOLVED",
+      "artifact_reader": null,
+      "purpose": "C-3 separated scope from corroboration so a finding could say what it applies to. An unresolvable scope says nothing, at full confidence."
+    },
+    {
+      "file": "reference/rep-15-positive-scopes-resolve.json",
+      "validator": "reference",
+      "expect": "valid",
+      "rule_id": "REP-15",
+      "intended_error_code": null,
+      "artifact_reader": null,
+      "purpose": "REP-15 in the passing direction, across two scope types."
+    },
+    {
+      "file": "reference/rep-16-negative-duplicate-component-set-id.json",
+      "validator": "semantic",
+      "expect": "invalid",
+      "rule_id": "REP-16",
+      "intended_error_code": "REP_DUPLICATE_IDENTIFIER",
+      "artifact_reader": null,
+      "purpose": "Two component sets sharing one id. The schema has no uniqueness keyword that reaches this, so it passes there."
+    },
+    {
+      "file": "reference/rep-16-negative-build-frame-collides.json",
+      "validator": "semantic",
+      "expect": "invalid",
+      "rule_id": "REP-16",
+      "intended_error_code": "REP_BUILD_FRAME_ID_COLLIDES_WITH_SET_ID",
+      "artifact_reader": null,
+      "purpose": "C-11 makes buildFrameId a many-to-one reference rather than an identity. A collision makes one string mean two different things depending on which field read it."
+    },
+    {
+      "file": "reference/rep-16-positive-distinct-identifiers.json",
+      "validator": "semantic",
+      "expect": "valid",
+      "rule_id": "REP-16",
+      "intended_error_code": null,
+      "artifact_reader": null,
+      "purpose": "REP-16 in the passing direction, with a build frame reference present rather than absent \u2014 a null buildFrameId would not exercise the collision check at all."
+    },
+    {
+      "file": "reference/rep-17-negative-uncovered-variant-not-listed.json",
+      "validator": "semantic",
+      "expect": "invalid",
+      "rule_id": "REP-17",
+      "intended_error_code": "REP_UNCOVERED_VARIANT_NOT_DECLARED",
+      "artifact_reader": null,
+      "purpose": "A schema variant no layout representation covers, and no statement that this is so. Being undocumented is fine; being silently undocumented is what D-1, D-2, D-7 and D-9 all rely on."
+    },
+    {
+      "file": "reference/rep-17-positive-uncovered-variant-declared.json",
+      "validator": "semantic",
+      "expect": "valid",
+      "rule_id": "REP-17",
+      "intended_error_code": null,
+      "artifact_reader": null,
+      "purpose": "REP-17 in the passing direction: the absence is stated."
+    },
+    {
+      "file": "reference/rep-17-negative-variant-covered-and-undocumented.json",
+      "validator": "semantic",
+      "expect": "invalid",
+      "rule_id": "REP-17",
+      "intended_error_code": "REP_VARIANT_BOTH_COVERED_AND_UNDOCUMENTED",
+      "artifact_reader": null,
+      "purpose": "The other direction: a variant declared undocumented while a representation covers it. A one-way check sees neither this nor the case above."
     }
   ]
 }

@@ -1,0 +1,225 @@
+{
+  "contractId": "CRC-SAMPLE-1",
+  "contractVersion": "0.4.1-draft",
+  "authoringMode": "authored",
+  "migrationReportRef": null,
+  "provenance": {
+    "file": "Sample Design System",
+    "fileKey": "SAMPLE-FILE-KEY-0001",
+    "pageId": null,
+    "pageName": null,
+    "rootNodeId": "SAMPLE:0",
+    "rootNodeName": "Sample Root",
+    "analyzedComponent": "Sample",
+    "exportsUsed": [
+      {
+        "fileName": "sample-export.json",
+        "capabilities": [
+          "structure"
+        ],
+        "selfReportsValidation": false,
+        "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+        "capturedAt": null
+      }
+    ]
+  },
+  "componentIdentity": {
+    "name": "Sample",
+    "description": "A synthetic component used only to exercise the schema.",
+    "evidence": {
+      "classification": "observed",
+      "sourceFile": "sample-export.json",
+      "note": "synthetic"
+    }
+  },
+  "componentSets": [
+    {
+      "id": "CS-1",
+      "buildFrameId": null,
+      "name": "Sample / Default",
+      "familyId": null,
+      "treatment": {
+        "kind": "none"
+      },
+      "schemaVariantId": "SV-1",
+      "evidence": {
+        "classification": "observed",
+        "sourceFile": "sample-export.json",
+        "note": "synthetic"
+      }
+    }
+  ],
+  "propertySchemaVariants": [
+    {
+      "variantId": "SV-1",
+      "appliesToComponentSetIds": [
+        "CS-1"
+      ],
+      "properties": [
+        {
+          "propertyKey": "size",
+          "type": "VARIANT",
+          "role": "variant_axis",
+          "canonicalOptions": [
+            "small",
+            "large"
+          ],
+          "evidenceLevel": "observed_instances"
+        }
+      ],
+      "evidence": {
+        "classification": "observed",
+        "sourceFile": "sample-export.json",
+        "note": "synthetic"
+      }
+    }
+  ],
+  "canonicalValueDisplayLabelMap": [],
+  "correlatedAxisTuples": [],
+  "ownerConfirmations": [],
+  "themeModel": {
+    "collections": [],
+    "containers": [],
+    "variablesUsedByDescendants": [],
+    "mechanismEvidence": {
+      "resolvedValuesDifferPerContainer": false,
+      "explicitPerFrameModeOverrideObserved": false,
+      "classification": "unverified"
+    }
+  },
+  "representativeExamples": [],
+  "namingRules": [
+    {
+      "namingRuleId": "NR-sample",
+      "appliesToRole": "container",
+      "template": "{role}",
+      "enforcement": "observed_only",
+      "uniquenessPolicy": "not_applicable",
+      "scope": {
+        "scopeType": "component_set",
+        "scopeRef": "CS-1"
+      }
+    }
+  ],
+  "layoutRepresentations": [
+    {
+      "representationId": "LR-1",
+      "strategy": "list",
+      "appliesTo": {
+        "schemaVariantIds": [
+          "SV-1"
+        ],
+        "componentSetIds": [
+          "CS-1"
+        ]
+      },
+      "evidenceNodeIds": [
+        "SAMPLE:1"
+      ],
+      "evidence": {
+        "classification": "observed",
+        "sourceFile": "sample-export.json",
+        "note": "synthetic"
+      }
+    }
+  ],
+  "representationNodeBindings": [
+    {
+      "layoutRepresentationRef": "LR-1",
+      "containerNodeId": "SAMPLE:1",
+      "rootNodeId": "SAMPLE:0",
+      "semanticRole": "gallery_container",
+      "observedLayerName": "gallery"
+    }
+  ],
+  "undocumentedSchemaVariantIds": [],
+  "coveragePolicy": {
+    "statement": "Coverage is claimed only where enumeration evidence exists.",
+    "qualifyingEvidenceLevelsForPhysicalCompletenessClaim": [
+      "component_children_enumerated",
+      "owner_confirmed"
+    ],
+    "perComponentSetCoverage": [
+      {
+        "componentSetId": "CS-1",
+        "coverageMetrics": [
+          {
+            "kind": "classified",
+            "metric": "instance_placements",
+            "value": 2
+          }
+        ],
+        "physicalCoverageEvidenceLevel": "observed_instances",
+        "physicalCompletenessClaimed": false,
+        "ownerConfirmationRef": null,
+        "enumerationEvidence": {
+          "status": "not_enumerated",
+          "enumeratedAxes": [],
+          "enumeratedAxisCombinations": [],
+          "artifactPath": null,
+          "artifactSha256": null,
+          "enumeratedCount": null,
+          "method": null
+        }
+      }
+    ]
+  },
+  "structuralFindings": [
+    {
+      "findingId": "SF-1",
+      "narrative": {
+        "description": "The sample set carries one variant axis and no correlated axes."
+      },
+      "target": {
+        "targetKind": "schema_variant",
+        "targetRef": "SV-1"
+      },
+      "appliesToScopes": [
+        {
+          "scopeType": "component_set",
+          "scopeRef": "CS-1"
+        }
+      ],
+      "corroboration": {
+        "level": "single_component_observed",
+        "corroboratingContracts": []
+      },
+      "evidence": {
+        "classification": "observed",
+        "sourceFile": "sample-export.json",
+        "note": "synthetic"
+      }
+    }
+  ],
+  "readinessStatus": "validation_ready",
+  "approvalStatus": {
+    "overall": "blocked",
+    "ownerConfirmationRef": null,
+    "blockers": [
+      {
+        "blockerId": "BLK-1",
+        "blockerClass": "owner_decision",
+        "narrative": {
+          "description": "No owner confirmation exists for this synthetic contract.",
+          "mustBeResolvedBefore": "Any approval of this contract."
+        },
+        "target": {
+          "targetKind": "contract",
+          "targetRef": "self"
+        }
+      }
+    ]
+  },
+  "knownLimitations": [
+    {
+      "limitationId": "KL-1",
+      "narrative": {
+        "statement": "This contract is synthetic and describes no real design system."
+      },
+      "target": {
+        "targetKind": "naming_rule",
+        "targetRef": "NR-sample"
+      }
+    }
+  ]
+}

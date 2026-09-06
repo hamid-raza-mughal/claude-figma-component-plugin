@@ -151,6 +151,86 @@ export const REPRESENTATION_INVARIANTS: readonly RepresentationInvariant[] = [
       'legacy migration states being reachable in an authored contract without version-sniffing',
     error_code: 'REP_MIGRATION_PROVENANCE_MISMATCH',
   },
+  {
+    id: 'REP-11',
+    statement:
+      "A target's targetRef resolves to an existing member of the collection its targetKind " +
+      'names.',
+    owner: 'reference-validator',
+    promoted_from: 'CV-3',
+    prevents:
+      'D-1 and D-2 — references that existed only inside sentences, so nothing ever tried to ' +
+      'resolve them',
+    error_code: 'REP_TARGET_UNRESOLVED',
+  },
+  {
+    id: 'REP-12',
+    statement:
+      'A layout_representation target declaring requiredStrategy resolves to a representation ' +
+      'whose strategy is that one.',
+    owner: 'reference-validator',
+    promoted_from: 'CV-3b',
+    prevents:
+      'D-3 exactly. Existence alone passes it — LR-1 exists — and what was wrong was its kind',
+    error_code: 'REP_TARGET_STRATEGY_MISMATCH',
+  },
+  {
+    id: 'REP-13',
+    statement:
+      'An artifact target resolves to a file that exists, and its bytes hash to the pin the ' +
+      'target carries.',
+    owner: 'reference-validator',
+    promoted_from: null,
+    prevents:
+      'D-7: a blocker citing an allocation-evidence artifact absent from disk. A path with no ' +
+      'reader is a violation, not a skip — an unchecked reference must not read as a passing one',
+    error_code: 'REP_ARTIFACT_TARGET_UNRESOLVABLE',
+  },
+  {
+    id: 'REP-14',
+    statement: "A contract_field target's JSON Pointer resolves to a value inside this contract.",
+    owner: 'reference-validator',
+    promoted_from: null,
+    prevents:
+      'a pointer that runs off the end of an array, which resolves to undefined and would ' +
+      'otherwise pass silently',
+    error_code: 'REP_CONTRACT_FIELD_POINTER_UNRESOLVED',
+  },
+  {
+    id: 'REP-15',
+    statement:
+      "Every typedScope's scopeRef resolves against the array its scopeType names.",
+    owner: 'reference-validator',
+    promoted_from: 'CV-3',
+    prevents:
+      'C-3 regressing: scope was separated from corroboration precisely so a finding could say ' +
+      'what it applies to, and an unresolvable scope says nothing',
+    error_code: 'REP_SCOPE_REF_UNRESOLVED',
+  },
+  {
+    id: 'REP-16',
+    statement:
+      'An identifier names one member of its namespace, and no buildFrameId collides with a ' +
+      'component set id.',
+    owner: 'semantic-validator',
+    promoted_from: 'CV-2',
+    prevents:
+      'C-11: buildFrameId is a many-to-one reference, so a collision makes one string mean two ' +
+      'things depending on which field read it',
+    error_code: 'REP_DUPLICATE_IDENTIFIER',
+  },
+  {
+    id: 'REP-17',
+    statement:
+      'Every schema variant is either covered by a layout representation or listed as ' +
+      'undocumented, and never both.',
+    owner: 'semantic-validator',
+    promoted_from: 'CV-3b',
+    prevents:
+      'silence reading the same as "we looked and found nothing" — the condition every one of ' +
+      'D-1, D-2, D-7 and D-9 depends on to survive',
+    error_code: 'REP_UNCOVERED_VARIANT_NOT_DECLARED',
+  },
 ];
 
 export const REPRESENTATION_INVARIANTS_BY_ID: ReadonlyMap<string, RepresentationInvariant> =

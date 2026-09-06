@@ -235,3 +235,26 @@ not; recording it as plain `promoted` would overstate coverage by exactly the am
 
 **Revisit trigger.** The ledger reaching zero `pending` rows, at which point it becomes a lineage
 record rather than a work list and its `pending_in` field should be dropped.
+
+---
+
+## MB-10 · An unchecked reference is a violation, not a skip
+
+**Ruling.** `resolveReferences` reaches the filesystem through an injected `ArtifactReader`, never
+`node:fs`. When a contract carries an `artifact` target and **no reader was supplied**, that is
+reported as `REP_ARTIFACT_TARGET_UNRESOLVABLE` — a violation attributed to REP-13 — rather than
+passing, warning, or being silently skipped.
+
+**Why this is the smallest safe option.** The alternative that looks harmless is skipping: no reader,
+nothing to check, move on. That produces a run in which an unverified artifact reference is
+indistinguishable from a verified one, which is D-7's survival mechanism restated as a design. It is
+also the same shape as this repository's `sourceOnlyExpectedSkips` discipline — a skip is legible
+only while it is counted, and an uncounted skip stops being visible at all. Injecting the reader
+rather than importing `node:fs` is what makes the negative cases testable: an artifact target exists
+precisely because the artifact may be missing, and a validator bound to the real filesystem can only
+be tested for absence by deleting a file. With a port, "absent" and "present but the wrong bytes" are
+both ordinary fixtures, and both are covered.
+
+**Revisit trigger.** A caller that legitimately validates structure without evidence available — at
+which point it asks for that explicitly, by naming the check it is declining, and the decline is
+recorded in the result rather than inferred from its absence.
