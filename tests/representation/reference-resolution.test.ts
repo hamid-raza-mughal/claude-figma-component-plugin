@@ -217,18 +217,39 @@ describe('B3 · resolver behaviour that no fixture shape reaches', () => {
     assert.ok(result.violations.some((v) => v.code === 'REP_SCOPE_TYPE_UNKNOWN'));
   });
 
-  test('a contract target resolves by "self" and by the contract id, and by nothing else', () => {
+  test('a contract TARGET takes only "self"; a contract SCOPE also takes the id', () => {
+    /*
+     * Two vocabularies for one word, separated in audit cycle 2.
+     *
+     * `properties.contractId` says it is "the scopeRef target for
+     * scopeType=contract", so a *scope* naming the id is correct. A *target* is
+     * pinned by the schema to the literal `self`, and REP-07's statement says
+     * the same — so the resolver accepting the id there was accepting something
+     * the schema and the registry both forbid. Harmless only while the schema
+     * stays stricter than the resolver, which is not a property to rely on.
+     */
     const contract = loadJson<Record<string, unknown>>(
       join(HERE, 'fixtures', 'positive', 'minimal-contract.json'),
     );
     const limitations = contract['knownLimitations'] as Record<string, unknown>[];
     for (const [ref, expected] of [
       ['self', true],
-      ['CRC-SAMPLE-1', true],
+      ['CRC-SAMPLE-1', false],
       ['CRC-OTHER', false],
     ] as const) {
       limitations[0]!['target'] = { targetKind: 'contract', targetRef: ref };
       assert.equal(resolveReferences({ contract }).ok, expected, `contract target ${ref}`);
+    }
+
+    limitations[0]!['target'] = { targetKind: 'contract', targetRef: 'self' };
+    const findings = contract['structuralFindings'] as Record<string, unknown>[];
+    for (const [ref, expected] of [
+      ['self', true],
+      ['CRC-SAMPLE-1', true],
+      ['CRC-OTHER', false],
+    ] as const) {
+      findings[0]!['appliesToScopes'] = [{ scopeType: 'contract', scopeRef: ref }];
+      assert.equal(resolveReferences({ contract }).ok, expected, `contract scope ${ref}`);
     }
   });
 });

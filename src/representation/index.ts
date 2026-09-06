@@ -48,7 +48,7 @@ export type {
   ResolveInput,
 } from './validation/reference-resolver.ts';
 
-export { checkSemantics } from './validation/semantic-validator.ts';
+export { checkSemantics, NAMESPACES } from './validation/semantic-validator.ts';
 
 export type {
   SemanticViolation,

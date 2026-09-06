@@ -20,7 +20,7 @@
 import { test, describe } from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync, readdirSync } from 'node:fs';
-import { join, dirname } from 'node:path';
+import { join, dirname, sep } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import {
   scanRepository,
@@ -44,12 +44,19 @@ describe('the boundary holds across the repository (BP-2, BP-9)', () => {
   test('the scan reaches all five directories BP-2 names', () => {
     const files = collectFiles();
     assert.ok(files.length > 100, `only ${files.length} files scanned`);
-    for (const dir of ['src', 'schemas', 'tests', 'tools', 'docs']) {
+    // The five BP-2 names, plus the four tracked surfaces audit cycle 2 found
+    // unscanned: the model-instruction files, the plugin manifest, and the
+    // repository root.
+    for (const dir of ['src', 'schemas', 'tests', 'tools', 'docs', 'commands', 'skills', '.claude-plugin']) {
       assert.ok(
-        files.some((file) => file.includes(`/${dir}/`)),
+        files.some((file) => file.includes(`${sep}${dir}${sep}`)),
         `nothing under ${dir}/ was scanned`,
       );
     }
+    assert.ok(
+      files.some((file) => file === join(ROOT, 'eslint.config.js')),
+      'root-level files belong to no scanned directory and were reached by nothing',
+    );
   });
 });
 
@@ -73,6 +80,10 @@ describe('every boundary rule fires on what it is named for', () => {
       file: 'src/probe.ts',
       text: "import { resolveReferences } from '../representation/validation/reference-resolver.ts';",
     },
+    'research-corpus-command': {
+      file: 'docs/probe.md',
+      text: '```\ncat plugin_explore_phase/Builder_comp_rep_docs/contract.json\n```',
+    },
   };
 
   for (const rule of BOUNDARY_RULES) {
@@ -86,6 +97,46 @@ describe('every boundary rule fires on what it is named for', () => {
       );
     });
   }
+
+  test('a nested call no longer hides behind an inner parenthesis', () => {
+    // The `[^)]*` version stopped at the first `)`, so wrapping the path in a
+    // second call was enough to pass. Found in audit cycle 2.
+    const found = scanText(
+      'src/probe.ts',
+      "const raw = readFileSync(join(getRoot(), 'plugin_explore_phase/x.json'), 'utf8');",
+    );
+    assert.ok(found.some((finding) => finding.rule === 'research-corpus-read'));
+  });
+
+  test('readFile and open are in the alternation too', () => {
+    for (const call of [
+      "await readFile(join(ROOT, 'plugin_explore_phase', 'x.json'), 'utf8')",
+      "await open('plugin_explore_phase/x.json')",
+    ]) {
+      assert.ok(
+        scanText('src/probe.ts', call).some((f) => f.rule === 'research-corpus-read'),
+        `${call} was not caught`,
+      );
+    }
+  });
+
+  test('a fenced git-status block is not a runnable instruction', () => {
+    // Evidence that the corpus is untracked is the opposite of a dependency on
+    // it, and the first version of the markdown rule flagged both.
+    const document = ['```', ' M .gitignore', '?? plugin_explore_phase/   # untracked', '```'].join('\n');
+    assert.deepEqual(scanText('docs/probe.md', document), []);
+  });
+
+  test('a dot-directory is scanned like any other', () => {
+    // `entry.startsWith('.')` skipped whole directories, not just dotfiles, so
+    // `src/.hidden/` was invisible — cycle 1's planted-file shape, one
+    // directory deeper.
+    const files = collectFiles();
+    assert.ok(
+      files.some((file) => file.includes(`${sep}.claude-plugin${sep}`)),
+      'no dot-directory was collected, so this check cannot tell whether one would be',
+    );
+  });
 
   test('a mention that is not a path is not flagged', () => {
     // The narrowing that keeps this scan usable. A decision log recording BP-1
@@ -160,15 +211,17 @@ describe('the exemptions are bounded and justified', () => {
   });
 
   test('the exemption list has not grown past what B6 recorded', () => {
-    // Ten was the state when the boundary landed, and every one is a guard
-    // naming what it forbids: three for this file's falsifiers, three for the
-    // scan that defines the rules, and one each for the ledger header, the
-    // identifier scan's header, and the two tests asserting the corpus name is
-    // absent. An eleventh is a deliberate act that edits this number and
-    // explains itself in the same diff.
+    // Eleven, and every one is a guard naming what it forbids: three for this
+    // file's falsifiers, three for the scan that defines the rules, and one
+    // each for the ESLint config, the ledger header, the identifier scan's
+    // header, and the two tests asserting the corpus name is absent. Audit
+    // cycle 2 added one — the ESLint config, once the repository root started
+    // being scanned — and **removed** one, because narrowing the read rule made
+    // it stop suppressing anything. A twelfth is a deliberate act that edits
+    // this number and explains itself in the same diff.
     assert.equal(
       BOUNDARY_EXEMPTIONS.length,
-      10,
+      11,
       'an exemption was added; say why here, in this test, and in the entry itself',
     );
   });
@@ -239,12 +292,36 @@ describe('lint and the scan are two halves, and the override is narrowed (BP-2)'
     assert.match(config, /plugin_explore_phase/);
   });
 
-  test('the ESLint config bans every representation internal directory', () => {
-    for (const internal of ['contracts', 'validation', 'evidence', 'selection']) {
+  /**
+   * The list of internal directories was declared four times — in the ESLint
+   * config, in the scan's regex, in this test, and on the filesystem — and the
+   * only agreement asserted was between two hardcoded copies of it. A fifth
+   * directory added under `src/representation/` would have been permitted by
+   * both halves of the BP-9 boundary with every test still green.
+   *
+   * Ground truth is the filesystem. Both enforcers are checked against it, and
+   * the hardcoded list is gone.
+   */
+  test('both halves of the barrel boundary cover every directory that exists', () => {
+    const internals = readdirSync(join(ROOT, 'src', 'representation'), { withFileTypes: true })
+      .filter((entry) => entry.isDirectory())
+      .map((entry) => entry.name)
+      .sort();
+    assert.ok(internals.length > 0, 'no internal directories found — the check would be vacuous');
+
+    for (const internal of internals) {
       assert.match(
         config,
         new RegExp(String.raw`representation/${internal}/\*\*`),
-        `${internal}/ is not covered by the barrel pattern`,
+        `${internal}/ is not covered by the ESLint barrel pattern`,
+      );
+      const rule = BOUNDARY_RULES.find((candidate) => candidate.id === 'representation-deep-reach');
+      assert.ok(rule !== undefined);
+      assert.ok(
+        scanText('src/probe.ts', `from '../representation/${internal}/thing.ts'`).some(
+          (finding) => finding.rule === 'representation-deep-reach',
+        ),
+        `${internal}/ is not covered by the static scan`,
       );
     }
   });

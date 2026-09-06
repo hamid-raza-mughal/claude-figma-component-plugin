@@ -716,6 +716,21 @@ function main(argv: readonly string[]): void {
       result.skipped_by_size.map((name) => `  over budget: ${name}\n`).join('') +
       `aggregate ${result.aggregate_sha256}\n`,
   );
+
+  /*
+   * An unconverged document carries a recorded hash that does not match the
+   * bytes beside it — a hash that validates nothing. The header called that a
+   * condition which "must be visible", and visible meant one line of stdout on
+   * a manual run, with exit 0. It is a failure, and it exits like one.
+   */
+  if (result.unconverged.length > 0) {
+    process.stderr.write(
+      `refusing: ${result.unconverged.length} document(s) record a hash that cannot be made to ` +
+        `agree with their own bytes — a document recording its own hash can never converge:\n` +
+        result.unconverged.map((name) => `  ${name}\n`).join(''),
+    );
+    process.exitCode = 1;
+  }
 }
 
 if (process.argv[1] !== undefined && import.meta.url === `file://${process.argv[1]}`) {

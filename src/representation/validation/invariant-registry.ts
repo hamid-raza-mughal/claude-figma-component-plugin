@@ -237,7 +237,11 @@ export const REPRESENTATION_INVARIANTS: readonly RepresentationInvariant[] = [
     prevents:
       'C-11: buildFrameId is a many-to-one reference, so a collision makes one string mean two ' +
       'things depending on which field read it',
-    error_codes: ['REP_DUPLICATE_IDENTIFIER', 'REP_BUILD_FRAME_ID_COLLIDES_WITH_SET_ID'],
+    error_codes: [
+      'REP_DUPLICATE_IDENTIFIER',
+      'REP_BUILD_FRAME_ID_COLLIDES_WITH_SET_ID',
+      'REP_NAMESPACE_KEY_UNREADABLE',
+    ],
   },
   {
     id: 'REP-17',
@@ -258,12 +262,16 @@ export const REPRESENTATION_INVARIANTS: readonly RepresentationInvariant[] = [
   {
     id: 'REP-18',
     statement:
-      'No retired vocabulary appears anywhere in a contract, including inside a sentence.',
+      'No retired vocabulary appears as a whole value anywhere in a contract, and none appears ' +
+      'anywhere inside a field a validator interprets — where it is matched as a substring, ' +
+      'because that is the reading D-4 could not do.',
     owner: 'semantic-validator',
     promoted_from: 'CV-3',
     prevents:
       'D-4, and through it D-1: the research check is whole-string equality on a leaf value, so a ' +
-      'retired token inside a sentence is never equal to the sentence and never matches',
+      'retired token inside a sentence is never equal to the sentence and never matches. Audit ' +
+      "cycle 2 corrected this row's statement, which had claimed substring matching *anywhere* — " +
+      'true of no promoted contract, since 0.4.1 has no interpreted field at all',
     error_codes: ['REP_RETIRED_VOCABULARY_IN_USE'],
   },
   {

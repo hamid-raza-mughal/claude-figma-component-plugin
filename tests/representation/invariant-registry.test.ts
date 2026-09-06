@@ -25,9 +25,27 @@ import {
   REPRESENTATION_INVARIANTS_BY_ID,
   PROMOTION_LEDGER,
   NEW_IN_PROMOTION,
+  NAMESPACES,
+  checkSemantics,
 } from '../../src/representation/index.ts';
 
 const HERE = dirname(fileURLToPath(import.meta.url));
+
+/**
+ * Every name passed to a live `test(...)` in a file.
+ *
+ * `test.skip` and `test.todo` are deliberately not matched: a row claiming
+ * coverage from a skipped test is claiming coverage from nothing, and this is
+ * the one place that distinction can still be made.
+ */
+function testNamesIn(file: string): ReadonlySet<string> {
+  const source = readFileSync(file, 'utf8');
+  const names = new Set<string>();
+  for (const match of source.matchAll(/(?<![.\w])test\(\s*(['"`])((?:\\.|(?!\1).)*)\1/g)) {
+    names.add((match[2] as string).replace(/\\'/g, "'").replace(/\\`/g, '`'));
+  }
+  return names;
+}
 
 function representationSources(dir = join(HERE, '..', '..', 'src', 'representation')): string[] {
   const out: string[] = [];
@@ -73,6 +91,17 @@ describe('B2 · registry shape', () => {
         `${owner} is outside the three owners BP-6 allows this phase`,
       );
     }
+  });
+
+  test('the registry has not been emptied', () => {
+    // Nine assertions in this file iterate the registry, and every one of them
+    // is vacuously true over an empty array. The sibling registry pins a floor
+    // (`tests/contracts/output-union.test.ts`) and the promotion ledger pins an
+    // exact count; this had neither.
+    assert.ok(
+      REPRESENTATION_INVARIANTS.length >= 22,
+      `only ${REPRESENTATION_INVARIANTS.length} invariants — a shrinking registry is a silent one`,
+    );
   });
 
   test('ids are unique, well-formed and in order', () => {
@@ -143,6 +172,61 @@ describe('B2 · registry shape', () => {
     assert.deepEqual([...undeclared].sort(), [], 'a violation nothing in the registry accounts for');
   });
 
+  test('the validator that emits a code is the owner the registry declares', () => {
+    /*
+     * `owner` and `enforced_by` were two accounts of one fact with nothing
+     * binding them: the registry could name `run-guard` — a legal
+     * `ENFORCEMENT_OWNERS` member — while the emitter kept stamping
+     * `semantic-validator`, and both existing tests passed.
+     *
+     * Reconciled at the source, per code, so it holds for every emission
+     * rather than only for the ones a fixture happens to reach. Schema-owned
+     * rules are exempt by nature: ajv violations carry no `enforced_by` at all,
+     * which is itself worth stating rather than leaving as an omission.
+     */
+    const ownerByCode = new Map<string, string>();
+    for (const invariant of REPRESENTATION_INVARIANTS) {
+      for (const code of invariant.error_codes) {
+        if (code.startsWith('REP_')) ownerByCode.set(code, invariant.owner);
+      }
+    }
+    const stamped = new Map<string, Set<string>>();
+    for (const file of representationSources()) {
+      if (file.endsWith('invariant-registry.ts')) continue;
+      const source = readFileSync(file, 'utf8');
+      const owners = new Set(
+        [...source.matchAll(/enforced_by:\s*'([a-z-]+)'/g)].map((match) => match[1] as string),
+      );
+      for (const match of source.matchAll(/'(REP_[A-Z0-9_]+)'/g)) {
+        const existing = stamped.get(match[1] as string) ?? new Set<string>();
+        for (const owner of owners) existing.add(owner);
+        stamped.set(match[1] as string, existing);
+      }
+    }
+    for (const [code, owners] of stamped) {
+      const declared = ownerByCode.get(code);
+      if (declared === undefined) continue;
+      assert.ok(
+        owners.has(declared),
+        `${code} is declared owned by ${declared} but is stamped ${[...owners].join(', ')}`,
+      );
+    }
+  });
+
+  test('a schema-owned rule declares only SCHEMA_* codes', () => {
+    // The other half of the same fact. A schema-owned rule cannot emit a REP_*
+    // code, because ajv is what raises it and ajv knows nothing about REP ids.
+    for (const invariant of REPRESENTATION_INVARIANTS) {
+      if (invariant.owner !== 'schema') continue;
+      for (const code of invariant.error_codes) {
+        assert.ok(
+          code.startsWith('SCHEMA_'),
+          `${invariant.id} is schema-owned and declares ${code}, which no schema violation carries`,
+        );
+      }
+    }
+  });
+
   test('every REP_* code the registry declares is emitted somewhere', () => {
     const emitted = new Set<string>();
     for (const file of representationSources()) {
@@ -164,6 +248,58 @@ describe('B2 · registry shape', () => {
         `${invariant.id}'s statement is too short to say what must hold`,
       );
     }
+  });
+});
+
+describe('the semantic validator and the schema agree about identifiers', () => {
+  const schema = JSON.parse(
+    readFileSync(
+      join(HERE, '..', '..', 'schemas', 'representation', 'representation-contract.schema.json'),
+      'utf8',
+    ),
+  ) as { properties: Record<string, Record<string, unknown>>; $defs: Record<string, unknown> };
+
+  test('every namespace names a collection the schema declares, and a key its members carry', () => {
+    /*
+     * `NAMESPACES` transcribes the schema's property and key names, and audit
+     * cycle 2 found the drift would be **silent**: `field(row, key)` returns
+     * null for every row, the filter empties, `duplicates([])` is `[]`, and a
+     * contract with duplicate identifiers reports clean. The reference resolver
+     * transcribes the same names and fails loud when they drift, which is what
+     * made the asymmetry worth finding.
+     *
+     * This is the reconciliation, and it is why there is no fixture for the
+     * silent case: the schema closes every object, so a document cannot rename
+     * a key. Only the checker can drift, so the checker is what gets checked.
+     */
+    for (const namespace of NAMESPACES) {
+      const collection = schema.properties[namespace.collection];
+      assert.ok(collection !== undefined, `${namespace.collection} is not a schema property`);
+      const items = (collection['items'] ?? {}) as Record<string, unknown>;
+      const inline = (items['properties'] ?? {}) as Record<string, unknown>;
+      const referenced = typeof items['$ref'] === 'string' ? items['$ref'].split('/').pop() : undefined;
+      const viaRef =
+        referenced === undefined
+          ? {}
+          : (((schema.$defs[referenced] as Record<string, unknown>)?.['properties'] ??
+              {}) as Record<string, unknown>);
+      assert.ok(
+        namespace.key in inline || namespace.key in viaRef,
+        `${namespace.collection} members carry no ${namespace.key}`,
+      );
+    }
+  });
+
+  test('a namespace whose key cannot be read reports that, rather than passing', () => {
+    // Defence in depth for the case the agreement test makes unreachable. If
+    // the two ever do drift, the checker says it did not run instead of saying
+    // it passed.
+    const result = checkSemantics({
+      namingRules: [{ ruleId: 'NR-renamed', appliesToRole: 'container' }],
+    });
+    assert.equal(result.ok, false);
+    if (result.ok) return;
+    assert.ok(result.violations.some((v) => v.code === 'REP_NAMESPACE_KEY_UNREADABLE'));
   });
 });
 
@@ -214,10 +350,14 @@ describe('B2 · fixture coverage is bidirectional (BP-6, D-5)', () => {
     for (const row of fixtures) {
       if (row.validator !== 'evidence') continue;
       assert.ok(row.covered_by !== undefined, `${row.rule_id} declares evidence but names no test`);
-      const source = readFileSync(join(HERE, '..', '..', row.file), 'utf8');
+      // Audit cycle 2: this was `source.includes(...)`, which passes when the
+      // name appears in a comment, inside a `test.skip`, or in any unrelated
+      // string. Eight rows depend on it, so a substring match is eight rules
+      // reporting themselves covered by text. The names are extracted from
+      // actual `test(...)` calls instead.
       assert.ok(
-        source.includes(`'${row.covered_by}'`) || source.includes(`\`${row.covered_by}\``),
-        `${row.file} contains no test named "${String(row.covered_by)}"`,
+        testNamesIn(join(HERE, '..', '..', row.file)).has(row.covered_by),
+        `${row.file} declares no test named "${String(row.covered_by)}"`,
       );
     }
   });
@@ -238,6 +378,25 @@ describe('B2 · the promotion ledger accounts for every research rule', () => {
   test('each research id appears exactly once', () => {
     const ids = PROMOTION_LEDGER.map((r) => r.research_id);
     assert.equal(new Set(ids).size, ids.length, 'duplicate research id in the ledger');
+  });
+
+  test('the ledger dispositions are counted here, not asserted in prose', () => {
+    // MB-9 said "nineteen of the twenty-nine" and the ledger has never held
+    // nineteen of anything. A number in a ruling that no test anchors drifts,
+    // which is the D-9 class — inside a ruling about D-5. The ruling names no
+    // number now; this does.
+    const counts = new Map<string, number>();
+    for (const row of PROMOTION_LEDGER) {
+      counts.set(row.disposition, (counts.get(row.disposition) ?? 0) + 1);
+    }
+    assert.equal(counts.get('pending'), 21);
+    assert.equal(counts.get('promoted'), 7);
+    assert.equal(counts.get('partially_promoted'), 1);
+    assert.equal(counts.get('retired'), undefined);
+    assert.equal(
+      [...counts.values()].reduce((total, value) => total + value, 0),
+      PROMOTION_LEDGER.length,
+    );
   });
 
   test('the ledger covers both research rule families', () => {

@@ -1,0 +1,10 @@
+{
+  "note": "The same catalogue with one condition rewritten in vocabulary the v0.4 migration retired. The token is inside a sentence, which is where D-1 lived and where whole-leaf equality cannot see it.",
+  "validationRules": [
+    {
+      "ruleId": "VR-1",
+      "detectionCondition": "A structuralFindings entry with classification button_specific_pattern is applied to a non-Button component without a corresponding candidate_cross_component_invariant entry covering that same finding.",
+      "action": "Reject the generalization."
+    }
+  ]
+}

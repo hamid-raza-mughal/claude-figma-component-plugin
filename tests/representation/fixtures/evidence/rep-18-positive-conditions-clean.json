@@ -1,0 +1,15 @@
+{
+  "note": "A v0.4.0-shaped rule catalogue whose conditions are written in live vocabulary. This is REP-18's passing direction for the half that matters: a field a validator interprets, containing prose, containing nothing retired.",
+  "validationRules": [
+    {
+      "ruleId": "VR-1",
+      "detectionCondition": "A structuralFindings entry whose appliesToScopes names a component_set is applied to a different component set without a corroboration level of multi_component_corroborated or a resolvable owner confirmation.",
+      "action": "Reject the generalization."
+    },
+    {
+      "ruleId": "VR-2",
+      "detectionCondition": "A layoutRepresentation with strategy matrix carries an allocation whose allocationEvidence status is not verified, and a build step reads a cell from it.",
+      "action": "Refuse the write and report the representation id."
+    }
+  ]
+}

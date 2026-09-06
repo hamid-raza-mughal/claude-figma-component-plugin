@@ -26,6 +26,7 @@
  * With a port, "the artifact is absent" and "the artifact is present but its
  * bytes differ from the pin" are both ordinary fixtures.
  */
+import type { EnforcementOwner } from '../../contracts/failures.ts';
 import type { RuleTarget, TargetKind } from '../contracts/representation-contract.ts';
 
 /**
@@ -43,7 +44,10 @@ export type ReferenceViolation = {
   /** JSON Pointer to the offending target. */
   readonly instance_path: string;
   readonly message: string;
-  readonly enforced_by: 'reference-validator';
+  /** Typed as the owner vocabulary, not as this one literal: a violation whose
+   *  `enforced_by` disagrees with its rule's declared owner is BP-6 broken, and a
+   *  test reconciles the two per rule. */
+  readonly enforced_by: EnforcementOwner;
 };
 
 export type ReferenceResult =
@@ -122,7 +126,6 @@ function coverageMetricKeys(contract: ContractShape): ReadonlySet<string> {
 }
 
 function collectionsOf(contract: ContractShape): Collections {
-  const contractId = typeof contract.contractId === 'string' ? contract.contractId : '';
   return new Map<TargetKind, ReadonlySet<string>>([
     ['component_set', idsOf(contract.componentSets, 'id')],
     ['schema_variant', idsOf(contract.propertySchemaVariants, 'variantId')],
@@ -135,7 +138,13 @@ function collectionsOf(contract: ContractShape): Collections {
     ['structural_finding', idsOf(contract.structuralFindings, 'findingId')],
     ['owner_confirmation', idsOf(contract.ownerConfirmations, 'confirmationId')],
     ['coverage_metric', coverageMetricKeys(contract)],
-    ['contract', new Set(contractId === '' ? ['self'] : ['self', contractId])],
+    // A *scope* may name the contract by its id — `properties.contractId` says
+    // so explicitly. A *target* may not: the schema pins `targetRef` to the
+    // literal `self` and REP-07's statement says the same. Two vocabularies,
+    // separated, because accepting the id for a target let the resolver pass
+    // something the schema and the registry both forbid — harmless only while
+    // the schema stays stricter than the resolver.
+    ['contract', new Set(['self'])],
   ]);
 }
 
@@ -273,6 +282,11 @@ export function resolveReferences(input: ResolveInput): ReferenceResult {
     typeof input.contract === 'object' && input.contract !== null ? input.contract : {}
   ) as ContractShape;
   const collections = collectionsOf(contract);
+  const scopeCollections = new Map(collections);
+  const contractId = typeof (contract as { contractId?: unknown }).contractId === 'string'
+    ? ((contract as { contractId: string }).contractId)
+    : '';
+  if (contractId !== '') scopeCollections.set('contract', new Set(['self', contractId]));
   const strategies = layoutStrategies(contract);
 
   const fail = (
@@ -370,7 +384,7 @@ export function resolveReferences(input: ResolveInput): ReferenceResult {
       );
       continue;
     }
-    const members = collections.get(kind);
+    const members = scopeCollections.get(kind);
     if (members === undefined || !members.has(site.scopeRef)) {
       fail(
         'REP-15',

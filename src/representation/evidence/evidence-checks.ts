@@ -25,6 +25,7 @@
  * and "PROPOSED. Not implemented." eight lines apart. No count was ever
  * recomputed and no document was ever read as a whole.
  */
+import type { EnforcementOwner } from '../../contracts/failures.ts';
 
 export type EvidenceViolation = {
   readonly rule_id: string;
@@ -32,7 +33,10 @@ export type EvidenceViolation = {
   /** Where — a path, or a line reference within a document. */
   readonly location: string;
   readonly message: string;
-  readonly enforced_by: 'semantic-validator';
+  /** Typed as the owner vocabulary, not as this one literal: a violation whose
+   *  `enforced_by` disagrees with its rule's declared owner is BP-6 broken, and a
+   *  test reconciles the two per rule. */
+  readonly enforced_by: EnforcementOwner;
 };
 
 export type EvidenceResult =

@@ -346,7 +346,7 @@
       "intended_error_code": null,
       "expected_schema_path_contains": [],
       "expected_instance_path_contains": [],
-      "purpose": "REP-08 in the passing direction. The path here resolves in this repository, which is what D-7 could not claim; whether the pin matches the bytes is B3's reference validator, not the schema, and is not asserted here."
+      "purpose": "REP-08 in the passing direction: an artifact target carries a content pin. The path is deliberately NOT a real repository file \u2014 audit cycle 2 found this fixture naming a tracked file beside a fabricated hash, in a fixture set whose subject is unpinned artifact references. Whether a pin matches the bytes is REP-13, in the reference fixtures, where a reader supplies both."
     },
     {
       "file": "positive/rep-09-narrative-naming-ids-as-prose.json",
@@ -539,16 +539,16 @@
       "validator": "evidence",
       "expect": "invalid",
       "rule_id": "REP-18",
-      "covered_by": "D-1 \u2014 the Button contract carries retired vocabulary inside a sentence",
-      "purpose": "The negative is the real Button contract. There is no smaller fixture worth having: the point of REP-18 is that this document passes the research suite."
+      "covered_by": "the same catalogue with one token inside a sentence is rejected",
+      "purpose": "The negative is a condition carrying a retired token inside a sentence \u2014 where D-1 lived and where whole-leaf equality cannot see it. Paired with its clean twin so the two differ in one token."
     },
     {
       "file": "tests/representation/defect-regressions.test.ts",
       "validator": "evidence",
       "expect": "valid",
       "rule_id": "REP-18",
-      "covered_by": "the production schema carries no retired vocabulary",
-      "purpose": "The passing direction, over a document that genuinely has none."
+      "covered_by": "a rule catalogue whose conditions are written in live vocabulary passes",
+      "purpose": "The passing direction, over a field a validator interprets. It used to point at the production schema, which is not a contract and which contains a retired token in its own prose \u2014 the declared positive evidence was a document violating the rule."
     },
     {
       "file": "tests/representation/defect-regressions.test.ts",

@@ -7,11 +7,17 @@
  * `SchemaRegistry.register` is `ajv.addSchema`, which defers compilation until
  * first use — so a schema with strict-mode defects registers happily and throws
  * later, at the call site of whoever validates first. The research schema had
- * thirty-six such defects: twenty subschemas carrying a type-implying keyword
- * with no `type`, and sixteen `required` names never declared where they were
- * required. Its own Python validator does not enforce either, so a fully green
- * research suite said nothing about them. `registry()` below compiles eagerly,
- * which is the only version of this check worth having.
+ * dozens of them: subschemas carrying a type-implying keyword with no `type`,
+ * and `required` names never declared where they were required. Its own Python
+ * validator enforces neither, so a fully green research suite said nothing
+ * about them. `registry()` below compiles eagerly, which is the only version of
+ * this check worth having.
+ *
+ * (This header used to say "thirty-six … twenty … sixteen". Audit cycle 2
+ * recomputed it four ways and reproduced none of them. A number in a comment
+ * that no test anchors is the D-9 class, so it is gone rather than restated —
+ * what compiling proves is that *none* remain, which is the claim that matters
+ * and the one this file can actually make.)
  *
  * The second is that every negative fixture fails **at its intended gate**, not
  * merely fails. `expected_schema_path_contains` is the assertion that makes the

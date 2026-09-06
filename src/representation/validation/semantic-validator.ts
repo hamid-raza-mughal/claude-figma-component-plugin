@@ -14,13 +14,17 @@
  * absence explicit, so the check is bidirectional: an uncovered variant must be
  * listed, and a listed variant must not also be covered.
  */
+import type { EnforcementOwner } from '../../contracts/failures.ts';
 
 export type SemanticViolation = {
   readonly rule_id: string;
   readonly code: string;
   readonly instance_path: string;
   readonly message: string;
-  readonly enforced_by: 'semantic-validator';
+  /** Typed as the owner vocabulary, not as this one literal: a violation whose
+   *  `enforced_by` disagrees with its rule's declared owner is BP-6 broken, and a
+   *  test reconciles the two per rule. */
+  readonly enforced_by: EnforcementOwner;
 };
 
 export type SemanticResult =
@@ -47,8 +51,17 @@ function duplicates(values: readonly string[]): readonly string[] {
   return [...repeated].sort();
 }
 
-/** Each namespace, and the field its members are identified by. */
-const NAMESPACES: readonly { readonly collection: string; readonly key: string }[] = [
+/**
+ * Each namespace, and the field its members are identified by.
+ *
+ * These names are a second account of the schema's own property names, and
+ * `tests/representation/invariant-registry.test.ts` reconciles them against it.
+ * Without that reconciliation the drift is **silent** here in a way it is not in
+ * the reference resolver: if a key name changes, the resolver's id set empties
+ * and every target stops resolving, loudly, while this filter drops every row
+ * and reports a contract with duplicate ids as clean.
+ */
+export const NAMESPACES: readonly { readonly collection: string; readonly key: string }[] = [
   { collection: 'componentSets', key: 'id' },
   { collection: 'propertySchemaVariants', key: 'variantId' },
   { collection: 'layoutRepresentations', key: 'representationId' },
@@ -76,9 +89,28 @@ export function checkSemantics(contractInput: unknown): SemanticResult {
 
   // REP-16 — one name, one thing.
   for (const namespace of NAMESPACES) {
-    const ids = asArray(contract[namespace.collection])
+    const rows = asArray(contract[namespace.collection]);
+    const ids = rows
       .map((row) => field(row, namespace.key))
       .filter((id): id is string => id !== null);
+    /*
+     * The failure mode this catches is silence, and it is asymmetric with the
+     * resolver in a way audit cycle 2 named. If a key name here drifts from the
+     * schema — `namingRuleId` becoming `ruleId`, say — the reference resolver
+     * fails loud: its id set empties and every target stops resolving. This
+     * check fails *silent*: `field` returns null for every row, the filter drops
+     * them all, and a contract with duplicate identifiers reports clean. A
+     * duplicate check that has quietly stopped checking is D-5's shape.
+     */
+    if (rows.length > 0 && ids.length === 0) {
+      fail(
+        'REP-16',
+        'REP_NAMESPACE_KEY_UNREADABLE',
+        `/${namespace.collection}`,
+        `no member of ${namespace.collection} carries a ${namespace.key}, so uniqueness was not ` +
+          'checked — this is the check reporting that it did not run, not that it passed',
+      );
+    }
     for (const duplicate of duplicates(ids)) {
       fail(
         'REP-16',

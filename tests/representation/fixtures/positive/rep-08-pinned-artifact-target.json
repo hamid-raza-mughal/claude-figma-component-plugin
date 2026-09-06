@@ -205,7 +205,7 @@
         },
         "target": {
           "targetKind": "artifact",
-          "targetRef": "tests/representation/fixtures/positive/minimal-contract.json",
+          "targetRef": "evidence/allocation-evidence.json",
           "requiredArtifactSha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
         }
       }

@@ -41,6 +41,12 @@ const HERE = dirname(fileURLToPath(import.meta.url));
 const CORPUS = join(HERE, 'fixtures', 'empirical');
 const BUTTONS = join(CORPUS, 'Builder_comp_rep_docs');
 const PILL = join(CORPUS, 'non_button_validation', 'pill');
+const FIXTURES = join(HERE, 'fixtures', 'evidence');
+
+/** A fixture is addressed by its tracked relative name, never discovered. */
+function fixturePath(relativeName: string): string {
+  return join(HERE, 'fixtures', relativeName);
+}
 
 const sha256 = (bytes: string): string => createHash('sha256').update(bytes).digest('hex');
 const read = (path: string): string => readFileSync(path, 'utf8');
@@ -259,11 +265,70 @@ describe('B5 · the production checks fail against the real corpus', () => {
 });
 
 describe('B5 · the checks do not fire on documents that are fine', () => {
-  test('the production schema carries no retired vocabulary', () => {
-    const schema = readJson(
-      join(HERE, '..', '..', 'schemas', 'representation', 'representation-contract.schema.json'),
+  test('a rule catalogue whose conditions are written in live vocabulary passes', () => {
+    /*
+     * REP-18's passing direction, corrected in audit cycle 2.
+     *
+     * It used to be `findRetiredVocabulary(theProductionSchema).ok === true`,
+     * and that was wrong twice over. The schema is not a contract, so the rule
+     * has no subject there — and the schema's own text reads "No magic strings
+     * such as __treatment__", which is `RETIRED_VOCABULARY[0]`. The declared
+     * positive evidence for REP-18 was a document containing retired
+     * vocabulary, passing because the equality branch is what ran on it.
+     *
+     * This exercises the branch that matters: a field a validator interprets,
+     * containing prose, containing nothing retired.
+     */
+    const clean = readJson(join(FIXTURES, 'rep-18-positive-conditions-clean.json'));
+    assert.equal(findRetiredVocabulary(clean).ok, true);
+  });
+
+  test('the same catalogue with one token inside a sentence is rejected', () => {
+    const dirty = readJson(join(FIXTURES, 'rep-18-negative-condition-carries-retired-token.json'));
+    const outcome = findRetiredVocabulary(dirty);
+    assert.equal(outcome.ok, false);
+    assert.ok(codes(outcome).includes('REP_RETIRED_VOCABULARY_IN_USE'));
+    if (outcome.ok) return;
+    assert.ok(
+      outcome.violations.every((violation) => violation.location.endsWith('/detectionCondition')),
+      'the finding must name the interpreted field it was found in',
     );
-    assert.equal(findRetiredVocabulary(schema).ok, true);
+  });
+
+  test('REP-18 reaches only what it claims to reach, and the gap is stated', () => {
+    /*
+     * The honest limit, asserted rather than implied.
+     *
+     * A `0.4.1-draft` contract has **no** field a validator interprets — MB-7
+     * removed the rule catalogue, and REP-09 confines every remaining string to
+     * `narrative`, which nothing reads as a reference. So over a production
+     * contract REP-18 is the equality half only, and that is correct rather
+     * than degraded: a retired *value* at a leaf is the only way retired
+     * vocabulary can still matter when no field is interpreted.
+     *
+     * It is worth a test because the opposite reading — "the substring rule
+     * protects production contracts" — is what the registry statement used to
+     * claim, and it was false for every document the schema can describe.
+     */
+    const contract = readJson(fixturePath('positive/minimal-contract.json')) as Record<string, unknown>;
+    assert.equal(findRetiredVocabulary(contract).ok, true);
+
+    const findings = contract['structuralFindings'] as Record<string, unknown>[];
+    const narrative = findings[0]!['narrative'] as Record<string, string>;
+
+    narrative['description'] = 'This finding is a candidate_cross_component_invariant carried over.';
+    assert.equal(
+      findRetiredVocabulary(contract).ok,
+      true,
+      'prose in narrative is not interpreted, so a token inside it is inert — REP-09 is why',
+    );
+
+    narrative['description'] = 'candidate_cross_component_invariant';
+    assert.equal(
+      findRetiredVocabulary(contract).ok,
+      false,
+      'a leaf that IS a retired value is caught, which is the half that applies here',
+    );
   });
 
   test('probes that differ are accepted', () => {

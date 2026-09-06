@@ -29,12 +29,29 @@
  * that can grow quietly is how a scan dies.
  */
 import { readdirSync, readFileSync, statSync } from 'node:fs';
-import { join, relative, dirname } from 'node:path';
+import { join, relative, dirname, sep } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const REPO_ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 
-const SCANNED_DIRS = ['src', 'schemas', 'tests', 'tools', 'docs'] as const;
+/**
+ * BP-2 names five directories. Four more are scanned because they are tracked
+ * surfaces a violation can sit in and nothing else looks at them: `commands/`
+ * and `skills/` are the model-instruction surface, `.claude-plugin/` is the
+ * manifest, and the repository root carries `eslint.config.js`, `package.json`
+ * and `.gitignore`. Audit cycle 2 found all four unscanned, which is cycle 1's
+ * planted-command-file shape one directory sideways.
+ */
+const SCANNED_DIRS = [
+  'src',
+  'schemas',
+  'tests',
+  'tools',
+  'docs',
+  'commands',
+  'skills',
+  '.claude-plugin',
+] as const;
 const SCANNED_EXTENSIONS = ['.ts', '.js', '.json', '.md'] as const;
 const SKIP_DIRS = new Set(['node_modules', 'dist', '.git']);
 
@@ -42,7 +59,7 @@ const SKIP_DIRS = new Set(['node_modules', 'dist', '.git']);
  *  carries its shape; its own contents are covered by
  *  `tests/representation/empirical-corpus.test.ts`, which asserts the research
  *  path was redacted out of every promoted byte. */
-const SKIP_PATHS = ['tests/representation/fixtures/empirical'];
+const SKIP_PATHS = ['tests/representation/fixtures/empirical' + sep];
 
 export type BoundaryRule = {
   readonly id: string;
@@ -51,6 +68,8 @@ export type BoundaryRule = {
   readonly why: string;
   /** Which file kinds the rule means anything for. */
   readonly appliesToExtensions: readonly string[];
+  /** Applies only inside a fenced code block. Markdown only. */
+  readonly fencedMarkdownOnly?: boolean | undefined;
 };
 
 export const BOUNDARY_RULES: readonly BoundaryRule[] = [
@@ -68,9 +87,61 @@ export const BOUNDARY_RULES: readonly BoundaryRule[] = [
   {
     id: 'research-corpus-read',
     what: 'a filesystem call naming the research corpus',
-    pattern: /(?:readFileSync|readdirSync|createReadStream|glob|import)\([^)]*plugin_explore_phase/g,
+    /*
+     * Widened in audit cycle 2, which read past the first version three ways:
+     * `readFile` and `open` were not in the alternation; `[^)]*` stopped at the
+     * first inner `)`, so a nested `join(getRoot(), …)` slipped through; and in
+     * markdown, where this is the only applicable rule, a shell line like
+     * `cat <corpus>/x.json` matched nothing.
+     *
+     * So it no longer tries to describe *calls*. It asks whether the directory
+     * name appears on a line that also does something with a path — which is
+     * the actual question, and one a line-oriented scan can answer.
+     */
+    /*
+     * A **call**, not a mention. Widened once in audit cycle 2 and then narrowed
+     * again in the same sitting, because the wide version fired on
+     * `git ls-files plugin_explore_phase` in a decision log and on the sentence
+     * "nothing here opens the corpus" — nineteen findings and zero defects, the
+     * same mistake MB-15 had already recorded once.
+     *
+     * Three real widenings survive: `readFile` and `open` join the alternation;
+     * the argument scan runs to the statement end rather than to the first
+     * `)`, so a nested `join(getRoot(), …)` no longer hides one; and markdown
+     * is handled separately below, where a *runnable* line and a sentence can
+     * actually be told apart.
+     */
+    pattern:
+      /\b(?:readFile|readFileSync|readdir|readdirSync|createReadStream|open|copyFile|cp|glob|import|require)\s*\([^;\n]{0,200}plugin_explore_phase/g,
     why: 'BP-1, and the form no module resolver and therefore no linter can see.',
-    appliesToExtensions: ['.ts', '.js', '.json', '.md'],
+    appliesToExtensions: ['.ts', '.js', '.json'],
+  },
+  {
+    id: 'research-corpus-command',
+    what: 'a runnable command reaching into the research corpus, inside a fenced block',
+    /*
+     * Markdown's whole rule, and the reason it is not the code rule.
+     *
+     * A document may name the directory — that is how BP-1 is written down. A
+     * document may not carry a **runnable** line that reads it, because that is
+     * an instruction to create the dependency BP-1 forbids. A fenced code block
+     * is exactly where the difference lives, so `scanText` tracks fences and
+     * this rule applies only inside them.
+     */
+    /*
+     * A **consuming** command, not any command. A fenced `git status` output
+     * showing the corpus untracked, or a `git ls-files … | wc -l → 0`, is
+     * evidence the corpus is *not* a dependency — the opposite of what this
+     * bans — and the first version of the rule flagged both. Inspecting verbs
+     * are therefore out; verbs that read the bytes into something are in.
+     */
+    pattern:
+      /\b(?:cat|head|tail|less|cp|rsync|python3?|node|source|import)\s[^\n]{0,140}plugin_explore_phase/g,
+    why:
+      'a fenced block is a runnable instruction. Naming the corpus in prose records the ruling; ' +
+      'a command that reads it tells someone to depend on it.',
+    appliesToExtensions: ['.md'],
+    fencedMarkdownOnly: true,
   },
   {
     id: 'representation-deep-reach',
@@ -150,6 +221,13 @@ export const BOUNDARY_EXEMPTIONS: readonly BoundaryExemption[] = [
     why: 'this file, same reason.',
   },
   {
+    file: 'eslint.config.js',
+    rule: 'research-corpus-path',
+    why:
+      'the ESLint pattern that bans the corpus. A rule has to name what it bans, and the root of ' +
+      'the repository was unscanned until audit cycle 2 added it.',
+  },
+  {
     file: 'tools/identifier-scan.ts',
     rule: 'research-corpus-path',
     why:
@@ -171,7 +249,11 @@ export function collectFiles(root: string = REPO_ROOT): readonly string[] {
   const out: string[] = [];
   const walk = (dir: string): void => {
     for (const entry of readdirSync(dir)) {
-      if (entry.startsWith('.') || SKIP_DIRS.has(entry)) continue;
+      // Only the explicitly skipped directories are skipped. The previous
+      // version skipped every entry beginning with a dot, so `src/.hidden/`
+      // was invisible — a planted file one directory deeper, which is the shape
+      // audit cycle 1 found in the command registry and cycle 2 found here.
+      if (SKIP_DIRS.has(entry)) continue;
       const full = join(dir, entry);
       const relativePath = relative(root, full);
       if (SKIP_PATHS.some((prefix) => relativePath.startsWith(prefix))) continue;
@@ -185,8 +267,15 @@ export function collectFiles(root: string = REPO_ROOT): readonly string[] {
       if (statSync(full).isDirectory()) walk(full);
     } catch {
       // A scanned directory that does not exist is not a violation; the test
-      // asserting the scan reaches all five is what would catch its absence.
+      // asserting the scan reaches each one is what would catch its absence.
     }
+  }
+  // Root-level files, which belong to no scanned directory and were reached by
+  // nothing: `eslint.config.js`, `package.json`, `.gitignore`.
+  for (const entry of readdirSync(root)) {
+    const full = join(root, entry);
+    if (statSync(full).isDirectory()) continue;
+    if (SCANNED_EXTENSIONS.some((extension) => entry.endsWith(extension))) out.push(full);
   }
   return out.sort();
 }
@@ -214,9 +303,22 @@ function appliesTo(rule: BoundaryRule, relativePath: string): boolean {
 export function scanText(relativePath: string, text: string): readonly BoundaryFinding[] {
   const found: BoundaryFinding[] = [];
   const lines = text.split('\n');
+  /** Which lines sit inside a ``` fence. Computed once, used by the one rule
+   *  that cares. */
+  const fenced: boolean[] = [];
+  let inside = false;
+  for (const line of lines) {
+    if (/^\s*```/.test(line)) {
+      fenced.push(false);
+      inside = !inside;
+      continue;
+    }
+    fenced.push(inside);
+  }
   for (const rule of BOUNDARY_RULES) {
     if (!appliesTo(rule, relativePath)) continue;
     lines.forEach((line, index) => {
+      if (rule.fencedMarkdownOnly === true && fenced[index] !== true) return;
       for (const match of line.matchAll(rule.pattern)) {
         found.push({
           file: relativePath,

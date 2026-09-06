@@ -190,12 +190,21 @@ account of how the per-document rule is enforced before it is added.
 
 ## MB-8 · The promoted schema is corrected for `ajv` strict mode, and the correction is proved by compilation
 
-**Ruling.** Thirty-six subschemas inherited from the research schema are corrected during promotion:
-twenty carrying a type-implying keyword (`pattern`, `minItems`, `required`, …) with no `type`, and
-sixteen naming a `required` property the subschema never declares. Each correction states what the
-keyword already implies — the implied `type`, or the name declared as the always-true schema `true` —
-and none adds or removes a constraint. Every affected gate carries a negative fixture asserting it
-still rejects at that gate.
+**Ruling.** Every subschema inherited from the research schema that carries a type-implying keyword
+(`pattern`, `minItems`, `required`, …) with no `type`, and every one naming a `required` property it
+never declares, is corrected during promotion. Each correction states what the keyword already
+implies — the implied `type`, or the name declared as the always-true schema `true` — and none adds
+or removes a constraint.
+
+*Audit cycle 2 corrected two claims here.* The first was "thirty-six … twenty … sixteen": no counting
+method reproduces those figures — by unique ajv message it is 26 and 9, by distinct subschema
+location 22 and 8 — and nothing in the suite recomputed them. They are gone rather than restated,
+because a number in a ruling that no test anchors is the D-9 class again. The second was "every
+affected gate carries a negative fixture": there are sixteen negative schema fixtures against thirty
+or so corrected subschemas, so it was false by an order of magnitude. What is true, and is what the
+fixtures actually establish, is that **every gate a `REP-*` rule names carries a negative fixture
+asserting it still rejects there** — and, after cycle 2, asserting it by a contiguous run of path
+segments rather than by unordered substrings, which is what that assertion had been doing.
 
 **Why this is the smallest safe option.** `SchemaRegistry.register` is `ajv.addSchema`, which defers
 compilation: the uncorrected schema **registers without complaint and throws on first use**, at
@@ -216,9 +225,14 @@ which point the corrections are re-derived by compiling rather than by editing t
 ## MB-9 · A `REP-*` row is declared only once something enforces it, and the gap is a ledger
 
 **Ruling.** The `REP-*` registry carries only invariants that have an enforcement point today and a
-positive **and** negative fixture proving it. The remaining research rules — nineteen of the
-twenty-nine — are recorded in `src/representation/validation/promotion-ledger.ts` with the work
-package that lands each. A test asserts the ledger covers every research id exactly once, that every
+positive **and** negative fixture proving it. The remaining research rules are recorded in
+`src/representation/validation/promotion-ledger.ts` with the work package that lands each.
+
+*Audit cycle 2 correction: this entry said "nineteen of the twenty-nine", and the ledger has never
+held nineteen of anything. It is twenty-one `pending`, seven `promoted`, one `partially_promoted`.
+The number was written from memory and nothing recomputed it — the D-9 class, in a ruling about
+D-5. The count is now asserted by `invariant-registry.test.ts` rather than stated here, so the two
+cannot drift again; that is why this paragraph names no number.* A test asserts the ledger covers every research id exactly once, that every
 `promoted_to` names a declared row, that every declared row is either claimed by the ledger or listed
 as new, and that lineage agrees in both directions.
 
