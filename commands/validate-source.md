@@ -21,3 +21,15 @@ operation ID at **G-2**, and `runMaintenance` is the tool that executes it, outs
 
 Unlike `/refresh-source` it writes nothing to the index and therefore invalidates nothing — it reports
 whether the curated source is structurally valid, and that is all.
+
+## How to run it
+
+One call, no run, no phase:
+
+```bash
+node "${CLAUDE_PLUGIN_ROOT}/src/runtimes/claude-code/cli.ts" run-maintenance --operation-id source.validate
+```
+
+It returns `{ ok, outcome, invalidated_run_ids }`. Report the outcome, and report every id in
+`invalidated_run_ids` in §16.2's designer-facing form — *the design-system data changed, so that
+proposal must be regenerated* — never as a hash or an event kind.

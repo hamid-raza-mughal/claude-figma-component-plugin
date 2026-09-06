@@ -29,3 +29,15 @@ transaction as its own maintenance record (§2.11.1). Those runs can then only b
 cancelled (**G-21**); nothing is silently re-pinned and no recorded approval is ever reused against
 new source data. Report the invalidated runs to the designer in §16.2's form — *the design-system
 data changed, so this proposal must be regenerated* — and never in terms of hashes or event kinds.
+
+## How to run it
+
+One call, no run, no phase:
+
+```bash
+node "${CLAUDE_PLUGIN_ROOT}/src/runtimes/claude-code/cli.ts" run-maintenance --operation-id source.refresh
+```
+
+It returns `{ ok, outcome, invalidated_run_ids }`. Report the outcome, and report every id in
+`invalidated_run_ids` in §16.2's designer-facing form — *the design-system data changed, so that
+proposal must be regenerated* — never as a hash or an event kind.
